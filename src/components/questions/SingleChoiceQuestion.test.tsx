@@ -3,7 +3,7 @@ import { shallow } from "enzyme";
 import SingleChoiceQuestion from "./SingleChoiceQuestion";
 import { answerTypes } from "../../types/ConfigTypes";
 import { Title } from "../styles/Questions";
-import { Checkbox, Label } from "../styles/Checkbox";
+import { Checkbox, Label } from "../styles/SingleChoice";
 
 const props: React.ComponentProps<typeof SingleChoiceQuestion> = {
     question: {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Wrapper, Title } from "../styles/Questions";
+import { Question, Title } from "../styles/Questions";
 
 type PropsType = {
     title: string;
@@ -9,11 +9,11 @@ type PropsType = {
 const BasicQuestion = (props: PropsType): JSX.Element => {
     const { title } = props;
 
-    return <Wrapper>
+    return <Question>
         <Title>
             {title}
         </Title>
-    </Wrapper>;
+    </Question>;
 };
 
 export default BasicQuestion;

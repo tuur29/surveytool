@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { SingleChoiceQuestionType } from "../../types/ConfigTypes";
-import { Wrapper, Title } from "../styles/Questions";
-import { Checkbox, Label } from "../styles/Checkbox";
+import { Question, Title } from "../styles/Questions";
+import { Checkbox, Label } from "../styles/SingleChoice";
 
 type PropsType = {
     question: SingleChoiceQuestionType;
@@ -12,12 +12,12 @@ const SingleChoiceQuestion = (props: PropsType): JSX.Element => {
     const [checked, setChecked] = useState(question.checkedByDefault || false);
 
     return (
-        <Wrapper>
+        <Question>
             <Label onClick={() => setChecked(!checked)}>
                 <Checkbox checked={checked} />
                 <Title>{question.title}</Title>
             </Label>
-        </Wrapper>
+        </Question>
     );
 };
 

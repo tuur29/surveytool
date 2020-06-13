@@ -2,11 +2,12 @@ import { useState } from "react";
 import { ConfigType } from "../types/ConfigTypes";
 
 // TODO: debug why config is loaded twice
+// TODO: can't we just define the entire config in a global variable instead?
 const useConfig = (): ConfigType | null => {
     const [config, setConfig] = useState<ConfigType | null>(null);
     const [loading, setLoading] = useState(false); // loading will remain true when an error occurs
 
-    const url = (window as any).surveyConfig || "/config.json";
+    const url = (window as any).surveyToolConfig || "/config.json";
 
     if (!loading && !config) {
         setLoading(true);
