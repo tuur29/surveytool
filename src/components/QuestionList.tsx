@@ -1,17 +1,17 @@
 import React from "react";
-import { answerTypes, SingleChoiceQuestionType } from "../types/ConfigTypes";
 import BasicQuestion from "./questions/BasicQuestion";
 import { List } from "./styles/List";
+import useConfig from "../hooks/useConfig";
 
-const QuestionList = (): JSX.Element => {
-    const list: SingleChoiceQuestionType[] = [
-        { id: "1", type: answerTypes.single, title: "Hoe gaat het?" },
-        { id: "2", type: answerTypes.single, title: "Wanneer is het eten klaar?" },
-    ];
+const QuestionList = (): JSX.Element | null => {
+    const config = useConfig();
+
+    // TODO: show loader
+    if (!config) return null;
 
     return (
         <List>
-            {list.map((item) => (
+            {config.questions.map((item) => (
                 <BasicQuestion key={item.id} title={item.title || ""} />
             ))}
         </List>
