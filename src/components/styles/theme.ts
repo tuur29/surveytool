@@ -1,8 +1,8 @@
 import { DefaultTheme } from "styled-components";
 
-type BreakpointType = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
+type BreakpointType = "xs" | "sm" | "md" | "lg" | "xl";
 type FontFamiliesType = "text" | "title";
-type ColorType = "primary" | "back" | "fore";
+type ColorType = "primary" | "back" | "fore" | "backSoft" | "foreSoft";
 
 declare module "styled-components" {
     export interface DefaultTheme {
@@ -15,9 +15,11 @@ declare module "styled-components" {
 
 const theme: DefaultTheme = {
     colors: {
-        back: "white",
-        fore: "black",
-        primary: "red",
+        back: "#fff",
+        backSoft: "#bbb",
+        fore: "#000",
+        foreSoft: "#444",
+        primary: "#f00",
     },
     fonts: {
         title: "Lato, sans-serif",
@@ -29,7 +31,6 @@ const theme: DefaultTheme = {
         md: "768px",
         lg: "992px",
         xl: "1200px",
-        xxl: "1400px",
     },
     space: [0, 4, 8, 16, 32, 64],
 };

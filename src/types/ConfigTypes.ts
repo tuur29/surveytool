@@ -47,7 +47,8 @@ export type SliderQuestionType = BaseQuestion & {
     max: number;
 };
 
-type AllQuestionsType = SingleChoiceQuestionType | MultipleChoiceQuestionType | TextQuestionType | SliderQuestionType;
+export type AllQuestionsType = SingleChoiceQuestionType | MultipleChoiceQuestionType | TextQuestionType | SliderQuestionType;
+
 export type ConfigType = {
     questions: AllQuestionsType[];
 };

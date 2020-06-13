@@ -1,5 +1,5 @@
 import React from "react";
-import { ListItem } from "../styles/List";
+import { Wrapper, Title } from "../styles/Questions";
 
 type PropsType = {
     title: string;
@@ -9,9 +9,11 @@ type PropsType = {
 const BasicQuestion = (props: PropsType): JSX.Element => {
     const { title } = props;
 
-    return <ListItem>
-        {title}
-    </ListItem>;
+    return <Wrapper>
+        <Title>
+            {title}
+        </Title>
+    </Wrapper>;
 };
 
 export default BasicQuestion;

@@ -3,9 +3,7 @@ import QuestionList from "./QuestionList";
 
 const App = (): JSX.Element => {
     return (
-        <>
-            <QuestionList />
-        </>
+        <QuestionList />
     );
 };
 
