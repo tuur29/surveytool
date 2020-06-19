@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ConfigType } from "../types/ConfigTypes";
 
 // TODO: debug why config is loaded twice
-// TODO: can't we just define the entire config in a global variable instead?
+// TODO: can't we just define the entire config in a global variable instead? (use useReducers third init argument)
 const useConfig = (): ConfigType | null => {
     const [config, setConfig] = useState<ConfigType | null>(null);
     const [loading, setLoading] = useState(false); // loading will remain true when an error occurs

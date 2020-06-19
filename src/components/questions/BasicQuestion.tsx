@@ -2,6 +2,7 @@ import React from "react";
 import { Question, Title } from "../styles/Questions";
 
 type PropsType = {
+    derp?: boolean;
     title: string;
 };
 

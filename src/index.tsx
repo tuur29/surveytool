@@ -1,18 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './components/App';
-import * as serviceWorker from './serviceWorker';
-import { ThemeProvider } from 'styled-components';
-import theme from './components/styles/theme';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { ThemeProvider } from "styled-components";
+import App from "./components/App";
+import theme from "./components/styles/theme";
+import store from "./redux/store";
+import "./index.css";
+import * as serviceWorker from "./serviceWorker";
+
+// Prevent rerenders from Providers
+const MemoWrapper = React.memo(({ children }: { children: React.ReactNode }) => <>{children}</>);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
-  </React.StrictMode>,
-  document.getElementById('surveyTool')
+    <React.StrictMode>
+        <ThemeProvider theme={theme}>
+            <Provider store={store}>
+                <MemoWrapper>
+                    <App />
+                </MemoWrapper>
+            </Provider>
+        </ThemeProvider>
+    </React.StrictMode>,
+    document.getElementById("surveyTool"),
 );
 
 // If you want your app to work offline and load faster, you can change
