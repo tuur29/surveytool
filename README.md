@@ -6,7 +6,13 @@ Also define a path to the `config.json` file in a global `surveyToolConfig` vari
 
 ```html
 <script>
-    window.surveryToolConfig = "/public/config.json";
+    window.surveryConfig = {};
+    // or async:
+    fetch(url).then((response) =>
+        response.json().then((config) =>
+            window.setSurveyConfig(config)
+        )
+    );
 </script>
 <script src="/public/build.js"></script>
 <div id="surveyTool"></div>

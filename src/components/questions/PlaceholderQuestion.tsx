@@ -2,12 +2,11 @@ import React from "react";
 import { Question, Title } from "../styles/Questions";
 
 type PropsType = {
-    derp?: boolean;
     title: string;
 };
 
 // Only used for demo purposes
-const BasicQuestion = (props: PropsType): JSX.Element => {
+const PlaceholderQuestion = (props: PropsType): JSX.Element => {
     const { title } = props;
 
     return <Question>
@@ -17,4 +16,4 @@ const BasicQuestion = (props: PropsType): JSX.Element => {
     </Question>;
 };
 
-export default BasicQuestion;
+export default PlaceholderQuestion;

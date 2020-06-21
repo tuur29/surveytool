@@ -6,14 +6,14 @@ import { composeWithDevTools } from "redux-devtools-extension"
 import { AnswersActions, answersReducer, initialAnswersState } from "./answersReducer";
 
 const rootReducer = combineReducers({
-    answers: answersReducer
+    answers: answersReducer,
 });
 
 const initialState = {
     answers: initialAnswersState,
 };
 
-const store = createStore(rootReducer, undefined, composeWithDevTools());
+const store = createStore(rootReducer, initialState, composeWithDevTools());
 
 export type StateType = typeof initialState;
 export type ActionsType = AnswersActions;

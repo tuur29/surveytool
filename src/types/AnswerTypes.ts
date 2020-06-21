@@ -6,7 +6,7 @@ type BaseAnswerType = {
 
 export type SingleChoiceAnswerType = BaseAnswerType & {
     type: answerTypes.single;
-    value: boolean;
+    value: boolean; // TODO: also set to true when checkedByDefault is true
 }
 
 export type MultipleChoiceAnswerType = BaseAnswerType & {

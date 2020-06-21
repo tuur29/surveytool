@@ -10,12 +10,13 @@ type Hintable = {
     hints?: string[]; // %h placeholder in title is replaced with indexed hint
 };
 
-type PossibleAnswer = string | Required<Hintable>;
+type PossibleAnswer = {
+    id: string;
+} & Hintable;
 
 type BaseQuestion = {
     id: string;
     title: string;
-    ignoredInScore?: true;
     // TODO: weights?
 } & Hintable;
 
@@ -29,7 +30,8 @@ export type SingleChoiceQuestionType = BaseQuestion & {
 export type MultipleChoiceQuestionType = BaseQuestion & {
     type: answerTypes.multiple;
     answers: PossibleAnswer[];
-    inputType: "radio" | "check" | "select";
+    inputType: "radio" | "select" | "check";
+    calcFunction?: (question: MultipleChoiceQuestionType, answerIds: string[], answerValues: string[], answerIndex: number[]) => number | undefined;
 };
 
 // example: email, age

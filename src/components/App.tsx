@@ -1,12 +1,12 @@
 import React from "react";
+import { isProduction } from "../utils/utils";
 import QuestionList from "./QuestionList";
-import { GlobalStyle } from "./styles/theme";
+import { GlobalDebugStyle } from "./styles/theme";
 
 const App = (): JSX.Element => {
     return (
         <>
-            {/* TODO: add a way to disable this global style */}
-            <GlobalStyle />
+            {!isProduction() && <GlobalDebugStyle />}
             <QuestionList />
         </>
     );

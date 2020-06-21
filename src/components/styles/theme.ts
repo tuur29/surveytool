@@ -2,7 +2,7 @@ import { DefaultTheme, createGlobalStyle } from "styled-components";
 
 type BreakpointType = "xs" | "sm" | "md" | "lg" | "xl";
 type FontFamiliesType = "text" | "title";
-type ColorType = "primary" | "back" | "fore" | "backSoft" | "foreSoft";
+type ColorType = "primary" | "back" | "fore" | "backSoft" | "foreSoft" | "backShadow" | "foreShadow";
 
 declare module "styled-components" {
     export interface DefaultTheme {
@@ -18,8 +18,10 @@ const theme: DefaultTheme = {
     colors: {
         back: "#fff",
         backSoft: "#ddd",
+        backShadow: "#999",
         fore: "#000",
         foreSoft: "#222",
+        foreShadow: "#666",
         primary: "#AC2820",
     },
     fonts: {
@@ -43,12 +45,14 @@ const darkTheme = {
         ...theme.colors,
         back: theme.colors.fore,
         backSoft: theme.colors.foreSoft,
+        backShadow: theme.colors.foreShadow,
         fore: theme.colors.back,
         foreSoft: theme.colors.backSoft,
+        foreShadow: "transparent",
     },
 };
 
-export const GlobalStyle = createGlobalStyle`
+export const GlobalDebugStyle = createGlobalStyle`
   body {
     color: ${({theme}) => theme.colors.fore};
     background-color: ${({theme}) => theme.colors.back};

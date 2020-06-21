@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
+import { Provider as StoreProvider } from "react-redux";
 import { ThemeProvider } from "styled-components";
 import App from "./components/App";
 import theme from "./components/styles/theme";
@@ -14,11 +14,11 @@ const MemoWrapper = React.memo(({ children }: { children: React.ReactNode }) => 
 ReactDOM.render(
     <React.StrictMode>
         <ThemeProvider theme={theme}>
-            <Provider store={store}>
+            <StoreProvider store={store}>
                 <MemoWrapper>
                     <App />
                 </MemoWrapper>
-            </Provider>
+            </StoreProvider>
         </ThemeProvider>
     </React.StrictMode>,
     document.getElementById("surveyTool"),

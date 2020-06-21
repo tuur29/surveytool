@@ -7,6 +7,7 @@ export const Question = styled.article<SpaceProps>`
     }
     ${space};
 `;
+
 Question.defaultProps = {
     marginY: 3,
     paddingY: 3,

@@ -1,35 +1,44 @@
 import { useState } from "react";
 import { ConfigType } from "../types/ConfigTypes";
+import { mockConfig } from "../utils/mock";
+import { isProduction } from "../utils/utils";
 
-// TODO: debug why config is loaded twice
-// TODO: can't we just define the entire config in a global variable instead? (use useReducers third init argument)
 const useConfig = (): ConfigType | null => {
-    const [config, setConfig] = useState<ConfigType | null>(null);
-    const [loading, setLoading] = useState(false); // loading will remain true when an error occurs
+    const [config, setConfig] = useState<ConfigType | null>(
+        window.surveyConfig || (isProduction() ? null : mockConfig),
+    );
 
-    const url = (window as any).surveyToolConfig || "/config.json";
+    // TODO: put config in store instead
+    window.setSurveyConfig = (config: ConfigType) => {
+        // TODO: validate config (with ts types?)
+        if (!config?.questions?.length) {
+            setConfig(config);
+        } else {
+            // TODO: notify end user of errors
+            console.error("Supplied data is not a valid config", config);
+        }
+    };
 
-    if (!loading && !config) {
-        setLoading(true);
-        fetch(url).then((response) => {
-            if (!response.ok) {
-                // TODO: notify end user of errors
-                console.error("Could not retrieve config", response.status);
-                return;
-            }
+    // TODO: reuse this later for posting data to API
+    // if (!loading && !config) {
+    //     setLoading(true);
+    //     fetch(url).then((response) => {
+    //         if (!response.ok) {
+    //             console.error("Could not retrieve config", response.status);
+    //             return;
+    //         }
 
-            response.json().then((data) => {
-                // TODO: validate config (with ts types?)
-                if (!data?.questions?.length) {
-                    console.error("Retrieved data is not a valid config", data);
-                    return;
-                }
+    //         response.json().then((data) => {
+    //             if (!data?.questions?.length) {
+    //                 console.error("Retrieved data is not a valid config", data);
+    //                 return;
+    //             }
 
-                setConfig(data);
-                setLoading(false);
-            });
-        });
-    }
+    //             setConfig(data);
+    //             setLoading(false);
+    //         });
+    //     });
+    // }
 
     return config;
 };
