@@ -86,14 +86,6 @@
             "react/jsx-boolean-value": "warn",
             "react/jsx-curly-brace-presence": "warn",
             "react/jsx-key": "warn",
-            "react/jsx-sort-props": [
-                "warn",
-                {
-                    "callbacksLast": true,
-                    "reservedFirst": true,
-                    "shorthandLast": true
-                }
-            ],
             "react/no-array-index-key": "warn",
             "react/prefer-stateless-function": "warn",
             "react/self-closing-comp": "warn",

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { Provider as StoreProvider } from "react-redux";
 import { ThemeProvider } from "styled-components";
 import App from "./components/App";
-import theme from "./components/styles/theme";
+import theme from "./utils/theme";
 import store from "./redux/store";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";

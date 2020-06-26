@@ -18,6 +18,7 @@ type BaseQuestion = {
     id: string;
     title: string;
     // TODO: weights?
+    // TODO: required answer
 } & Hintable;
 
 // example: "I agree with terms and conditions"

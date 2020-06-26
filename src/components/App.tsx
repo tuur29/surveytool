@@ -1,7 +1,7 @@
 import React from "react";
 import { isProduction } from "../utils/utils";
+import { GlobalDebugStyle } from "../utils/theme";
 import QuestionList from "./QuestionList";
-import { GlobalDebugStyle } from "./styles/theme";
 
 const App = (): JSX.Element => {
     return (
