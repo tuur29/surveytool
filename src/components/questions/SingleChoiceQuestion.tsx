@@ -2,9 +2,11 @@ import React from "react";
 import { SingleChoiceQuestionType } from "../../types/ConfigTypes";
 import { Question, Title } from "../styles/Questions";
 import { Checkbox, Label } from "../styles/SingleChoice";
-import { useStore, useStoreDispatch } from "../../redux/store";
+import { useStoreDispatch } from "../../redux/store";
 import { setAnswer } from "../../redux/answersReducer";
 import HintableLabel from "../common/HintableLabel";
+import useQuestionAnswer from "../../hooks/useQuestionAnswer";
+import { SingleChoiceAnswerType } from "../../types/AnswerTypes";
 
 type PropsType = {
     question: SingleChoiceQuestionType;
@@ -13,12 +15,7 @@ type PropsType = {
 const SingleChoiceQuestion = (props: PropsType): JSX.Element => {
     const { question } = props;
     const dispatch = useStoreDispatch();
-    const stateValue = useStore(
-        // TODO: put this in a util or hook?
-        (state) => state.answers.list.find((answer) => answer.questionId === question.id)?.value as boolean,
-    );
-
-    const checked = stateValue !== undefined ? stateValue : (question.checkedByDefault || false); // fallback to default
+    const checked = useQuestionAnswer<SingleChoiceAnswerType>(question.id).value;
 
     const check = () => {
         dispatch(
@@ -34,7 +31,7 @@ const SingleChoiceQuestion = (props: PropsType): JSX.Element => {
         <Question>
             <Label onClick={check}>
                 {/* fallback to false and add readOnly so React knows it's a controlled input */}
-                <Checkbox checked={checked } readOnly />
+                <Checkbox checked={checked || false} readOnly />
                 <Title>
                     <HintableLabel label={question.title} hints={question.hints} />
                 </Title>

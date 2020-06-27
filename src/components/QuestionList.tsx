@@ -1,7 +1,7 @@
 import React from "react";
-import useConfig from "../hooks/useConfig";
 import { AllQuestionsType, answerTypes } from "../types/ConfigTypes";
 import Icon from "../svg/Icon";
+import { useStore } from "../redux/store";
 import PlaceholderQuestion from "./questions/PlaceholderQuestion";
 import SingleChoiceQuestion from "./questions/SingleChoiceQuestion";
 import { Container } from "./styles/Container";
@@ -16,10 +16,9 @@ const determineComponent = (question: AllQuestionsType): JSX.Element => {
 };
 
 const QuestionList = (): JSX.Element | null => {
-    const config = useConfig();
+    const config = useStore(state => state.config);
 
-    if (!config) return null;
-
+    if (!config.questions.length) return null;
     return (
         <Container>
             <Icon type="acorn" color="primary" size={40} />

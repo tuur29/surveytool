@@ -14,7 +14,7 @@ declare module "styled-components" {
     }
 }
 
-// TODO: allow configuring theme dynamically
+// TODO: add theme values in config
 const theme: DefaultTheme = {
     colors: {
         back: "#fff",
