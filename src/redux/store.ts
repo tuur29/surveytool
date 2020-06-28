@@ -2,7 +2,7 @@
 import { Dispatch } from "react";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { useSelector, TypedUseSelectorHook, useDispatch } from "react-redux";
-import { composeWithDevTools } from "redux-devtools-extension"
+import { composeWithDevTools } from "redux-devtools-extension";
 import { LogicMiddleware } from "./logic";
 import { answersReducer, initialAnswersState, AnswersActions } from "./answersReducer";
 import { configReducer, initialConfigState, ConfigActions } from "./configReducer";

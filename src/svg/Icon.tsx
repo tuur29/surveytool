@@ -1,14 +1,18 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { ColorType } from "../utils/theme";
-import { ReactComponent as IconAcorn } from "./acorn-solid.svg";
+import { ReactComponent as IconInfo } from "./info-circle-duotone.svg";
+import { ReactComponent as IconClose } from "./times-circle-duotone.svg";
+import { ReactComponent as IconUp } from "./caret-up-solid.svg";
 
 // ----------------------------------------------------------------------
 // Icons
 // ----------------------------------------------------------------------
 
 const icons = {
-    acorn: IconAcorn,
+    info: IconInfo,
+    close: IconClose,
+    upCaret: IconUp,
 };
 type IconType = keyof typeof icons;
 
@@ -16,16 +20,38 @@ type IconType = keyof typeof icons;
 // Styling wrappers
 // ----------------------------------------------------------------------
 
-type SvgProps = { size?: number; color?: ColorType };
-const IconWrapper = styled.span<SvgProps>`
+export enum orientations { // values are numbers so they represent quadrants
+    "up" = 0,
+    "right" = 1,
+    "down" = 2,
+    "left" = 3,
+}
+
+type SvgProps = { size?: number; color?: ColorType; orientation?: orientations };
+export const IconWrapper = styled.span<SvgProps>`
     svg {
-        width: ${({ theme, size }) => size || theme.iconSize}px;
-        height: ${({ theme, size }) => size || theme.iconSize}px;
-        color: ${({ theme, color }) => (color ? theme.colors[color] : theme.colors.foreSoft)};
+        color: ${({ theme, color }) => (color ? theme.colors[color] : theme.colors.centerGray)};
+        width: 1em;
+        height: 1em; /* TODO: should match font size exactly */
+        transition: transform 0.3s, width 0.3s, height 0.3s, color 0.3s;
+
+        ${({ orientation }) =>
+            orientation &&
+            css`
+                transform: rotate(${orientation * 90}deg);
+            `};
+
+        ${({ size }) =>
+            size &&
+            css`
+                width: ${size}px;
+                height: ${size}px;
+            `};
     }
 `;
 
-const Icon = (props: SvgProps & { type: IconType }): JSX.Element => {
+type PropsType = SvgProps & { type: IconType; onClick?: (event: React.SyntheticEvent) => void };
+const Icon = (props: PropsType): JSX.Element => {
     const Component = icons[props.type];
     return (
         <IconWrapper {...props}>

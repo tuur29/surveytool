@@ -1,9 +1,9 @@
 import React from "react";
 import { shallow } from "enzyme";
-import SingleChoiceQuestion from "./SingleChoiceQuestion";
 import { answerTypes } from "../../types/ConfigTypes";
 import { Title } from "../styles/Questions";
-import { Checkbox, Label } from "../styles/SingleChoice";
+import { Checkbox, Label } from "../styles/Input";
+import SingleChoiceQuestion from "./SingleChoiceQuestion";
 
 const props: React.ComponentProps<typeof SingleChoiceQuestion> = {
     question: {

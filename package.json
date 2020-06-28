@@ -98,13 +98,7 @@
                     "avoidEscape": true
                 }
             ],
-            "indent": [
-                "error",
-                4,
-                {
-                    "SwitchCase": 1
-                }
-            ]
+            "indent": 0
         }
     },
     "prettier": {

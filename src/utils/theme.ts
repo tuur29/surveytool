@@ -2,7 +2,7 @@ import { DefaultTheme, createGlobalStyle } from "styled-components";
 
 type BreakpointType = "xs" | "sm" | "md" | "lg" | "xl";
 type FontFamiliesType = "text" | "title";
-export type ColorType = "primary" | "back" | "fore" | "backSoft" | "foreSoft" | "backShadow" | "foreShadow";
+export type ColorType = "primary" | "back" | "fore" | "centerGray" | "backSoft" | "foreSoft" | "backShadow" | "foreShadow";
 
 declare module "styled-components" {
     export interface DefaultTheme {
@@ -10,7 +10,6 @@ declare module "styled-components" {
         fonts: { [font in FontFamiliesType]: string };
         breakpoints: { [bp in BreakpointType]: string };
         space: number[];
-        iconSize: number,
     }
 }
 
@@ -20,6 +19,7 @@ const theme: DefaultTheme = {
         back: "#fff",
         backSoft: "#ddd",
         backShadow: "#999",
+        centerGray: "#888",
         fore: "#000",
         foreSoft: "#222",
         foreShadow: "#666",
@@ -37,7 +37,6 @@ const theme: DefaultTheme = {
         xl: "1200px",
     },
     space: [0, 4, 8, 16, 32, 64],
-    iconSize: 16,
 };
 
 // Flip fore amd background colours for darkmode

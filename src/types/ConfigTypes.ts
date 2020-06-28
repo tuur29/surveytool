@@ -31,7 +31,7 @@ export type SingleChoiceQuestionType = BaseQuestion & {
 export type MultipleChoiceQuestionType = BaseQuestion & {
     type: answerTypes.multiple;
     answers: PossibleAnswer[];
-    inputType: "radio" | "select" | "check";
+    inputType: "radio" | "check" | "select";
     calcFunction?: (question: MultipleChoiceQuestionType, answerIds: string[], answerValues: string[], answerIndex: number[]) => number | undefined;
 };
 

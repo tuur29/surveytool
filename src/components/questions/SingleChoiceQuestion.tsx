@@ -1,7 +1,7 @@
 import React from "react";
 import { SingleChoiceQuestionType } from "../../types/ConfigTypes";
 import { Question, Title } from "../styles/Questions";
-import { Checkbox, Label } from "../styles/SingleChoice";
+import { Checkbox, Label } from "../styles/Input";
 import { useStoreDispatch } from "../../redux/store";
 import { setAnswer } from "../../redux/answersReducer";
 import HintableLabel from "../common/HintableLabel";

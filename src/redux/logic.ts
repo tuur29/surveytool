@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Middleware, MiddlewareAPI, Dispatch } from "redux";
 import { AllAnswersType } from "../types/AnswerTypes";
@@ -9,11 +10,10 @@ export const LogicMiddleware: Middleware = (api: MiddlewareAPI<Dispatch<ActionsT
     next: Dispatch<ActionsType>,
 ) => (action: ActionsType) => {
     // TODO: persists and load each value to / from localstorage (config should have ID?)
-
     switch (action.type) {
         case "CONFIG_INIT": {
             const initialAnswers: AllAnswersType[] = action.config.questions.map((question) => {
-                const baseAnswer = {type: question.type, questionId: question.id };
+                const baseAnswer = { questionId: question.id };
                 switch (question.type) {
                     case answerTypes.single: {
                         return { ...baseAnswer, type: answerTypes.single, value: question.checkedByDefault || false };
@@ -21,11 +21,10 @@ export const LogicMiddleware: Middleware = (api: MiddlewareAPI<Dispatch<ActionsT
                     case answerTypes.multiple: {
                         return { ...baseAnswer, type: answerTypes.multiple, values: [] };
                     }
-                    default: {
-                        // TODO: implement for other question types
-                        // case answerTypes.slider
-                        // case answerTypes.text
-                        return {...baseAnswer, type: question.type } as unknown as AllAnswersType;
+                    // TODO: implement for other question types
+                    case answerTypes.slider:
+                    case answerTypes.text: {
+                        return ({ ...baseAnswer, type: question.type } as unknown) as AllAnswersType;
                     }
                 }
             });
