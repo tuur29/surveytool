@@ -30,10 +30,16 @@ export enum orientations { // values are numbers so they represent quadrants
 type SvgProps = { size?: number; color?: ColorType; orientation?: orientations };
 export const IconWrapper = styled.span<SvgProps>`
     svg {
-        color: ${({ theme, color }) => (color ? theme.colors[color] : theme.colors.centerGray)};
+        align-self: center;
+
+        color: ${({ theme, color }) => (color ? theme.colors[color] : theme.colors.icon)};
         width: 1em;
         height: 1em; /* TODO: should match font size exactly */
         transition: transform 0.3s, width 0.3s, height 0.3s, color 0.3s;
+
+        &:hover {
+            color: ${({ theme, color }) => (color ? theme.colors[color] : theme.colors.iconHover)};
+        }
 
         ${({ orientation }) =>
             orientation &&

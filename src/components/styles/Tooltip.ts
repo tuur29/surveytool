@@ -5,12 +5,13 @@ const TOOLTIP_BOUNDS_SIZE = 20;
 
 export const TooltipContent = styled.span<{ show?: boolean }>`
     position: absolute;
-    margin-top: -10px; /* TODO: fix these hardcoded */
+    max-width: 300px;
+    margin-top: -10px; /* TODO: fix these hardcoded margins */
     margin-left: -32px;
-    background: ${({ theme }) => theme.colors.backSoft};
-    color: ${({ theme }) => theme.colors.foreSoft};
-    box-shadow: 3px 3px 6px ${({ theme }) => theme.colors.foreShadow};
     padding: 10px 15px;
+    color: ${({ theme }) => theme.colors.onSurface};
+    background-color: ${({ theme }) => theme.colors.surface};
+    box-shadow: ${({ theme }) => theme.elevation[3]};
     border-radius: 4px;
     transition: opacity 0.3s;
 

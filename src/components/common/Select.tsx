@@ -18,9 +18,9 @@ const Select = (props: PropsType): JSX.Element => {
 
     return (
         <SelectWrapper>
-            <SelectValue onClick={toggleOpen}>
+            <SelectValue onClick={toggleOpen} opened={opened}>
                 <HintableLabel label={selectedOption?.title || "---"} hints={selectedOption?.hints || []} />
-                <Icon type="upCaret" orientation={opened ? orientations.up : orientations.down} color="foreSoft" />
+                <Icon type="upCaret" orientation={opened ? orientations.up : orientations.down} />
             </SelectValue>
             {/* TODO: remove forced true */}
             <SelectDropdown show={opened}>

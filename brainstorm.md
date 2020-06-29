@@ -2,6 +2,10 @@
 
 ## Design
 
+- https://www.microsoft.com/design/fluent/#/web
+- https://developer.microsoft.com/en-us/fluentui#/get-started/web#fluent-ui-react
+- https://www.carbondesignsystem.com/
+
 ### Survey
 
 - Collapse question to single line when answered

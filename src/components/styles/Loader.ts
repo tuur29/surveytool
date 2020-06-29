@@ -9,15 +9,15 @@ const animation = keyframes`
     }
 `;
 
-export const Spinner = styled.div<{ size?: number }>`
+export const Loader = styled.div<{ size?: number }>`
     width: ${({ size }) => size || 50}px;
     height: ${({ size }) => size || 50}px;
     border-radius: 50%;
     background-color: transparent;
     border-style: solid;
     border-width: ${({ size }) => (size|| 50) / 12.5}px;
-    border-color: ${({ theme }) => theme.colors.backSoft};
-    border-top-color: ${({ theme }) => theme.colors.primary};
+    border-color: transparent;
+    border-top-color: ${({ theme }) => theme.colors.spinner};
     animation: 1s ${animation} linear infinite;
 `;
 

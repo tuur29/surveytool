@@ -22,7 +22,7 @@ const QuestionList = (): JSX.Element | null => {
 
     if (!config.questions.length) return null;
     return (
-        <Container>
+        <Container py={4}>
             {config.questions.map(determineComponent)}
         </Container>
     );
