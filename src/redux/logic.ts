@@ -3,15 +3,30 @@
 import { Middleware, MiddlewareAPI, Dispatch } from "redux";
 import { AllAnswersType } from "../types/AnswerTypes";
 import { answerTypes } from "../types/ConfigTypes";
+import { generateAnswerStorageKey } from "../utils/utils";
 import { ActionsType, StateType } from "./store";
-import { initAnswers, resetAnswers } from "./answersReducer";
+import { initAnswers, AnswersState } from "./answersReducer";
 
-export const LogicMiddleware: Middleware = (api: MiddlewareAPI<Dispatch<ActionsType>, StateType>) => (
+export const LogicMiddleware: Middleware = (store: MiddlewareAPI<Dispatch<ActionsType>, StateType>) => (
     next: Dispatch<ActionsType>,
 ) => (action: ActionsType) => {
-    // TODO: persists and load each value to / from localstorage (config should have ID?)
     switch (action.type) {
+
+        // Prepopulate default or locally saved answers in store
         case "CONFIG_INIT": {
+            // attempt to load from 
+            try {
+                const locallyStoredAnswers = localStorage.getItem(generateAnswerStorageKey(action.config.id));
+                if (locallyStoredAnswers) {
+                    const answers: AnswersState = JSON.parse(locallyStoredAnswers);
+                    store.dispatch(initAnswers(answers.list, answers.lastUpdate));
+                    break;
+                }
+            } catch(e) {
+                console.error("Something went wrong when loading previously stored answers", e);
+            }
+
+            // create a new set of placeholder answers
             const initialAnswers: AllAnswersType[] = action.config.questions.map((question) => {
                 const baseAnswer = { questionId: question.id };
                 switch (question.type) {
@@ -21,14 +36,22 @@ export const LogicMiddleware: Middleware = (api: MiddlewareAPI<Dispatch<ActionsT
                     case answerTypes.multiple: {
                         return { ...baseAnswer, type: answerTypes.multiple, values: [] };
                     }
-                    // TODO: implement for other question types
-                    case answerTypes.slider:
                     case answerTypes.text: {
-                        return ({ ...baseAnswer, type: question.type } as unknown) as AllAnswersType;
+                        return { ...baseAnswer, type: answerTypes.text, value: "" };
+                    }
+                    case answerTypes.slider: {
+                        return { ...baseAnswer, type: answerTypes.slider, value: question.default || 0 };
                     }
                 }
             });
-            api.dispatch(initAnswers(initialAnswers));
+            store.dispatch(initAnswers(initialAnswers));
+            break;
+        }
+
+        // Add config id to answers setter so we can save it to local storage
+        case "ANSWERS_SET": {
+            action.configId = store.getState().config.id;
+            break;
         }
     }
 

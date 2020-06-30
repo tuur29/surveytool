@@ -6,6 +6,7 @@ import { ConfigType } from "../types/ConfigTypes";
 // ----------------------------------------------------------------------
 
 export const initialConfigState: ConfigType = {
+    id: "",
     questions: [],
     theme: {},
     labels: {},

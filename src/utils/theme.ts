@@ -41,6 +41,7 @@ const sizes = {
     controlValueOffset: "3px",
     questionTitle: "18px",
     title: "32px",
+    footer: "14px",
 };
 
 // ----------------------------------------------------------------------

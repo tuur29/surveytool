@@ -47,8 +47,8 @@ export type MultipleChoiceQuestionType = BaseQuestion & {
 // example: email, age
 export type TextQuestionType = BaseQuestion & {
     type: answerTypes.text;
-    placeholder?: string;
     format: "text" | "email" | "number";
+    placeholder?: string;
     // TODO: add rows option?
 };
 
@@ -57,6 +57,8 @@ export type SliderQuestionType = BaseQuestion & {
     type: answerTypes.slider;
     min: number;
     max: number;
+    default?: number;
+    step?: number;
 };
 
 export type AllQuestionsType =
@@ -66,6 +68,7 @@ export type AllQuestionsType =
     | SliderQuestionType;
 
 export type ConfigType = {
+    id: string; // used to differentiate multiple surveys (or versions) on same domain
     questions: AllQuestionsType[];
     theme: DeepPartial<{
         darkMode: boolean;

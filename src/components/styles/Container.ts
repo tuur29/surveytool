@@ -14,3 +14,9 @@ export const Header = styled.h1`
     font-size: ${({ theme }) => theme.sizes.title};
     text-align: center;
 `;
+
+export const Footer = styled.footer`
+    text-align: right;
+    font-size: ${({ theme }) => theme.sizes.footer};
+    font-style: italic;
+`;
