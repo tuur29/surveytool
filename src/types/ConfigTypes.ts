@@ -1,3 +1,6 @@
+import { DefaultTheme } from "styled-components";
+import { DeepPartial } from "../utils/utils";
+
 export enum answerTypes {
     single = "singleChoice",
     multiple = "multipleChoice",
@@ -32,7 +35,12 @@ export type MultipleChoiceQuestionType = BaseQuestion & {
     type: answerTypes.multiple;
     answers: PossibleAnswer[];
     inputType: "radio" | "check" | "select";
-    calcFunction?: (question: MultipleChoiceQuestionType, answerIds: string[], answerValues: string[], answerIndex: number[]) => number | undefined;
+    calcFunction?: (
+        question: MultipleChoiceQuestionType,
+        answerIds: string[],
+        answerValues: string[],
+        answerIndex: number[],
+    ) => number | undefined;
 };
 
 // example: email, age
@@ -50,8 +58,16 @@ export type SliderQuestionType = BaseQuestion & {
     max: number;
 };
 
-export type AllQuestionsType = SingleChoiceQuestionType | MultipleChoiceQuestionType | TextQuestionType | SliderQuestionType;
+export type AllQuestionsType =
+    | SingleChoiceQuestionType
+    | MultipleChoiceQuestionType
+    | TextQuestionType
+    | SliderQuestionType;
 
 export type ConfigType = {
     questions: AllQuestionsType[];
+    theme?: DeepPartial<{
+        darkMode: boolean;
+        values: DefaultTheme;
+    }>;
 };

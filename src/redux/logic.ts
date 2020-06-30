@@ -4,7 +4,7 @@ import { Middleware, MiddlewareAPI, Dispatch } from "redux";
 import { AllAnswersType } from "../types/AnswerTypes";
 import { answerTypes } from "../types/ConfigTypes";
 import { ActionsType, StateType } from "./store";
-import { initAnswers } from "./answersReducer";
+import { initAnswers, resetAnswers } from "./answersReducer";
 
 export const LogicMiddleware: Middleware = (api: MiddlewareAPI<Dispatch<ActionsType>, StateType>) => (
     next: Dispatch<ActionsType>,

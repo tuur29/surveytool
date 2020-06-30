@@ -1,6 +1,6 @@
 import React from "react";
 import { AllQuestionsType, answerTypes } from "../types/ConfigTypes";
-import { useStore } from "../redux/store";
+import { useStoreSelector } from "../redux/store";
 import PlaceholderQuestion from "./questions/PlaceholderQuestion";
 import SingleChoiceQuestion from "./questions/SingleChoiceQuestion";
 import { Container, Header } from "./styles/Container";
@@ -18,7 +18,7 @@ const determineComponent = (question: AllQuestionsType): JSX.Element => {
 };
 
 const QuestionList = (): JSX.Element | null => {
-    const config = useStore((state) => state.config);
+    const config = useStoreSelector((state) => state.config);
 
     if (!config.questions.length) return null;
     return (

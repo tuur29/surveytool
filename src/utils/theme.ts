@@ -66,8 +66,7 @@ declare module "styled-components" {
 // Default theme
 // ----------------------------------------------------------------------
 
-// TODO: Override theme values in config (or switch to dark theme)
-const theme: DefaultTheme = {
+export const theme: DefaultTheme = {
     colors,
     sizes,
     fonts: {
@@ -137,5 +136,3 @@ export const GlobalDebugStyle = createGlobalStyle`
     background-color: ${({ theme }) => theme.colors.back};
   }
 `;
-
-export default theme;

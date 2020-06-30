@@ -35,7 +35,7 @@ export const Tooltip = styled.span`
         padding: ${TOOLTIP_BOUNDS_SIZE}px;
         margin-top: -${TOOLTIP_BOUNDS_SIZE / 2}px;
         margin-left: -${TOOLTIP_BOUNDS_SIZE / 2 - 3}px;
-        pointer-events: none; /* TODO: this shouldn't be necessary, breads the touchzone function */
+        pointer-events: none; /* TODO: this shouldn't be necessary, breaks the touchzone function */
     }
 
     > ${IconWrapper} {

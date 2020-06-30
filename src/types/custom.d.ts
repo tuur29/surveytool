@@ -2,7 +2,9 @@ import { ConfigType } from "./ConfigTypes";
 
 declare global {
     interface Window {
-        surveyConfig: ConfigType | undefined;
-        setSurveyConfig: (config: ConfigType) => void;
+        surveyConfig?: ConfigType; // used by user for configuration on init
+        setSurveyConfig: (config: ConfigType) => void; // dynamically update theme
+
+        mockConfig?: ConfigType; // set for testing purposes when in dev mode
     }
 }

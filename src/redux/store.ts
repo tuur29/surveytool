@@ -23,7 +23,7 @@ const store = createStore(rootReducer, initialState, composedEnhancers);
 
 export type StateType = typeof initialState;
 export type ActionsType = AnswersActions | ConfigActions;
-export const useStore: TypedUseSelectorHook<StateType> = useSelector;
+export const useStoreSelector: TypedUseSelectorHook<StateType> = useSelector;
 export const useStoreDispatch: () => Dispatch<ActionsType> = useDispatch;
 
 export default store;

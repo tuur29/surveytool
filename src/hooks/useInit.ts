@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { ConfigType } from "../types/ConfigTypes";
 import { mockConfig } from "../utils/mock";
 import { isProduction } from "../utils/utils";
@@ -10,20 +11,31 @@ import { initConfig } from "../redux/configReducer";
 const useInit = (): void => {
     const dispatch = useStoreDispatch();
 
-    // allow changing config after app init
-    window.setSurveyConfig = (config: ConfigType) => {
-        // TODO: improve config validation (with ts types?)
-        if (!config?.questions?.length) {
-            dispatch(initConfig(config));
-        } else {
-            // TODO: notify end user of errors
-            console.error("Supplied data is not a valid config", config);
-        }
-    };
+    useEffect(() => {
+        // allow changing config after app init
+        // TODO: app crashes when setting a new config with different questions
+        window.setSurveyConfig = (config: ConfigType) => {
+            // TODO: improve config validation (with ts types?)
+            if (config?.questions && config.questions.length > 0) {
+                dispatch(initConfig(config));
+            } else {
+                // TODO: notify end user of errors
+                console.error("Supplied data is not a valid config", config);
+            }
+        };
 
-    // init with already defined config or mockdata on dev mode
-    const initialConfig = window.surveyConfig || (isProduction() ? null : mockConfig);
-    if (initialConfig) dispatch(initConfig(initialConfig));
+        // init with already defined config or mockdata on dev mode
+        const initialConfig = window.surveyConfig || (isProduction() ? null : mockConfig);
+        if (initialConfig) dispatch(initConfig(initialConfig));
+
+        // add mockconfig to window so we can easily access it later for testing
+        // for example:
+        // window.setSurveyConfig({ ...window.mockConfig, theme: { darkMode: true, values: { colors: { controlHighlight: "#ff00ff" } } } });
+        // window.setSurveyConfig({questions: [...window.mockConfig.questions.slice(2,4)], theme: { darkMode: true }});
+        if (!isProduction()) {
+            window.mockConfig = mockConfig;
+        }
+    }, []);
 };
 
 export default useInit;

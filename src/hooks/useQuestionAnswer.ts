@@ -1,11 +1,13 @@
 import { AllAnswersType } from "../types/AnswerTypes";
-import { useStore } from "../redux/store";
+import { useStoreSelector } from "../redux/store";
 
 /**
  * Returns the matching answer field for a question id, also takes care of type casting
  */
 const useQuestionAnswer = <A extends AllAnswersType>(questionId: string): A => {
-    const matchingAnswer = useStore((state) => state.answers.list.find((answer) => answer.questionId === questionId));
+    const matchingAnswer = useStoreSelector((state) =>
+        state.answers.list.find((answer) => answer.questionId === questionId),
+    );
     return matchingAnswer as A;
 };
 
