@@ -6,7 +6,9 @@ import { ConfigType } from "../types/ConfigTypes";
 // ----------------------------------------------------------------------
 
 export const initialConfigState: ConfigType = {
-    questions: []
+    questions: [],
+    theme: {},
+    labels: {},
 };
 export type ConfigState = typeof initialConfigState;
 
@@ -14,7 +16,7 @@ export type ConfigState = typeof initialConfigState;
 // Actions
 // ----------------------------------------------------------------------
 
-export const initConfig = (config: ConfigType) => ({
+export const initConfig = (config: ConfigState) => ({
     type: "CONFIG_INIT" as const,
     config,
 });
@@ -28,7 +30,7 @@ export type ConfigActions = ReturnType<typeof initConfig>;
 export const configReducer = (state: ConfigState = initialConfigState, action: ConfigActions): ConfigState => {
     switch (action.type) {
         case "CONFIG_INIT": {
-            return { ...action.config };
+            return { ...initialConfigState, ...action.config };
         }
         default: {
             return state;

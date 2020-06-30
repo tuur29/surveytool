@@ -1,6 +1,7 @@
 import React from "react";
 import { AllQuestionsType, answerTypes } from "../types/ConfigTypes";
 import { useStoreSelector } from "../redux/store";
+import useLabel from "../hooks/useLabel";
 import PlaceholderQuestion from "./questions/PlaceholderQuestion";
 import SingleChoiceQuestion from "./questions/SingleChoiceQuestion";
 import { Container, Header } from "./styles/Container";
@@ -19,11 +20,12 @@ const determineComponent = (question: AllQuestionsType): JSX.Element => {
 
 const QuestionList = (): JSX.Element | null => {
     const config = useStoreSelector((state) => state.config);
+    const questionsTitle = useLabel("questionsTitle");
 
     if (!config.questions.length) return null;
     return (
         <Container py={4}>
-            <Header>Questions</Header>
+            <Header>{questionsTitle}</Header>
             {config.questions.map(determineComponent)}
         </Container>
     );

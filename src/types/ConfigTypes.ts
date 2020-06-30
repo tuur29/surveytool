@@ -1,5 +1,6 @@
 import { DefaultTheme } from "styled-components";
 import { DeepPartial } from "../utils/utils";
+import { LabelType } from "../utils/labels";
 
 export enum answerTypes {
     single = "singleChoice",
@@ -66,8 +67,9 @@ export type AllQuestionsType =
 
 export type ConfigType = {
     questions: AllQuestionsType[];
-    theme?: DeepPartial<{
+    theme: DeepPartial<{
         darkMode: boolean;
         values: DefaultTheme;
     }>;
+    labels: Partial<Record<LabelType, string | null>>,
 };

@@ -6,6 +6,7 @@ const TOOLTIP_BOUNDS_SIZE = 20;
 
 export const TooltipContent = styled.span<{ show?: boolean }>`
     position: absolute;
+    z-index: 1;
     max-width: 300px;
     margin-top: -10px; /* TODO: fix these hardcoded margins */
     margin-left: -32px;

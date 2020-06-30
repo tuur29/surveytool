@@ -1,6 +1,6 @@
 import { answerTypes, ConfigType } from "../types/ConfigTypes";
 
-export const mockConfig: ConfigType = {
+export const mockConfig: Partial<ConfigType> = {
     questions: [
         {
             id: "EDJUJDO",
@@ -44,7 +44,7 @@ export const mockConfig: ConfigType = {
             title: "Where do you live?",
             inputType: "select",
             answers: [
-                { id: "0", title: "US" },
+                { id: "0", title: "US%h", hints: ["United States"] },
                 { id: "1", title: "Somewhere else" },
             ],
         },

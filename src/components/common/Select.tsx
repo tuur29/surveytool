@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import useLabel from "../../hooks/useLabel";
 import { SelectDropdown, SelectOption, SelectWrapper, SelectValue } from "../styles/Input";
 import Icon, { orientations } from "../../svg/Icon";
 import HintableLabel from "./HintableLabel";
@@ -11,6 +12,7 @@ type PropsType = {
 
 const Select = (props: PropsType): JSX.Element => {
     const { options, selectedOptionId, onSelectOption } = props;
+    const placeholder = useLabel("inputSelectPlaceholder", { count: options.length });
     const [opened, setOpened] = useState(false);
 
     const toggleOpen = () => setOpened((prev) => !prev);
@@ -19,7 +21,7 @@ const Select = (props: PropsType): JSX.Element => {
     return (
         <SelectWrapper>
             <SelectValue onClick={toggleOpen} opened={opened}>
-                <HintableLabel label={selectedOption?.title || "---"} hints={selectedOption?.hints || []} />
+                <HintableLabel label={selectedOption?.title || placeholder || ""} hints={selectedOption?.hints || []} />
                 <Icon type="upCaret" orientation={opened ? orientations.up : orientations.down} />
             </SelectValue>
 
