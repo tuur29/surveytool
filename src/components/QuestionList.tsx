@@ -3,7 +3,7 @@ import { AllQuestionsType, answerTypes } from "../types/ConfigTypes";
 import { useStore } from "../redux/store";
 import PlaceholderQuestion from "./questions/PlaceholderQuestion";
 import SingleChoiceQuestion from "./questions/SingleChoiceQuestion";
-import { Container } from "./styles/Container";
+import { Container, Header } from "./styles/Container";
 import MultipleChoiceQuestion from "./questions/MultipleChoiceQuestion";
 
 const determineComponent = (question: AllQuestionsType): JSX.Element => {
@@ -18,11 +18,12 @@ const determineComponent = (question: AllQuestionsType): JSX.Element => {
 };
 
 const QuestionList = (): JSX.Element | null => {
-    const config = useStore(state => state.config);
+    const config = useStore((state) => state.config);
 
     if (!config.questions.length) return null;
     return (
         <Container py={4}>
+            <Header>Questions</Header>
             {config.questions.map(determineComponent)}
         </Container>
     );

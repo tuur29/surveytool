@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { IconWrapper } from "../../svg/Icon";
+import { getElevation } from "../../utils/theme";
 
 const TOOLTIP_BOUNDS_SIZE = 20;
 
@@ -11,7 +12,7 @@ export const TooltipContent = styled.span<{ show?: boolean }>`
     padding: 10px 15px;
     color: ${({ theme }) => theme.colors.onSurface};
     background-color: ${({ theme }) => theme.colors.surface};
-    box-shadow: ${({ theme }) => theme.elevation[3]};
+    box-shadow: ${getElevation(3)};
     border-radius: 4px;
     transition: opacity 0.3s;
 

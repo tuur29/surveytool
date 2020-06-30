@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import { answerTypes } from "../../types/ConfigTypes";
-import { Title } from "../styles/Questions";
+import { Title } from "../styles/Question";
 import { Checkbox, Label } from "../styles/Input";
 import SingleChoiceQuestion from "./SingleChoiceQuestion";
 

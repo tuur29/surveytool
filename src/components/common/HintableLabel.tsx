@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Tooltip, TooltipContent } from "../styles/Tooltip";
 import Icon from "../../svg/Icon";
 
-const Hint = (props: { content: string }): JSX.Element => {
+export const Hint = (props: { content: string }): JSX.Element => {
     const [opened, setOpened] = useState(false);
     const onClick = (event: React.SyntheticEvent) => {
         event.stopPropagation();
@@ -20,12 +20,12 @@ const Hint = (props: { content: string }): JSX.Element => {
     );
 };
 
-type PropsType = {
+type HintablePropsType = {
     label: string;
     hints?: string[];
 };
 
-const HintableLabel = (props: PropsType): JSX.Element => {
+const HintableLabel = (props: HintablePropsType): JSX.Element => {
     const { label, hints } = props;
     const parts = label.split("%h");
 

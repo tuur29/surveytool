@@ -10,10 +10,9 @@ const palettes = {
     neutralDark: ["#000000", "#080808", "#0f0f0f", "#171717", "#262626", "#363636", "#5c5c5c", "#919191", "#ededed", "#ffffff"],
 };
 
- 
 const colors = {
     // general colours
-    primary: palettes.primary[9],
+    primary: palettes.primary[8],
     back: palettes.neutralLight[0],
     surface: palettes.neutralLight[1],
     error: palettes.secondary[9],
@@ -41,6 +40,7 @@ const sizes = {
     controlBorder: "2px",
     controlValueOffset: "3px",
     questionTitle: "18px",
+    title: "32px",
 };
 
 // ----------------------------------------------------------------------
@@ -57,9 +57,8 @@ declare module "styled-components" {
         colors: { [color in ColorType]: string };
         fonts: { [font in FontFamiliesType]: string };
         breakpoints: { [bp in BreakpointType]: string };
-        sizes: {[size in SizeType]: string};
+        sizes: { [size in SizeType]: string };
         space: number[];
-        elevation: string[];
     }
 }
 
@@ -67,7 +66,7 @@ declare module "styled-components" {
 // Default theme
 // ----------------------------------------------------------------------
 
-// TODO: Override theme values in config
+// TODO: Override theme values in config (or switch to dark theme)
 const theme: DefaultTheme = {
     colors,
     sizes,
@@ -83,28 +82,54 @@ const theme: DefaultTheme = {
         xl: "1200px",
     },
     space: [0, 4, 8, 16, 32, 64],
-    elevation: [
-        // https://gist.github.com/serglo/f9f0be9a66fd6755a0bda85f9c64e85f
-        `0 1px 1px 0 ${colors.shadow}35, 0 2px 1px -1px ${colors.shadow}1e, 0 1px 3px 0 ${colors.shadow}33`,
-        `0 2px 2px 0 ${colors.shadow}35, 0 3px 1px -2px ${colors.shadow}1e, 0 1px 5px 0 ${colors.shadow}33`,
-        `0 3px 4px 0 ${colors.shadow}35, 0 3px 3px -2px ${colors.shadow}1e, 0 1px 8px 0 ${colors.shadow}33`,
-        `0 4px 5px 0 ${colors.shadow}35, 0 1px 10px 0 ${colors.shadow}1e, 0 2px 4px -1px ${colors.shadow}33`,
-        `0 6px 10px 0 ${colors.shadow}35, 0 1px 18px 0 ${colors.shadow}1e, 0 3px 5px -1px ${colors.shadow}33`,
-        `0 8px 10px 1px ${colors.shadow}35, 0 3px 14px 2px ${colors.shadow}1e, 0 5px 5px -3px ${colors.shadow}33`,
-        `0 9px 12px 1px ${colors.shadow}35, 0 3px 16px 2px ${colors.shadow}1e, 0 5px 6px -3px ${colors.shadow}33`,
-        `0 12px 17px 2px ${colors.shadow}35, 0 5px 22px 4px ${colors.shadow}1e, 0 7px 8px -4px ${colors.shadow}33`,
-        `0 16px 24px 2px ${colors.shadow}35, 0 6px 30px 5px ${colors.shadow}1e, 0 8px 10px -5px ${colors.shadow}33`,
-        `0 24px 38px 3px ${colors.shadow}35, 0 9px 46px 8px ${colors.shadow}1e, 0 11px 15px -7px ${colors.shadow}33`,
-    ],
 };
 
-// Flip fore and background colours for darkmode
-const darkTheme = {
+export const darkTheme: DefaultTheme = {
     ...theme,
     colors: {
         ...theme.colors,
+        // general colours
+        primary: palettes.primary[9],
+        back: palettes.neutralDark[2],
+        surface: palettes.neutralDark[3],
+        error: palettes.secondary[9],
+        // text on general colours
+        onPrimary: palettes.neutralDark[0],
+        onBack: palettes.neutralDark[7],
+        onSurface: palettes.neutralDark[8],
+        onError: palettes.neutralDark[8],
+        // input controls
+        controlBack: palettes.neutralDark[1],
+        controlHover: palettes.neutralDark[3],
+        controlBorder: palettes.neutralDark[4],
+        controlBorderHover: palettes.neutralDark[6],
+        controlBorderActive: palettes.neutralDark[5],
+        // other colours
+        shadow: palettes.neutralDark[0],
+        icon: palettes.neutralDark[8],
+        iconHover: palettes.neutralDark[7],
     },
 };
+
+// ----------------------------------------------------------------------
+// Helpers
+// ----------------------------------------------------------------------
+
+// https://gist.github.com/serglo/f9f0be9a66fd6755a0bda85f9c64e85f
+const elevations = [
+    `0 1px 1px 0 #00000035, 0 2px 1px -1px #0000001e, 0 1px 3px 0 #00000033`,
+    `0 2px 2px 0 #00000035, 0 3px 1px -2px #0000001e, 0 1px 5px 0 #00000033`,
+    `0 3px 4px 0 #00000035, 0 3px 3px -2px #0000001e, 0 1px 8px 0 #00000033`,
+    `0 4px 5px 0 #00000035, 0 1px 10px 0 #0000001e, 0 2px 4px -1px #00000033`,
+    `0 6px 10px 0 #00000035, 0 1px 18px 0 #0000001e, 0 3px 5px -1px #00000033`,
+    `0 8px 10px 1px #00000035, 0 3px 14px 2px #0000001e, 0 5px 5px -3px #00000033`,
+    `0 9px 12px 1px #00000035, 0 3px 16px 2px #0000001e, 0 5px 6px -3px #00000033`,
+    `0 12px 17px 2px #00000035, 0 5px 22px 4px #0000001e, 0 7px 8px -4px #00000033`,
+    `0 16px 24px 2px #00000035, 0 6px 30px 5px #0000001e, 0 8px 10px -5px #00000033`,
+    `0 24px 38px 3px #00000035, 0 9px 46px 8px #0000001e, 0 11px 15px -7px #00000033`,
+];
+export const getElevation = (level: number) => ({ theme }: { theme: DefaultTheme }): string =>
+    (elevations[level] || "").replace(/#000000/g, theme.colors.shadow);
 
 export const GlobalDebugStyle = createGlobalStyle`
   body {
@@ -113,5 +138,4 @@ export const GlobalDebugStyle = createGlobalStyle`
   }
 `;
 
-// TODO: darktheme should be turned off before building release
-export default darkTheme || theme;
+export default theme;

@@ -1,13 +1,14 @@
 import React, { Fragment } from "react";
 import { MultipleChoiceQuestionType } from "../../types/ConfigTypes";
-import { Question, Title } from "../styles/Questions";
+import { Question, Title } from "../styles/Question";
 import { useStoreDispatch } from "../../redux/store";
 import { setAnswer } from "../../redux/answersReducer";
 import HintableLabel from "../common/HintableLabel";
 import useQuestionAnswer from "../../hooks/useQuestionAnswer";
-import { RadioButton, Label, Checkbox } from "../styles/Input";
+import { RadioButton, Label } from "../styles/Input";
 import { MultipleChoiceAnswerType } from "../../types/AnswerTypes";
 import Select from "../common/Select";
+import Checkbox from "../common/Checkbox";
 
 type PropsType = {
     question: MultipleChoiceQuestionType;

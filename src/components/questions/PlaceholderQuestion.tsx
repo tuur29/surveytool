@@ -1,5 +1,5 @@
 import React from "react";
-import { Question, Title } from "../styles/Questions";
+import { Question, Title } from "../styles/Question";
 
 type PropsType = {
     title: string;

@@ -3,7 +3,8 @@ import styled, { css } from "styled-components";
 import { ColorType } from "../utils/theme";
 import { ReactComponent as IconInfo } from "./info-circle-duotone.svg";
 import { ReactComponent as IconClose } from "./times-circle-duotone.svg";
-import { ReactComponent as IconUp } from "./caret-up-solid.svg";
+import { ReactComponent as IconUpCaret } from "./caret-up-solid.svg";
+import { ReactComponent as IconCheck } from "./check-solid.svg";
 
 // ----------------------------------------------------------------------
 // Icons
@@ -12,7 +13,8 @@ import { ReactComponent as IconUp } from "./caret-up-solid.svg";
 const icons = {
     info: IconInfo,
     close: IconClose,
-    upCaret: IconUp,
+    upCaret: IconUpCaret,
+    check: IconCheck,
 };
 type IconType = keyof typeof icons;
 

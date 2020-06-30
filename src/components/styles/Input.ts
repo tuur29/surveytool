@@ -1,13 +1,57 @@
 import styled, { css } from "styled-components";
 import { IconWrapper } from "../../svg/Icon";
+import { getElevation } from "../../utils/theme";
+
+const baseColors = css`
+    background-color: ${({ theme }) => theme.colors.controlBack};
+    border-width: ${({ theme }) => theme.sizes.controlBorder};
+    border-color: ${({ theme }) => theme.colors.controlBorder};
+    border-style: solid;
+    transition: border 0.3s;
+`;
+
+const baseMargin = css`
+    margin-top: ${({ theme }) => theme.space[1]}px;
+    margin-right: ${({ theme }) => theme.space[2]}px;
+    margin-bottom: ${({ theme }) => theme.space[1]}px;
+    margin-left: 0;
+`;
 
 // ----------------------------------------------------------------------
 // Checkbox
 // ----------------------------------------------------------------------
 
-// TODO: Convert checkbox
-export const Checkbox = styled.input.attrs({ type: "checkbox" })`
-    margin-right: ${({ theme }) => theme.space[2]}px;
+export const Checkbox = styled.div<{ checked?: boolean }>`
+    ${baseColors};
+    ${baseMargin};
+    position: relative;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border-color: ${({ theme, checked }) => (checked ? theme.colors.controlBorderActive : theme.colors.controlBorder)};
+    border-radius: ${({ theme }) => theme.sizes.radius};
+    overflow: hidden;
+
+    &::after {
+        content: "";
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: ${({ checked }) => (checked ? 100 : 0)}%;
+        bottom: 0;
+        z-index: 1;
+        background-color: ${({ theme }) => theme.colors.controlBack};
+        transition: left 0.3s;
+    }
+
+    svg {
+        width: calc(100% - (2px * 2));
+        height: calc(100% - (2px * 2));
+        margin: 2px;
+        color: ${({ theme }) => theme.colors.controlHighlight};
+        vertical-align: super;
+    }
 `;
 
 // ----------------------------------------------------------------------
@@ -15,17 +59,14 @@ export const Checkbox = styled.input.attrs({ type: "checkbox" })`
 // ----------------------------------------------------------------------
 
 export const RadioButton = styled.div<{ checked?: boolean }>`
+    ${baseColors};
+    ${baseMargin};
     position: relative;
     display: inline-block;
     width: 1em;
     height: 1em;
-    margin: ${({ theme }) => `${theme.space[1]}px ${theme.space[2]}px`};
-    background-color: ${({ theme }) => theme.colors.controlBack};
-    border-width: ${({ theme }) => theme.sizes.controlBorder};
     border-color: ${({ theme, checked }) => (checked ? theme.colors.controlBorderActive : theme.colors.controlBorder)};
-    border-style: solid;
     border-radius: 100%;
-    transition: border-color 0.3s;
 
     &::before {
         content: "";
@@ -62,24 +103,36 @@ export const SelectWrapper = styled.div`
 `;
 
 export const SelectValue = styled.div<{ opened?: boolean }>`
+    ${baseColors};
+    ${baseMargin};
     display: inline-flex;
     justify-content: space-between;
     min-width: 150px;
     padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
-    background-color: ${({ theme }) => theme.colors.controlBack};
-    border-width: ${({ theme }) => theme.sizes.controlBorder};
-    border-color: ${({ theme }) => theme.colors.controlBorder};
-    border-style: solid;
     border-radius: ${({ theme }) => theme.sizes.radius};
     cursor: pointer;
-
-    transition: border-radius 0.3s;
 
     ${({ opened }) =>
         opened &&
         css`
             border-bottom-right-radius: 0px;
             border-bottom-left-radius: 0px;
+
+            svg {
+                color: ${({ theme }) => theme.colors.controlBorderActive};
+            }
+        `};
+
+    ${({ opened }) =>
+        !opened &&
+        css`
+            &:hover {
+                border-color: ${({ theme }) => theme.colors.controlBorderHover};
+            }
+
+            &:hover svg {
+                color: ${({ theme }) => theme.colors.controlBorderHover};
+            }
         `};
 
     ${IconWrapper} {
@@ -88,20 +141,17 @@ export const SelectValue = styled.div<{ opened?: boolean }>`
 `;
 
 export const SelectDropdown = styled.ul<{ show: boolean }>`
+    ${baseColors}
     position: absolute;
     display: block;
     min-width: 150px;
-    margin: -2px 0 0 0;
+    margin: 0;
+    margin-top: calc(-1 * (${({ theme }) => theme.space[1]}px + ${({ theme }) => theme.sizes.controlBorder}));
     padding: 0;
     list-style: none;
-
-    background-color: ${({ theme }) => theme.colors.controlBack};
-    border-width: ${({ theme }) => theme.sizes.controlBorder};
-    border-color: ${({ theme }) => theme.colors.controlBorder};
-    border-style: solid;
     border-bottom-right-radius: ${({ theme }) => theme.sizes.radius};
     border-bottom-left-radius: ${({ theme }) => theme.sizes.radius};
-    box-shadow: ${({ theme }) => theme.elevation[2]};
+    box-shadow: ${getElevation(2)};
 
     /* animation */
     transform-origin: top;
@@ -138,7 +188,7 @@ export const Label = styled.div`
     cursor: pointer;
 
     &:hover {
-        ${RadioButton} {
+        ${RadioButton}, ${Checkbox} {
             border-color: ${({ theme }) => theme.colors.controlBorderHover};
         }
     }

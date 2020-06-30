@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import { SpaceProps, space } from "styled-system";
+import { getElevation } from "../../utils/theme";
 
 export const Question = styled.article<SpaceProps>`
     background-color: ${({ theme }) => theme.colors.surface};
     color: ${({ theme }) => theme.colors.onSurface};
-    box-shadow: ${({ theme }) => theme.elevation[1]};
+    box-shadow: ${getElevation(1)};
     border-radius: ${({ theme }) => theme.sizes.radius};
     ${space};
 `;
@@ -12,7 +13,7 @@ export const Question = styled.article<SpaceProps>`
 Question.defaultProps = {
     marginY: 4,
     paddingY: 3,
-    paddingX: { lg: 4 },
+    paddingX: { xs: 3, lg: 4 },
 };
 
 export const Title = styled.h2`

@@ -7,5 +7,10 @@ export const Container = styled.div<SpaceProps>`
 `;
 Container.defaultProps = {
     marginX: "auto",
-    paddingX: { _: 1, sm: 1, md: 2, lg: 3 },
+    paddingX: { xs: 0, sm: 2, lg: 3 },
 };
+
+export const Header = styled.h1`
+    font-size: ${({ theme }) => theme.sizes.title};
+    text-align: center;
+`;

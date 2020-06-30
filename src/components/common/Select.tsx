@@ -22,7 +22,7 @@ const Select = (props: PropsType): JSX.Element => {
                 <HintableLabel label={selectedOption?.title || "---"} hints={selectedOption?.hints || []} />
                 <Icon type="upCaret" orientation={opened ? orientations.up : orientations.down} />
             </SelectValue>
-            {/* TODO: remove forced true */}
+
             <SelectDropdown show={opened}>
                 {options.map((option) => (
                     <SelectOption
