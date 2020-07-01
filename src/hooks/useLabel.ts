@@ -1,12 +1,12 @@
 import { useStoreSelector } from "../redux/store";
 import { ValuesType, LabelType, defaultLabels } from "../utils/labels";
 
-const replaceValues = (label: string | null, values?: ValuesType): string | null => {
+export const replaceValues = (label: string | null, values?: ValuesType, replaceAll = true): string | null => {
     if (!label) return null;
     if (!values) return label;
 
     return Object.entries(values).reduce((newLabel, valueEntry) => {
-        const regex = new RegExp(`{${valueEntry[0]}}`, "g");
+        const regex = new RegExp(`{${valueEntry[0]}}`, replaceAll ? "g" : "");
         return newLabel.replace(regex, `${valueEntry[1]}`);
     }, label);
 };

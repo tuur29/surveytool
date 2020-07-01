@@ -6,7 +6,7 @@ export const mockConfig: Partial<ConfigType> = {
         {
             id: "EDJUJDO",
             type: answerTypes.single,
-            title: "Are you interested%h in eating an ice cream?%h",
+            title: "Are you interested{hint} in eating an ice cream?{hint}",
             hints: ["It's a word", "Say yes!"],
         },
         {
@@ -25,7 +25,7 @@ export const mockConfig: Partial<ConfigType> = {
                 { id: "1", title: "Banana" },
                 {
                     id: "2",
-                    title: "Ben & Jerry's%h Imagine Whirled Peace%h",
+                    title: "Ben & Jerry's{hint} Imagine Whirled Peace{hint}",
                     hints: ["(TM)", "Yes this is a real flavour."],
                 },
                 { id: "3", title: "Chocolat" },
@@ -36,7 +36,7 @@ export const mockConfig: Partial<ConfigType> = {
             type: answerTypes.text,
             format: "email",
             placeholder: "ben@jerry.com",
-            title: "On which address do you want to receive your digital%h ice cream?",
+            title: "On which address do you want to receive your digital{hint} ice cream?",
             hints: ["Do not worry it won't melt."],
         },
         {
@@ -45,7 +45,7 @@ export const mockConfig: Partial<ConfigType> = {
             title: "Where do you live?",
             inputType: "select",
             answers: [
-                { id: "0", title: "US%h", hints: ["United States"] },
+                { id: "0", title: "US{hint}", hints: ["United States"] },
                 { id: "1", title: "Somewhere else" },
             ],
         },
