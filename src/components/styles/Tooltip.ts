@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { IconWrapper } from "../../svg/Icon";
+import { IconWrapper } from "../common/Icon";
 import { getElevation } from "../../utils/theme";
 
 const TOOLTIP_BOUNDS_SIZE = 20;

@@ -16,7 +16,7 @@ export type MultipleChoiceAnswerType = BaseAnswerType & {
 
 export type TextAnswerType = BaseAnswerType & {
     type: answerTypes.text;
-    value: string | number;
+    value: string;
 };
 
 export type SliderAnswerType = BaseAnswerType & {

@@ -1,10 +1,11 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { ColorType } from "../utils/theme";
-import { ReactComponent as IconInfo } from "./info-circle-duotone.svg";
-import { ReactComponent as IconClose } from "./times-circle-duotone.svg";
-import { ReactComponent as IconUpCaret } from "./caret-up-solid.svg";
-import { ReactComponent as IconCheck } from "./check-solid.svg";
+import { ColorType } from "../../utils/theme";
+import { ReactComponent as IconInfo } from "../../svg/info-circle-duotone.svg";
+import { ReactComponent as IconClose } from "../../svg/times-circle-duotone.svg";
+import { ReactComponent as IconUpCaret } from "../../svg/caret-up-solid.svg";
+import { ReactComponent as IconCheck } from "../../svg/check-solid.svg";
+import { ReactComponent as IconError } from "../../svg/exclamation-triangle-duotone.svg";
 
 // ----------------------------------------------------------------------
 // Icons
@@ -15,6 +16,7 @@ const icons = {
     close: IconClose,
     upCaret: IconUpCaret,
     check: IconCheck,
+    error: IconError,
 };
 type IconType = keyof typeof icons;
 
@@ -36,7 +38,7 @@ export const IconWrapper = styled.span<SvgProps>`
 
         color: ${({ theme, color }) => (color ? theme.colors[color] : theme.colors.icon)};
         width: 1em;
-        height: 1em; /* TODO: should match font size exactly */
+        height: 1em; /* TODO: doesn't match font size exactly */
         transition: transform 0.3s, width 0.3s, height 0.3s, color 0.3s;
 
         &:hover {

@@ -1,6 +1,6 @@
 import React from "react";
-import Icon from "../../svg/Icon";
 import * as Styles from "../styles/Input";
+import Icon from "./Icon";
 
 type PropsType = {
     checked?: boolean;

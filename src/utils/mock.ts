@@ -65,6 +65,10 @@ export const mockConfig: Partial<ConfigType> = {
             type: answerTypes.text,
             format: "text",
             title: "How do you want to name your creation?",
+            customValidation: {
+                regex: "^.{0,10}$",
+                error: "Names longer than 10 characters are not allowed",
+            },
         },
         {
             id: "EPOCOCVOD",

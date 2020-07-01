@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Tooltip, TooltipContent } from "../styles/Tooltip";
-import Icon from "../../svg/Icon";
+import Icon from "./Icon";
 
 export const Hint = (props: { content: string }): JSX.Element => {
     const [opened, setOpened] = useState(false);

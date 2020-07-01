@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { IconWrapper } from "../../svg/Icon";
+import { IconWrapper } from "../common/Icon";
 import { getElevation } from "../../utils/theme";
 
 const baseColors = css`
@@ -8,6 +8,7 @@ const baseColors = css`
     border-color: ${({ theme }) => theme.colors.controlBorder};
     border-style: solid;
     transition: border 0.3s;
+    outline: none;
 `;
 
 const baseMargin = css`
@@ -15,6 +16,10 @@ const baseMargin = css`
     margin-right: ${({ theme }) => theme.space[2]}px;
     margin-bottom: ${({ theme }) => theme.space[1]}px;
     margin-left: 0;
+`;
+
+const basePadding = css`
+    padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
 `;
 
 // ----------------------------------------------------------------------
@@ -105,10 +110,13 @@ export const SelectWrapper = styled.div`
 export const SelectValue = styled.div<{ opened?: boolean }>`
     ${baseColors};
     ${baseMargin};
+    ${basePadding};
+    position: relative;
+    z-index: 1; /* necessary to hide dropdown animation */
+
     display: inline-flex;
     justify-content: space-between;
     min-width: 150px;
-    padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
     border-radius: ${({ theme }) => theme.sizes.radius};
     cursor: pointer;
 
@@ -156,15 +164,15 @@ export const SelectDropdown = styled.ul<{ show: boolean }>`
     /* animation */
     transform-origin: top;
     transition: opacity 0.3s, transform 0.3s;
-    ${({ show }) => css`
+    ${({ show, theme }) => css`
         opacity: ${show ? 1 : 0};
         pointer-events: ${show ? "initial" : "none"};
-        transform: scaleY(${show ? 1 : 0.85});
+        transform: translateY(${show ? 0 : -theme.space[2]}px);
     `};
 `;
 
 export const SelectOption = styled.li`
-    padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
+    ${basePadding};
     cursor: pointer;
     transition: background 0.3s;
 
@@ -173,7 +181,7 @@ export const SelectOption = styled.li`
     }
 
     &:hover {
-        background-color: ${({ theme }) => theme.colors.controlHover};
+        background-color: ${({ theme }) => theme.colors.controlBackHover};
     }
 `;
 
@@ -191,5 +199,43 @@ export const Label = styled.div`
         ${RadioButton}, ${Checkbox} {
             border-color: ${({ theme }) => theme.colors.controlBorderHover};
         }
+    }
+`;
+
+// ----------------------------------------------------------------------
+// Text
+// ----------------------------------------------------------------------
+
+export const TextField = styled.input`
+    ${baseColors};
+    ${baseMargin};
+    ${basePadding};
+    border-radius: ${({ theme }) => theme.sizes.radius};
+
+    &:hover,
+    &:focus,
+    &:active {
+        border-color: ${({ theme }) => theme.colors.controlBorderHover};
+    }
+
+    &:not([value=""]) {
+        border-color: ${({ theme }) => theme.colors.controlBorderActive};
+    }
+
+    ::placeholder {
+        color: ${({ theme }) => theme.colors.controlBorder};
+    }
+`;
+
+export const FieldError = styled.div`
+    min-height: 1.5em;
+    line-height: 1.5;
+    font-size: ${({ theme }) => theme.sizes.controlError};
+    font-weight: 500;
+    color: ${({ theme }) => theme.colors.error};
+
+    ${IconWrapper} {
+        margin-right: 0.5em;
+        max-height: 100%;
     }
 `;

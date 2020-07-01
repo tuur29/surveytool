@@ -63,6 +63,7 @@ export const answersReducer = (state: AnswersState = initialAnswersState, action
             newAnswersList[index > -1 ? index : newAnswersList.length] = answer; // fallback to adding item as next one in the list
             const newState = { ...state, list: newAnswersList, lastUpdate: Date.now() }; // replace answer
 
+            // TODO: debounce?
             // persist to localstorage and return
             localStorage.setItem(generateAnswerStorageKey(action.configId || ""), JSON.stringify(newState));
             return newState;

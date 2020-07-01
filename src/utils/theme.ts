@@ -23,7 +23,7 @@ const colors = {
     onError: palettes.neutralLight[1],
     // input controls
     controlBack: palettes.neutralLight[0],
-    controlHover: palettes.neutralLight[2],
+    controlBackHover: palettes.neutralLight[2],
     controlHighlight: palettes.primary[8],
     controlBorder: palettes.neutralLight[6],
     controlBorderHover: palettes.neutralLight[8],
@@ -39,6 +39,7 @@ const sizes = {
     radius: "4px",
     controlBorder: "2px",
     controlValueOffset: "3px",
+    controlError: "14px",
     questionTitle: "18px",
     title: "32px",
     footer: "14px",
@@ -100,7 +101,7 @@ export const darkTheme: DefaultTheme = {
         onError: palettes.neutralDark[8],
         // input controls
         controlBack: palettes.neutralDark[1],
-        controlHover: palettes.neutralDark[3],
+        controlBackHover: palettes.neutralDark[3],
         controlBorder: palettes.neutralDark[4],
         controlBorderHover: palettes.neutralDark[6],
         controlBorderActive: palettes.neutralDark[5],

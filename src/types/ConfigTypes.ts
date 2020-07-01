@@ -49,6 +49,10 @@ export type TextQuestionType = BaseQuestion & {
     type: answerTypes.text;
     format: "text" | "email" | "number";
     placeholder?: string;
+    customValidation?: {
+        regex?: string;
+        error?: string;
+    };
     // TODO: add rows option?
 };
 
@@ -74,5 +78,5 @@ export type ConfigType = {
         darkMode: boolean;
         values: DefaultTheme;
     }>;
-    labels: Partial<Record<LabelType, string | null>>,
+    labels: Partial<Record<LabelType, string | null>>;
 };

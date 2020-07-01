@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import useLabel from "../../hooks/useLabel";
 import { SelectDropdown, SelectOption, SelectWrapper, SelectValue } from "../styles/Input";
-import Icon, { orientations } from "../../svg/Icon";
+import Icon, { orientations } from "./Icon";
 import HintableLabel from "./HintableLabel";
 
 type PropsType = {

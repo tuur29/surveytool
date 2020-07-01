@@ -3,6 +3,9 @@ export const defaultLabels = {
     questionsTitle: "Questions",
     questionsFooter: "Last update on {date}",
     inputSelectPlaceholder: "--- {count} options ---",
+    inputTextErrorNumber: "Please provide a valid number",
+    inputTextErrorEmail: "Please provide a correctly formatted email address",
+    inputTextErrorText: "Wrong format",
 };
 
 export type ValuesType = Partial<Record<"count" | "date", string | number>>;
