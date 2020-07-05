@@ -56,6 +56,8 @@ export type TextQuestionType = BaseQuestion & {
     // TODO: add rows option?
 };
 
+export type SliderDirectionType = "toRight" | "toLeft"; // toRight is default
+
 // example: ratings
 export type SliderQuestionType = BaseQuestion & {
     type: answerTypes.slider;
@@ -63,6 +65,7 @@ export type SliderQuestionType = BaseQuestion & {
     max: number;
     default?: number;
     step?: number;
+    direction?: SliderDirectionType;
 };
 
 export type AllQuestionsType =

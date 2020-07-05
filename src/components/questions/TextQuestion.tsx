@@ -15,6 +15,7 @@ import Icon from "../common/Icon";
 const REGEX_EMAIL_FORMAT = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // https://emailregex.com/
 const REGEX_NUMBER_ONLY = /^[0-9]*$/;
 
+// blocks users from entering
 const hasForbiddenCharacter = (format: TextQuestionType["format"], value: string): boolean => {
     switch (format) {
         case "number":
@@ -26,6 +27,7 @@ const hasForbiddenCharacter = (format: TextQuestionType["format"], value: string
     }
 };
 
+// shows error to user if format is incorrect
 const isValueInvalid = (format: TextQuestionType["format"], value: string): boolean => {
     switch (format) {
         case "number":
@@ -51,10 +53,10 @@ const TextQuestion = (props: PropsType): JSX.Element => {
     const { question } = props;
 
     const dispatch = useStoreDispatch();
-    const loadedFromMemory = useStoreSelector((state) => state.answers.loadedFromStorage);
+    const alreadyFocussed = useStoreSelector((state) => state.answers.loadedFromStorage);
     const { value } = useQuestionAnswer<TextAnswerType>(question.id);
 
-    const [focussed, setFocussed] = useState(loadedFromMemory);
+    const [focussed, setFocussed] = useState(!!value && alreadyFocussed);
 
     const errorLabel = useLabel(errorLabelMap[question.format]);
     const invalid = question.customValidation?.regex
@@ -75,6 +77,8 @@ const TextQuestion = (props: PropsType): JSX.Element => {
         );
     };
 
+    const showError = invalid && focussed && !!value;
+
     return (
         <Question>
             <Title>
@@ -83,14 +87,15 @@ const TextQuestion = (props: PropsType): JSX.Element => {
 
             <TextField
                 value={value}
-                placeholder={question.placeholder}
+                placeholder={question.placeholder || ""}
+                isError={showError}
                 onChange={onChange}
                 onBlur={() => setFocussed(true)}
             />
 
             {/* always render FieldError with min-height so showing the error doesn't move content on the page */}
             <FieldError>
-                {invalid && focussed && value && (
+                {showError && (
                     <>
                         <Icon type="error" color="error" />
                         {question.customValidation?.error || errorLabel}

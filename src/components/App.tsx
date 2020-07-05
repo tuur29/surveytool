@@ -13,7 +13,7 @@ const App = (): JSX.Element => {
     const overriddenTheme = merge(themeConfig?.darkMode ? darkTheme : theme, themeConfig?.values);
 
     return (
-        <ThemeProvider theme={overriddenTheme}>
+        <ThemeProvider theme={darkTheme || overriddenTheme}>
             <>
                 {!isProduction() && <GlobalDebugStyle />}
                 <QuestionList />

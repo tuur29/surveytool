@@ -28,6 +28,8 @@ export const TooltipContent = styled.span<{ show?: boolean }>`
 `;
 
 export const Tooltip = styled.span`
+    user-select: none;
+
     &::before {
         content: "";
         position: absolute;

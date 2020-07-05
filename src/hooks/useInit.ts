@@ -25,8 +25,9 @@ const useInit = (): void => {
         };
 
         // init with already defined config or mockdata on dev mode
-        const initialConfig = window.surveyConfig || (isProduction() ? null : mockConfig);
-        if (initialConfig) dispatch(initConfig(initialConfig as ConfigType));
+        if (window.surveyConfig || !isProduction()) {
+            window.setSurveyConfig(window.surveyConfig || mockConfig);
+        }
 
         // add mockconfig to window so we can easily access it later for testing
         // for example:

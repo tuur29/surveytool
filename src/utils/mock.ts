@@ -10,12 +10,6 @@ export const mockConfig: Partial<ConfigType> = {
             hints: ["It's a word", "Say yes!"],
         },
         {
-            id: "PXCHUDAK",
-            type: answerTypes.text,
-            format: "number",
-            title: "How many?",
-        },
-        {
             id: "JIWMEFJA",
             type: answerTypes.multiple,
             title: "What flavour do you want?",
@@ -30,6 +24,20 @@ export const mockConfig: Partial<ConfigType> = {
                 },
                 { id: "3", title: "Chocolat" },
             ],
+        },
+        {
+            id: "PXCHUDAK",
+            type: answerTypes.text,
+            format: "number",
+            title: "How many other people would you estimate that share your favourite flavour?",
+        },
+        {
+            id: "QXCHUKIH",
+            type: answerTypes.slider,
+            title: "How many do you want?",
+            min: 0,
+            max: 10,
+            default: 1,
         },
         {
             id: "CUIHUDAK",

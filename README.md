@@ -6,15 +6,15 @@ Next, either define a `surveyConfig` object on the `window` object, or call `win
 
 ```html
 <div id="surveyTool"></div>
-<script src="/public/build.js"></script>
 <script>
     // initialize directly:
-    window.surveryConfig = {};
+    window.setSurveyConfig(config);
     // or async:
     document.querySelector("#button").addEventListener("click", () => {
-        window.setSurveyConfig(config)
+        window.setSurveyConfig(config);
     });
 </script>
+<script src="/public/build.js"></script>
 ```
 
 ### Configuration
@@ -23,9 +23,9 @@ There are 4 parts to a configuration object:
 | Field name | Data type | Description |
 |---|---|---|
 | `id` | string | Unique key to differentiate between multiple surveys / configs |
-| `theme` | [theme](https://github.com/tuur29/surveytool/blob/master/src/utils/theme.ts) | Optional, object containing all or some colours, font family / sizes, breakpoints and spacing |
-| `labels` | [labels](https://github.com/tuur29/surveytool/blob/master/src/utils/labels.ts) | Optional, a key value map containing all or some labels in tool |
 | `questions` | [question array](https://github.com/tuur29/surveytool/blob/master/src/types/ConfigTypes.ts) | Required, complex structure containing all question parameters |
+| `labels` | [labels](https://github.com/tuur29/surveytool/blob/master/src/utils/labels.ts) | **Optional**, a key value map containing all or some labels in tool |
+| `theme` | [theme](https://github.com/tuur29/surveytool/blob/master/src/utils/theme.ts) | **Optional**, object containing all or some colours, font family / sizes, breakpoints and spacing |
 
 The example configuration used in the demo can be found here: [mock.ts](https://github.com/tuur29/surveytool/blob/master/src/utils/mock.ts)
 
@@ -64,7 +64,7 @@ window.setSurveyConfig({ ...window.surveyConfig,
 ```
 
 
-The format of dates and times is locale based. By default the end users browser settings will decided the format. If you want you can override this behaviour by changing the label `dateLocaleId`. See [this list](https://github.com/umpirsky/locale-list/blob/master/data/en_US/locales.csv) for all possibilities (but replace _ with -).
+The format of dates and times is locale based. By default the end users browser settings will decided the format. If you want you can override this behaviour by changing the label `dateLocaleId`. See [this list](https://github.com/umpirsky/locale-list/blob/master/data/en_US/locales.csv) for all possibilities (but replace `_` with `-`).
 
 #### Questions
 

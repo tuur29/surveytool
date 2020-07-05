@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { IconWrapper } from "../common/Icon";
 import { getElevation } from "../../utils/theme";
+import { SliderDirectionType } from "../../types/ConfigTypes";
 
 const baseColors = css`
     background-color: ${({ theme }) => theme.colors.controlBack};
@@ -37,6 +38,7 @@ export const Checkbox = styled.div<{ checked?: boolean }>`
     border-radius: ${({ theme }) => theme.sizes.radius};
     overflow: hidden;
 
+    /* Invisible placeholder in front of checkmark icon to make check animation */
     &::after {
         content: "";
         display: inline-block;
@@ -50,10 +52,11 @@ export const Checkbox = styled.div<{ checked?: boolean }>`
         transition: left 0.3s;
     }
 
+    /* Check icon */
     svg {
-        width: calc(100% - (2px * 2));
-        height: calc(100% - (2px * 2));
-        margin: 2px;
+        width: calc(100% - (${({ theme }) => theme.sizes.controlCheckOffset} * 2));
+        height: calc(100% - (${({ theme }) => theme.sizes.controlCheckOffset} * 2));
+        margin: ${({ theme }) => theme.sizes.controlCheckOffset};
         color: ${({ theme }) => theme.colors.controlHighlight};
         vertical-align: super;
     }
@@ -73,17 +76,18 @@ export const RadioButton = styled.div<{ checked?: boolean }>`
     border-color: ${({ theme, checked }) => (checked ? theme.colors.controlBorderActive : theme.colors.controlBorder)};
     border-radius: 100%;
 
+    /* Coloured bullet */
     &::before {
         content: "";
         display: inline-block;
         position: absolute;
         ${({ theme }) => css`
-            top: ${theme.sizes.controlValueOffset};
-            right: ${theme.sizes.controlValueOffset};
-            bottom: ${theme.sizes.controlValueOffset};
-            left: ${theme.sizes.controlValueOffset};
+            top: ${theme.sizes.controlRadioOffset};
+            right: ${theme.sizes.controlRadioOffset};
+            bottom: ${theme.sizes.controlRadioOffset};
+            left: ${theme.sizes.controlRadioOffset};
         `};
-        border-radius: 100%;
+        border-radius: 50%;
         background-color: ${({ theme }) => theme.colors.controlHighlight};
 
         /* animation */
@@ -121,31 +125,27 @@ export const SelectValue = styled.div<{ opened?: boolean }>`
     cursor: pointer;
 
     ${({ opened }) =>
-        opened &&
-        css`
-            border-bottom-right-radius: 0px;
-            border-bottom-left-radius: 0px;
-
-            svg {
-                color: ${({ theme }) => theme.colors.controlBorderActive};
-            }
-        `};
-
-    ${({ opened }) =>
-        !opened &&
+        !opened && // default, not opened styles
         css`
             &:hover {
                 border-color: ${({ theme }) => theme.colors.controlBorderHover};
             }
 
-            &:hover svg {
+            &:hover > * > svg {
                 color: ${({ theme }) => theme.colors.controlBorderHover};
             }
         `};
 
-    ${IconWrapper} {
-        margin-left: ${({ theme }) => theme.space[2]}px;
-    }
+    ${({ opened }) =>
+        opened && // opened styles
+        css`
+            border-bottom-right-radius: 0px;
+            border-bottom-left-radius: 0px;
+
+            > * > svg {
+                color: ${({ theme }) => theme.colors.controlBorderActive};
+            }
+        `};
 `;
 
 export const SelectDropdown = styled.ul<{ show: boolean }>`
@@ -206,11 +206,12 @@ export const Label = styled.div`
 // Text
 // ----------------------------------------------------------------------
 
-export const TextField = styled.input`
+export const TextField = styled.input<{ isError?: boolean }>`
     ${baseColors};
     ${baseMargin};
     ${basePadding};
     border-radius: ${({ theme }) => theme.sizes.radius};
+    color: ${({ theme }) => theme.colors.onBack};
 
     &:hover,
     &:focus,
@@ -219,10 +220,11 @@ export const TextField = styled.input`
     }
 
     &:not([value=""]) {
-        border-color: ${({ theme }) => theme.colors.controlBorderActive};
+        border-color: ${({ theme, isError }) => isError ? theme.colors.error : theme.colors.controlBorderActive};
     }
 
-    ::placeholder {
+    /* TODO: fix test placeholder color in darkmode */
+    &::placeholder {
         color: ${({ theme }) => theme.colors.controlBorder};
     }
 `;
@@ -238,4 +240,63 @@ export const FieldError = styled.div`
         margin-right: 0.5em;
         max-height: 100%;
     }
+`;
+
+// ----------------------------------------------------------------------
+// Slider
+// ----------------------------------------------------------------------
+
+export const SliderWrapper = styled.div<{ width?: number }>`
+    position: relative;
+    width: ${({ width }) => width || 300}px;
+    height: 30px;
+    background: green;
+    user-select: none;
+`;
+
+export const SliderTrack = styled.div<{ percentage: number; direction?: SliderDirectionType }>`
+    position: absolute;
+    top: calc(50% - 1.5px);
+    width: 100%;
+    height: 3px;
+    border-radius: 1px;
+    background-color: red;
+`;
+
+export const SliderHandle = styled.div<{ percentage: number; direction?: SliderDirectionType }>`
+    position: absolute;
+    top: 20%;
+    left: ${({ percentage }) => percentage}%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: middle;
+    background-color: red;
+    border-radius: 100%;
+`;
+
+export const SliderHandleLabel = styled.span`
+    color: white;
+    font-size: 14px;
+`;
+
+export const SliderLabel = styled.span<{ location: "left" | "right" }>`
+    position: absolute;
+    top: 15%;
+    left: ${({ location }) => (location === "left" ? -5 : 105)}%;
+    color: black;
+`;
+
+export const SliderMark = styled.div<{ percentage: number; direction?: SliderDirectionType }>`
+    position: absolute;
+    top: 30%;
+    width: 2px;
+    height: 40%;
+    background-color: red;
+
+    ${({ direction, percentage }) =>
+        css`
+            ${direction === "toLeft" ? "right" : "left"}: ${percentage}%
+        `};
 `;

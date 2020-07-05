@@ -4,10 +4,10 @@ import { useStoreSelector } from "../redux/store";
 import { formatTimestamp } from "../utils/utils";
 import useLabel, { useLabels } from "../hooks/useLabel";
 import { Container, Header, Footer } from "./styles/Container";
-import PlaceholderQuestion from "./questions/PlaceholderQuestion";
 import SingleChoiceQuestion from "./questions/SingleChoiceQuestion";
 import MultipleChoiceQuestion from "./questions/MultipleChoiceQuestion";
 import TextQuestion from "./questions/TextQuestion";
+import SliderQuestion from "./questions/SliderQuestion";
 
 const determineComponent = (question: AllQuestionsType): JSX.Element => {
     switch (question.type) {
@@ -17,8 +17,8 @@ const determineComponent = (question: AllQuestionsType): JSX.Element => {
             return <MultipleChoiceQuestion key={question.id} question={question} />;
         case answerTypes.text:
             return <TextQuestion key={question.id} question={question} />;
-        default:
-            return <PlaceholderQuestion key={question.id} title={question.title} />;
+        case answerTypes.slider:
+            return <SliderQuestion key={question.id} question={question} />;
     }
 };
 
