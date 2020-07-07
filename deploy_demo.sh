@@ -7,7 +7,7 @@ distdir="build"
 basebranch="master"
 destbranch="gh-pages"
 
-
+# TODO: Add a way to add mock config
 # CODE
 
 if [[ "$(git status)" == *"nothing to commit, working tree clean"* ]]; then

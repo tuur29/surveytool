@@ -2,7 +2,7 @@
     "name": "surveytool",
     "version": "0.1.0",
     "private": true,
-    "homepage":"https://tuur29.github.io/surveytool/",
+    "homepage": "https://tuur29.github.io/surveytool/",
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
@@ -53,6 +53,7 @@
         "prettier": "^2.0.5",
         "redux-devtools-extension": "^2.13.8",
         "sinon": "^9.0.2",
+        "stats-webpack-markdown": "^0.2.2",
         "ts-jest": "^26.1.0"
     },
     "eslintConfig": {

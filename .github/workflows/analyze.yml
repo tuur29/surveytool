@@ -1,0 +1,85 @@
+name: Analyze
+
+on:
+  issue_comment: # even though it says issue in the name, it will also listen on PRs
+    types: [created]
+
+jobs:
+  bundlesize:
+    name: Bundle size
+    if: contains(github.event.comment.body, '/bundlesize')
+    runs-on: ubuntu-18.04
+    steps:
+
+    - name: Notify workflow started
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        comment-id: ${{ github.event.comment.id }}
+        reactions: "+1"
+
+    - name: Checkout branch
+      uses: actions/checkout@v2
+
+    - name: Install binaries
+      run: yarn
+
+    # - name: Get packages key
+    #   run: echo ::set-env name=packagesKey::${{ hashFiles('**/package-lock.json') }}
+
+    # # Generate Head stats
+
+    # - name: Build DLL
+    #   run: npm run build:dll
+
+    # - name: Build Head Stats
+    #   env:
+    #     BUNDLESIZE_SERVER_VERSION: ${{ secrets.BUNDLESIZE_SERVER_VERSION }}
+    #   run: npm run build:stats -- --server=$BUNDLESIZE_SERVER_VERSION && mv stats.json stats-head.json
+
+    # # Generate Base stats (will fail if new packages were installed)
+
+    # - name: Checkout base branch
+    #   run: git fetch origin ${{ github.base_ref }}:${{ github.base_ref }} && git checkout ${{ github.base_ref }}
+
+    # - name: Install binaries
+    #   if: ${{ hashFiles('**/package-lock.json') != env.packagesKey }} # reinstall binaries if needed
+    #   run: npm ci
+
+    # - name: Build DLL
+    #   run: npm run build:dll
+
+    # - name: Build Base Stats
+    #   env:
+    #     BUNDLESIZE_SERVER_VERSION: ${{ secrets.BUNDLESIZE_SERVER_VERSION }}
+    #   run: npm run build:stats -- --server=$BUNDLESIZE_SERVER_VERSION && mv stats.json stats-base.json
+
+    # Generate and upload report
+
+    - name: Generate Report
+      shell: bash
+      run: ./.github/workflows/bundlesize.sh
+
+    - name: Persist stats
+      uses: actions/upload-artifact@v2
+      with:
+        name: stats
+        path: stats*
+
+    - name: Read report
+      id: report
+      shell: bash
+      run: |
+        content="$(cat stats.md)"
+        content="${content//'%'/'%25'}"
+        content="${content//$'\n'/'%0A'}"
+        content="${content//$'\r'/'%0D'}"
+        echo $content
+        echo "::set-output name=content::$content"
+
+    - name: Post comment
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        comment-id: ${{ github.event.comment.id }}
+        edit-mode: replace
+        body: |
+          ${{ steps.report.outputs.content }}
