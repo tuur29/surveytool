@@ -25,7 +25,7 @@ const useInit = (): void => {
         };
 
         // init with already defined config or mockdata on dev mode
-        if (window.surveyConfig || !isProduction()) {
+        if (window.surveyConfig || !isProduction(true)) {
             window.setSurveyConfig(window.surveyConfig || mockConfig);
         }
 
@@ -34,7 +34,7 @@ const useInit = (): void => {
         // window.setSurveyConfig({ ...window.mockConfig, theme: { darkMode: true, values: { colors: { controlHighlight: "#ff00ff" } } } });
         // window.setSurveyConfig({questions: [...window.mockConfig.questions.slice(2,4)]});
         // window.setSurveyConfig({ ...window.mockConfig, labels: { questionsTitle: "Hi!" } });
-        if (!isProduction()) {
+        if (!isProduction(true)) {
             window.mockConfig = mockConfig;
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps

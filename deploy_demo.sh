@@ -2,7 +2,7 @@
 
 # CONFIG
 
-buildcommand="yarn build"
+buildcommand="REACT_APP_DEMO=true yarn build"
 distdir="build"
 basebranch="master"
 destbranch="gh-pages"
