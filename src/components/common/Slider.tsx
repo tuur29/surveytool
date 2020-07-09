@@ -36,10 +36,10 @@ const Slider = (props: PropsType): JSX.Element => {
         }
     }, []);
 
-    const onEnd = useCallback((event: MouseEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>) => {
+    const onEnd = (event: MouseEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>) => {
         isDragging.current = false;
         onChange(visualValue);
-    }, []);
+    };
 
     // update the visual value if parent forces change
     useEffect(() => {
@@ -53,7 +53,7 @@ const Slider = (props: PropsType): JSX.Element => {
             .fill(0)
             .map((_, index) => (index * 100) / total)
             .filter((_, index) => index > 0);
-    }, [min, max, step, direction]);
+    }, [min, max, step]);
 
     return (
         <SliderWrapper>

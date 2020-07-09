@@ -4,7 +4,8 @@
 // Helper methods
 // ----------------------------------------------------------------------
 
-export const isProduction = (allowOnDemo?: boolean): boolean => process.env.NODE_ENV === "production" || (!!allowOnDemo && !!process.env.REACT_APP_DEMO);
+export const isDev = (allowOnDemo?: boolean): boolean =>
+    process.env.NODE_ENV !== "production" || (!!allowOnDemo && !!process.env.REACT_APP_DEMO);
 
 export const generateAnswerStorageKey = (configId: string): string => `surveyTool-answers-${configId}`;
 

@@ -77,15 +77,14 @@ The format of dates and times is locale based. By default the end users browser 
 2. Start project (`yarn start` / `npm run start`)
 3. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### Production build 
+### Production build
 
-`yarn build` builds the app for production to the `build` folder.  
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- `yarn build` builds the app for production to the `build` folder.
+- Bundle the output with `yarn bundle`, this will give you a single `dist/surveytool.min.js` you can upload and use.
 
-The build is minified and the filenames include the hashes.  
-Your app is ready to be deployed!
+Demo:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- To update the demo page run `./deploy_demo.sh`.
 
 ### Learn More
 
