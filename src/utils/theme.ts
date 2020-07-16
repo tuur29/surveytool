@@ -23,11 +23,15 @@ const colors = {
     onError: palettes.neutralLight[1],
     // input controls
     controlBack: palettes.neutralLight[0],
-    controlBackHover: palettes.neutralLight[2], // TODO: use everywhere
+    controlBackHover: palettes.neutralLight[2],
     controlHighlight: palettes.primary[8],
+    controlHighlightActive: palettes.primary[6],
     controlBorder: palettes.neutralLight[6],
     controlBorderHover: palettes.neutralLight[8],
     controlBorderActive: palettes.neutralLight[7],
+    controlPlaceholder: palettes.neutralLight[6],
+    controlTick: palettes.neutralLight[6],
+    controlSliderBack: palettes.neutralLight[6],
     // other colours
     shadow: palettes.neutralLight[7],
     spinner: palettes.primary[9],
@@ -41,6 +45,9 @@ const sizes = {
     controlCheckOffset: "2px",
     controlRadioOffset: "3px",
     controlError: "14px",
+    controlSliderRailHeight: "6px",
+    controlSliderTrackHeight: "12px",
+    controlSliderHandleSize: "24px",
     questionTitle: "18px",
     title: "32px",
     footer: "14px",
@@ -106,6 +113,9 @@ export const darkTheme: DefaultTheme = {
         controlBorder: palettes.neutralDark[4],
         controlBorderHover: palettes.neutralDark[6],
         controlBorderActive: palettes.neutralDark[5],
+        controlPlaceholder: palettes.neutralDark[6],
+        controlTick: palettes.neutralDark[6],
+        controlSliderBack: palettes.neutralDark[5],
         // other colours
         shadow: palettes.neutralDark[0],
         icon: palettes.neutralDark[8],

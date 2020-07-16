@@ -1,7 +1,7 @@
 import { answerTypes, ConfigType } from "../types/ConfigTypes";
 
 export const mockConfig: Partial<ConfigType> = {
-    id: "mock",
+    id: "mock1",
     questions: [
         {
             id: "EDJUJDO",

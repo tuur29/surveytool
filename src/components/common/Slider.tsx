@@ -1,5 +1,6 @@
-import React, { useState, useCallback, MouseEvent, TouchEvent, useRef, useEffect, useMemo } from "react";
-import { SliderWrapper, SliderTrack, SliderHandle, SliderHandleLabel, SliderLabel, SliderMark } from "../styles/Input";
+import React, { Fragment } from "react";
+import { Slider as CompoundSlider, Rail, Handles, Tracks, Ticks } from "react-compound-slider";
+import { SliderWrapper, SliderRail, SliderHandle, SliderTick, SliderTrack, SliderTickLabel } from "../styles/Input";
 import { RangeDirectionType } from "../../types/ConfigTypes";
 
 type PropsType = {
@@ -8,75 +9,55 @@ type PropsType = {
     value: number;
     step: number;
     direction: RangeDirectionType;
+    tickCount: number;
     onChange: (value: number) => void;
 };
 
-// TODO: finish slider
 const Slider = (props: PropsType): JSX.Element => {
-    const { min, max, value, step, direction, onChange } = props;
-
-    // the actual value in the state will only be updated once the users lets go of the handle
-    const isDragging = useRef(false);
-    const [visualValue, setVisualValue] = useState(value);
-
-    const percentage = (visualValue * 100) / (max - min);
-
-    // ----------------------------------------------------------------------
-    // Event handlers
-    // ----------------------------------------------------------------------
-
-    const onStart = useCallback((event: MouseEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>) => {
-        isDragging.current = true;
-    }, []);
-
-    const onMove = useCallback((event: MouseEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>) => {
-        if (isDragging.current) {
-            // console.log((event as any).clientX());
-            setVisualValue(3);
-        }
-    }, []);
-
-    const onEnd = (event: MouseEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>) => {
-        isDragging.current = false;
-        onChange(visualValue);
-    };
-
-    // update the visual value if parent forces change
-    useEffect(() => {
-        setVisualValue(value);
-    }, [value]);
-
-    // TODO: add first and list items
-    const marks: number[] = useMemo(() => {
-        const total = (max - min) / step;
-        return new Array(total)
-            .fill(0)
-            .map((_, index) => (index * 100) / total)
-            .filter((_, index) => index > 0);
-    }, [min, max, step]);
+    const { min, max, value, step, direction, tickCount, onChange } = props;
 
     return (
         <SliderWrapper>
-            <SliderLabel location="left">{direction === "toLeft" ? max : min}</SliderLabel>
-            <SliderTrack percentage={percentage} direction={direction} />
-
-            {marks.map((percentage, index) => (
-                <SliderMark key={index} direction={direction} percentage={percentage} />
-            ))}
-
-            <SliderHandle
-                percentage={percentage}
-                direction={direction}
-                onMouseDown={onStart}
-                onMouseMove={onMove}
-                onMouseUp={onEnd}
-                onTouchStart={onStart}
-                onTouchMove={onMove}
-                onTouchEnd={onEnd}
+            <CompoundSlider
+                mode={1}
+                domain={[min, max]}
+                step={step}
+                values={[value]}
+                reversed={direction === "decrease"}
+                onChange={(values) => onChange(values[0])}
             >
-                <SliderHandleLabel>{visualValue}</SliderHandleLabel>
-            </SliderHandle>
-            <SliderLabel location="right">{direction === "toLeft" ? min : max}</SliderLabel>
+                <Rail>{({ getRailProps }) => <SliderRail {...getRailProps()} />}</Rail>
+                <Handles>
+                    {({ handles, getHandleProps }) => (
+                        <div className="slider-handles">
+                            {handles.map((handle) => (
+                                <SliderHandle key={handle.id} percent={handle.percent} {...getHandleProps(handle.id)} />
+                            ))}
+                        </div>
+                    )}
+                </Handles>
+                <Tracks left={false} right>
+                    {({ tracks, getTrackProps }) => (
+                        <div className="slider-tracks">
+                            {tracks.map(({ id, source }) => (
+                                <SliderTrack key={id} percent={source.percent} {...getTrackProps()} />
+                            ))}
+                        </div>
+                    )}
+                </Tracks>
+                <Ticks count={tickCount}>
+                    {({ ticks }) => (
+                        <div className="slider-ticks">
+                            {ticks.map((tick) => (
+                                <Fragment key={tick.id}>
+                                    <SliderTick percent={tick.percent} />
+                                    <SliderTickLabel percent={tick.percent}>{tick.value}</SliderTickLabel>
+                                </Fragment>
+                            ))}
+                        </div>
+                    )}
+                </Ticks>
+            </CompoundSlider>
         </SliderWrapper>
     );
 };

@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import { IconWrapper } from "../common/Icon";
 import { getElevation } from "../../utils/theme";
-import { RangeDirectionType } from "../../types/ConfigTypes";
 
 const baseColors = css`
     background-color: ${({ theme }) => theme.colors.controlBack};
@@ -54,6 +53,7 @@ export const Checkbox = styled.div<{ checked?: boolean }>`
 
     /* Check icon */
     svg {
+        top: 0;
         width: calc(100% - (${({ theme }) => theme.sizes.controlCheckOffset} * 2));
         height: calc(100% - (${({ theme }) => theme.sizes.controlCheckOffset} * 2));
         margin: ${({ theme }) => theme.sizes.controlCheckOffset};
@@ -128,6 +128,10 @@ export const SelectValue = styled.div<{ opened?: boolean }>`
     min-width: 150px;
     border-radius: ${({ theme }) => theme.sizes.radius};
     cursor: pointer;
+
+    > * > svg {
+        margin-left: ${({ theme }) => theme.space[2]}px;
+    }
 
     ${({ opened }) =>
         !opened && // default, not opened styles
@@ -213,7 +217,8 @@ export const BottomLabel = styled(Label)`
     text-align: center;
     margin-top: ${({ theme }) => theme.space[2]}px;
     margin-right: ${({ theme }) => theme.space[4]}px;
-    
+    color: ${({ theme }) => theme.colors.controlTick};
+
     ${RadioButton}, ${Checkbox} {
         margin-right: 0;
     }
@@ -228,7 +233,7 @@ export const TextField = styled.input<{ isError?: boolean }>`
     ${baseMargin};
     ${basePadding};
     border-radius: ${({ theme }) => theme.sizes.radius};
-    color: ${({ theme }) => theme.colors.onBack};
+    color: ${({ theme }) => theme.colors.onSurface};
 
     &:hover,
     &:focus,
@@ -237,12 +242,11 @@ export const TextField = styled.input<{ isError?: boolean }>`
     }
 
     &:not([value=""]) {
-        border-color: ${({ theme, isError }) => isError ? theme.colors.error : theme.colors.controlBorderActive};
+        border-color: ${({ theme, isError }) => (isError ? theme.colors.error : theme.colors.controlBorderActive)};
     }
 
-    /* TODO: fix test placeholder color in darkmode */
     &::placeholder {
-        color: ${({ theme }) => theme.colors.controlBorder};
+        color: ${({ theme }) => theme.colors.controlPlaceholder};
     }
 `;
 
@@ -263,57 +267,87 @@ export const FieldError = styled.div`
 // Slider
 // ----------------------------------------------------------------------
 
+const sliderTransition = css`
+    transition: all 0.15s;
+`;
+
 export const SliderWrapper = styled.div<{ width?: number }>`
-    position: relative;
-    width: ${({ width }) => width || 300}px;
-    height: 30px;
-    background: green;
-    user-select: none;
+    & > div {
+        position: relative;
+        width: ${({ width }) => width || 300}px;
+        height: 25px;
+        margin-bottom: ${({ theme }) => theme.space[3]}px;
+        user-select: none;
+    }
 `;
 
-export const SliderTrack = styled.div<{ percentage: number; direction?: RangeDirectionType }>`
+export const SliderRail = styled.div`
     position: absolute;
-    top: calc(50% - 1.5px);
+    top: calc(50% - (${({ theme }) => theme.sizes.controlSliderRailHeight} / 2));
     width: 100%;
-    height: 3px;
-    border-radius: 1px;
-    background-color: red;
+    height: ${({ theme }) => theme.sizes.controlSliderRailHeight};
+    border-radius: ${({ theme }) => theme.sizes.radius};
+    background-color: ${({ theme }) => theme.colors.controlSliderBack};
 `;
 
-export const SliderHandle = styled.div<{ percentage: number; direction?: RangeDirectionType }>`
+export const SliderTrack = styled.div<{ percent: number }>`
     position: absolute;
-    top: 20%;
-    left: ${({ percentage }) => percentage}%;
-    width: 20px;
-    height: 20px;
+    z-index: 1;
+    top: calc(50% - (${({ theme }) => theme.sizes.controlSliderTrackHeight} / 2));
+    left: 0;
+    right: ${({ percent }) => 100 - percent}%;
+    height: ${({ theme }) => theme.sizes.controlSliderTrackHeight};
+    width: unset;
+    background-color: ${({ theme }) => theme.colors.primary};
+    border-radius: ${({ percent, theme }) => (percent === 100 ? theme.sizes.radius : "initial")};
+    border-top-left-radius: ${({ theme }) => theme.sizes.radius};
+    border-bottom-left-radius: ${({ theme }) => theme.sizes.radius};
+
+    ${sliderTransition};
+`;
+
+export const SliderHandle = styled.div<{ percent: number }>`
+    position: absolute;
+    z-index: 2;
+    top: calc(50% - (${({ theme }) => theme.sizes.controlSliderHandleSize} / 2));
+    left: ${({ percent }) => percent}%;
     display: flex;
+    width: ${({ theme }) => theme.sizes.controlSliderHandleSize};
+    height: ${({ theme }) => theme.sizes.controlSliderHandleSize};
     justify-content: center;
-    align-items: middle;
-    background-color: red;
+    align-items: center;
+    background-color: ${({ theme }) => theme.colors.primary};
     border-radius: 100%;
+    transform: translateX(-50%);
+    cursor: move;
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: ${({ theme }) => theme.colors.controlHighlightActive};
+    }
+
+    ${sliderTransition};
 `;
 
-export const SliderHandleLabel = styled.span`
-    color: white;
-    font-size: 14px;
-`;
-
-export const SliderLabel = styled.span<{ location: "left" | "right" }>`
+export const SliderTick = styled.div<{ percent: number }>`
     position: absolute;
-    top: 15%;
-    left: ${({ location }) => (location === "left" ? -5 : 105)}%;
-    color: black;
-`;
-
-export const SliderMark = styled.div<{ percentage: number; direction?: RangeDirectionType }>`
-    position: absolute;
-    top: 30%;
+    top: calc(50% - (${({ theme }) => theme.sizes.controlSliderTrackHeight} / 2));
+    left: ${({ percent }) => percent}%;
     width: 2px;
-    height: 40%;
-    background-color: red;
+    height: ${({ theme }) => theme.sizes.controlSliderTrackHeight};
+    background-color: ${({ theme }) => theme.colors.controlSliderBack};
 
-    ${({ direction, percentage }) =>
-        css`
-            ${direction === "toLeft" ? "right" : "left"}: ${percentage}%
-        `};
+    &:first-of-type,
+    &:last-of-type {
+        display: none;
+    }
+`;
+
+export const SliderTickLabel = styled.span<{ percent: number }>`
+    position: absolute;
+    top: 100%;
+    left: ${({ percent }) => percent}%;
+    color: ${({ theme }) => theme.colors.controlTick};
+    transform: translateX(-50%);
 `;

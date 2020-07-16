@@ -9,6 +9,8 @@ export const isDev = (allowOnDemo?: boolean): boolean =>
 
 export const generateAnswerStorageKey = (configId: string): string => `surveyTool-answers-${configId}`;
 
+export const generateThemeStorageKey = (configId: string): string => `surveyTool-theme-${configId}`;
+
 export const formatTimestamp = (timestamp: number, localeId: string | null | undefined): string =>
     new Intl.DateTimeFormat(localeId || "default", {
         weekday: "short",

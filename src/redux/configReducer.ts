@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */ // We actually want to use Typescript inferring
 import { ConfigType } from "../types/ConfigTypes";
+import { generateThemeStorageKey } from "../utils/utils";
 
 // ----------------------------------------------------------------------
 // Initial state
@@ -22,7 +23,12 @@ export const initConfig = (config: ConfigState) => ({
     config,
 });
 
-export type ConfigActions = ReturnType<typeof initConfig>;
+export const toggleBaseTheme = (enabled: boolean) => ({
+    type: "CONFIG_TOGGLE_THEME" as const,
+    enabled,
+});
+
+export type ConfigActions = ReturnType<typeof initConfig> | ReturnType<typeof toggleBaseTheme>;
 
 // ----------------------------------------------------------------------
 // Reducer
@@ -31,7 +37,23 @@ export type ConfigActions = ReturnType<typeof initConfig>;
 export const configReducer = (state: ConfigState = initialConfigState, action: ConfigActions): ConfigState => {
     switch (action.type) {
         case "CONFIG_INIT": {
-            return { ...initialConfigState, ...action.config };
+            // remember dark mode toggle for easier debugging
+            const locallyStoredTheme = JSON.parse(
+                localStorage.getItem(generateThemeStorageKey(action.config.id)) || "{}",
+            );
+            return {
+                ...initialConfigState,
+                ...action.config,
+                theme: {
+                    ...initialConfigState.theme,
+                    ...action.config.theme,
+                    ...locallyStoredTheme,
+                },
+            };
+        }
+        case "CONFIG_TOGGLE_THEME": {
+            localStorage.setItem(generateThemeStorageKey(state.id || ""), JSON.stringify({ darkMode: action.enabled }));
+            return { ...state, theme: { ...state.theme, darkMode: action.enabled } };
         }
         default: {
             return state;

@@ -40,8 +40,9 @@ const RangeQuestion = (props: PropsType): JSX.Element => {
                     max={question.max || 1}
                     value={value || 0}
                     step={question.step || 1}
-                    direction={question.direction || "toRight"}
                     onChange={setValue}
+                    direction={question.direction || "increase"}
+                    tickCount={question.tickCount || 5}
                 />
             )}
 

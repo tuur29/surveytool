@@ -56,17 +56,18 @@ export type TextQuestionType = BaseQuestion & {
     // TODO: add rows option?
 };
 
-export type RangeDirectionType = "toRight" | "toLeft"; // toRight is default
+export type RangeDirectionType = "increase" | "decrease"; // increase is default
 
 // example: ratings
 export type RangeQuestionType = BaseQuestion & {
     type: answerTypes.range;
     min: number;
     max: number;
+    inputType: "slider" | "radio";
     default?: number;
     step?: number;
-    direction?: RangeDirectionType;
-    inputType: "slider" | "radio";
+    direction?: RangeDirectionType; // only used on slider
+    tickCount?: number; // only used on slider
 };
 
 export type AllQuestionsType =
