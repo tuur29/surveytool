@@ -6,7 +6,7 @@ export enum answerTypes {
     single = "singleChoice",
     multiple = "multipleChoice",
     text = "text",
-    slider = "slider",
+    range = "range",
 }
 
 type Hintable = {
@@ -56,23 +56,24 @@ export type TextQuestionType = BaseQuestion & {
     // TODO: add rows option?
 };
 
-export type SliderDirectionType = "toRight" | "toLeft"; // toRight is default
+export type RangeDirectionType = "toRight" | "toLeft"; // toRight is default
 
 // example: ratings
-export type SliderQuestionType = BaseQuestion & {
-    type: answerTypes.slider;
+export type RangeQuestionType = BaseQuestion & {
+    type: answerTypes.range;
     min: number;
     max: number;
     default?: number;
     step?: number;
-    direction?: SliderDirectionType;
+    direction?: RangeDirectionType;
+    inputType: "slider" | "radio";
 };
 
 export type AllQuestionsType =
     | SingleChoiceQuestionType
     | MultipleChoiceQuestionType
     | TextQuestionType
-    | SliderQuestionType;
+    | RangeQuestionType;
 
 export type ConfigType = {
     id: string; // used to differentiate multiple surveys (or versions) on same domain

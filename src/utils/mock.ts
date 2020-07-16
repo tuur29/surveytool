@@ -33,8 +33,9 @@ export const mockConfig: Partial<ConfigType> = {
         },
         {
             id: "QXCHUKIH",
-            type: answerTypes.slider,
+            type: answerTypes.range,
             title: "How many do you want?",
+            inputType: "slider",
             min: 0,
             max: 10,
             default: 1,
@@ -83,6 +84,15 @@ export const mockConfig: Partial<ConfigType> = {
             type: answerTypes.single,
             title: "Did you like this order flow?",
             checkedByDefault: true,
+        },
+        {
+            id: "PDJRLCWT",
+            type: answerTypes.range,
+            title: "How much did you like it?",
+            inputType: "radio",
+            min: 2,
+            step: 2,
+            max: 8,
         },
     ],
 };

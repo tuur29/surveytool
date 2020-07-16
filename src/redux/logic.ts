@@ -39,8 +39,8 @@ export const LogicMiddleware: Middleware = (store: MiddlewareAPI<Dispatch<Action
                     case answerTypes.text: {
                         return { ...baseAnswer, type: answerTypes.text, value: "" };
                     }
-                    case answerTypes.slider: {
-                        return { ...baseAnswer, type: answerTypes.slider, value: question.default || 0 };
+                    case answerTypes.range: {
+                        return { ...baseAnswer, type: answerTypes.range, value: question.default || 0 };
                     }
                 }
             });

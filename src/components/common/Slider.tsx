@@ -1,13 +1,13 @@
 import React, { useState, useCallback, MouseEvent, TouchEvent, useRef, useEffect, useMemo } from "react";
 import { SliderWrapper, SliderTrack, SliderHandle, SliderHandleLabel, SliderLabel, SliderMark } from "../styles/Input";
-import { SliderDirectionType } from "../../types/ConfigTypes";
+import { RangeDirectionType } from "../../types/ConfigTypes";
 
 type PropsType = {
     min: number;
     max: number;
     value: number;
     step: number;
-    direction: SliderDirectionType;
+    direction: RangeDirectionType;
     onChange: (value: number) => void;
 };
 

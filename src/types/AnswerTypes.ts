@@ -19,9 +19,9 @@ export type TextAnswerType = BaseAnswerType & {
     value: string;
 };
 
-export type SliderAnswerType = BaseAnswerType & {
-    type: answerTypes.slider;
+export type RangeAnswerType = BaseAnswerType & {
+    type: answerTypes.range;
     value: number;
 };
 
-export type AllAnswersType = SingleChoiceAnswerType | MultipleChoiceAnswerType | TextAnswerType | SliderAnswerType;
+export type AllAnswersType = SingleChoiceAnswerType | MultipleChoiceAnswerType | TextAnswerType | RangeAnswerType;

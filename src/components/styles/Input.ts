@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { IconWrapper } from "../common/Icon";
 import { getElevation } from "../../utils/theme";
-import { SliderDirectionType } from "../../types/ConfigTypes";
+import { RangeDirectionType } from "../../types/ConfigTypes";
 
 const baseColors = css`
     background-color: ${({ theme }) => theme.colors.controlBack};
@@ -98,6 +98,11 @@ export const RadioButton = styled.div<{ checked?: boolean }>`
             transform: scale(${checked ? 1 : 0.35});
         `};
     }
+`;
+
+export const RadioListWrapper = styled.div`
+    display: flex;
+    justify-content: flex-start;
 `;
 
 // ----------------------------------------------------------------------
@@ -202,6 +207,18 @@ export const Label = styled.div`
     }
 `;
 
+export const BottomLabel = styled(Label)`
+    flex-direction: column;
+    justify-content: end;
+    text-align: center;
+    margin-top: ${({ theme }) => theme.space[2]}px;
+    margin-right: ${({ theme }) => theme.space[4]}px;
+    
+    ${RadioButton}, ${Checkbox} {
+        margin-right: 0;
+    }
+`;
+
 // ----------------------------------------------------------------------
 // Text
 // ----------------------------------------------------------------------
@@ -254,7 +271,7 @@ export const SliderWrapper = styled.div<{ width?: number }>`
     user-select: none;
 `;
 
-export const SliderTrack = styled.div<{ percentage: number; direction?: SliderDirectionType }>`
+export const SliderTrack = styled.div<{ percentage: number; direction?: RangeDirectionType }>`
     position: absolute;
     top: calc(50% - 1.5px);
     width: 100%;
@@ -263,7 +280,7 @@ export const SliderTrack = styled.div<{ percentage: number; direction?: SliderDi
     background-color: red;
 `;
 
-export const SliderHandle = styled.div<{ percentage: number; direction?: SliderDirectionType }>`
+export const SliderHandle = styled.div<{ percentage: number; direction?: RangeDirectionType }>`
     position: absolute;
     top: 20%;
     left: ${({ percentage }) => percentage}%;
@@ -288,7 +305,7 @@ export const SliderLabel = styled.span<{ location: "left" | "right" }>`
     color: black;
 `;
 
-export const SliderMark = styled.div<{ percentage: number; direction?: SliderDirectionType }>`
+export const SliderMark = styled.div<{ percentage: number; direction?: RangeDirectionType }>`
     position: absolute;
     top: 30%;
     width: 2px;

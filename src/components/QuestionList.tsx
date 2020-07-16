@@ -7,7 +7,7 @@ import { Container, Header, Footer } from "./styles/Container";
 import SingleChoiceQuestion from "./questions/SingleChoiceQuestion";
 import MultipleChoiceQuestion from "./questions/MultipleChoiceQuestion";
 import TextQuestion from "./questions/TextQuestion";
-import SliderQuestion from "./questions/SliderQuestion";
+import RangeQuestion from "./questions/RangeQuestion";
 
 const determineComponent = (question: AllQuestionsType): JSX.Element => {
     switch (question.type) {
@@ -17,8 +17,8 @@ const determineComponent = (question: AllQuestionsType): JSX.Element => {
             return <MultipleChoiceQuestion key={question.id} question={question} />;
         case answerTypes.text:
             return <TextQuestion key={question.id} question={question} />;
-        case answerTypes.slider:
-            return <SliderQuestion key={question.id} question={question} />;
+        case answerTypes.range:
+            return <RangeQuestion key={question.id} question={question} />;
     }
 };
 
