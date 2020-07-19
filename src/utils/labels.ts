@@ -6,7 +6,7 @@ export const defaultLabels = {
     // questions
     questionsTitle: "Questions",
     questionsFooter: "Last update on {date}",
-    questionsErrorTitle: "Please correctly fill in all following questions:",
+    questionsErrorTitle: "These questions need to be filled in correctly to see your result:",
     inputSelectPlaceholder: "--- {count} options ---",
     inputTextErrorNumber: "Please provide a valid number",
     inputTextErrorEmail: "Please provide a correctly formatted email address",

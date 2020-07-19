@@ -12,14 +12,14 @@ const ResultsButton = (): JSX.Element => {
     const dispatch = useStoreDispatch();
     const allQuestions = useStoreSelector((state) => state.config.questions);
     const allAnswers = useStoreSelector((state) => state.answers.list);
-    const [buttonLabel, titleLabel] = useLabels(["resultsSeeButton", "questionsErrorTitle"]);
+    const [buttonLabel, errorTitleLabel] = useLabels(["resultsSeeButton", "questionsErrorTitle"]);
 
     const invalidDataList = allAnswers.reduce<InvalidItem[]>((invalidList, answer) => {
         const question = allQuestions.find((item) => item.id === answer.questionId)!;
         if (!isAnswerValid(question, answer)) {
             invalidList.push({
                 id: question.id,
-                title: question.title,
+                title: question.title.replace("{hint}", ""),
             });
         }
         return invalidList;
@@ -47,7 +47,7 @@ const ResultsButton = (): JSX.Element => {
 
             {!isValid && (
                 <ErrorPanel>
-                    <p>{titleLabel}</p>
+                    <p>{errorTitleLabel}</p>
                     <ErrorList>
                         {invalidDataList.map((item) => (
                             <li key={item.id} onClick={() => scrollToQuestionId(item.id)}>

@@ -21,7 +21,7 @@ type PossibleAnswer = {
 type BaseQuestion = {
     id: string;
     title: string;
-    required?: boolean; // TODO: implement
+    required?: boolean;
     // TODO: weights?
 } & Hintable;
 

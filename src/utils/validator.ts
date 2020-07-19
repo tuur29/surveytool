@@ -50,7 +50,7 @@ export const isAnswerValid = (question: AllQuestionsType, answer: AllAnswersType
 
     // validate text answers
     if (question.type === answerTypes.text && answer.type === answerTypes.text) {        
-        return isTextAnswerValid(question, answer as TextAnswerType);
+        return isTextAnswerValid(question, answer);
     }
 
     // fail if answer is required bu not filled in

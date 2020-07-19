@@ -15,7 +15,7 @@ export const Button = styled.button.attrs({ type: "button" })<{ disabled?: boole
     background-color: ${({ theme }) => theme.colors.controlButton};
     color: ${({ theme }) => theme.colors.controlOnButton};
     font-size: ${({ theme }) => theme.sizes.buttonTextSize};
-    outline: 0;
+    outline: none;
     border: none;
     border-radius: ${({ theme }) => theme.sizes.radius};
     box-shadow: ${getElevation(2)};
@@ -36,6 +36,6 @@ export const Button = styled.button.attrs({ type: "button" })<{ disabled?: boole
         `};
 
     svg {
-        color: inherit;
+        color: inherit !important;
     }
 `;

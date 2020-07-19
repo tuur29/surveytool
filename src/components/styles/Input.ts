@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import { IconWrapper } from "../common/Icon";
 import { getElevation } from "../../utils/theme";
-import { Title } from "./Question";
 
 const baseColors = css`
     background-color: ${({ theme }) => theme.colors.controlBack};
@@ -276,7 +275,7 @@ export const SliderWrapper = styled.div<{ width?: number }>`
     & > div {
         position: relative;
         width: ${({ width }) => width || 300}px;
-        height: 25px;
+        height: 30px;
         margin-bottom: ${({ theme }) => theme.space[3]}px;
         user-select: none;
     }
@@ -317,9 +316,9 @@ export const SliderHandle = styled.div<{ percent: number }>`
     height: ${({ theme }) => theme.sizes.controlSliderHandleSize};
     justify-content: center;
     align-items: center;
-    background-color: ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.controlHighlight};
     border-radius: 100%;
-    transform: translateX(-50%);
+    transform: translateX(-50%); /* pick center as handle reference point */
     cursor: move;
 
     &:hover,
@@ -350,5 +349,5 @@ export const SliderTickLabel = styled.span<{ percent: number }>`
     top: 100%;
     left: ${({ percent }) => percent}%;
     color: ${({ theme }) => theme.colors.controlTick};
-    transform: translateX(-50%);
+    transform: translateX(-50%); /* pick center as tick reference point */
 `;

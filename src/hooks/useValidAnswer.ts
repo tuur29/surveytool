@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useStoreSelector } from "../redux/store";
 import { AllQuestionsType, answerTypes, TextQuestionType } from "../types/ConfigTypes";
 import { LabelType } from "../utils/labels";
-import { isAnswerValid, isAnswerValueFilledIn } from "../utils/validator";
+import { isAnswerValid } from "../utils/validator";
 import useLabel from "./useLabel";
 
 const textAnswerErrorLabelMap: Record<TextQuestionType["format"], LabelType> = {
@@ -43,13 +43,12 @@ const useValidAnswer = <Q extends AllQuestionsType>(question: Q): DataType => {
 
     // only show error when field has been touched or when loaded from storage
     const alreadyFocussed = useStoreSelector((state) => state.answers.loadedFromStorage);
-    const filledIn = isAnswerValueFilledIn(answer);
     const valid = isAnswerValid(question, answer);
     const [focussed, setFocussed] = useState(alreadyFocussed);
 
     return {
         error: customErrorLabel || errorLabel,
-        showError: (filledIn || !!question.required) && !valid && focussed,
+        showError: !valid && focussed,
         setFocussed: () => setFocussed(true),
     };
 };

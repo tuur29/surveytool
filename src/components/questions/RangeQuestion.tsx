@@ -42,7 +42,7 @@ const RangeQuestion = (props: PropsType): JSX.Element => {
                     step={question.step || 1}
                     onChange={setValue}
                     direction={question.direction || "increase"}
-                    tickCount={question.tickCount || 5}
+                    tickCount={question.tickCount || 6}
                 />
             )}
 
