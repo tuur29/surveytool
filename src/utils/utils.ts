@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
-
 // ----------------------------------------------------------------------
 // Helper methods
 // ----------------------------------------------------------------------
@@ -22,14 +20,15 @@ export const formatTimestamp = (timestamp: number, localeId: string | null | und
         second: "2-digit",
     }).format(new Date(timestamp));
 
+
 // ----------------------------------------------------------------------
 // Type helpers
 // ----------------------------------------------------------------------
 
 // Source: https://gist.github.com/navix/6c25c15e0a2d3cd0e5bce999e0086fc9#gistcomment-3300848
-export type DeepPartial<T> = T extends Function
+export type DeepPartial<T> = T extends Function // eslint-disable-line @typescript-eslint/ban-types
     ? T
-    : T extends object
+    : T extends object // eslint-disable-line @typescript-eslint/ban-types
     ? T extends unknown[]
         ? DeepPartial<T[number]>[]
         : { [P in keyof T]?: DeepPartial<T[P]> }

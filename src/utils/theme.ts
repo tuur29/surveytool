@@ -32,15 +32,26 @@ const colors = {
     controlPlaceholder: palettes.neutralLight[6],
     controlTick: palettes.neutralLight[6],
     controlSliderBack: palettes.neutralLight[6],
+    controlButton: palettes.primary[8],
+    controlOnButton: palettes.neutralLight[0],
+    controlButtonDisabled: palettes.neutralLight[4],
+    controlOnButtonDisabled: palettes.neutralLight[8],
     // other colours
     shadow: palettes.neutralLight[7],
     spinner: palettes.primary[9],
     icon: palettes.neutralLight[6],
     iconHover: palettes.neutralLight[7],
+    separator: palettes.neutralLight[4],
 };
 
 const sizes = {
+    // general
     radius: "4px",
+    title: "32px",
+    subtitle: "18px",
+    footer: "14px",
+
+    // inputs
     controlBorder: "2px",
     controlCheckOffset: "2px",
     controlRadioOffset: "3px",
@@ -48,9 +59,7 @@ const sizes = {
     controlSliderRailHeight: "6px",
     controlSliderTrackHeight: "12px",
     controlSliderHandleSize: "24px",
-    questionTitle: "18px",
-    title: "32px",
-    footer: "14px",
+    buttonTextSize: "16px",
 };
 
 // ----------------------------------------------------------------------
@@ -103,7 +112,7 @@ export const darkTheme: DefaultTheme = {
         surface: palettes.neutralDark[3],
         error: palettes.secondary[9],
         // text on general colours
-        onPrimary: palettes.neutralDark[0],
+        onPrimary: palettes.neutralDark[8],
         onBack: palettes.neutralDark[7],
         onSurface: palettes.neutralDark[8],
         onError: palettes.neutralDark[8],
@@ -116,10 +125,15 @@ export const darkTheme: DefaultTheme = {
         controlPlaceholder: palettes.neutralDark[6],
         controlTick: palettes.neutralDark[6],
         controlSliderBack: palettes.neutralDark[5],
+        controlButton: palettes.primary[8],
+        controlOnButton: palettes.neutralDark[8],
+        controlButtonDisabled: palettes.neutralDark[5],
+        controlOnButtonDisabled: palettes.neutralDark[8],
         // other colours
         shadow: palettes.neutralDark[0],
         icon: palettes.neutralDark[8],
         iconHover: palettes.neutralDark[7],
+        separator: palettes.neutralDark[5],
     },
 };
 

@@ -8,6 +8,7 @@ import SingleChoiceQuestion from "./questions/SingleChoiceQuestion";
 import MultipleChoiceQuestion from "./questions/MultipleChoiceQuestion";
 import TextQuestion from "./questions/TextQuestion";
 import RangeQuestion from "./questions/RangeQuestion";
+import ResultsButton from "./results/ResultsButton";
 
 const determineComponent = (question: AllQuestionsType): JSX.Element => {
     switch (question.type) {
@@ -37,6 +38,8 @@ const QuestionList = (): JSX.Element | null => {
         <Container py={4}>
             {titleLabel && <Header>{titleLabel}</Header>}
             {config.questions.map(determineComponent)}
+
+            <ResultsButton />
             {showAnsweredTimetamp && footerLabel && <Footer>{footerLabel}</Footer>}
         </Container>
     );

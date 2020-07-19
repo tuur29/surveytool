@@ -6,6 +6,7 @@ import { ReactComponent as IconClose } from "../../svg/times-circle-duotone.svg"
 import { ReactComponent as IconUpCaret } from "../../svg/caret-up-solid.svg";
 import { ReactComponent as IconCheck } from "../../svg/check-solid.svg";
 import { ReactComponent as IconError } from "../../svg/exclamation-triangle-duotone.svg";
+import { ReactComponent as IconNext } from "../../svg/arrow-circle-right-duotone.svg";
 
 // ----------------------------------------------------------------------
 // Icons
@@ -17,6 +18,7 @@ const icons = {
     upCaret: IconUpCaret,
     check: IconCheck,
     error: IconError,
+    next: IconNext,
 };
 type IconType = keyof typeof icons;
 

@@ -1,14 +1,16 @@
 import React, { Fragment } from "react";
-import { MultipleChoiceQuestionType } from "../../types/ConfigTypes";
-import { Question, Title } from "../styles/Question";
-import { useStoreDispatch } from "../../redux/store";
-import { setAnswer } from "../../redux/answersReducer";
-import HintableLabel from "../common/HintableLabel";
 import useQuestionAnswer from "../../hooks/useQuestionAnswer";
-import { RadioButton, Label } from "../styles/Input";
+import useValidAnswer from "../../hooks/useValidAnswer";
+import { setAnswer } from "../../redux/answersReducer";
+import { useStoreDispatch } from "../../redux/store";
 import { MultipleChoiceAnswerType } from "../../types/AnswerTypes";
-import Select from "../common/Select";
+import { MultipleChoiceQuestionType } from "../../types/ConfigTypes";
 import Checkbox from "../common/Checkbox";
+import HintableLabel from "../common/HintableLabel";
+import Icon from "../common/Icon";
+import Select from "../common/Select";
+import { FieldError, Label, RadioButton } from "../styles/Input";
+import { Question, Title } from "../styles/Question";
 
 type PropsType = {
     question: MultipleChoiceQuestionType;
@@ -18,6 +20,7 @@ const MultipleChoiceQuestion = (props: PropsType): JSX.Element => {
     const { question } = props;
     const dispatch = useStoreDispatch();
     const selectedIds = useQuestionAnswer<MultipleChoiceAnswerType>(question.id).values;
+    const { error, showError, setFocussed } = useValidAnswer(question);
 
     const select = (selectedId: string) => {
         let newValues: string[] = [];
@@ -36,6 +39,7 @@ const MultipleChoiceQuestion = (props: PropsType): JSX.Element => {
             newValues = [selectedId];
         }
 
+        setFocussed();
         dispatch(
             setAnswer({
                 questionId: question.id,
@@ -46,7 +50,7 @@ const MultipleChoiceQuestion = (props: PropsType): JSX.Element => {
     };
 
     return (
-        <Question>
+        <Question id={question.id}>
             <Title>
                 <HintableLabel label={question.title} hints={question.hints} />
             </Title>
@@ -74,6 +78,16 @@ const MultipleChoiceQuestion = (props: PropsType): JSX.Element => {
             {question.inputType === "select" && (
                 <Select options={question.answers} selectedOptionId={selectedIds[0]} onSelectOption={select} />
             )}
+
+            {/* always render FieldError with min-height so showing the error doesn't move content on the page */}
+            <FieldError>
+                {showError && (
+                    <>
+                        <Icon type="error" color="error" />
+                        {error}
+                    </>
+                )}
+            </FieldError>
         </Question>
     );
 };

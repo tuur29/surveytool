@@ -24,12 +24,14 @@ export const mockConfig: Partial<ConfigType> = {
                 },
                 { id: "3", title: "Chocolat" },
             ],
+            required: true,
         },
         {
             id: "PXCHUDAK",
             type: answerTypes.text,
             format: "number",
             title: "How many other people would you estimate that share your favourite flavour?",
+            required: true,
         },
         {
             id: "QXCHUKIH",
@@ -38,7 +40,7 @@ export const mockConfig: Partial<ConfigType> = {
             inputType: "slider",
             min: 0,
             max: 10,
-            default: 1,
+            required: true,
         },
         {
             id: "CUIHUDAK",
@@ -84,6 +86,7 @@ export const mockConfig: Partial<ConfigType> = {
             type: answerTypes.single,
             title: "Did you like this order flow?",
             checkedByDefault: true,
+            required: true,
         },
         {
             id: "PDJRLCWT",
@@ -93,6 +96,7 @@ export const mockConfig: Partial<ConfigType> = {
             min: 2,
             step: 2,
             max: 8,
+            default: 4,
         },
     ],
 };

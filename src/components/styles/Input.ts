@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { IconWrapper } from "../common/Icon";
 import { getElevation } from "../../utils/theme";
+import { Title } from "./Question";
 
 const baseColors = css`
     background-color: ${({ theme }) => theme.colors.controlBack};

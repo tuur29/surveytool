@@ -1,19 +1,15 @@
-import React, { SyntheticEvent, useState } from "react";
-import { TextQuestionType } from "../../types/ConfigTypes";
-import { Question, Title } from "../styles/Question";
-import { useStoreDispatch, useStoreSelector } from "../../redux/store";
-import { setAnswer } from "../../redux/answersReducer";
-import HintableLabel from "../common/HintableLabel";
+import React, { SyntheticEvent } from "react";
 import useQuestionAnswer from "../../hooks/useQuestionAnswer";
-import { TextField, FieldError } from "../styles/Input";
+import useValidAnswer from "../../hooks/useValidAnswer";
+import { setAnswer } from "../../redux/answersReducer";
+import { useStoreDispatch } from "../../redux/store";
 import { TextAnswerType } from "../../types/AnswerTypes";
-import useLabel from "../../hooks/useLabel";
-import { LabelType } from "../../utils/labels";
+import { TextQuestionType } from "../../types/ConfigTypes";
+import { REGEX_NUMBER_ONLY } from "../../utils/validator";
+import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
-
-// eslint-disable-next-line
-const REGEX_EMAIL_FORMAT = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // https://emailregex.com/
-const REGEX_NUMBER_ONLY = /^[0-9]*$/;
+import { FieldError, TextField } from "../styles/Input";
+import { Question, Title } from "../styles/Question";
 
 // blocks users from entering
 const hasForbiddenCharacter = (format: TextQuestionType["format"], value: string): boolean => {
@@ -27,24 +23,6 @@ const hasForbiddenCharacter = (format: TextQuestionType["format"], value: string
     }
 };
 
-// shows error to user if format is incorrect
-const isValueInvalid = (format: TextQuestionType["format"], value: string): boolean => {
-    switch (format) {
-        case "number":
-            return !value.match(REGEX_NUMBER_ONLY);
-        case "email":
-            return !value.match(REGEX_EMAIL_FORMAT);
-        case "text":
-            return false;
-    }
-};
-
-const errorLabelMap: { [format in TextQuestionType["format"]]: LabelType } = {
-    number: "inputTextErrorNumber",
-    email: "inputTextErrorEmail",
-    text: "inputTextErrorText",
-};
-
 type PropsType = {
     question: TextQuestionType;
 };
@@ -53,15 +31,8 @@ const TextQuestion = (props: PropsType): JSX.Element => {
     const { question } = props;
 
     const dispatch = useStoreDispatch();
-    const alreadyFocussed = useStoreSelector((state) => state.answers.loadedFromStorage);
-    const { value } = useQuestionAnswer<TextAnswerType>(question.id);
-
-    const [focussed, setFocussed] = useState(!!value && alreadyFocussed);
-
-    const errorLabel = useLabel(errorLabelMap[question.format]);
-    const invalid = question.customValidation?.regex
-        ? !value.match(question.customValidation.regex)
-        : isValueInvalid(question.format, value);
+    const value = useQuestionAnswer<TextAnswerType>(question.id).value;
+    const { error, showError, setFocussed } = useValidAnswer(question);
 
     const onChange = (event: SyntheticEvent) => {
         const newValue = (event.target as HTMLInputElement).value;
@@ -77,10 +48,8 @@ const TextQuestion = (props: PropsType): JSX.Element => {
         );
     };
 
-    const showError = invalid && focussed && !!value;
-
     return (
-        <Question>
+        <Question id={question.id}>
             <Title>
                 <HintableLabel label={question.title} hints={question.hints} />
             </Title>
@@ -90,7 +59,7 @@ const TextQuestion = (props: PropsType): JSX.Element => {
                 placeholder={question.placeholder || ""}
                 isError={showError}
                 onChange={onChange}
-                onBlur={() => setFocussed(true)}
+                onBlur={setFocussed}
             />
 
             {/* always render FieldError with min-height so showing the error doesn't move content on the page */}
@@ -98,7 +67,7 @@ const TextQuestion = (props: PropsType): JSX.Element => {
                 {showError && (
                     <>
                         <Icon type="error" color="error" />
-                        {question.customValidation?.error || errorLabel}
+                        {error}
                     </>
                 )}
             </FieldError>

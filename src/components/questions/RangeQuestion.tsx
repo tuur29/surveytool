@@ -29,7 +29,7 @@ const RangeQuestion = (props: PropsType): JSX.Element => {
     };
 
     return (
-        <Question>
+        <Question id={question.id}>
             <Title>
                 <HintableLabel label={question.title} hints={question.hints} />
             </Title>

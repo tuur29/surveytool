@@ -21,8 +21,8 @@ type PossibleAnswer = {
 type BaseQuestion = {
     id: string;
     title: string;
+    required?: boolean; // TODO: implement
     // TODO: weights?
-    // TODO: required answer
 } & Hintable;
 
 // example: "I agree with terms and conditions"
