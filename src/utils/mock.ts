@@ -14,7 +14,7 @@ export const mockConfig: Partial<ConfigType> = {
             type: answerTypes.multiple,
             title: "What flavour do you want?",
             inputType: "radio",
-            answers: [
+            options: [
                 { id: "0", title: "Vanilla" },
                 { id: "1", title: "Banana" },
                 {
@@ -55,7 +55,7 @@ export const mockConfig: Partial<ConfigType> = {
             type: answerTypes.multiple,
             title: "Where do you live?",
             inputType: "select",
-            answers: [
+            options: [
                 { id: "0", title: "US{hint}", hints: ["United States"] },
                 { id: "1", title: "Somewhere else" },
             ],
@@ -65,11 +65,12 @@ export const mockConfig: Partial<ConfigType> = {
             type: answerTypes.multiple,
             title: "Which toppings do you want?",
             inputType: "check",
-            answers: [
+            options: [
                 { id: "0", title: "Sprinkels" },
                 { id: "1", title: "Crumbs" },
                 { id: "2", title: "Chocolat sauce" },
             ],
+            defaultIds: ["1", "2"],
         },
         {
             id: "PZQUDAF",
@@ -99,4 +100,14 @@ export const mockConfig: Partial<ConfigType> = {
             default: 4,
         },
     ],
+    // theme: {
+    //     darkMode: true,
+    //     values: {
+    //         colors: { controlHighlight: "#ff00ff" },
+    //         sizes: { radius: "0px" },
+    //         fonts: { title: "Serif" },
+    //         breakpoints: { md: "600px" }
+    //     }
+    // },
+    // labels: { questionsFooter: "Copyright", },
 };

@@ -23,7 +23,7 @@ export const isAnswerValueFilledIn = (answer: AllAnswersType): boolean => {
 };
 
 const isTextAnswerValid = (question: TextQuestionType, answer: TextAnswerType): boolean => {
-    // fail if answer is required bu not filled in
+    // fail if answer is required but not filled in
     if (question.required && !isAnswerValueFilledIn(answer)) return false;
 
     // override with custom validation
@@ -53,7 +53,7 @@ export const isAnswerValid = (question: AllQuestionsType, answer: AllAnswersType
         return isTextAnswerValid(question, answer);
     }
 
-    // fail if answer is required bu not filled in
+    // fail if answer is required but not filled in
     if (question.required && !isAnswerValueFilledIn(answer)) return false;
 
     // singleChoice, multipleChoice and range question types cannot be filled in with invalid values

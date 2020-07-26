@@ -4,6 +4,7 @@ import { AllQuestionsType, answerTypes, TextQuestionType } from "../types/Config
 import { LabelType } from "../utils/labels";
 import { isAnswerValid } from "../utils/validator";
 import useLabel from "./useLabel";
+import useQuestionAnswer from "./useQuestionAnswer";
 
 const textAnswerErrorLabelMap: Record<TextQuestionType["format"], LabelType> = {
     number: "inputTextErrorNumber",
@@ -35,7 +36,7 @@ type DataType = {
  */
 const useValidAnswer = <Q extends AllQuestionsType>(question: Q): DataType => {
     // get answer value
-    const answer = useStoreSelector((state) => state.answers.list.find((answer) => answer.questionId === question.id))!;
+    const answer = useQuestionAnswer(question.id);
 
     // get correct error label
     const errorLabel = useLabel(getErrorLabel(question))!;

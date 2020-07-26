@@ -14,7 +14,7 @@ export const LogicMiddleware: Middleware = (store: MiddlewareAPI<Dispatch<Action
 
         // Prepopulate default or locally saved answers in store
         case "CONFIG_INIT": {
-            // attempt to load from 
+            // attempt to load from localstorage so answers are persisted between reloads
             try {
                 const locallyStoredAnswers = localStorage.getItem(generateAnswerStorageKey(action.config.id));
                 if (locallyStoredAnswers) {
@@ -26,7 +26,7 @@ export const LogicMiddleware: Middleware = (store: MiddlewareAPI<Dispatch<Action
                 console.error("Something went wrong when loading previously stored answers", e);
             }
 
-            // create a new set of placeholder answers
+            // or create a new set of placeholder answers
             const initialAnswers: AllAnswersType[] = action.config.questions.map((question) => {
                 const baseAnswer = { questionId: question.id };
                 switch (question.type) {
@@ -34,7 +34,7 @@ export const LogicMiddleware: Middleware = (store: MiddlewareAPI<Dispatch<Action
                         return { ...baseAnswer, type: answerTypes.single, value: question.checkedByDefault || false };
                     }
                     case answerTypes.multiple: {
-                        return { ...baseAnswer, type: answerTypes.multiple, values: [] };
+                        return { ...baseAnswer, type: answerTypes.multiple, values: question.defaultIds || [] };
                     }
                     case answerTypes.text: {
                         return { ...baseAnswer, type: answerTypes.text, value: "" };

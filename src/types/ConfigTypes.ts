@@ -2,7 +2,7 @@ import { DefaultTheme } from "styled-components";
 import { DeepPartial } from "../utils/utils";
 import { LabelType } from "../utils/labels";
 
-export enum answerTypes {
+export enum answerTypes { // TODO: rename to more confusing name, like questionTypes?
     single = "singleChoice",
     multiple = "multipleChoice",
     text = "text",
@@ -14,7 +14,7 @@ type Hintable = {
     hints?: string[]; // %h placeholder in title is replaced with indexed hint
 };
 
-type PossibleAnswer = {
+type Options = {
     id: string;
 } & Hintable;
 
@@ -34,9 +34,10 @@ export type SingleChoiceQuestionType = BaseQuestion & {
 // example: country, gender
 export type MultipleChoiceQuestionType = BaseQuestion & {
     type: answerTypes.multiple;
-    answers: PossibleAnswer[];
+    options: Options[];
+    defaultIds?: string[]; // this should be the ids of the default selected options
     inputType: "radio" | "check" | "select";
-    calcFunction?: (
+    calcFunction?: ( // TODO: move to all questions
         question: MultipleChoiceQuestionType,
         answerIds: string[],
         answerValues: string[],

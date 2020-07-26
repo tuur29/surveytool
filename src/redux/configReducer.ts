@@ -52,6 +52,7 @@ export const configReducer = (state: ConfigState = initialConfigState, action: C
             };
         }
         case "CONFIG_TOGGLE_THEME": {
+            // remember dark mode toggle for easier debugging
             localStorage.setItem(generateThemeStorageKey(state.id || ""), JSON.stringify({ darkMode: action.enabled }));
             return { ...state, theme: { ...state.theme, darkMode: action.enabled } };
         }

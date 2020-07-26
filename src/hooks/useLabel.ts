@@ -1,13 +1,14 @@
 import { useStoreSelector } from "../redux/store";
 import { ValuesType, LabelType, defaultLabels } from "../utils/labels";
 
-export const replaceValues = (label: string | null, values?: ValuesType, replaceAll = true): string | null => {
+const replaceValues = (label: string | null, values?: ValuesType, replaceAll = true): string | null => {
     if (!label) return null;
     if (!values) return label;
 
-    return Object.entries(values).reduce((newLabel, valueEntry) => {
-        const regex = new RegExp(`{${valueEntry[0]}}`, replaceAll ? "g" : "");
-        return newLabel.replace(regex, `${valueEntry[1]}`);
+    // loop over provided values and replace those keys with their values in the provided label
+    return Object.entries(values).reduce((newLabel, [key, value]) => {
+        const regex = new RegExp(`{${key}}`, replaceAll ? "g" : "");
+        return newLabel.replace(regex, `${value}`);
     }, label);
 };
 

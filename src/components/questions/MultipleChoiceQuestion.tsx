@@ -56,27 +56,27 @@ const MultipleChoiceQuestion = (props: PropsType): JSX.Element => {
             </Title>
 
             {question.inputType === "radio" &&
-                question.answers.map((answer) => (
-                    <Fragment key={answer.id}>
-                        <Label onClick={() => select(answer.id)}>
-                            <RadioButton checked={selectedIds.includes(answer.id)} />
-                            <HintableLabel label={answer.title} hints={answer.hints} />
+                question.options.map((option) => (
+                    <Fragment key={option.id}>
+                        <Label onClick={() => select(option.id)}>
+                            <RadioButton checked={selectedIds.includes(option.id)} />
+                            <HintableLabel label={option.title} hints={option.hints} />
                         </Label>
                     </Fragment>
                 ))}
 
             {question.inputType === "check" &&
-                question.answers.map((answer) => (
-                    <Fragment key={answer.id}>
-                        <Label onClick={() => select(answer.id)}>
-                            <Checkbox checked={selectedIds.includes(answer.id)} />
-                            <HintableLabel label={answer.title} hints={answer.hints} />
+                question.options.map((option) => (
+                    <Fragment key={option.id}>
+                        <Label onClick={() => select(option.id)}>
+                            <Checkbox checked={selectedIds.includes(option.id)} />
+                            <HintableLabel label={option.title} hints={option.hints} />
                         </Label>
                     </Fragment>
                 ))}
 
             {question.inputType === "select" && (
-                <Select options={question.answers} selectedOptionId={selectedIds[0]} onSelectOption={select} />
+                <Select options={question.options} selectedOptionId={selectedIds[0]} onSelectOption={select} />
             )}
 
             {/* always render FieldError with min-height so showing the error doesn't move content on the page */}

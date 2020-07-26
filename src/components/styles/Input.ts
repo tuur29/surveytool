@@ -272,7 +272,7 @@ const sliderTransition = css`
 `;
 
 export const SliderWrapper = styled.div<{ width?: number }>`
-    & > div {
+    > div {
         position: relative;
         width: ${({ width }) => width || 300}px;
         height: 30px;

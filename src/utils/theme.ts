@@ -85,7 +85,7 @@ declare module "styled-components" {
 // Default theme
 // ----------------------------------------------------------------------
 
-export const theme: DefaultTheme = {
+const lightTheme: DefaultTheme = {
     colors,
     sizes,
     fonts: {
@@ -102,10 +102,10 @@ export const theme: DefaultTheme = {
     space: [0, 4, 8, 16, 32, 64],
 };
 
-export const darkTheme: DefaultTheme = {
-    ...theme,
+const darkTheme: DefaultTheme = {
+    ...lightTheme,
     colors: {
-        ...theme.colors,
+        ...lightTheme.colors,
         // general colours
         primary: palettes.primary[9],
         back: palettes.neutralDark[2],
@@ -135,6 +135,11 @@ export const darkTheme: DefaultTheme = {
         iconHover: palettes.neutralDark[7],
         separator: palettes.neutralDark[5],
     },
+};
+
+export const defaultThemes = {
+    lightTheme,
+    darkTheme,
 };
 
 // ----------------------------------------------------------------------
