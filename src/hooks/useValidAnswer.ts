@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useStoreSelector } from "../redux/store";
-import { AllQuestionsType, answerTypes, TextQuestionType } from "../types/ConfigTypes";
+import { AllQuestionsType, answerTypes, TextQuestionType } from "../types/QuestionTypes";
 import { LabelType } from "../utils/labels";
 import { isAnswerValid } from "../utils/validator";
 import useLabel from "./useLabel";

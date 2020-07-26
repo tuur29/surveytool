@@ -1,4 +1,5 @@
-import { answerTypes, ConfigType } from "../types/ConfigTypes";
+import { ConfigType } from "../types/ConfigTypes";
+import { answerTypes } from "../types/QuestionTypes";
 
 export const mockConfig: Partial<ConfigType> = {
     id: "mock1",

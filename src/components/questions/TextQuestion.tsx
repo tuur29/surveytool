@@ -4,7 +4,7 @@ import useValidAnswer from "../../hooks/useValidAnswer";
 import { setAnswer } from "../../redux/answersReducer";
 import { useStoreDispatch } from "../../redux/store";
 import { TextAnswerType } from "../../types/AnswerTypes";
-import { TextQuestionType } from "../../types/ConfigTypes";
+import { TextQuestionType } from "../../types/QuestionTypes";
 import { REGEX_NUMBER_ONLY } from "../../utils/validator";
 import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";

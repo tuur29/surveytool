@@ -1,4 +1,4 @@
-import { AllQuestionsType, answerTypes, TextQuestionType } from "../types/ConfigTypes";
+import { AllQuestionsType, answerTypes, TextQuestionType } from "../types/QuestionTypes";
 import { AllAnswersType, TextAnswerType } from "../types/AnswerTypes";
 
 // eslint-disable-next-line

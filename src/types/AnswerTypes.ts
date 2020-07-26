@@ -1,4 +1,4 @@
-import { answerTypes } from "./ConfigTypes";
+import { answerTypes } from "./QuestionTypes";
 
 type BaseAnswerType = {
     questionId: string;

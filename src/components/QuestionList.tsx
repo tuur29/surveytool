@@ -1,5 +1,5 @@
 import React from "react";
-import { AllQuestionsType, answerTypes } from "../types/ConfigTypes";
+import { AllQuestionsType, answerTypes } from "../types/QuestionTypes";
 import { useStoreSelector } from "../redux/store";
 import { formatTimestamp } from "../utils/utils";
 import useLabel, { useLabels } from "../hooks/useLabel";

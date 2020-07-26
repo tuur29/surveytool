@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Middleware, MiddlewareAPI, Dispatch } from "redux";
 import { AllAnswersType } from "../types/AnswerTypes";
-import { answerTypes } from "../types/ConfigTypes";
+import { answerTypes } from "../types/QuestionTypes";
 import { generateAnswerStorageKey } from "../utils/utils";
 import { ActionsType, StateType } from "./store";
 import { initAnswers, AnswersState } from "./answersReducer";

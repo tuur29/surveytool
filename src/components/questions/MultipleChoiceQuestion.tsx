@@ -4,7 +4,7 @@ import useValidAnswer from "../../hooks/useValidAnswer";
 import { setAnswer } from "../../redux/answersReducer";
 import { useStoreDispatch } from "../../redux/store";
 import { MultipleChoiceAnswerType } from "../../types/AnswerTypes";
-import { MultipleChoiceQuestionType } from "../../types/ConfigTypes";
+import { MultipleChoiceQuestionType } from "../../types/QuestionTypes";
 import Checkbox from "../common/Checkbox";
 import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";

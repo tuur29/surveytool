@@ -23,7 +23,7 @@ There are 4 parts to a configuration object:
 | Field name | Data type | Description |
 |---|---|---|
 | `id` | string | Unique key to differentiate between multiple surveys / configs |
-| `questions` | [question array](https://github.com/tuur29/surveytool/blob/master/src/types/ConfigTypes.ts) | Required, complex structure containing all question parameters |
+| `questions` | [question array](https://github.com/tuur29/surveytool/blob/master/src/types/QuestionTypes.ts) | Required, complex structure containing all question parameters |
 | `labels` | [labels](https://github.com/tuur29/surveytool/blob/master/src/utils/labels.ts) | **Optional**, a key value map containing all or some labels in tool |
 | `theme` | [theme](https://github.com/tuur29/surveytool/blob/master/src/utils/theme.ts) | **Optional**, object containing all or some colours, font family / sizes, breakpoints and spacing |
 

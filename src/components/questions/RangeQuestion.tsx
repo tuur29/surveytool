@@ -1,5 +1,5 @@
 import React from "react";
-import { RangeQuestionType } from "../../types/ConfigTypes";
+import { RangeQuestionType } from "../../types/QuestionTypes";
 import { Question, Title } from "../styles/Question";
 import { useStoreDispatch } from "../../redux/store";
 import { setAnswer } from "../../redux/answersReducer";

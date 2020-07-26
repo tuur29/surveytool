@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Slider as CompoundSlider, Rail, Handles, Tracks, Ticks } from "react-compound-slider";
 import { SliderWrapper, SliderRail, SliderHandle, SliderTick, SliderTrack, SliderTickLabel } from "../styles/Input";
-import { RangeDirectionType } from "../../types/ConfigTypes";
+import { RangeDirectionType } from "../../types/QuestionTypes";
 
 type PropsType = {
     min: number;
