@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */ // We actually want to use Typescript inferring
 
+import { generateShowResultStorageKey, isDev } from "../utils/utils";
+
 // ----------------------------------------------------------------------
 // Initial state
 // ----------------------------------------------------------------------
 
 export const initialResultState = {
-    showResult: false, // TODO: persist this to localstorage (for dev only?)
+    showResult: isDev() ? JSON.parse(localStorage.getItem(generateShowResultStorageKey()) || "false") : false, // remember setting for easier debugging
     score: 0,
 };
 export type ResultState = typeof initialResultState;
@@ -39,6 +41,8 @@ export const resultReducer = (state: ResultState = initialResultState, action: R
             };
         }
         case "RESULT_SHOW": {
+            // remember setting for easier debugging
+            if (isDev()) localStorage.setItem(generateShowResultStorageKey(), JSON.stringify(action.visible));
             return {
                 ...state,
                 showResult: action.visible,

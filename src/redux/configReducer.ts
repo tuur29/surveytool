@@ -14,6 +14,7 @@ export const initialConfigState: ConfigType & { initialized: boolean } = {
     theme: {},
     questions: [],
     result: {
+        scoreDomain: [0, 100],
         disableControls: true,
         content: [{ type: resultContentTypes.label, style: "title", label: "Thanks for your submission" }],
     },

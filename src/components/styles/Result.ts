@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { SpaceProps, space } from "styled-system";
 
 export const Result = styled.article<SpaceProps>`
-    text-align: center;
     ${space};
 `;
 
@@ -13,10 +12,10 @@ Result.defaultProps = {
 };
 
 export const Title = styled.h2`
-
+    text-align: center;
 `;
 
 export const Description = styled.div`
-    
+    text-align: center;
 `;
 

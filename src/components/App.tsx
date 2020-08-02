@@ -13,11 +13,12 @@ import ResultList from "./ResultList";
 import { Label } from "./styles/Input";
 import { Footer } from "./styles/Container";
 
-const App = (): JSX.Element => {
+const App = (): JSX.Element | null => {
     useInit();
     const dispatch = useStoreDispatch();
 
     // theme
+    const initialized = useStoreSelector((state) => state.config.initialized);
     const theme = useStoreSelector((state) => state.config.theme);
     const showResult = useStoreSelector((state) => state.result.showResult);
     const overriddenTheme = merge(theme?.darkMode ? defaultThemes.darkTheme : defaultThemes.lightTheme, theme?.values);
@@ -29,6 +30,8 @@ const App = (): JSX.Element => {
     const footerLabel = useLabel("questionsFooter", {
         date: formatTimestamp(lastAnsweredTimestamp, dateLocaleId),
     });
+
+    if (!initialized) return null;
 
     return (
         <ThemeProvider theme={overriddenTheme}>
