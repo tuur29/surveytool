@@ -13,7 +13,7 @@ export const initialConfigState: ConfigType & { initialized: boolean } = {
     labels: {},
     theme: {},
     questions: [],
-    results: {
+    result: {
         disableControls: true,
         content: [{ type: resultContentTypes.label, style: "title", label: "Thanks for your submission" }],
     },

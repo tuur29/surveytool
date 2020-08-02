@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { SpaceProps, space } from "styled-system";
+import { SpaceProps, space, TextAlignProps, textAlign } from "styled-system";
 
 export const Container = styled.div<SpaceProps>`
     max-width: ${({ theme }) => theme.breakpoints.xl};
@@ -15,8 +15,12 @@ export const Header = styled.h1`
     text-align: center;
 `;
 
-export const Footer = styled.footer`
-    text-align: right;
+export const Footer = styled(Container)<TextAlignProps>`
     font-size: ${({ theme }) => theme.sizes.footer};
     font-style: italic;
+    ${textAlign};
 `;
+Footer.defaultProps = {
+    marginY: 4,
+    textAlign: { _: "center", md: "right" },
+};

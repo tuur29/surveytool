@@ -15,7 +15,8 @@ export const defaultLabels = {
     inputMultipleRequiredError: "Please select an option",
 
     // results
-    resultsSeeButton: "See results",
+    resultTitle: "Result",
+    resultSeeButton: "See results",
 };
 
 export type ValuesType = Partial<Record<"count" | "date", string | number>>;

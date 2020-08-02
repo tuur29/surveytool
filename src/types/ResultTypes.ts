@@ -8,7 +8,7 @@ export enum resultContentTypes {
 
 export type ResultLabelType = {
     type: resultContentTypes.label,
-    label: string; // can contain {score} placeholder
+    label: string; // can contain {score}, {scoreX} placeholder (scoreX -> score/10, score/20, score/100...)
     style: "title" | "description" | "scoreCounter";
     animate?: boolean; // will animate score placeholder if set
 };
@@ -33,4 +33,4 @@ export type ResultIFrameType = {
     postData?: boolean;
 };
 
-export type AllResultsType = ResultLabelType | ResultButtonType | ResultGraphType | ResultIFrameType;
+export type AllResultContentType = ResultLabelType | ResultButtonType | ResultGraphType | ResultIFrameType;

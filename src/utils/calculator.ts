@@ -43,7 +43,7 @@ export const calculateScore = (questions: AllQuestionsType[], answers: AllAnswer
 
                 return total + score;
             } catch (exception) {
-                console.error(`Failed to calculate score of question ${question.id}`);
+                console.error(`Failed to calculate score of question ${question.id}`, exception);
             }
         }
 

@@ -5,7 +5,7 @@
 // ----------------------------------------------------------------------
 
 export const initialResultState = {
-    showResult: false,
+    showResult: false, // TODO: persist this to localstorage (for dev only?)
     score: 0,
 };
 export type ResultState = typeof initialResultState;

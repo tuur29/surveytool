@@ -1,14 +1,13 @@
 import React from "react";
 import { AllQuestionsType, questionTypes } from "../types/QuestionTypes";
 import { useStoreSelector } from "../redux/store";
-import { formatTimestamp } from "../utils/utils";
-import useLabel, { useLabels } from "../hooks/useLabel";
-import { Container, Header, Footer } from "./styles/Container";
+import useLabel from "../hooks/useLabel";
+import { Container, Header } from "./styles/Container";
 import SingleChoiceQuestion from "./questions/SingleChoiceQuestion";
 import MultipleChoiceQuestion from "./questions/MultipleChoiceQuestion";
 import TextQuestion from "./questions/TextQuestion";
 import RangeQuestion from "./questions/RangeQuestion";
-import ResultsButton from "./results/ResultsButton";
+import ResultButton from "./result/ResultButton";
 
 const determineComponent = (question: AllQuestionsType): JSX.Element => {
     switch (question.type) {
@@ -25,13 +24,7 @@ const determineComponent = (question: AllQuestionsType): JSX.Element => {
 
 const QuestionList = (): JSX.Element | null => {
     const config = useStoreSelector((state) => state.config);
-    const showAnsweredTimetamp = useStoreSelector((state) => state.answers.loadedFromStorage);
-    const lastAnsweredTimestamp = useStoreSelector((state) => state.answers.lastUpdate);
-
-    const [titleLabel, dateLocaleId] = useLabels(["questionsTitle", "dateLocaleId"]);
-    const footerLabel = useLabel("questionsFooter", {
-        date: formatTimestamp(lastAnsweredTimestamp, dateLocaleId),
-    });
+    const titleLabel = useLabel("questionsTitle");
 
     if (!config.questions.length) return null;
     return (
@@ -39,10 +32,7 @@ const QuestionList = (): JSX.Element | null => {
             {titleLabel && <Header>{titleLabel}</Header>}
             {config.questions.map(determineComponent)}
 
-            <ResultsButton />
-
-            {/* TODO: move to app instead */}
-            {showAnsweredTimetamp && footerLabel && <Footer>{footerLabel}</Footer>}
+            <ResultButton />
         </Container>
     );
 };

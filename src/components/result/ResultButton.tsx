@@ -9,11 +9,12 @@ import { showResult } from "../../redux/resultReducer";
 
 type InvalidItem = { id: string; title: string };
 
-const ResultsButton = (): JSX.Element => {
+// TODO: rename or move file
+const ResultButton = (): JSX.Element => {
     const dispatch = useStoreDispatch();
     const allQuestions = useStoreSelector((state) => state.config.questions);
     const allAnswers = useStoreSelector((state) => state.answers.list);
-    const [buttonLabel, errorTitleLabel] = useLabels(["resultsSeeButton", "questionsErrorTitle"]);
+    const [buttonLabel, errorTitleLabel] = useLabels(["resultSeeButton", "questionsErrorTitle"]);
 
     const invalidDataList = allAnswers.reduce<InvalidItem[]>((invalidList, answer) => {
         const question = allQuestions.find((item) => item.id === answer.questionId)!;
@@ -59,4 +60,4 @@ const ResultsButton = (): JSX.Element => {
     );
 };
 
-export default ResultsButton;
+export default ResultButton;
