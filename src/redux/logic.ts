@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Middleware, MiddlewareAPI, Dispatch } from "redux";
 import { AllAnswersType } from "../types/AnswerTypes";
-import { answerTypes } from "../types/QuestionTypes";
+import { questionTypes } from "../types/QuestionTypes";
 import { generateAnswerStorageKey } from "../utils/utils";
 import { ActionsType, StateType } from "./store";
 import { initAnswers, AnswersState } from "./answersReducer";
@@ -30,17 +30,17 @@ export const LogicMiddleware: Middleware = (store: MiddlewareAPI<Dispatch<Action
             const initialAnswers: AllAnswersType[] = action.config.questions.map((question) => {
                 const baseAnswer = { questionId: question.id };
                 switch (question.type) {
-                    case answerTypes.single: {
-                        return { ...baseAnswer, type: answerTypes.single, value: question.checkedByDefault || false };
+                    case questionTypes.single: {
+                        return { ...baseAnswer, type: questionTypes.single, value: question.checkedByDefault || false };
                     }
-                    case answerTypes.multiple: {
-                        return { ...baseAnswer, type: answerTypes.multiple, values: question.defaultIds || [] };
+                    case questionTypes.multiple: {
+                        return { ...baseAnswer, type: questionTypes.multiple, values: question.defaultIds || [] };
                     }
-                    case answerTypes.text: {
-                        return { ...baseAnswer, type: answerTypes.text, value: "" };
+                    case questionTypes.text: {
+                        return { ...baseAnswer, type: questionTypes.text, value: "" };
                     }
-                    case answerTypes.range: {
-                        return { ...baseAnswer, type: answerTypes.range, value: question.default || 0 };
+                    case questionTypes.range: {
+                        return { ...baseAnswer, type: questionTypes.range, value: question.default || 0 };
                     }
                 }
             });

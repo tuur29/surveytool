@@ -1,18 +1,18 @@
 import { ConfigType } from "../types/ConfigTypes";
-import { answerTypes } from "../types/QuestionTypes";
+import { questionTypes } from "../types/QuestionTypes";
 
 export const mockConfig: Partial<ConfigType> = {
     id: "mock1",
     questions: [
         {
             id: "EDJUJDO",
-            type: answerTypes.single,
+            type: questionTypes.single,
             title: "Are you interested{hint} in eating an ice cream?{hint}",
             hints: ["It's a word", "Say yes!"],
         },
         {
             id: "JIWMEFJA",
-            type: answerTypes.multiple,
+            type: questionTypes.multiple,
             title: "What flavour do you want?",
             inputType: "radio",
             options: [
@@ -29,14 +29,14 @@ export const mockConfig: Partial<ConfigType> = {
         },
         {
             id: "PXCHUDAK",
-            type: answerTypes.text,
+            type: questionTypes.text,
             format: "number",
             title: "How many other people would you estimate that share your favourite flavour?",
             required: true,
         },
         {
             id: "QXCHUKIH",
-            type: answerTypes.range,
+            type: questionTypes.range,
             title: "How many do you want?",
             inputType: "slider",
             min: 0,
@@ -45,7 +45,7 @@ export const mockConfig: Partial<ConfigType> = {
         },
         {
             id: "CUIHUDAK",
-            type: answerTypes.text,
+            type: questionTypes.text,
             format: "email",
             placeholder: "ben@jerry.com",
             title: "On which address do you want to receive your digital{hint} ice cream?",
@@ -53,7 +53,7 @@ export const mockConfig: Partial<ConfigType> = {
         },
         {
             id: "LPAKDUCZUD",
-            type: answerTypes.multiple,
+            type: questionTypes.multiple,
             title: "Where do you live?",
             inputType: "select",
             options: [
@@ -63,7 +63,7 @@ export const mockConfig: Partial<ConfigType> = {
         },
         {
             id: "ENARECZUD",
-            type: answerTypes.multiple,
+            type: questionTypes.multiple,
             title: "Which toppings do you want?",
             inputType: "check",
             options: [
@@ -75,7 +75,7 @@ export const mockConfig: Partial<ConfigType> = {
         },
         {
             id: "PZQUDAF",
-            type: answerTypes.text,
+            type: questionTypes.text,
             format: "text",
             title: "How do you want to name your creation?",
             customValidation: {
@@ -85,14 +85,14 @@ export const mockConfig: Partial<ConfigType> = {
         },
         {
             id: "EPOCOCVOD",
-            type: answerTypes.single,
+            type: questionTypes.single,
             title: "Did you like this order flow?",
             checkedByDefault: true,
             required: true,
         },
         {
             id: "PDJRLCWT",
-            type: answerTypes.range,
+            type: questionTypes.range,
             title: "How much did you like it?",
             inputType: "radio",
             min: 2,

@@ -1,12 +1,12 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { ColorType } from "../../utils/theme";
-import { ReactComponent as IconInfo } from "../../svg/info-circle-duotone.svg";
-import { ReactComponent as IconClose } from "../../svg/times-circle-duotone.svg";
+import { ReactComponent as IconInfo } from "../../svg/info-circle-solid.svg";
+import { ReactComponent as IconClose } from "../../svg/times-circle-solid.svg";
 import { ReactComponent as IconUpCaret } from "../../svg/caret-up-solid.svg";
 import { ReactComponent as IconCheck } from "../../svg/check-solid.svg";
-import { ReactComponent as IconError } from "../../svg/exclamation-triangle-duotone.svg";
-import { ReactComponent as IconNext } from "../../svg/arrow-circle-right-duotone.svg";
+import { ReactComponent as IconError } from "../../svg/exclamation-triangle-solid.svg";
+import { ReactComponent as IconNext } from "../../svg/arrow-circle-right-solid.svg";
 
 // ----------------------------------------------------------------------
 // Icons

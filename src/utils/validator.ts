@@ -1,4 +1,4 @@
-import { AllQuestionsType, answerTypes, TextQuestionType } from "../types/QuestionTypes";
+import { AllQuestionsType, questionTypes, TextQuestionType } from "../types/QuestionTypes";
 import { AllAnswersType, TextAnswerType } from "../types/AnswerTypes";
 
 // eslint-disable-next-line
@@ -7,16 +7,16 @@ export const REGEX_NUMBER_ONLY = /^[0-9]*$/;
 
 export const isAnswerValueFilledIn = (answer: AllAnswersType): boolean => {
     switch (answer.type) {
-        case answerTypes.multiple: {
+        case questionTypes.multiple: {
             return answer.values.length > 0;
         }
-        case answerTypes.range: {
+        case questionTypes.range: {
             return true;
         }
-        case answerTypes.single: {
+        case questionTypes.single: {
             return answer.value;
         }
-        case answerTypes.text: {
+        case questionTypes.text: {
             return !!answer.value;
         }
     }
@@ -49,7 +49,7 @@ export const isAnswerValid = (question: AllQuestionsType, answer: AllAnswersType
     }
 
     // validate text answers
-    if (question.type === answerTypes.text && answer.type === answerTypes.text) {        
+    if (question.type === questionTypes.text && answer.type === questionTypes.text) {        
         return isTextAnswerValid(question, answer);
     }
 

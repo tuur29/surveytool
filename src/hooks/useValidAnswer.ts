@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useStoreSelector } from "../redux/store";
-import { AllQuestionsType, answerTypes, TextQuestionType } from "../types/QuestionTypes";
+import { AllQuestionsType, questionTypes, TextQuestionType } from "../types/QuestionTypes";
 import { LabelType } from "../utils/labels";
 import { isAnswerValid } from "../utils/validator";
 import useLabel from "./useLabel";
@@ -14,13 +14,13 @@ const textAnswerErrorLabelMap: Record<TextQuestionType["format"], LabelType> = {
 
 const getErrorLabel = (question: AllQuestionsType): LabelType => {
     switch (question.type) {
-        case answerTypes.single:
+        case questionTypes.single:
             return "inputSingleRequiredError";
-        case answerTypes.multiple:
+        case questionTypes.multiple:
             return "inputMultipleRequiredError";
-        case answerTypes.text:
+        case questionTypes.text:
             return textAnswerErrorLabelMap[question.format];
-        case answerTypes.range:
+        case questionTypes.range:
             return "error"; // the slider component should prevent invalid values
     }
 };

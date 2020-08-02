@@ -1,5 +1,5 @@
 import React from "react";
-import { AllQuestionsType, answerTypes } from "../types/QuestionTypes";
+import { AllQuestionsType, questionTypes } from "../types/QuestionTypes";
 import { useStoreSelector } from "../redux/store";
 import { formatTimestamp } from "../utils/utils";
 import useLabel, { useLabels } from "../hooks/useLabel";
@@ -12,13 +12,13 @@ import ResultsButton from "./results/ResultsButton";
 
 const determineComponent = (question: AllQuestionsType): JSX.Element => {
     switch (question.type) {
-        case answerTypes.single:
+        case questionTypes.single:
             return <SingleChoiceQuestion key={question.id} question={question} />;
-        case answerTypes.multiple:
+        case questionTypes.multiple:
             return <MultipleChoiceQuestion key={question.id} question={question} />;
-        case answerTypes.text:
+        case questionTypes.text:
             return <TextQuestion key={question.id} question={question} />;
-        case answerTypes.range:
+        case questionTypes.range:
             return <RangeQuestion key={question.id} question={question} />;
     }
 };

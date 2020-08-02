@@ -41,7 +41,7 @@ const ResultsButton = (): JSX.Element => {
 
     return (
         <CenteredButtonWrapper mb={4}>
-            <Button disabled={!isValid} onClick={goToResults}>
+            <Button disabled={!isValid} onClick={goToResults} iconAlign="right">
                 {buttonLabel} <Icon type="next" />
             </Button>
 

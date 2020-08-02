@@ -1,6 +1,6 @@
 import { AllAnswersType } from "./AnswerTypes";
 
-export enum answerTypes { // TODO: rename to more confusing name, like questionTypes?
+export enum questionTypes {
     single = "singleChoice",
     multiple = "multipleChoice",
     text = "text",
@@ -28,13 +28,13 @@ type BaseQuestion = {
 
 // example: "I agree with terms and conditions"
 export type SingleChoiceQuestionType = BaseQuestion & {
-    type: answerTypes.single;
+    type: questionTypes.single;
     checkedByDefault?: boolean;
 };
 
 // example: country, gender
 export type MultipleChoiceQuestionType = BaseQuestion & {
-    type: answerTypes.multiple;
+    type: questionTypes.multiple;
     options: Options[];
     defaultIds?: string[]; // this should be the ids of the default selected options
     inputType: "radio" | "check" | "select";
@@ -42,7 +42,7 @@ export type MultipleChoiceQuestionType = BaseQuestion & {
 
 // example: email, age
 export type TextQuestionType = BaseQuestion & {
-    type: answerTypes.text;
+    type: questionTypes.text;
     format: "text" | "email" | "number";
     placeholder?: string;
     customValidation?: {
@@ -56,7 +56,7 @@ export type RangeDirectionType = "increase" | "decrease"; // increase is default
 
 // example: ratings
 export type RangeQuestionType = BaseQuestion & {
-    type: answerTypes.range;
+    type: questionTypes.range;
     min: number;
     max: number;
     inputType: "slider" | "radio";

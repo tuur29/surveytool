@@ -10,7 +10,7 @@ export const CenteredButtonWrapper = styled.div<SpaceProps>`
     ${space};
 `;
 
-export const Button = styled.button.attrs({ type: "button" })<{ disabled?: boolean }>`
+export const Button = styled.button.attrs({ type: "button" })<{ disabled?: boolean; iconAlign?: "left" | "right" }>`
     padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
     background-color: ${({ theme }) => theme.colors.controlButton};
     color: ${({ theme }) => theme.colors.controlOnButton};
@@ -36,6 +36,8 @@ export const Button = styled.button.attrs({ type: "button" })<{ disabled?: boole
         `};
 
     svg {
-        color: inherit !important;
+        ${({ iconAlign, theme }) => iconAlign && css`
+            margin-${iconAlign === "left" ? "right" : "left"}: ${theme.space[1]}px;
+        `};
     }
 `;
