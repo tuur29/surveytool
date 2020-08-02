@@ -5,6 +5,7 @@
 // ----------------------------------------------------------------------
 
 export const initialResultState = {
+    showResult: false,
     score: 0,
 };
 export type ResultState = typeof initialResultState;
@@ -18,18 +19,29 @@ export const setResult = (score: number) => ({
     score,
 });
 
-export type ResultActions = ReturnType<typeof setResult>;
+export const showResult = (visible = true) => ({
+    type: "RESULT_SHOW" as const,
+    visible,
+});
+
+export type ResultActions = ReturnType<typeof setResult> | ReturnType<typeof showResult>;
 
 // ----------------------------------------------------------------------
 // Reducer
 // ----------------------------------------------------------------------
 
-export const ResultReducer = (state: ResultState = initialResultState, action: ResultActions): ResultState => {
+export const resultReducer = (state: ResultState = initialResultState, action: ResultActions): ResultState => {
     switch (action.type) {
         case "RESULT_SET": {
             return {
                 ...state,
                 score: action.score,
+            };
+        }
+        case "RESULT_SHOW": {
+            return {
+                ...state,
+                showResult: action.visible,
             };
         }
         default: {

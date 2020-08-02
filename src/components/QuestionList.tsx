@@ -40,6 +40,8 @@ const QuestionList = (): JSX.Element | null => {
             {config.questions.map(determineComponent)}
 
             <ResultsButton />
+
+            {/* TODO: move to app instead */}
             {showAnsweredTimetamp && footerLabel && <Footer>{footerLabel}</Footer>}
         </Container>
     );

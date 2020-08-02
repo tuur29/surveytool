@@ -8,12 +8,14 @@
 
 ### Survey
 
+- Add description question
 - Collapse question to single line when answered
 - Highlight current question: https://uimovement.com/design/checkbox-selection-ui/
 - Highlight invalid answered question
 - Checkbox / Radio animation
 - Categories?
 - Popover as sidebar?
+
 
 General
 

@@ -36,6 +36,7 @@ export const Button = styled.button.attrs({ type: "button" })<{ disabled?: boole
         `};
 
     svg {
+        color: ${({ theme, disabled }) => disabled ? theme.colors.icon : "inherit"} !important;
         ${({ iconAlign, theme }) => iconAlign && css`
             margin-${iconAlign === "left" ? "right" : "left"}: ${theme.space[1]}px;
         `};

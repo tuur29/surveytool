@@ -5,6 +5,7 @@ import Icon from "../common/Icon";
 import { useStoreSelector, useStoreDispatch } from "../../redux/store";
 import { isAnswerValid } from "../../utils/validator";
 import { ErrorPanel, ErrorList } from "../styles/Question";
+import { showResult } from "../../redux/resultReducer";
 
 type InvalidItem = { id: string; title: string };
 
@@ -33,10 +34,7 @@ const ResultsButton = (): JSX.Element => {
     };
 
     const goToResults = (): void => {
-        if (isValid) {
-            // TODO: implement see results
-            dispatch({} as any);
-        }
+        if (isValid) dispatch(showResult());
     };
 
     return (

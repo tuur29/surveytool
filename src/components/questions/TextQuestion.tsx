@@ -12,7 +12,7 @@ import { FieldError, TextField } from "../styles/Input";
 import { Question, Title } from "../styles/Question";
 
 // blocks users from entering
-const hasForbiddenCharacter = (format: TextQuestionType["format"], value: string): boolean => {
+const hasForbiddenCharacter = (format: TextQuestionType["inputType"], value: string): boolean => {
     switch (format) {
         case "number":
             return !value.match(REGEX_NUMBER_ONLY);
@@ -37,7 +37,7 @@ const TextQuestion = (props: PropsType): JSX.Element => {
     const onChange = (event: SyntheticEvent) => {
         const newValue = (event.target as HTMLInputElement).value;
         // only block forbidden characters when no custom validation is applied, just to keep all options open
-        if (!question.customValidation && hasForbiddenCharacter(question.format, newValue)) return;
+        if (!question.customValidation && hasForbiddenCharacter(question.inputType, newValue)) return;
 
         dispatch(
             setAnswer({

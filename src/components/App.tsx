@@ -8,12 +8,14 @@ import { defaultThemes, GlobalDebugStyle } from "../utils/theme";
 import { isDev } from "../utils/utils";
 import Checkbox from "./common/Checkbox";
 import QuestionList from "./QuestionList";
+import ResultList from "./ResultList";
 import { Label } from "./styles/Input";
 
 const App = (): JSX.Element => {
     useInit();
     const dispatch = useStoreDispatch();
     const theme = useStoreSelector((state) => state.config.theme);
+    const showResult = useStoreSelector((state) => state.result.showResult);
     const overriddenTheme = merge(
         theme?.darkMode ? defaultThemes.darkTheme : defaultThemes.lightTheme,
         theme?.values,
@@ -35,6 +37,9 @@ const App = (): JSX.Element => {
                     </>
                 )}
                 <QuestionList />
+                {showResult && (
+                    <ResultList />
+                )}
             </>
         </ThemeProvider>
     );

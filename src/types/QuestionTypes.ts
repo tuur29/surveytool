@@ -43,7 +43,7 @@ export type MultipleChoiceQuestionType = BaseQuestion & {
 // example: email, age
 export type TextQuestionType = BaseQuestion & {
     type: questionTypes.text;
-    format: "text" | "email" | "number";
+    inputType: "text" | "email" | "number";
     placeholder?: string;
     customValidation?: {
         regex?: string;

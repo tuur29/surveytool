@@ -1,5 +1,5 @@
 
-export enum resultContentType {
+export enum resultContentTypes {
     label = "label",
     button = "button",
     graph = "graph",
@@ -7,28 +7,28 @@ export enum resultContentType {
 }
 
 export type ResultLabelType = {
-    type: resultContentType.label,
+    type: resultContentTypes.label,
     label: string; // can contain {score} placeholder
     style: "title" | "description" | "scoreCounter";
     animate?: boolean; // will animate score placeholder if set
 };
 
 export type ResultButtonType = {
-    type: resultContentType.button,
+    type: resultContentTypes.button,
     label: string;
     function: "restart" | "saveData" | "link";
     url?: string; // same function as saveDataUrl, but require a user to send manually
 };
 
 export type ResultGraphType = {
-    type: resultContentType.graph,
+    type: resultContentTypes.graph,
     xLabel?: string;
     yLabel?: string;
     titleLabel?: string;
 };
 
 export type ResultIFrameType = {
-    type: resultContentType.iframe,
+    type: resultContentTypes.iframe,
     url?: string;
     postData?: boolean;
 };

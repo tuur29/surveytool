@@ -31,7 +31,7 @@ const isTextAnswerValid = (question: TextQuestionType, answer: TextAnswerType): 
         return !!answer.value.match(question.customValidation.regex);
     }
 
-    switch (question.format) {
+    switch (question.inputType) {
         case "number":
             return !!answer.value.match(REGEX_NUMBER_ONLY);
         case "email":

@@ -6,7 +6,7 @@ import { isAnswerValid } from "../utils/validator";
 import useLabel from "./useLabel";
 import useQuestionAnswer from "./useQuestionAnswer";
 
-const textAnswerErrorLabelMap: Record<TextQuestionType["format"], LabelType> = {
+const textAnswerErrorLabelMap: Record<TextQuestionType["inputType"], LabelType> = {
     number: "inputTextErrorNumber",
     email: "inputTextErrorEmail",
     text: "inputTextErrorText",
@@ -19,7 +19,7 @@ const getErrorLabel = (question: AllQuestionsType): LabelType => {
         case questionTypes.multiple:
             return "inputMultipleRequiredError";
         case questionTypes.text:
-            return textAnswerErrorLabelMap[question.format];
+            return textAnswerErrorLabelMap[question.inputType];
         case questionTypes.range:
             return "error"; // the slider component should prevent invalid values
     }

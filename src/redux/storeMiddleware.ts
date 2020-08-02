@@ -1,17 +1,16 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Middleware, MiddlewareAPI, Dispatch } from "redux";
+import { Middleware, Dispatch, applyMiddleware } from "redux";
 import { AllAnswersType } from "../types/AnswerTypes";
 import { questionTypes } from "../types/QuestionTypes";
 import { generateAnswerStorageKey } from "../utils/utils";
-import { ActionsType, StateType } from "./store";
+import { ActionsType, StoreType } from "./store";
 import { initAnswers, AnswersState } from "./answersReducer";
 
-export const LogicMiddleware: Middleware = (store: MiddlewareAPI<Dispatch<ActionsType>, StateType>) => (
-    next: Dispatch<ActionsType>,
-) => (action: ActionsType) => {
+const LogicMiddleware: Middleware = (store: StoreType) => (next: Dispatch<ActionsType>) => (
+    action: ActionsType,
+) => {
     switch (action.type) {
-
         // Prepopulate default or locally saved answers in store
         case "CONFIG_INIT": {
             // attempt to load from localstorage so answers are persisted between reloads
@@ -22,8 +21,8 @@ export const LogicMiddleware: Middleware = (store: MiddlewareAPI<Dispatch<Action
                     store.dispatch(initAnswers(answers.list, answers.lastUpdate));
                     break;
                 }
-            } catch(e) {
-                console.error("Something went wrong when loading previously stored answers", e);
+            } catch (exception) {
+                console.error("Something went wrong when loading previously stored answers", exception);
             }
 
             // or create a new set of placeholder answers
@@ -57,6 +56,8 @@ export const LogicMiddleware: Middleware = (store: MiddlewareAPI<Dispatch<Action
 
     return next(action);
 };
+
+export const middlewares = applyMiddleware(LogicMiddleware);
 
 // TODO: hook into setting page to results for posting to api and fetching data (reuse below code)
 // if (!loading && !config) {

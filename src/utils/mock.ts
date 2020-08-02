@@ -30,7 +30,7 @@ export const mockConfig: Partial<ConfigType> = {
         {
             id: "PXCHUDAK",
             type: questionTypes.text,
-            format: "number",
+            inputType: "number",
             title: "How many other people would you estimate that share your favourite flavour?",
             required: true,
         },
@@ -46,7 +46,7 @@ export const mockConfig: Partial<ConfigType> = {
         {
             id: "CUIHUDAK",
             type: questionTypes.text,
-            format: "email",
+            inputType: "email",
             placeholder: "ben@jerry.com",
             title: "On which address do you want to receive your digital{hint} ice cream?",
             hints: ["Do not worry it won't melt."],
@@ -76,7 +76,7 @@ export const mockConfig: Partial<ConfigType> = {
         {
             id: "PZQUDAF",
             type: questionTypes.text,
-            format: "text",
+            inputType: "text",
             title: "How do you want to name your creation?",
             customValidation: {
                 regex: "^.{0,10}$",

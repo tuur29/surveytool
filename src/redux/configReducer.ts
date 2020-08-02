@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */ // We actually want to use Typescript inferring
 import { ConfigType } from "../types/ConfigTypes";
 import { generateThemeStorageKey } from "../utils/utils";
-import { resultContentType } from "../types/ResultTypes";
+import { resultContentTypes } from "../types/ResultTypes";
 
 // ----------------------------------------------------------------------
 // Initial state
@@ -14,7 +14,7 @@ export const initialConfigState: ConfigType = {
     questions: [],
     results: {
         disableControls: true,
-        content: [{ type: resultContentType.label, style: "title", label: "Thanks for your submission" }],
+        content: [{ type: resultContentTypes.label, style: "title", label: "Thanks for your submission" }],
     },
 };
 export type ConfigState = typeof initialConfigState;
