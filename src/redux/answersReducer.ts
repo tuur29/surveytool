@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */ // We actually want to use Typescript inferring
 import { AllAnswersType } from "../types/AnswerTypes";
-import { generateAnswerStorageKey } from "../utils/utils";
 
 // ----------------------------------------------------------------------
 // Initial state
 // ----------------------------------------------------------------------
 
 export const initialAnswersState = {
+    initialized: false,
     list: [] as AllAnswersType[],
     lastUpdate: 0,
     loadedFromStorage: false,
@@ -30,7 +30,6 @@ export const resetAnswers = () => ({
 export const setAnswer = (answer: AllAnswersType) => ({
     type: "ANSWERS_SET" as const,
     answer,
-    configId: undefined as string | undefined, // used for persisting answers, set in logic middleware
 });
 
 export type AnswersActions =
@@ -48,6 +47,7 @@ export const answersReducer = (state: AnswersState = initialAnswersState, action
         case "ANSWERS_INIT": {
             return {
                 ...state,
+                initialized: true,
                 list: action.list,
                 lastUpdate: action.lastUpdate || 0,
                 loadedFromStorage: action.lastUpdate ? true : false,
@@ -61,12 +61,7 @@ export const answersReducer = (state: AnswersState = initialAnswersState, action
             const newAnswersList = [...state.list]; // do not mutate original state
             const index = newAnswersList.findIndex((a) => a.questionId === answer.questionId); // find index of answer to edit
             newAnswersList[index > -1 ? index : newAnswersList.length] = answer; // fallback to adding item as next one in the list
-            const newState = { ...state, list: newAnswersList, lastUpdate: Date.now() }; // replace answer
-
-            // TODO: debounce?
-            // persist to localstorage and return
-            localStorage.setItem(generateAnswerStorageKey(action.configId || ""), JSON.stringify(newState));
-            return newState;
+            return { ...state, list: newAnswersList, lastUpdate: Date.now() }; // replace answer
         }
         default: {
             return state;

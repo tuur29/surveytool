@@ -7,7 +7,7 @@ import { generateAnswerStorageKey } from "../utils/utils";
 import { ActionsType, StoreType } from "./store";
 import { initAnswers, AnswersState } from "./answersReducer";
 
-const LogicMiddleware: Middleware = (store: StoreType) => (next: Dispatch<ActionsType>) => (
+const AllLogicMiddleware: Middleware = (store: StoreType) => (next: Dispatch<ActionsType>) => (
     action: ActionsType,
 ) => {
     switch (action.type) {
@@ -16,7 +16,7 @@ const LogicMiddleware: Middleware = (store: StoreType) => (next: Dispatch<Action
             // attempt to load from localstorage so answers are persisted between reloads
             try {
                 const locallyStoredAnswers = localStorage.getItem(generateAnswerStorageKey(action.config.id));
-                if (locallyStoredAnswers) {
+                if (locallyStoredAnswers && locallyStoredAnswers.length) {
                     const answers: AnswersState = JSON.parse(locallyStoredAnswers);
                     store.dispatch(initAnswers(answers.list, answers.lastUpdate));
                     break;
@@ -46,18 +46,12 @@ const LogicMiddleware: Middleware = (store: StoreType) => (next: Dispatch<Action
             store.dispatch(initAnswers(initialAnswers));
             break;
         }
-
-        // Add config id to answers setter so we can save it to local storage
-        case "ANSWERS_SET": {
-            action.configId = store.getState().config.id;
-            break;
-        }
     }
 
     return next(action);
 };
 
-export const middlewares = applyMiddleware(LogicMiddleware);
+export const middlewares = applyMiddleware(AllLogicMiddleware);
 
 // TODO: hook into setting page to results for posting to api and fetching data (reuse below code)
 // if (!loading && !config) {

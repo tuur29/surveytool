@@ -7,7 +7,8 @@ import { resultContentTypes } from "../types/ResultTypes";
 // Initial state
 // ----------------------------------------------------------------------
 
-export const initialConfigState: ConfigType = {
+export const initialConfigState: ConfigType & { initialized: boolean } = {
+    initialized: false,
     id: "",
     labels: {},
     theme: {},
@@ -23,7 +24,7 @@ export type ConfigState = typeof initialConfigState;
 // Actions
 // ----------------------------------------------------------------------
 
-export const initConfig = (config: ConfigState) => ({
+export const initConfig = (config: ConfigType) => ({
     type: "CONFIG_INIT" as const,
     config,
 });
@@ -49,6 +50,7 @@ export const configReducer = (state: ConfigState = initialConfigState, action: C
             return {
                 ...initialConfigState,
                 ...action.config,
+                initialized: true,
                 theme: {
                     ...initialConfigState.theme,
                     ...action.config.theme,
