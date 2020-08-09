@@ -16,12 +16,14 @@ export type ResultLabelType = {
 export type ResultButtonType = {
     type: resultContentTypes.button,
     label: string;
-    function: "restart" | "saveData" | "link";
-    url?: string; // same function as saveDataUrl, but require a user to send manually
+    function: "restart" | "postData" | "link";
+    url?: string; // postData: will post data to url, link: open url in tab
 };
 
 export type ResultGraphType = {
     type: resultContentTypes.graph,
+    format: "line" | "bar";
+    dataUrl: string; // sends the answers to the endpoint, see GraphDataType ApiTypes.ts for result type
     xLabel?: string;
     yLabel?: string;
     titleLabel?: string;

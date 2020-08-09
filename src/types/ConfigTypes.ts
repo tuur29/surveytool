@@ -13,7 +13,7 @@ export type ConfigType = {
     }>;
     questions: AllQuestionsType[];
     result: { // TODO: add default label when results, content or postPageUrl is not configured
-        saveDataUrl?: string; // send answers to a custom server
+        postDataUrl?: string; // send answers to a custom server
         redirectUrl?: string; // redirect to custom results page
         disableControls?: boolean; // defaults to true, disables all answer controls when results are shown
         scoreDomain?: number[]; // [min, max] values only used for formatting scores (scoreCounter, graph, placeholder)
