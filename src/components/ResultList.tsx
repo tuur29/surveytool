@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import useLabel from "../hooks/useLabel";
 import { useStoreSelector } from "../redux/store";
 import { AllResultContentType, resultContentTypes } from "../types/ResultTypes";
@@ -21,10 +21,18 @@ const determineComponent = (block: AllResultContentType, index: number): JSX.Ele
 const ResultList = (): JSX.Element | null => {
     const content = useStoreSelector((state) => state.config.result.content);
     const titleLabel = useLabel("resultTitle");
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    // Scroll to results when it becomes visible
+    useEffect(() => {
+        if (containerRef.current) {
+            containerRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+    }, []);
 
     if (!content || !content.length) return null;
     return (
-        <Container py={4}>
+        <Container ref={containerRef} py={4}>
             {titleLabel && <Header>{titleLabel}</Header>}
             {content.map(determineComponent)}
         </Container>

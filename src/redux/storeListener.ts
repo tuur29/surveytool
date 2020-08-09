@@ -11,11 +11,11 @@ import { setResult } from "./resultReducer";
 let prevScoreAnswerList: AllAnswersType[];
 let prevScoreValue = 0;
 
-// calculate new score when results are visible (links to ANSWERS_SET and dispatches ANSWERS_SET)
+// calculate new score when results are visible (links to ANSWERS_SET and dispatches RESULT_SET)
 const calculateScoreListener = (store: StoreType): void => {
     const state = store.getState();
 
-    if (state.result.showResult && prevScoreAnswerList !== state.answers.list) {
+    if (state.config.initialized && state.result.showResult && prevScoreAnswerList !== state.answers.list) {
         const newScore = calculateScore(state.config.questions, state.answers.list);
         prevScoreAnswerList = state.answers.list;
 

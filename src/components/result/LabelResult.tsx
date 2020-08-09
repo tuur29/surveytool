@@ -10,13 +10,13 @@ type PropsType = {
 const LabelResult = (props: PropsType): JSX.Element => {
     const { config } = props;
     const score = useStoreSelector((state) => state.result.score);
-    const max = useStoreSelector((state) => state.config.result.scoreDomain?.[1] || 1);
+    const domain = useStoreSelector((state) => state.config.result.scoreDomain || [0, 1]);
 
     const labelParts = config.label.split(new RegExp("\\{score(\\d+)?\\}")); // split label on each possible score placeholder and keep X value
     const filledInParts = labelParts.map((text, index) => {
         if (index % 2 === 0) return text; // only uneven items are placeholders for score
         if (text === undefined) return score; // {score}
-        return Math.round((score / max) * parseInt(text)); // {scoreX}
+        return Math.round((score / (domain[1] - domain[0])) * parseInt(text)); // {scoreX}
     });
 
     // TODO: implement scoreCounter
