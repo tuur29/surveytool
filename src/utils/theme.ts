@@ -66,9 +66,9 @@ const sizes = {
 // Typing
 // ----------------------------------------------------------------------
 
-type BreakpointType = "xs" | "sm" | "md" | "lg" | "xl";
 type FontFamiliesType = "text" | "title";
 type SizeType = keyof typeof sizes;
+export type BreakpointType = "xs" | "sm" | "md" | "lg" | "xl";
 export type ColorType = keyof typeof colors;
 
 declare module "styled-components" {

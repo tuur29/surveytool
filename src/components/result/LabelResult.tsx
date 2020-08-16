@@ -38,6 +38,7 @@ const LabelResult = (props: PropsType): JSX.Element => {
             frame.current = frame.current + 1;
             setAnimatedScore(score * (frame.current / totalFrames));
         }, totalLength); // ms
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [score]);
 
     // display score in label

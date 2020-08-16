@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
-import { SeriesTypes } from "../types/DataTypes";
+import { SeriesDataTypes } from "../types/DataTypes";
 
 type DataType = {
-    series: SeriesTypes[];
+    data: SeriesDataTypes | null;
     loading: boolean;
 };
 
 const useGraphData = (url: string, postData?: unknown): DataType => {
-    const [series, setSeries] = useState<SeriesTypes[]>([]);
+    const [data, setData] = useState<SeriesDataTypes | null>(null);
     const [loading, setLoading] = useState(false);
 
+    const hash = JSON.stringify(postData);
     useEffect(() => {
         // TODO: add debounce around this
         // TODO: notify end user of errors
@@ -24,14 +25,14 @@ const useGraphData = (url: string, postData?: unknown): DataType => {
             
             try {
                 // format and validate result data
-                const jsonData: SeriesTypes[] = await response.json();
-                if (!jsonData || jsonData.length < 1) {
-                    console.error("Retrieved data can not be rendered to a valid graph", jsonData);
-                    return;
-                }
+                const jsonData: SeriesDataTypes = await response.json();
+                // if (!jsonData || jsonData.length < 1) {
+                //     console.error("Retrieved data can not be rendered to a valid graph", jsonData);
+                //     return;
+                // }
         
                 // set result
-                setSeries(jsonData);
+                setData(jsonData);
                 setLoading(false);
 
             } catch (exception) {
@@ -40,9 +41,9 @@ const useGraphData = (url: string, postData?: unknown): DataType => {
         }
 
         request();
-    }, [url, JSON.stringify(postData)]);
+    }, [url, hash]);
 
-    return { series, loading };
+    return { data, loading };
 };
 
 export default useGraphData;

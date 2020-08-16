@@ -24,8 +24,6 @@ export type ResultGraphType = {
     type: resultContentTypes.graph,
     format: "line" | "bar";
     dataUrl: string; // sends the answers to the endpoint, see GraphDataType ApiTypes.ts for result type
-    xLabel?: string;
-    yLabel?: string;
     titleLabel?: string;
 };
 

@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { SpaceProps, space } from "styled-system";
 
 const animation = keyframes`
     from {
@@ -9,7 +10,7 @@ const animation = keyframes`
     }
 `;
 
-export const Loader = styled.div<{ size?: number }>`
+export const Loader = styled.div<SpaceProps & { size?: number }>`
     width: ${({ size }) => size || 50}px;
     height: ${({ size }) => size || 50}px;
     border-radius: 50%;
@@ -19,6 +20,8 @@ export const Loader = styled.div<{ size?: number }>`
     border-color: transparent;
     border-top-color: ${({ theme }) => theme.colors.spinner};
     animation: 1s ${animation} linear infinite;
+
+    ${space};
 `;
 
 export const CenterWrapper = styled.div`

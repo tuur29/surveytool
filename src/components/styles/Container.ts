@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { SpaceProps, space, TextAlignProps, textAlign } from "styled-system";
+import { BreakpointType } from "../../utils/theme";
 
-export const Container = styled.div<SpaceProps>`
-    max-width: ${({ theme }) => theme.breakpoints.xl};
+export const Container = styled.div<SpaceProps & { maxBreakpoint?: BreakpointType }>`
+    max-width: ${({ theme, maxBreakpoint }) => theme.breakpoints[maxBreakpoint || "xl"]};
     ${space};
 `;
 Container.defaultProps = {

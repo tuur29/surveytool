@@ -33,7 +33,7 @@ const ResultList = (): JSX.Element | null => {
 
     if (!content || !content.length) return null;
     return (
-        <Container ref={containerRef} py={4}>
+        <Container ref={containerRef} py={4} maxBreakpoint="lg">
             {titleLabel && <Header>{titleLabel}</Header>}
             {content.map(determineComponent)}
         </Container>

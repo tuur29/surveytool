@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { SpaceProps, space, WidthProps, width } from "styled-system";
+import { SpaceProps, space } from "styled-system";
 
 export const Result = styled.article<SpaceProps>`
     ${space};
@@ -15,10 +15,4 @@ Result.defaultProps = {
 
 export const Title = styled.h2``;
 
-export const Description = styled.div<WidthProps>`
-    ${width};
-`;
-
-Description.defaultProps = {
-    width: { xs: 1, md: 0.75 },
-};
+export const Description = styled.div``;
