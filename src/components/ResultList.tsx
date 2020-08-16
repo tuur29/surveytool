@@ -4,6 +4,7 @@ import { useStoreSelector } from "../redux/store";
 import { AllResultContentType, resultContentTypes } from "../types/ResultTypes";
 import { Container, Header } from "./styles/Container";
 import LabelResult from "./result/LabelResult";
+import GraphResult from "./result/GraphResult";
 
 const determineComponent = (block: AllResultContentType, index: number): JSX.Element => {
     switch (block.type) {
@@ -12,7 +13,7 @@ const determineComponent = (block: AllResultContentType, index: number): JSX.Ele
         case resultContentTypes.button:
             return <div key={index} />;
         case resultContentTypes.graph:
-            return <div key={index} />;
+            return <GraphResult key={index} config={block} />;
         case resultContentTypes.iframe:
             return <div key={index} />;
     }

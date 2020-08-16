@@ -52,24 +52,3 @@ const AllLogicMiddleware: Middleware = (store: StoreType) => (next: Dispatch<Act
 };
 
 export const middlewares = applyMiddleware(AllLogicMiddleware);
-
-// TODO: hook into setting page to results for posting to api and fetching data (reuse below code)
-// if (!loading && !config) {
-//     setLoading(true);
-//     fetch(url).then((response) => {
-//         if (!response.ok) {
-//             console.error("Could not retrieve config", response.status);
-//             return;
-//         }
-
-//         response.json().then((data) => {
-//             if (!data?.questions?.length) {
-//                 console.error("Retrieved data is not a valid config", data);
-//                 return;
-//             }
-
-//             setConfig(data);
-//             setLoading(false);
-//         });
-//     });
-// }
