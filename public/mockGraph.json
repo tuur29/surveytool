@@ -1,5 +1,6 @@
 {
     "xLabel": "Abscissa",
+    "yLabel": "Ordinate",
     "series": [
         { "id": "y1", "name": "Line", "color": "red" },
         { "id": "y2", "name": "Upward parabola", "color": "blue" }
