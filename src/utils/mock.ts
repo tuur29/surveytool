@@ -117,7 +117,7 @@ export const mockConfig: Partial<ConfigType> = {
             { type: resultContentTypes.label, style: "title", label: "Thanks for your {score10}/10 submission" },
             { type: resultContentTypes.label, style: "description", label: "Lorem {score5}/5 ipsum dolor sit amet ({score}) consectetur adipiscing elit. {score20} out of 20 Erat enim Polemonis. Iam contemni non poteris. Equidem etiam Epicurum, in physicis quidem, Democriteum puto. An quod ita callida est, ut optime possit architectari voluptates? Iam quae corporis sunt, ea nec auctoritatem cum animi partibus, comparandam et cognitionem habent faciliorem. Duo Reges: constructio interrete. Sine ea igitur iucunde negat posse se vivere? Cur tantas regiones barbarorum pedibus obiit, tot maria transmisit? Bonum incolumis acies: misera caecitas. Cur tantas regiones barbarorum pedibus obiit, tot maria transmisit?" },
             { type: resultContentTypes.label, style: "scoreCounter", label: "{score100} %", animate: true },
-            { type: resultContentTypes.graph, dataUrl: "./surveytool/mockGraph.json", format: "line", titleLabel: "Title" },
+            { type: resultContentTypes.graph, dataUrl: "/surveytool/mockGraph.json", format: "line", titleLabel: "Title" },
             { type: resultContentTypes.button, label: "Restart", function: "restart" },
         ]
     }
