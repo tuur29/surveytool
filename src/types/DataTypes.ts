@@ -1,7 +1,7 @@
 
 type SeriesId = string;
 
-export type SeriesDataTypes = {
+export type SeriesDataTypes<T extends number | string | unknown = unknown> = {
     xLabel: number;
     yLabel: number;
     series: ({
@@ -10,6 +10,6 @@ export type SeriesDataTypes = {
         color: string;
     })[];
     values: ({
-        x: number;
+        x: T;
     } & Record<SeriesId, number | null>)[];
 };
