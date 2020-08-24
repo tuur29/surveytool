@@ -27,7 +27,7 @@ export const drawLineGraph = (
                 y: number;
             }[]
         >((list, point) => {
-            if (point[item.id]) {
+            if (point[item.id] !== undefined) {
                 list.push({
                     x: point.x,
                     y: point[item.id] as number,

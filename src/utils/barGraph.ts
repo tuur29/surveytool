@@ -16,7 +16,7 @@ export const drawBarGraph = (
     const graphWidth = width - margin.right; // 100% on x-axis
     const graphHeight = height - margin.bottom; // 0% on y-axis
     const categories = inputData.values.map((d) => d.x);
-    const barPadding = 0;
+    const barPadding = 0.2;
 
     // x axis
     const xScale = scaleBand()
@@ -69,9 +69,7 @@ export const drawBarGraph = (
             const series = inputData.series.find((series) => series.id === id)!;
 
             const barWidth = xScale.bandwidth() / inputData.series.length;
-            const centerOffset = xScale.bandwidth() / 2;
-            const xBasis = xScale(x)! - centerOffset;
-            const xValue = xBasis + barWidth * index;
+            const xValue = xScale(x)! + barWidth * index;
 
             group
                 .append("rect")

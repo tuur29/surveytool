@@ -19,9 +19,22 @@ const Graph = (props: PropsType): JSX.Element => {
 
     useEffect(() => {
         if (!graphElement.current) return;
-        // drawLineGraph(props.data as SeriesDataTypes<number>, graphElement.current, width, height, margin, tickSpread);
-        drawBarGraph(props.data as SeriesDataTypes<string>, graphElement.current, width, height, margin);
-    }, [props.data, margin]);
+        switch (props.type) {
+            case "line":
+                drawLineGraph(
+                    props.data as SeriesDataTypes<number>,
+                    graphElement.current,
+                    width,
+                    height,
+                    margin,
+                    tickSpread,
+                );
+                break;
+            case "bar":
+                drawBarGraph(props.data as SeriesDataTypes<string>, graphElement.current, width, height, margin);
+                break;
+        }
+    }, [props.data, props.type, margin]);
 
     return <svg ref={graphElement} viewBox={`0, 0, ${width}, ${height}`} overflow="visible" />;
 };

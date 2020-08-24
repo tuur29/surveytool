@@ -2,9 +2,9 @@
     "xLabel": "Abscissa",
     "yLabel": "Ordinate",
     "series": [
-        { "id": "y1", "name": "Line", "color": "red" },
+        { "id": "y1", "name": "Straight line", "color": "red" },
         { "id": "y2", "name": "Upward parabola", "color": "blue" },
-        { "id": "y3", "name": "Fixed line", "color": "green" }
+        { "id": "y3", "name": "Level line", "color": "green" }
     ],
     "values": [
         { "x": "cat1", "y1": 14, "y2": 0, "y3": 25 },
