@@ -7,7 +7,7 @@ import SingleChoiceQuestion from "./questions/SingleChoiceQuestion";
 import MultipleChoiceQuestion from "./questions/MultipleChoiceQuestion";
 import TextQuestion from "./questions/TextQuestion";
 import RangeQuestion from "./questions/RangeQuestion";
-import ResultButton from "./result/ResultButton";
+import ShowResultsButton from "./questions/ShowResultsButton";
 
 const determineComponent = (question: AllQuestionsType): JSX.Element => {
     switch (question.type) {
@@ -32,7 +32,7 @@ const QuestionList = (): JSX.Element | null => {
             {titleLabel && <Header>{titleLabel}</Header>}
             {config.questions.map(determineComponent)}
 
-            <ResultButton />
+            <ShowResultsButton />
         </Container>
     );
 };

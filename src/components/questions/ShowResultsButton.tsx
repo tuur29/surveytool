@@ -9,8 +9,7 @@ import { showResult } from "../../redux/resultReducer";
 
 type InvalidItem = { id: string; title: string };
 
-// TODO: rename or move file
-const ResultButton = (): JSX.Element => {
+const ShowResultsButton = (): JSX.Element => {
     const dispatch = useStoreDispatch();
     const allQuestions = useStoreSelector((state) => state.config.questions);
     const allAnswers = useStoreSelector((state) => state.answers.list);
@@ -60,4 +59,4 @@ const ResultButton = (): JSX.Element => {
     );
 };
 
-export default ResultButton;
+export default ShowResultsButton;
