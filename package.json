@@ -52,8 +52,10 @@
         "eslint-plugin-jsx-a11y": "^6.3.0",
         "eslint-plugin-react": "^7.20.0",
         "eslint-plugin-react-hooks": "^4.0.4",
+        "husky": "^4.2.5",
         "jest": "^24.9.0",
         "jest-fetch-mock": "^3.0.3",
+        "lint-staged": "^10.2.13",
         "prettier": "^2.0.5",
         "redux-devtools-extension": "^2.13.8",
         "sinon": "^9.0.2",
@@ -114,6 +116,17 @@
         "tabWidth": 4,
         "trailingComma": "all",
         "printWidth": 120
+    },
+    "lint-staged": {
+        "src/**/*.{ts,tsx}": [
+            "./node_modules/.bin/eslint --cache --quiet",
+            "./node_modules/.bin/prettier --write"
+        ]
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
     },
     "browserslist": {
         "production": [

@@ -20,10 +20,7 @@ type BaseQuestion = {
     id: string;
     title: string;
     required?: boolean;
-    calcFunction?: (
-        question: AllQuestionsType,
-        answer: AllAnswersType,
-    ) => number | undefined;
+    calcFunction?: (question: AllQuestionsType, answer: AllAnswersType) => number | undefined;
 } & Hintable;
 
 // example: "I agree with terms and conditions"

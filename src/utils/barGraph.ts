@@ -1,6 +1,7 @@
 import { select, axisLeft, scaleLinear, scaleBand, axisBottom } from "d3";
 import { SeriesDataTypes } from "../types/DataTypes";
 
+// prettier-ignore
 export const drawBarGraph = (
     inputData: SeriesDataTypes<string>,
     element: SVGSVGElement,

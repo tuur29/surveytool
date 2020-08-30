@@ -15,17 +15,15 @@ const ButtonResult = (props: PropsType): JSX.Element => {
     const dispatch = useStoreDispatch();
 
     const restartAnswers = (): void => {
-        dispatch((resetAnswers()))
-        dispatch(showResult(false))
-    }
+        dispatch(resetAnswers());
+        dispatch(showResult(false));
+    };
 
     return (
         <CenteredButtonWrapper mb={4}>
-        <Button onClick={restartAnswers}>
-            {config.label}
-        </Button>
-    </CenteredButtonWrapper>
-    )
+            <Button onClick={restartAnswers}>{config.label}</Button>
+        </CenteredButtonWrapper>
+    );
 };
 
 export default ButtonResult;
