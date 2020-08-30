@@ -2,6 +2,7 @@ import { questionTypes } from "./QuestionTypes";
 
 type BaseAnswerType = {
     questionId: string;
+    focussed: boolean;
 };
 
 export type SingleChoiceAnswerType = BaseAnswerType & {

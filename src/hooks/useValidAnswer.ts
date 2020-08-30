@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { useStoreSelector } from "../redux/store";
+import { useStoreDispatch } from "../redux/store";
 import { AllQuestionsType, questionTypes, TextQuestionType } from "../types/QuestionTypes";
 import { LabelType } from "../utils/labels";
 import { isAnswerValid } from "../utils/validator";
 import useLabel from "./useLabel";
 import useQuestionAnswer from "./useQuestionAnswer";
+import { setAnswerFocus } from "../redux/answersReducer";
 
 const textAnswerErrorLabelMap: Record<TextQuestionType["inputType"], LabelType> = {
     number: "inputTextErrorNumber",
@@ -36,21 +36,20 @@ type DataType = {
  */
 const useValidAnswer = <Q extends AllQuestionsType>(question: Q): DataType => {
     // get answer value
+    const dispatch = useStoreDispatch();
     const answer = useQuestionAnswer(question.id);
 
     // get correct error label
     const errorLabel = useLabel(getErrorLabel(question))!;
     const customErrorLabel = (question as TextQuestionType).customValidation?.error;
-
-    // only show error when field has been touched or when loaded from storage
-    const alreadyFocussed = useStoreSelector((state) => state.answers.loadedFromStorage);
     const valid = isAnswerValid(question, answer);
-    const [focussed, setFocussed] = useState(alreadyFocussed);
 
     return {
         error: customErrorLabel || errorLabel,
-        showError: !valid && focussed,
-        setFocussed: () => setFocussed(true),
+        showError: !valid && answer.focussed,
+        setFocussed: () => {
+            dispatch(setAnswerFocus(answer.questionId, true));
+        },
     };
 };
 

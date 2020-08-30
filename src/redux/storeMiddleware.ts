@@ -3,13 +3,11 @@
 import { Middleware, Dispatch, applyMiddleware } from "redux";
 import { AllAnswersType } from "../types/AnswerTypes";
 import { questionTypes } from "../types/QuestionTypes";
-import { generateAnswerStorageKey } from "../utils/utils";
+import { generateAnswerStorageKey, generateInitialAnswers } from "../utils/utils";
 import { ActionsType, StoreType } from "./store";
 import { initAnswers, AnswersState } from "./answersReducer";
 
-const AllLogicMiddleware: Middleware = (store: StoreType) => (next: Dispatch<ActionsType>) => (
-    action: ActionsType,
-) => {
+const AllLogicMiddleware: Middleware = (store: StoreType) => (next: Dispatch<ActionsType>) => (action: ActionsType) => {
     switch (action.type) {
         // Prepopulate default or locally saved answers in store
         case "CONFIG_INIT": {
@@ -26,25 +24,17 @@ const AllLogicMiddleware: Middleware = (store: StoreType) => (next: Dispatch<Act
             }
 
             // or create a new set of placeholder answers
-            const initialAnswers: AllAnswersType[] = action.config.questions.map((question) => {
-                const baseAnswer = { questionId: question.id };
-                switch (question.type) {
-                    case questionTypes.single: {
-                        return { ...baseAnswer, type: questionTypes.single, value: question.checkedByDefault || false };
-                    }
-                    case questionTypes.multiple: {
-                        return { ...baseAnswer, type: questionTypes.multiple, values: question.defaultIds || [] };
-                    }
-                    case questionTypes.text: {
-                        return { ...baseAnswer, type: questionTypes.text, value: "" };
-                    }
-                    case questionTypes.range: {
-                        return { ...baseAnswer, type: questionTypes.range, value: question.default || 0 };
-                    }
-                }
-            });
+            const initialAnswers = generateInitialAnswers(action.config.questions);
             store.dispatch(initAnswers(initialAnswers));
             break;
+        }
+
+        case "ANSWERS_RESET": {
+            const questions = store.getState().config.questions;
+            const initialAnswers = generateInitialAnswers(questions);
+            // Reuse initAnswers instead of dispatching the reset action
+            store.dispatch(initAnswers(initialAnswers));
+            return;
         }
     }
 

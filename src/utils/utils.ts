@@ -1,3 +1,6 @@
+import { AllQuestionsType, questionTypes } from "../types/QuestionTypes";
+import { AllAnswersType } from "../types/AnswerTypes";
+
 // ----------------------------------------------------------------------
 // Helper methods
 // ----------------------------------------------------------------------
@@ -22,6 +25,25 @@ export const formatTimestamp = (timestamp: number, localeId: string | null | und
         second: "2-digit",
     }).format(new Date(timestamp));
 
+// Create a new set of placeholder answers
+export const generateInitialAnswers = (questions: AllQuestionsType[]): AllAnswersType[] =>
+    questions.map((question) => {
+        const baseAnswer = { questionId: question.id, focussed: false };
+        switch (question.type) {
+            case questionTypes.single: {
+                return { ...baseAnswer, type: questionTypes.single, value: question.checkedByDefault || false };
+            }
+            case questionTypes.multiple: {
+                return { ...baseAnswer, type: questionTypes.multiple, values: question.defaultIds || [] };
+            }
+            case questionTypes.text: {
+                return { ...baseAnswer, type: questionTypes.text, value: "" };
+            }
+            case questionTypes.range: {
+                return { ...baseAnswer, type: questionTypes.range, value: question.default || 0 };
+            }
+        }
+    });
 
 // ----------------------------------------------------------------------
 // Type helpers

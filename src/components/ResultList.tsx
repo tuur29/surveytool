@@ -5,13 +5,14 @@ import { AllResultContentType, resultContentTypes } from "../types/ResultTypes";
 import { Container, Header } from "./styles/Container";
 import LabelResult from "./result/LabelResult";
 import GraphResult from "./result/GraphResult";
+import ButtonResult from "./result/ButtonResult";
 
 const determineComponent = (block: AllResultContentType, index: number): JSX.Element => {
     switch (block.type) {
         case resultContentTypes.label:
             return <LabelResult key={index} config={block} />;
         case resultContentTypes.button:
-            return <div key={index} />;
+            return <ButtonResult key={index} config={block} />;
         case resultContentTypes.graph:
             return <GraphResult key={index} config={block} />;
         case resultContentTypes.iframe:
