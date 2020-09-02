@@ -111,6 +111,16 @@ export const drawLineGraph = (
         .join("path")
         .attr("stroke", (series) => series.color)
         .attr("d", drawLine);
+    
+    // Add a vertical line
+    svg.append("line")
+        .attr("x1", xScale(4))
+        .attr("y1", 0)
+        .attr("x2", xScale(4))
+        .attr("y2", height - margin.bottom)
+        .style("stroke-width", 2)
+        .style("stroke", "orange")
+        .style("fill", "none");
 
     // TODO: add hover effect
     // svg.call(hover, path);

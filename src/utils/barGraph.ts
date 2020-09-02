@@ -81,4 +81,14 @@ export const drawBarGraph = (
                 .attr("height", (graphHeight) - yScale(value!));
         });
     });
+
+    // Add a vertical line
+    svg.append("line")
+        .attr("x1", xScale("cat4")! + xScale.bandwidth() / 2)
+        .attr("y1", 0)
+        .attr("x2", xScale("cat4")! + xScale.bandwidth() / 2)
+        .attr("y2", height - margin.bottom)
+        .style("stroke-width", 2)
+        .style("stroke", "orange")
+        .style("fill", "none");
 };
