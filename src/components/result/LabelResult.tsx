@@ -2,10 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { ResultLabelType } from "../../types/ResultTypes";
 import { Result, Title, Description } from "../styles/Result";
 import { useStoreSelector } from "../../redux/store";
+import { resultAnimationTotalFrames, resultAnimationFrameLength, useAfterFirstRender } from "../../utils/utils";
 import ScoreCounter from "./ScoreCounter";
-
-const totalFrames = 10;
-const totalLength = 65;
 
 type PropsType = {
     config: ResultLabelType;
@@ -15,6 +13,8 @@ const LabelResult = (props: PropsType): JSX.Element => {
     const { config } = props;
     const score = useStoreSelector((state) => state.result.score);
     const domain = useStoreSelector((state) => state.config.result.scoreDomain || [0, 1]);
+
+    const afterFirstRender = useAfterFirstRender(); // makes sure scoreCounter animation is visible when reloading page
 
     // animation
     const animation = useRef<number>();
@@ -30,14 +30,14 @@ const LabelResult = (props: PropsType): JSX.Element => {
 
         // start animation
         animation.current = setInterval(() => {
-            if (frame.current >= totalFrames) {
+            if (frame.current >= resultAnimationTotalFrames) {
                 clearInterval(animation.current);
                 setAnimatedScore(score);
                 return;
             }
             frame.current = frame.current + 1;
-            setAnimatedScore(score * (frame.current / totalFrames));
-        }, totalLength); // ms
+            setAnimatedScore(score * (frame.current / resultAnimationTotalFrames));
+        }, resultAnimationFrameLength); // ms
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [score]);
 
@@ -53,7 +53,14 @@ const LabelResult = (props: PropsType): JSX.Element => {
         <Result>
             {config.style === "title" && <Title>{filledInParts.join("")}</Title>}
             {config.style === "description" && <Description>{filledInParts.join("")}</Description>}
-            {config.style === "scoreCounter" && <ScoreCounter value={animatedScore} min={domain[0]} max={domain[1]} />}
+            {config.style === "scoreCounter" && (
+                <ScoreCounter
+                    value={afterFirstRender ? score : 0}
+                    textValue={animatedScore}
+                    min={domain[0]}
+                    max={domain[1]}
+                />
+            )}
         </Result>
     );
 };

@@ -8,7 +8,7 @@ export const Result = styled.article<SpaceProps>`
 `;
 
 Result.defaultProps = {
-    marginY: 3,
+    marginY: 4,
     paddingY: 3,
     paddingX: { xs: 3, lg: 4 },
 };
