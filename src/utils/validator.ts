@@ -49,7 +49,7 @@ export const isAnswerValid = (question: AllQuestionsType, answer: AllAnswersType
     }
 
     // validate text answers
-    if (question.type === questionTypes.text && answer.type === questionTypes.text) {        
+    if (question.type === questionTypes.text && answer.type === questionTypes.text) {
         return isTextAnswerValid(question, answer);
     }
 

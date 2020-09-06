@@ -3,6 +3,7 @@ import { SeriesDataTypes } from "../types/DataTypes";
 
 type HighlightType = { category: string; color: string };
 
+// prettier-ignore
 export const drawBarGraph = (
     inputData: SeriesDataTypes<string>,
     element: SVGSVGElement,

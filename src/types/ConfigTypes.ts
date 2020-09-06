@@ -12,11 +12,12 @@ export type ConfigType = {
         values: DefaultTheme;
     }>;
     questions: AllQuestionsType[];
-    result: { // TODO: add default label when results, content or postPageUrl is not configured
+    result: {
+        // TODO: add default label when results, content or postPageUrl is not configured
         postDataUrl?: string; // send answers to a custom server
         redirectUrl?: string; // redirect to custom results page
         disableControls?: boolean; // defaults to true, disables all answer controls when results are shown
         scoreDomain?: number[]; // [min, max] values only used for formatting scores (scoreCounter, graph, placeholder)
-        content?: AllResultContentType[], // content is shown when postPageUrl is undefined
-    }
+        content?: AllResultContentType[]; // content is shown when postPageUrl is undefined
+    };
 };

@@ -46,7 +46,6 @@ export const IconWrapper = styled.span<SvgProps>`
         transition: transform 0.3s, width 0.3s, height 0.3s, color 0.3s;
         transform-origin: center;
 
-
         &:hover {
             color: ${({ theme, color }) => (color ? theme.colors[color] : theme.colors.iconHover)};
         }

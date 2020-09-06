@@ -1,5 +1,13 @@
 import { AllQuestionsType, questionTypes } from "../types/QuestionTypes";
 import { AllAnswersType } from "../types/AnswerTypes";
+import { useState, useEffect } from "react";
+
+// ----------------------------------------------------------------------
+// Constants
+// ----------------------------------------------------------------------
+
+export const resultAnimationTotalFrames = 10;
+export const resultAnimationFrameLength = 65;
 
 // ----------------------------------------------------------------------
 // Helper methods
@@ -44,6 +52,20 @@ export const generateInitialAnswers = (questions: AllQuestionsType[]): AllAnswer
             }
         }
     });
+
+// ----------------------------------------------------------------------
+// Hooks
+// ----------------------------------------------------------------------
+
+// Returns true after the first render
+export const useAfterFirstRender = (): boolean => {
+    const [value, setValue] = useState(false);
+    useEffect(() => {
+        if (value) return;
+        setValue(true);
+    }, []);
+    return value;
+};
 
 // ----------------------------------------------------------------------
 // Type helpers

@@ -14,7 +14,7 @@ const useGraphData = (url: string, postData?: unknown): DataType => {
     useEffect(() => {
         // TODO: add debounce around this
         // TODO: notify end user of errors
-        const request = async() => {
+        const request = async () => {
             // execute request
             setLoading(true);
             const response = await fetch(url);
@@ -22,7 +22,7 @@ const useGraphData = (url: string, postData?: unknown): DataType => {
                 console.error("Could not retrieve graph data", response.status);
                 return;
             }
-            
+
             try {
                 // format and validate result data
                 const jsonData: SeriesDataTypes = await response.json();
@@ -30,15 +30,14 @@ const useGraphData = (url: string, postData?: unknown): DataType => {
                 //     console.error("Retrieved data can not be rendered to a valid graph", jsonData);
                 //     return;
                 // }
-        
+
                 // set result
                 setData(jsonData);
                 setLoading(false);
-
             } catch (exception) {
                 console.error("Retrieved data is not formatted correctly", exception);
             }
-        }
+        };
 
         request();
     }, [url, hash]);

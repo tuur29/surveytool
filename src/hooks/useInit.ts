@@ -37,7 +37,7 @@ const useInit = (): void => {
         if (isDev(true)) {
             window.mockConfig = mockConfig;
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 };
 
