@@ -8,10 +8,10 @@
         { "id": "highlight", "name": "Your score", "color": "orange" }
     ],
     "values": [
-        { "x": 3.48448, "higlight": "purple" },
+        { "x": 3.48448, "highlight": "purple" },
 
         { "x": 1, "y1": 14 },
-        { "x": 2, "y1": 23, "higlight": ""  },
+        { "x": 2, "y1": 23, "highlight": true  },
         { "x": 3, "y1": 32 },
         { "x": 4, "y1": 41 },
         { "x": 5, "y1": 50 },

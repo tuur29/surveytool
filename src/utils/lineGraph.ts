@@ -1,6 +1,8 @@
 import { select, extent, min, max, axisLeft, scaleLinear, axisBottom, line } from "d3";
 import { SeriesDataTypes } from "../types/DataTypes";
 
+type HighlightType = { x: number; color: string };
+
 type LineSeriesType = {
     id: string;
     name: string;
@@ -20,28 +22,30 @@ export const drawLineGraph = (
     const sortedValues = inputData.values.sort((a, b) => a.x - b.x);
 
     // Format data
-    const data: LineSeriesType[] = inputData.series.map((item) => {
-        const filteredValues = sortedValues.reduce<
-            {
-                x: number;
-                y: number;
-            }[]
-        >((list, point) => {
-            if (point[item.id] !== undefined) {
-                list.push({
-                    x: point.x,
-                    y: point[item.id] as number,
-                });
-            }
-            return list;
-        }, []);
+    const data: LineSeriesType[] = inputData.series
+        .filter((item) => item.id !== "highlight")
+        .map((item) => {
+            const filteredValues = sortedValues.reduce<
+                {
+                    x: number;
+                    y: number;
+                }[]
+            >((list, point) => {
+                if (point[item.id] !== undefined) {
+                    list.push({
+                        x: point.x,
+                        y: point[item.id] as number,
+                    });
+                }
+                return list;
+            }, []);
 
-        return {
-            ...item,
-            x: filteredValues.map((point) => point.x),
-            y: filteredValues.map((point) => point.y),
-        };
-    });
+            return {
+                ...item,
+                x: filteredValues.map((point) => point.x),
+                y: filteredValues.map((point) => point.y),
+            };
+        });
 
     // Setup chart
     const svg = select(element);
@@ -111,16 +115,33 @@ export const drawLineGraph = (
         .join("path")
         .attr("stroke", (series) => series.color)
         .attr("d", drawLine);
-    
-    // Add a vertical line
-    svg.append("line")
-        .attr("x1", xScale(4))
-        .attr("y1", 0)
-        .attr("x2", xScale(4))
-        .attr("y2", height - margin.bottom)
-        .style("stroke-width", 2)
-        .style("stroke", "orange")
-        .style("fill", "none");
+
+    // Add highlight lines
+    const highlightSeries = inputData.series.find((item) => item.id === "highlight");
+    if (highlightSeries) {
+        const lines = inputData.values.reduce<HighlightType[]>((list, value) => {
+            if (value.highlight) {
+                list.push({
+                    x: value.x,
+                    color: value.highlight === true ? highlightSeries.color : value.highlight,
+                });
+            }
+            return list;
+        }, []);
+
+        // Add a vertical line
+        lines.forEach((line) =>
+            svg
+                .append("line")
+                .attr("x1", xScale(line.x))
+                .attr("y1", margin.top)
+                .attr("x2", xScale(line.x))
+                .attr("y2", height - margin.bottom)
+                .style("stroke-width", 2)
+                .style("stroke", line.color)
+                .style("fill", "none"),
+        );
+    }
 
     // TODO: add hover effect
     // svg.call(hover, path);

@@ -1,6 +1,8 @@
 import { select, axisLeft, scaleLinear, scaleBand, axisBottom } from "d3";
 import { SeriesDataTypes } from "../types/DataTypes";
 
+type HighlightType = { category: string; color: string };
+
 export const drawBarGraph = (
     inputData: SeriesDataTypes<string>,
     element: SVGSVGElement,
@@ -8,7 +10,6 @@ export const drawBarGraph = (
     height: number,
     margin: { top: number; bottom: number; left: number; right: number },
 ): void => {
-
     // Setup chart
     const svg = select(element);
     svg.selectAll("*").remove();
@@ -19,21 +20,15 @@ export const drawBarGraph = (
     const barPadding = 0.2;
 
     // x axis
-    const xScale = scaleBand()
-        .domain(categories)
-        .range([margin.left, graphWidth])
-        .padding(barPadding);
+    const xScale = scaleBand().domain(categories).range([margin.left, graphWidth]).padding(barPadding);
 
     // render x axis
-    svg.append("g")
-        .attr("class", "axis-x")
-        .attr("transform", `translate(0,${graphHeight})`)
-        .call(axisBottom(xScale));
+    svg.append("g").attr("class", "axis-x").attr("transform", `translate(0,${graphHeight})`).call(axisBottom(xScale));
 
     // y axis
     const [yMin, yMax] = inputData.values.reduce(
         (values, point) => {
-            const { x, ...yValues } = point;
+            const { x, highlight, ...yValues } = point;
             const min = Math.min(values[0], ...(Object.values(yValues) as number[]));
             const max = Math.max(values[1], ...(Object.values(yValues) as number[]));
             return [min, max];
@@ -41,10 +36,7 @@ export const drawBarGraph = (
         [Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER],
     );
 
-    const yScale = scaleLinear()
-        .domain([yMin, yMax])
-        .range([graphHeight, margin.top])
-        .nice();
+    const yScale = scaleLinear().domain([yMin, yMax]).range([graphHeight, margin.top]).nice();
 
     // render y axis
     svg.append("g")
@@ -61,14 +53,30 @@ export const drawBarGraph = (
                 .text(inputData.yLabel),
         );
 
-    const group = svg.append("g").attr("class", "bargroup");
+    // Render highlights
+    const highlightSeries = inputData.series.find((item) => item.id === "highlight");
+    if (highlightSeries) {
+        const lines = inputData.values.reduce<HighlightType[]>((list, value) => {
+            if (value.highlight) {
+                list.push({
+                    category: value.x,
+                    color: value.highlight === true ? highlightSeries.color : value.highlight,
+                });
+            }
+            return list;
+        }, []);
+        // TODO: draw highlight around multiple bars or colour a single bar
+        console.log("\x1b[36mLog%s: %o\x1b[0m", ": lines", lines);
+    }
 
+    // Draw bars
+    const group = svg.append("g").attr("class", "bargroup");
+    const barWidth = xScale.bandwidth() / inputData.series.filter((item) => item.id !== "highlight").length;
     inputData.values.forEach((point) => {
-        const { x, ...yValues } = point;
+        const { x, highlight, ...yValues } = point;
         Object.entries(yValues).forEach(([id, value], index) => {
             const series = inputData.series.find((series) => series.id === id)!;
 
-            const barWidth = xScale.bandwidth() / inputData.series.length;
             const xValue = xScale(x)! + barWidth * index;
 
             group
@@ -78,17 +86,7 @@ export const drawBarGraph = (
                 .attr("x", xValue)
                 .attr("y", yScale(value!))
                 .attr("width", barWidth)
-                .attr("height", (graphHeight) - yScale(value!));
+                .attr("height", graphHeight - yScale(value!));
         });
     });
-
-    // Add a vertical line
-    svg.append("line")
-        .attr("x1", xScale("cat4")! + xScale.bandwidth() / 2)
-        .attr("y1", 0)
-        .attr("x2", xScale("cat4")! + xScale.bandwidth() / 2)
-        .attr("y2", height - margin.bottom)
-        .style("stroke-width", 2)
-        .style("stroke", "orange")
-        .style("fill", "none");
 };
