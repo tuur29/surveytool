@@ -1,6 +1,9 @@
+import { useState, useEffect } from "react";
 import { AllQuestionsType, questionTypes } from "../types/QuestionTypes";
 import { AllAnswersType } from "../types/AnswerTypes";
-import { useState, useEffect } from "react";
+import { AnswerPostData } from "../types/DataTypes";
+import { AnswerDataUrl } from "../types/ConfigTypes";
+import { ValuesType } from "./labels";
 
 // ----------------------------------------------------------------------
 // Constants
@@ -52,6 +55,50 @@ export const generateInitialAnswers = (questions: AllQuestionsType[]): AllAnswer
             }
         }
     });
+
+/**
+ * Will replace {key1} inside a string with the provided value for the key
+ *
+ * @example replaceValues("Congrats with your {score}% score!", { score: 95 }) => "Congrats with your 95% score!"
+ */
+export const replaceValues = (label: string | null, values?: ValuesType, replaceAll = true): string | null => {
+    if (!label) return null;
+    if (!values) return label;
+
+    // loop over provided values and replace those keys with their values in the provided label
+    return Object.entries(values).reduce((newLabel, [key, value]) => {
+        const regex = new RegExp(`{${key}}`, replaceAll ? "g" : "");
+        return newLabel.replace(regex, `${value}`);
+    }, label);
+};
+
+/**
+ * Post data to an url and get return typed data
+ * This url can still contain the method, but not the score:
+ * GET;http://example.org?score=32 or POST;http://example.org
+ */
+export const fetchAnswerData = async <T extends Record<string, unknown>>(
+    methodUrl: AnswerDataUrl,
+    data: AnswerPostData,
+): Promise<T | null> => {
+    const splitUrl = methodUrl.split(/(GET|POST);/);
+    const url = splitUrl[splitUrl.length - 1];
+    const method = splitUrl.length > 1 ? splitUrl[1] : "GET";
+
+    try {
+        const request = await fetch(url, {
+            method,
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: method === "POST" ? JSON.stringify(data) : undefined,
+        });
+        return (await request.json()) as T;
+    } catch (error) {
+        console.error("Could not post answers", error);
+        return null;
+    }
+};
 
 // ----------------------------------------------------------------------
 // Hooks

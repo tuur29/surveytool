@@ -1,46 +1,54 @@
 import { useState, useEffect } from "react";
-import { SeriesDataTypes } from "../types/DataTypes";
+import { SeriesDataTypes, AnswerPostData } from "../types/DataTypes";
+import { replaceValues, fetchAnswerData } from "../utils/utils";
+import { AnswerDataUrl } from "../types/ConfigTypes";
+import { useStoreSelector } from "../redux/store";
 
 type DataType = {
     data: SeriesDataTypes | null;
     loading: boolean;
 };
 
-const useGraphData = (url: string, postData?: unknown): DataType => {
+const useGraphData = (url: AnswerDataUrl): DataType => {
+    const score = useStoreSelector((state) => state.result.score);
+    const answers = useStoreSelector((state) => state.answers.list);
+
     const [data, setData] = useState<SeriesDataTypes | null>(null);
     const [loading, setLoading] = useState(false);
 
+    const postData: AnswerPostData = { score, answers };
     const hash = JSON.stringify(postData);
-    useEffect(() => {
-        // TODO: add debounce around this
-        // TODO: notify end user of errors
-        const request = async () => {
+
+    // TODO: debounce this
+    useEffect(
+        () => {
             // execute request
-            setLoading(true);
-            const response = await fetch(url);
-            if (!response.ok) {
-                console.error("Could not retrieve graph data", response.status);
-                return;
-            }
+            const request = async () => {
+                setLoading(true);
 
-            try {
-                // format and validate result data
-                const jsonData: SeriesDataTypes = await response.json();
-                // if (!jsonData || jsonData.length < 1) {
-                //     console.error("Retrieved data can not be rendered to a valid graph", jsonData);
-                //     return;
-                // }
+                try {
+                    const result = await fetchAnswerData<SeriesDataTypes>(replaceValues(url, { score })!, postData);
 
-                // set result
-                setData(jsonData);
-                setLoading(false);
-            } catch (exception) {
-                console.error("Retrieved data is not formatted correctly", exception);
-            }
-        };
+                    // TODO: improve graph data validation and notify user on error (hide graph?)
+                    // validate result data
+                    if (!result) {
+                        console.error("Could not retrieve graph data");
+                        return;
+                    }
 
-        request();
-    }, [url, hash]);
+                    // set result
+                    setData(result);
+                    setLoading(false);
+                } catch (exception) {
+                    console.error("Retrieved data is not formatted correctly", exception);
+                }
+            };
+
+            request();
+        },
+        500,
+        [url, hash],
+    );
 
     return { data, loading };
 };

@@ -1,3 +1,5 @@
+import { AllAnswersType } from "./AnswerTypes";
+
 type SeriesId = string;
 
 export type SeriesDataTypes<T extends number | string | unknown = unknown> = {
@@ -12,3 +14,6 @@ export type SeriesDataTypes<T extends number | string | unknown = unknown> = {
         x: T;
     } & Record<SeriesId, number | null>)[];
 };
+
+// Data format to post answers to server, get graph data...
+export type AnswerPostData = { score: number; answers: AllAnswersType[] };

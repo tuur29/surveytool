@@ -1,6 +1,6 @@
 import { calculateScore } from "../utils/calculator";
 import { AllAnswersType } from "../types/AnswerTypes";
-import { generateAnswerStorageKey } from "../utils/utils";
+import { generateAnswerStorageKey, replaceValues, fetchAnswerData } from "../utils/utils";
 import { StoreType } from "./store";
 import { setResult } from "./resultReducer";
 
@@ -21,6 +21,19 @@ const calculateScoreListener = (store: StoreType): void => {
 
         if (newScore !== prevScoreValue) {
             prevScoreValue = newScore;
+
+            // Replace built in results page with a custom redirect
+            // this causes instant reloads when showResult was saved to localstorage (only in dev mode)
+            if (state.config.result.redirectUrl) {
+                window.location.href = replaceValues(state.config.result.redirectUrl, { score: newScore })!;
+                return;
+            }
+
+            // Post answers and score to endpoint
+            if (state.config.result.postDataUrl) {
+                fetchAnswerData(state.config.result.postDataUrl, { score: newScore, answers: state.answers.list });
+            }
+
             store.dispatch(setResult(newScore));
         }
     }

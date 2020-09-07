@@ -111,6 +111,7 @@ export const mockConfig: Partial<ConfigType> = {
     ],
     result: {
         scoreDomain: [0, 100],
+        postDataUrl: "POST;https://kajira.ugent.be/introquiz2020?api=answer",
         content: [
             { type: resultContentTypes.label, style: "title", label: "Thanks for your {score10}/10 submission" },
             {
@@ -122,7 +123,7 @@ export const mockConfig: Partial<ConfigType> = {
             { type: resultContentTypes.label, style: "scoreCounter", label: "{score100} %", animate: true },
             {
                 type: resultContentTypes.graph,
-                dataUrl: "/surveytool/mockLineGraph.json",
+                dataUrl: "GET;https://kajira.ugent.be/introquiz2020?api=graph&score={score}",
                 format: "line",
                 titleLabel: "Line graph",
             },
