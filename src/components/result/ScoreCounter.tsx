@@ -3,7 +3,7 @@ import { Wrapper, Dial, Counter } from "../styles/Dial";
 
 type PropsType = {
     value: number;
-    textValue: number;
+    textValue: string;
     min: number;
     max: number;
 };
@@ -18,7 +18,7 @@ const ScoreCounter = (props: PropsType): JSX.Element => {
     return (
         <Wrapper size={size}>
             <Dial size={size} angle={limitedAngle} />
-            <Counter size={size}>{Math.round(textValue)}</Counter>
+            <Counter size={size}>{textValue}</Counter>
         </Wrapper>
     );
 };

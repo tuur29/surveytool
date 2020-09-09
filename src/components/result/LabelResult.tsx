@@ -46,7 +46,7 @@ const LabelResult = (props: PropsType): JSX.Element => {
     const filledInParts = labelParts.map((text, index) => {
         if (index % 2 === 0) return text; // only uneven items are placeholders for score
         if (text === undefined) return Math.round(animatedScore); // {score}
-        return Math.round((animatedScore / (domain[1] - domain[0])) * parseInt(text)); // {scoreX}
+        return Math.round(((animatedScore - domain[0]) / (domain[1] - domain[0])) * parseInt(text)); // {scoreX}
     });
 
     return (
@@ -56,7 +56,7 @@ const LabelResult = (props: PropsType): JSX.Element => {
             {config.style === "scoreCounter" && (
                 <ScoreCounter
                     value={afterFirstRender ? score : 0}
-                    textValue={animatedScore}
+                    textValue={filledInParts.join("")}
                     min={domain[0]}
                     max={domain[1]}
                 />
