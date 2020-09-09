@@ -41,12 +41,17 @@ const LabelResult = (props: PropsType): JSX.Element => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [score]);
 
+    const rescale = (valueStart: number, domainStart: number[], domainEnd: number[]): number => {
+        // Rescale the value based on the formula for linear interpolation
+        return (domainEnd[1] - domainEnd[0]) / (domainStart[1] - domainStart[0]) * (valueStart - domainStart[0]) + domainEnd[0]
+    }
+
     // display score in label
     const labelParts = config.label.split(new RegExp("\\{score(\\d+)?\\}")); // split label on each possible score placeholder and keep X value
     const filledInParts = labelParts.map((text, index) => {
         if (index % 2 === 0) return text; // only uneven items are placeholders for score
         if (text === undefined) return Math.round(animatedScore); // {score}
-        return Math.round(((animatedScore - domain[0]) / (domain[1] - domain[0])) * parseInt(text)); // {scoreX}
+        return Math.round(rescale(animatedScore, domain, [0, parseInt(text)])) // {scoreX}
     });
 
     return (
@@ -55,10 +60,8 @@ const LabelResult = (props: PropsType): JSX.Element => {
             {config.style === "description" && <Description>{filledInParts.join("")}</Description>}
             {config.style === "scoreCounter" && (
                 <ScoreCounter
-                    value={afterFirstRender ? score : 0}
-                    textValue={filledInParts.join("")}
-                    min={domain[0]}
-                    max={domain[1]}
+                    dialPercentage={afterFirstRender ? rescale(score, domain, [0, 1]) : 0}
+                    label={filledInParts.join("")}
                 />
             )}
         </Result>

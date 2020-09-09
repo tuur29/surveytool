@@ -2,23 +2,21 @@ import React from "react";
 import { Wrapper, Dial, Counter } from "../styles/Dial";
 
 type PropsType = {
-    value: number;
-    textValue: string;
-    min: number;
-    max: number;
+    dialPercentage: number;
+    label: string;
 };
 
 const ScoreCounter = (props: PropsType): JSX.Element => {
-    const { value, textValue, min, max } = props;
+    const { dialPercentage, label } = props;
 
     const size = 200;
-    const angle = ((value - min) / (max - min)) * 180;
+    const angle = dialPercentage * 180;
     const limitedAngle = Math.max(0, Math.min(angle, 180));
 
     return (
         <Wrapper size={size}>
             <Dial size={size} angle={limitedAngle} />
-            <Counter size={size}>{textValue}</Counter>
+            <Counter size={size}>{label}</Counter>
         </Wrapper>
     );
 };
