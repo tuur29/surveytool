@@ -54,10 +54,13 @@ export const drawBarGraph = (
                 .text(inputData.yLabel),
         );
 
+    const numberOfSeries = inputData.series.filter((item) => item.id !== "highlight").length;
+
     // Render highlights
+    let highlights: HighlightType[];
     const highlightSeries = inputData.series.find((item) => item.id === "highlight");
     if (highlightSeries) {
-        const lines = inputData.values.reduce<HighlightType[]>((list, value) => {
+        highlights = inputData.values.reduce<HighlightType[]>((list, value) => {
             if (value.highlight) {
                 list.push({
                     category: value.x,
@@ -67,7 +70,33 @@ export const drawBarGraph = (
             return list;
         }, []);
         // TODO: draw highlight around multiple bars or colour a single bar
-        console.log("\x1b[36mLog%s: %o\x1b[0m", ": lines", lines);
+        console.log("\x1b[36mLog%s: %o\x1b[0m", ": Highlights", highlights);
+        
+        // If there is more than one series, draw a highlight behind the bars
+        if (numberOfSeries > 1) {
+            const highlightGroup = svg.append("g").attr("class", "highlight");
+            highlights.forEach((highlight) => {
+                const hightlightHeight = inputData.values
+                    .filter((item) => item.x === highlight.category)
+                    .reduce(
+                        (previousMax, point) => {
+                            const { x, highlight, ...yValues } = point;
+                            const max = Math.max(previousMax, ...(Object.values(yValues) as number[]));
+                            return max;
+                        },
+                        Number.MIN_SAFE_INTEGER,
+                    );
+
+                highlightGroup
+                    .append("rect")
+                    .attr("fill", highlight.color)
+                    .attr("x", xScale(highlight.category) as number) // TODO: 'as number' should be removed
+                    .attr("y", yScale(hightlightHeight))
+                    .attr("width", xScale.bandwidth())
+                    .attr("height", graphHeight - yScale(hightlightHeight));
+                }
+            );
+        }
     }
 
     // Draw bars
@@ -80,10 +109,21 @@ export const drawBarGraph = (
 
             const xValue = xScale(x)! + barWidth * index;
 
+            // If there is only one series, highlight by changing the bar's color
+            // TODO: Question: Will this behave as how I expect it to behave?
+            const barColor = (numberOfSeries == 1 && highlights.find((item) => item.category === x)?.color as string) || series?.color;
+            
+            // let barColor: string;
+            // if (numberOfSeries == 1 && highlights.find((item) => item.category === x)) {
+            //     barColor = highlights.find((item) => item.category === x)?.color as string;
+            // } else {
+            //     barColor = series?.color;
+            // }
+
             group
                 .append("rect")
                 .attr("class", `bar bar-${id}`)
-                .attr("fill", series?.color)
+                .attr("fill", barColor)
                 .attr("x", xValue)
                 .attr("y", yScale(value!))
                 .attr("width", barWidth)
