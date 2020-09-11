@@ -21,7 +21,7 @@ const useGraphData = (postUrl: AnswerDataUrl): DataType => {
     const postData: AnswerPostData = { score, answers };
     const hash = JSON.stringify(postData);
 
-    // Create debounced request function
+    // Create debounced request function to avoid spamming the endpoint when changing an already submitted result
     const request = useCallback(
         debounce(async (url: AnswerDataUrl, data: AnswerPostData) => {
             setLoading(true);

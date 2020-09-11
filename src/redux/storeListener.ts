@@ -38,6 +38,7 @@ const calculateScoreListener = (store: StoreType): void => {
             }
 
             // Post answers and score to endpoint
+            // use a debounced callback to avoid spamming the endpoint when changing a submitted result
             if (state.config.result.postDataUrl) {
                 debouncedFetchAnswerData(state.config.result.postDataUrl, {
                     score: newScore,
