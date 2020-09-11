@@ -1,5 +1,7 @@
+import { debounce } from "lodash";
 import { calculateScore } from "../utils/calculator";
 import { AllAnswersType } from "../types/AnswerTypes";
+import { AnswerPostData } from "../types/DataTypes";
 import { generateAnswerStorageKey, replaceValues, fetchAnswerData } from "../utils/utils";
 import { StoreType } from "./store";
 import { setResult } from "./resultReducer";
@@ -7,6 +9,8 @@ import { setResult } from "./resultReducer";
 // ----------------------------------------------------------------------
 // calculateScoreListener
 // ----------------------------------------------------------------------
+
+const debouncedFetchAnswerData = debounce((url: string, data: AnswerPostData) => fetchAnswerData(url, data), 500);
 
 let prevScoreAnswerList: AllAnswersType[];
 let prevScoreValue = 0;
@@ -31,7 +35,10 @@ const calculateScoreListener = (store: StoreType): void => {
 
             // Post answers and score to endpoint
             if (state.config.result.postDataUrl) {
-                fetchAnswerData(state.config.result.postDataUrl, { score: newScore, answers: state.answers.list });
+                debouncedFetchAnswerData(state.config.result.postDataUrl, {
+                    score: newScore,
+                    answers: state.answers.list,
+                });
             }
 
             store.dispatch(setResult(newScore));
