@@ -8,8 +8,11 @@ export enum resultContentTypes {
 /**
  * This is a special type of string that can contain {score} placeholder
  * and can start with POST; or GET; (Using POST will include the full list of answers).
+ *
+ * Defining this as "answerDataUrl" is a bit of a workaround so we can have strict typing instead of just any string.
+ * Since Typescript is stripped away once in the browser it doesn't really matter except for defining typed mockdata.
  */
-export type AnswerDataUrl = string;
+export type AnswerDataUrl = "answerDataUrl";
 
 export type ResultLabelType = {
     type: resultContentTypes.label;
@@ -21,8 +24,8 @@ export type ResultLabelType = {
 export type ResultButtonType = {
     type: resultContentTypes.button;
     label: string;
-    function: "restart" | "postData" | "link";
-    url?: string; // postData: will post data to url, link: open url in tab
+    function: "restart" | "postData" | "link"; // postData: will post data to url, link: open url in tab
+    url?: string;
 };
 
 export type ResultGraphType = {
@@ -34,7 +37,9 @@ export type ResultGraphType = {
 
 export type ResultIFrameType = {
     type: resultContentTypes.iframe;
-    url?: AnswerDataUrl; // Will open iframe with this url, see AnswerDataUrl for more info
+    url: AnswerDataUrl; // Will open iframe with this url, see AnswerDataUrl for more info, only supports GET; variant
+    height?: number;
+    disableScroll?: boolean;
 };
 
 export type AllResultContentType = ResultLabelType | ResultButtonType | ResultGraphType | ResultIFrameType;

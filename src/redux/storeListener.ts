@@ -2,6 +2,7 @@ import { debounce } from "lodash";
 import { calculateScore } from "../utils/calculator";
 import { AllAnswersType } from "../types/AnswerTypes";
 import { AnswerPostData } from "../types/DataTypes";
+import { AnswerDataUrl } from "../types/ResultTypes";
 import { generateAnswerStorageKey, replaceValues, fetchAnswerData } from "../utils/utils";
 import { StoreType } from "./store";
 import { setResult } from "./resultReducer";
@@ -10,7 +11,10 @@ import { setResult } from "./resultReducer";
 // calculateScoreListener
 // ----------------------------------------------------------------------
 
-const debouncedFetchAnswerData = debounce((url: string, data: AnswerPostData) => fetchAnswerData(url, data), 500);
+const debouncedFetchAnswerData = debounce(
+    (url: AnswerDataUrl, data: AnswerPostData) => fetchAnswerData(url, data),
+    500,
+);
 
 let prevScoreAnswerList: AllAnswersType[];
 let prevScoreValue = 0;

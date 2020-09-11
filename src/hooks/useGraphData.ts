@@ -23,7 +23,7 @@ const useGraphData = (postUrl: AnswerDataUrl): DataType => {
 
     // Create debounced request function
     const request = useCallback(
-        debounce(async (url: string, data: AnswerPostData) => {
+        debounce(async (url: AnswerDataUrl, data: AnswerPostData) => {
             setLoading(true);
 
             try {
