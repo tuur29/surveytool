@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 import { debounce } from "lodash";
 import { SeriesDataTypes, AnswerPostData } from "../types/DataTypes";
-import { replaceValues, fetchAnswerData } from "../utils/utils";
-import { AnswerDataUrl } from "../types/ConfigTypes";
+import { fetchAnswerData } from "../utils/utils";
 import { useStoreSelector } from "../redux/store";
+import { AnswerDataUrl } from "../types/ResultTypes";
 
 type DataType = {
     data: SeriesDataTypes | null;
@@ -27,7 +27,7 @@ const useGraphData = (postUrl: AnswerDataUrl): DataType => {
             setLoading(true);
 
             try {
-                const result = await fetchAnswerData<SeriesDataTypes>(replaceValues(url, { score })!, data);
+                const result = await fetchAnswerData<SeriesDataTypes>(url, data);
 
                 // TODO: improve graph data validation and notify user on error (hide graph?)
                 // validate result data

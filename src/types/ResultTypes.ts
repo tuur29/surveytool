@@ -5,6 +5,12 @@ export enum resultContentTypes {
     iframe = "iframe",
 }
 
+/**
+ * This is a special type of string that can contain {score} placeholder
+ * and can start with POST; or GET; (Using POST will include the full list of answers).
+ */
+export type AnswerDataUrl = string;
+
 export type ResultLabelType = {
     type: resultContentTypes.label;
     label: string; // can contain {score}, {scoreX} placeholder (scoreX -> score/10, score/20, score/100...)
@@ -22,14 +28,13 @@ export type ResultButtonType = {
 export type ResultGraphType = {
     type: resultContentTypes.graph;
     format: "line" | "bar";
-    dataUrl: string; // sends the answers to the endpoint, see GraphDataType ApiTypes.ts for result type
+    dataUrl: AnswerDataUrl; // sends the answers to the endpoint, see GraphDataType ApiTypes.ts for result type
     titleLabel?: string;
 };
 
 export type ResultIFrameType = {
     type: resultContentTypes.iframe;
-    url?: string;
-    postData?: boolean;
+    url?: AnswerDataUrl; // Will open iframe with this url, see AnswerDataUrl for more info
 };
 
 export type AllResultContentType = ResultLabelType | ResultButtonType | ResultGraphType | ResultIFrameType;

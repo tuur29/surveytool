@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { AllQuestionsType, questionTypes } from "../types/QuestionTypes";
 import { AllAnswersType } from "../types/AnswerTypes";
 import { AnswerPostData } from "../types/DataTypes";
-import { AnswerDataUrl } from "../types/ConfigTypes";
+import { AnswerDataUrl } from "../types/ResultTypes";
 import { ValuesType } from "./labels";
 
 // ----------------------------------------------------------------------
@@ -83,7 +83,7 @@ export const fetchAnswerData = async <T extends Record<string, unknown>>(
     data: AnswerPostData,
 ): Promise<T | null> => {
     const splitUrl = methodUrl.split(/(GET|POST);/);
-    const url = splitUrl[splitUrl.length - 1];
+    const url = replaceValues(splitUrl[splitUrl.length - 1], { score: data.score })!;
     const method = splitUrl.length > 1 ? splitUrl[1] : "GET";
 
     try {

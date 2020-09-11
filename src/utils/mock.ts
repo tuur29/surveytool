@@ -134,6 +134,7 @@ export const mockConfig: Partial<ConfigType> = {
                 titleLabel: "Bar graph",
             },
             { type: resultContentTypes.button, label: "Restart", function: "restart" },
+            { type: resultContentTypes.iframe, url: "https://example.org/?score={score}" },
         ],
     },
     // theme: {
