@@ -38,6 +38,7 @@ export const formatTimestamp = (timestamp: number, localeId: string | null | und
 
 // Create a new set of placeholder answers
 export const generateInitialAnswers = (questions: AllQuestionsType[]): AllAnswersType[] =>
+    // eslint-disable-next-line array-callback-return
     questions.map((question) => {
         const baseAnswer = { questionId: question.id, focussed: false };
         switch (question.type) {
@@ -108,7 +109,6 @@ export const fetchAnswerData = async <T extends Record<string, unknown>>(
 export const useAfterFirstRender = (): boolean => {
     const [value, setValue] = useState(false);
     useEffect(() => {
-        if (value) return;
         setValue(true);
     }, []);
     return value;

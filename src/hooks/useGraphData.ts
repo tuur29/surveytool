@@ -48,6 +48,7 @@ const useGraphData = (postUrl: AnswerDataUrl): DataType => {
 
     useEffect(() => {
         request(postUrl, postData);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [postUrl, hash]);
 
     return { data, loading };
