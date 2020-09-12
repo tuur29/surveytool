@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { width, WidthProps } from "styled-system";
+import { height, HeightProps } from "styled-system";
 
-export const IFrame = styled.iframe<WidthProps>`
+export const IFrame = styled.iframe<HeightProps>`
     width: 100%;
     border: none;
-    ${width}
+    ${height}
 `;

@@ -75,16 +75,16 @@ export const replaceValues = (label: string | null, values?: ValuesType, replace
 
 /**
  * Post data to an url and get return typed data
- * This url can still contain the method, but not the score:
- * GET;http://example.org?score=32 or POST;http://example.org
+ * This url can  contain the method and the score:
+ * GET;http://example.org?score={score} or POST;http://example.org
  */
 export const fetchAnswerData = async <T extends Record<string, unknown>>(
     methodUrl: AnswerDataUrl,
     data: AnswerPostData,
 ): Promise<T | null> => {
-    const splitUrl = methodUrl.split(/(GET|POST);/);
+    const splitUrl = methodUrl.split(";"); // gives array like ["GET", "http://url"] or ["http://url"]
     const url = replaceValues(splitUrl[splitUrl.length - 1], { score: data.score })!;
-    const method = splitUrl.length > 1 ? splitUrl[1] : "GET";
+    const method = splitUrl.length > 1 ? splitUrl[0] : "GET";
 
     try {
         const request = await fetch(url, {
