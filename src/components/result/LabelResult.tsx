@@ -5,10 +5,11 @@ import { useStoreSelector } from "../../redux/store";
 import { resultAnimationTotalFrames, resultAnimationFrameLength, useAfterFirstRender } from "../../utils/utils";
 import ScoreCounter from "./ScoreCounter";
 
-const rescaleToDomain = (value: number, domainStart: number[], domainEnd: number[]): number => {
+const rescaleToDomain = (value: number, sourceDomain: number[], targetDomain: number[]): number => {
     // Rescale the value based on the formula for linear interpolation
     return (
-        ((domainEnd[1] - domainEnd[0]) / (domainStart[1] - domainStart[0])) * (value - domainStart[0]) + domainEnd[0]
+        ((targetDomain[1] - targetDomain[0]) / (sourceDomain[1] - sourceDomain[0])) * (value - sourceDomain[0]) +
+        targetDomain[0]
     );
 };
 
@@ -50,20 +51,22 @@ const LabelResult = (props: PropsType): JSX.Element => {
 
     // display score in label
     const labelParts = config.label.split(new RegExp("\\{score(\\d+)?\\}")); // split label on each possible score placeholder and keep X value
-    const filledInParts = labelParts.map((text, index) => {
-        if (index % 2 === 0) return text; // only uneven items are placeholders for score
-        if (text === undefined) return Math.round(animatedScore); // {score}
-        return Math.round(rescaleToDomain(animatedScore, domain, [0, parseInt(text)])); // {scoreX}
-    });
+    const label = labelParts
+        .map((text, index) => {
+            if (index % 2 === 0) return text; // only uneven items are placeholders for score
+            if (text === undefined) return Math.round(animatedScore); // {score}
+            return Math.round(rescaleToDomain(animatedScore, domain, [0, parseInt(text)])); // {scoreX}
+        })
+        .join("");
 
     return (
         <Result>
-            {config.style === "title" && <Title>{filledInParts.join("")}</Title>}
-            {config.style === "description" && <Description>{filledInParts.join("")}</Description>}
+            {config.style === "title" && <Title>{label}</Title>}
+            {config.style === "description" && <Description>{label}</Description>}
             {config.style === "scoreCounter" && (
                 <ScoreCounter
                     dialPercentage={afterFirstRender ? rescaleToDomain(score, domain, [0, 1]) : 0}
-                    label={filledInParts.join("")}
+                    label={label}
                 />
             )}
         </Result>
