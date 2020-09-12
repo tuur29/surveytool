@@ -6,9 +6,9 @@
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
-        "bundle": "webpack --config webpack.config.js",
         "eject": "react-scripts eject",
-        "lint": "eslint \"src/**/*.{ts,tsx}\""
+        "test:lint": "eslint \"src/**/*.{ts,tsx}\"",
+        "test:typing": "tsc --noEmit --pretty"
     },
     "dependencies": {
         "@testing-library/jest-dom": "^4.2.4",
@@ -59,9 +59,7 @@
         "prettier": "^2.0.5",
         "redux-devtools-extension": "^2.13.8",
         "sinon": "^9.0.2",
-        "ts-jest": "^26.1.0",
-        "uglifyjs-webpack-plugin": "^2.2.0",
-        "webpack-cli": "^3.3.12"
+        "ts-jest": "^26.1.0"
     },
     "eslintConfig": {
         "parser": "@typescript-eslint/parser",

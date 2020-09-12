@@ -84,7 +84,7 @@ The format of dates and times is locale based. By default the end users browser 
 ### Production build
 
 - `yarn build` builds the app for production to the `build` folder.
-- Bundle the output with `yarn bundle`, this will give you a single `dist/surveytool.min.js` you can upload and use.
+- Bundle the output with `./bundle_build.sh`, this will give you a single `build/dist/surveytool.min.js` you can upload and use.
 
 Demo:
 

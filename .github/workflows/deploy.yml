@@ -1,0 +1,30 @@
+name: Deploy
+
+on: 
+  workflow_dispatch
+
+jobs:
+  deploy:
+    name: Demo
+    runs-on: ubuntu-18.04
+    steps:
+
+    - name: Checkout branch
+      uses: actions/checkout@v2
+      with:
+        ref: master
+
+    - name: Cache
+      id: cache
+      uses: actions/cache@v1
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}-0
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Install binaries
+      run: yarn install
+
+    - name: Build
+      run: ./deploy_demo.sh
