@@ -1,46 +1,55 @@
-import { useState, useEffect } from "react";
-import { SeriesDataTypes } from "../types/DataTypes";
+import { useState, useEffect, useCallback } from "react";
+import { debounce } from "lodash";
+import { SeriesDataTypes, AnswerPostData } from "../types/DataTypes";
+import { fetchAnswerData } from "../utils/utils";
+import { useStoreSelector } from "../redux/store";
+import { AnswerDataUrl } from "../types/ResultTypes";
 
 type DataType = {
     data: SeriesDataTypes | null;
     loading: boolean;
 };
 
-const useGraphData = (url: string, postData?: unknown): DataType => {
+const useGraphData = (postUrl: AnswerDataUrl): DataType => {
+    const score = useStoreSelector((state) => state.result.score);
+    const answers = useStoreSelector((state) => state.answers.list);
+
     const [data, setData] = useState<SeriesDataTypes | null>(null);
     const [loading, setLoading] = useState(false);
 
+    // Create data to be sent and create an easy to check string version for refetching with useEffect
+    const postData: AnswerPostData = { score, answers };
     const hash = JSON.stringify(postData);
-    useEffect(() => {
-        // TODO: add debounce around this
-        // TODO: notify end user of errors
-        const request = async () => {
-            // execute request
+
+    // Create debounced request function to avoid spamming the endpoint when changing an already submitted result
+    const request = useCallback(
+        debounce(async (url: AnswerDataUrl, data: AnswerPostData) => {
             setLoading(true);
-            const response = await fetch(url);
-            if (!response.ok) {
-                console.error("Could not retrieve graph data", response.status);
-                return;
-            }
 
             try {
-                // format and validate result data
-                const jsonData: SeriesDataTypes = await response.json();
-                // if (!jsonData || jsonData.length < 1) {
-                //     console.error("Retrieved data can not be rendered to a valid graph", jsonData);
-                //     return;
-                // }
+                const result = await fetchAnswerData<SeriesDataTypes>(url, data);
+
+                // TODO: improve graph data validation and notify user on error (hide graph?)
+                // validate result data
+                if (!result) {
+                    console.error("Could not retrieve graph data");
+                    return;
+                }
 
                 // set result
-                setData(jsonData);
+                setData(result);
                 setLoading(false);
             } catch (exception) {
                 console.error("Retrieved data is not formatted correctly", exception);
             }
-        };
+        }, 500),
+        [],
+    );
 
-        request();
-    }, [url, hash]);
+    useEffect(() => {
+        request(postUrl, postData);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [postUrl, hash]);
 
     return { data, loading };
 };

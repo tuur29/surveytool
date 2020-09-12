@@ -1,6 +1,9 @@
+import { useState, useEffect } from "react";
 import { AllQuestionsType, questionTypes } from "../types/QuestionTypes";
 import { AllAnswersType } from "../types/AnswerTypes";
-import { useState, useEffect } from "react";
+import { AnswerPostData } from "../types/DataTypes";
+import { AnswerDataUrl } from "../types/ResultTypes";
+import { ValuesType } from "./labels";
 
 // ----------------------------------------------------------------------
 // Constants
@@ -36,6 +39,7 @@ export const formatTimestamp = (timestamp: number, localeId: string | null | und
 
 // Create a new set of placeholder answers
 export const generateInitialAnswers = (questions: AllQuestionsType[]): AllAnswersType[] =>
+    // eslint-disable-next-line array-callback-return
     questions.map((question) => {
         const baseAnswer = { questionId: question.id, focussed: false };
         switch (question.type) {
@@ -54,6 +58,50 @@ export const generateInitialAnswers = (questions: AllQuestionsType[]): AllAnswer
         }
     });
 
+/**
+ * Will replace {key1} inside a string with the provided value for the key
+ *
+ * @example replaceValues("Congrats with your {score}% score!", { score: 95 }) => "Congrats with your 95% score!"
+ */
+export const replaceValues = (label: string | null, values?: ValuesType, replaceAll = true): string | null => {
+    if (!label) return null;
+    if (!values) return label;
+
+    // loop over provided values and replace those keys with their values in the provided label
+    return Object.entries(values).reduce((newLabel, [key, value]) => {
+        const regex = new RegExp(`{${key}}`, replaceAll ? "g" : "");
+        return newLabel.replace(regex, `${value}`);
+    }, label);
+};
+
+/**
+ * Post data to an url and get return typed data
+ * This url can  contain the method and the score:
+ * GET;http://example.org?score={score} or POST;http://example.org
+ */
+export const fetchAnswerData = async <T extends Record<string, unknown>>(
+    methodUrl: AnswerDataUrl,
+    data: AnswerPostData,
+): Promise<T | null> => {
+    const splitUrl = methodUrl.split(";"); // gives array like ["GET", "http://url"] or ["http://url"]
+    const url = replaceValues(splitUrl[splitUrl.length - 1], { score: data.score })!;
+    const method = splitUrl.length > 1 ? splitUrl[0] : "GET";
+
+    try {
+        const request = await fetch(url, {
+            method,
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: method === "POST" ? JSON.stringify(data) : undefined,
+        });
+        return (await request.json()) as T;
+    } catch (error) {
+        console.error("Could not post answers", error);
+        return null;
+    }
+};
+
 // ----------------------------------------------------------------------
 // Hooks
 // ----------------------------------------------------------------------
@@ -62,7 +110,6 @@ export const generateInitialAnswers = (questions: AllQuestionsType[]): AllAnswer
 export const useAfterFirstRender = (): boolean => {
     const [value, setValue] = useState(false);
     useEffect(() => {
-        if (value) return;
         setValue(true);
     }, []);
     return value;

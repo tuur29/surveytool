@@ -6,6 +6,7 @@ import { Container, Header } from "./styles/Container";
 import LabelResult from "./result/LabelResult";
 import GraphResult from "./result/GraphResult";
 import ButtonResult from "./result/ButtonResult";
+import IFrameResult from "./result/IFrameResult";
 
 const determineComponent = (block: AllResultContentType, index: number): JSX.Element => {
     switch (block.type) {
@@ -16,7 +17,7 @@ const determineComponent = (block: AllResultContentType, index: number): JSX.Ele
         case resultContentTypes.graph:
             return <GraphResult key={index} config={block} />;
         case resultContentTypes.iframe:
-            return <div key={index} />;
+            return <IFrameResult key={index} config={block} />;
     }
 };
 

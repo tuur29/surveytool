@@ -19,5 +19,5 @@ export const defaultLabels = {
     resultSeeButton: "See results",
 };
 
-export type ValuesType = Partial<Record<"count" | "date", string | number>>;
+export type ValuesType = Partial<Record<"count" | "date" | "score", string | number>>;
 export type LabelType = keyof typeof defaultLabels;

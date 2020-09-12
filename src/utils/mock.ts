@@ -1,6 +1,6 @@
 import { ConfigType } from "../types/ConfigTypes";
 import { questionTypes } from "../types/QuestionTypes";
-import { resultContentTypes } from "../types/ResultTypes";
+import { AnswerDataUrl, resultContentTypes } from "../types/ResultTypes";
 
 export const mockConfig: Partial<ConfigType> = {
     id: "mock1",
@@ -111,6 +111,7 @@ export const mockConfig: Partial<ConfigType> = {
     ],
     result: {
         scoreDomain: [0, 130],
+        postDataUrl: "POST;https://example.org/api/answer" as AnswerDataUrl,
         content: [
             { type: resultContentTypes.label, style: "title", label: "Thanks for your {score10}/10 submission" },
             {
@@ -122,13 +123,13 @@ export const mockConfig: Partial<ConfigType> = {
             { type: resultContentTypes.label, style: "scoreCounter", label: "{score100}%", animate: true },
             {
                 type: resultContentTypes.graph,
-                dataUrl: "/surveytool/mockLineGraph.json",
+                dataUrl: "GET;/surveytool/mockLineGraph.json?score={score}" as AnswerDataUrl,
                 format: "line",
                 titleLabel: "Line graph",
             },
             {
                 type: resultContentTypes.graph,
-                dataUrl: "/surveytool/mockBarGraph.json",
+                dataUrl: "/surveytool/mockBarGraph.json" as AnswerDataUrl,
                 format: "bar",
                 titleLabel: "Bar graph",
             },
@@ -139,6 +140,12 @@ export const mockConfig: Partial<ConfigType> = {
                 titleLabel: "Bar graph",
             },
             { type: resultContentTypes.button, label: "Restart", function: "restart" },
+            {
+                type: resultContentTypes.iframe,
+                url: "https://example.org/?score={score}" as AnswerDataUrl,
+                height: 300,
+                disableScroll: true,
+            },
         ],
     },
     // theme: {

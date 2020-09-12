@@ -1,12 +1,20 @@
+import { debounce } from "lodash";
 import { calculateScore } from "../utils/calculator";
 import { AllAnswersType } from "../types/AnswerTypes";
-import { generateAnswerStorageKey } from "../utils/utils";
+import { AnswerPostData } from "../types/DataTypes";
+import { AnswerDataUrl } from "../types/ResultTypes";
+import { generateAnswerStorageKey, replaceValues, fetchAnswerData } from "../utils/utils";
 import { StoreType } from "./store";
 import { setResult } from "./resultReducer";
 
 // ----------------------------------------------------------------------
 // calculateScoreListener
 // ----------------------------------------------------------------------
+
+const debouncedFetchAnswerData = debounce(
+    (url: AnswerDataUrl, data: AnswerPostData) => fetchAnswerData(url, data),
+    500,
+);
 
 let prevScoreAnswerList: AllAnswersType[];
 let prevScoreValue = 0;
@@ -21,6 +29,23 @@ const calculateScoreListener = (store: StoreType): void => {
 
         if (newScore !== prevScoreValue) {
             prevScoreValue = newScore;
+
+            // Replace built in results page with a custom redirect
+            // this causes instant reloads when showResult was saved to localstorage (only in dev mode)
+            if (state.config.result.redirectUrl) {
+                window.location.href = replaceValues(state.config.result.redirectUrl, { score: newScore })!;
+                return;
+            }
+
+            // Post answers and score to endpoint
+            // use a debounced callback to avoid spamming the endpoint when changing a submitted result
+            if (state.config.result.postDataUrl) {
+                debouncedFetchAnswerData(state.config.result.postDataUrl, {
+                    score: newScore,
+                    answers: state.answers.list,
+                });
+            }
+
             store.dispatch(setResult(newScore));
         }
     }
