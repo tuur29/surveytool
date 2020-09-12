@@ -1,5 +1,6 @@
 import { select, extent, min, max, axisLeft, scaleLinear, axisBottom, line } from "d3";
 import { SeriesDataTypes } from "../types/DataTypes";
+import { graphHighlightId } from "./utils";
 
 type HighlightType = { x: number; color: string };
 
@@ -23,7 +24,7 @@ export const drawLineGraph = (
 
     // Format data
     const data: LineSeriesType[] = inputData.series
-        .filter((item) => item.id !== "highlight")
+        .filter((item) => item.id !== graphHighlightId)
         .map((item) => {
             const filteredValues = sortedValues.reduce<
                 {
@@ -117,7 +118,7 @@ export const drawLineGraph = (
         .attr("d", drawLine);
 
     // Add highlight lines
-    const highlightSeries = inputData.series.find((item) => item.id === "highlight");
+    const highlightSeries = inputData.series.find((item) => item.id === graphHighlightId);
     if (highlightSeries) {
         const lines = inputData.values.reduce<HighlightType[]>((list, value) => {
             if (value.highlight) {

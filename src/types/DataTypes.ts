@@ -1,3 +1,5 @@
+import { graphHighlightId } from "../utils/utils";
+
 type SeriesId = string;
 
 export type SeriesDataTypes<T extends number | string | unknown = unknown> = {
@@ -11,6 +13,6 @@ export type SeriesDataTypes<T extends number | string | unknown = unknown> = {
     }[];
     values: ({
         x: T;
-        highlight?: string | true; // overrides series colour
+        [graphHighlightId]?: string | true; // overrides series colour
     } & Record<SeriesId, number | null>)[];
 };

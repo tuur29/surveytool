@@ -132,6 +132,12 @@ export const mockConfig: Partial<ConfigType> = {
                 format: "bar",
                 titleLabel: "Bar graph",
             },
+            {
+                type: resultContentTypes.graph,
+                dataUrl: "/surveytool/mockSingleBarGraph.json",
+                format: "bar",
+                titleLabel: "Bar graph",
+            },
             { type: resultContentTypes.button, label: "Restart", function: "restart" },
         ],
     },

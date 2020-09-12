@@ -1,5 +1,6 @@
 import { select, axisLeft, scaleLinear, scaleBand, axisBottom } from "d3";
 import { SeriesDataTypes } from "../types/DataTypes";
+import { graphHighlightId } from "./utils";
 
 type HighlightType = { category: string; color: string };
 
@@ -57,11 +58,11 @@ export const drawBarGraph = (
                 .text(inputData.yLabel),
         );
 
-    const numberOfSeries = inputData.series.filter((item) => item.id !== "highlight").length;
+    const numberOfSeries = inputData.series.filter((item) => item.id !== graphHighlightId).length;
 
     // Render highlights
     let highlights: HighlightType[];
-    const highlightSeries = inputData.series.find((item) => item.id === "highlight");
+    const highlightSeries = inputData.series.find((item) => item.id === graphHighlightId);
     if (highlightSeries) {
         highlights = inputData.values.reduce<HighlightType[]>((list, value) => {
             if (value.highlight) {
@@ -72,31 +73,19 @@ export const drawBarGraph = (
             }
             return list;
         }, []);
-        // TODO: draw highlight around multiple bars or colour a single bar
-        console.log("\x1b[36mLog%s: %o\x1b[0m", ": Highlights", highlights);
         
         // If there is more than one series, draw a highlight behind the bars
         if (numberOfSeries > 1) {
             const highlightGroup = svg.append("g").attr("class", "highlight");
+            const highlightPadding = barPadding * xScale.bandwidth() / 3;
             highlights.forEach((highlight) => {
-                const hightlightHeight = inputData.values
-                    .filter((item) => item.x === highlight.category)
-                    .reduce(
-                        (previousMax, point) => {
-                            const { x, highlight, ...yValues } = point;
-                            const max = Math.max(previousMax, ...(Object.values(yValues) as number[]));
-                            return max;
-                        },
-                        Number.MIN_SAFE_INTEGER,
-                    );
-
                 highlightGroup
                     .append("rect")
                     .attr("fill", highlight.color)
-                    .attr("x", xScale(highlight.category) as number) // TODO: 'as number' should be removed
-                    .attr("y", yScale(hightlightHeight))
-                    .attr("width", xScale.bandwidth())
-                    .attr("height", graphHeight - yScale(hightlightHeight));
+                    .attr("x", xScale(highlight.category)! - highlightPadding)
+                    .attr("y", margin.top)
+                    .attr("width", xScale.bandwidth() + highlightPadding * 2)
+                    .attr("height", graphHeight - margin.top);
                 }
             );
         }
@@ -104,7 +93,7 @@ export const drawBarGraph = (
 
     // Draw bars
     const group = svg.append("g").attr("class", "bargroup");
-    const barWidth = xScale.bandwidth() / inputData.series.filter((item) => item.id !== "highlight").length;
+    const barWidth = xScale.bandwidth() / inputData.series.filter((item) => item.id !== graphHighlightId).length;
     inputData.values.forEach((point) => {
         const { x, highlight, ...yValues } = point;
         Object.entries(yValues).forEach(([id, value], index) => {
@@ -113,15 +102,13 @@ export const drawBarGraph = (
             const xValue = xScale(x)! + barWidth * index;
 
             // If there is only one series, highlight by changing the bar's color
-            // TODO: Question: Will this behave as how I expect it to behave?
-            const barColor = (numberOfSeries == 1 && highlights.find((item) => item.category === x)?.color as string) || series?.color;
-            
-            // let barColor: string;
-            // if (numberOfSeries == 1 && highlights.find((item) => item.category === x)) {
-            //     barColor = highlights.find((item) => item.category === x)?.color as string;
-            // } else {
-            //     barColor = series?.color;
-            // }
+            let barColor: string;
+            const selectedCategory = highlights.find((item) => item.category === x);
+            if (numberOfSeries === 1 && selectedCategory) {
+                barColor = selectedCategory.color;
+            } else {
+                barColor = series?.color;
+            }
 
             group
                 .append("rect")
