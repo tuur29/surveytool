@@ -25,7 +25,8 @@ export type ResultButtonType = {
     type: resultContentTypes.button;
     label: string;
     function: "restart" | "postData" | "link"; // postData: will post data to url, link: open url in tab
-    url?: string; // TODO: this should become a AnswerDataUrl
+    url?: AnswerDataUrl;
+    openInTab?: boolean;
 };
 
 export type ResultGraphType = {

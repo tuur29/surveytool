@@ -63,7 +63,7 @@ export const generateInitialAnswers = (questions: AllQuestionsType[]): AllAnswer
  *
  * @example replaceValues("Congrats with your {score}% score!", { score: 95 }) => "Congrats with your 95% score!"
  */
-export const replaceValues = (label: string | null, values?: ValuesType, replaceAll = true): string | null => {
+export const replaceValues = (label?: string | null, values?: ValuesType, replaceAll = true): string | null => {
     if (!label) return null;
     if (!values) return label;
 

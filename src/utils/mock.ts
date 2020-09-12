@@ -135,11 +135,30 @@ export const mockConfig: Partial<ConfigType> = {
             },
             {
                 type: resultContentTypes.graph,
-                dataUrl: "/surveytool/mockSingleBarGraph.json",
+                dataUrl: "/surveytool/mockSingleBarGraph.json" as AnswerDataUrl,
                 format: "bar",
                 titleLabel: "Bar graph",
             },
             { type: resultContentTypes.button, label: "Restart", function: "restart" },
+            {
+                type: resultContentTypes.button,
+                label: "Save results",
+                function: "postData",
+                url: "POST;https://example.org/api/answer" as AnswerDataUrl,
+            },
+            {
+                type: resultContentTypes.button,
+                label: "Open results in new tab",
+                function: "link",
+                url: "https://example.org/?score={score}" as AnswerDataUrl,
+                openInTab: true,
+            },
+            {
+                type: resultContentTypes.button,
+                label: "Navigate to result page",
+                function: "link",
+                url: "https://example.org/?score={score}" as AnswerDataUrl,
+            },
             {
                 type: resultContentTypes.iframe,
                 url: "https://example.org/?score={score}" as AnswerDataUrl,
