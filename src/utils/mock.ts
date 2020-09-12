@@ -135,7 +135,7 @@ export const mockConfig: Partial<ConfigType> = {
             },
             {
                 type: resultContentTypes.graph,
-                dataUrl: "/surveytool/mockSingleBarGraph.json",
+                dataUrl: "/surveytool/mockSingleBarGraph.json" as AnswerDataUrl,
                 format: "bar",
                 titleLabel: "Bar graph",
             },
