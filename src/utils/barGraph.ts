@@ -21,7 +21,10 @@ export const drawBarGraph = (
     const barPadding = 0.2;
 
     // x axis
-    const xScale = scaleBand().domain(categories).range([margin.left, graphWidth]).padding(barPadding);
+    const xScale = scaleBand()
+        .domain(categories)
+        .range([margin.left, graphWidth])
+        .padding(barPadding);
 
     // render x axis
     svg.append("g").attr("class", "axis-x").attr("transform", `translate(0,${graphHeight})`).call(axisBottom(xScale));
