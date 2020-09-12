@@ -5,6 +5,14 @@ import { useStoreSelector } from "../../redux/store";
 import { resultAnimationTotalFrames, resultAnimationFrameLength, useAfterFirstRender } from "../../utils/utils";
 import ScoreCounter from "./ScoreCounter";
 
+const rescaleToDomain = (value: number, sourceDomain: number[], targetDomain: number[]): number => {
+    // Rescale the value based on the formula for linear interpolation
+    return (
+        ((targetDomain[1] - targetDomain[0]) / (sourceDomain[1] - sourceDomain[0])) * (value - sourceDomain[0]) +
+        targetDomain[0]
+    );
+};
+
 type PropsType = {
     config: ResultLabelType;
 };
@@ -43,22 +51,22 @@ const LabelResult = (props: PropsType): JSX.Element => {
 
     // display score in label
     const labelParts = config.label.split(new RegExp("\\{score(\\d+)?\\}")); // split label on each possible score placeholder and keep X value
-    const filledInParts = labelParts.map((text, index) => {
-        if (index % 2 === 0) return text; // only uneven items are placeholders for score
-        if (text === undefined) return Math.round(animatedScore); // {score}
-        return Math.round((animatedScore / (domain[1] - domain[0])) * parseInt(text)); // {scoreX}
-    });
+    const label = labelParts
+        .map((text, index) => {
+            if (index % 2 === 0) return text; // only uneven items are placeholders for score
+            if (text === undefined) return Math.round(animatedScore); // {score}
+            return Math.round(rescaleToDomain(animatedScore, domain, [0, parseInt(text)])); // {scoreX}
+        })
+        .join("");
 
     return (
         <Result>
-            {config.style === "title" && <Title>{filledInParts.join("")}</Title>}
-            {config.style === "description" && <Description>{filledInParts.join("")}</Description>}
+            {config.style === "title" && <Title>{label}</Title>}
+            {config.style === "description" && <Description>{label}</Description>}
             {config.style === "scoreCounter" && (
                 <ScoreCounter
-                    value={afterFirstRender ? score : 0}
-                    textValue={animatedScore}
-                    min={domain[0]}
-                    max={domain[1]}
+                    dialPercentage={afterFirstRender ? rescaleToDomain(score, domain, [0, 1]) : 0}
+                    label={label}
                 />
             )}
         </Result>

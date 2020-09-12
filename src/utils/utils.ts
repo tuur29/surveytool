@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 
 export const resultAnimationTotalFrames = 10;
 export const resultAnimationFrameLength = 65;
+export const graphHighlightId = "highlight";
 
 // ----------------------------------------------------------------------
 // Helper methods

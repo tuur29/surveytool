@@ -1,6 +1,9 @@
+import { graphHighlightId } from "../utils/utils";
+
 type SeriesId = string;
 
 export type SeriesDataTypes<T extends number | string | unknown = unknown> = {
+    // T depends on line or bar chart
     xLabel: number;
     yLabel: number;
     series: {
@@ -10,5 +13,6 @@ export type SeriesDataTypes<T extends number | string | unknown = unknown> = {
     }[];
     values: ({
         x: T;
+        [graphHighlightId]?: string | true; // overrides series colour
     } & Record<SeriesId, number | null>)[];
 };
