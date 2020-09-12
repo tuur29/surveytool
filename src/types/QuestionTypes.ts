@@ -1,8 +1,8 @@
 import { AllAnswersType } from "./AnswerTypes";
 
 export enum questionTypes {
-    single = "singleChoice",
-    multiple = "multipleChoice",
+    single = "single",
+    multiple = "multiple",
     text = "text",
     range = "range",
 }
