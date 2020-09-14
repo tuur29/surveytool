@@ -26,10 +26,7 @@ const ButtonResult = (props: PropsType): JSX.Element => {
                 dispatch(resetAnswers());
                 break;
             case "postData":
-                fetchAnswerData(config.url as AnswerDataUrl, {
-                    score: score,
-                    answers: answers,
-                });
+                fetchAnswerData(config.url as AnswerDataUrl, { score, answers });
                 break;
             case "link":
                 if (config.openInTab) {
