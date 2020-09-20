@@ -18,7 +18,9 @@ rm -rf $OUTPUTFOLDER
 mkdir $OUTPUTFOLDER
 
 cat $(find $INPUTFOLDER -name "runtime-main.*.js") >> $OUTPUTFILE
+echo "" >> $OUTPUTFILE
 cat $(find $INPUTFOLDER -name "2.*.js") >> $OUTPUTFILE
+echo "" >> $OUTPUTFILE
 cat $(find $INPUTFOLDER -name "main.*.js") >> $OUTPUTFILE
 
 echo $OUTPUTFILE
