@@ -1,0 +1,39 @@
+name: PR CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - 'master'
+      - 'develop'
+      - 'acceptance'
+
+jobs:
+  type:
+    name: Typecheck
+    runs-on: ubuntu-18.04
+    steps:
+
+    - name: Checkout branch
+      uses: actions/checkout@v2
+
+    - name: Cache
+      id: cache
+      uses: actions/cache@v1
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}-0
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    # Not needed as ubuntu-18.04 already has node 12 preinstalled
+    # - name: Setup Node
+    #   uses: actions/setup-node@v1
+    #   with:
+    #     node-version: '12.x'
+
+    - name: Install binaries
+      run: yarn install
+
+    - name: Typing
+      run: yarn run test:typing
