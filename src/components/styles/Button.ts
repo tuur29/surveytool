@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { SpaceProps, space } from "styled-system";
 import { getElevation } from "../../utils/theme";
+import { Loader } from "./Loader";
 
 export const CenteredButtonWrapper = styled.div<SpaceProps>`
     display: flex;
@@ -35,12 +36,14 @@ export const Button = styled.button.attrs({ type: "button" })<{ disabled?: boole
             color: ${({ theme }) => theme.colors.controlOnButtonDisabled};
         `};
 
-    svg {
+    svg,
+    ${Loader} {
+        display: inline-block;
         color: ${({ theme, disabled }) => (disabled ? theme.colors.icon : "inherit")} !important;
         ${({ iconAlign, theme }) =>
             iconAlign &&
             css`
-                margin-${iconAlign === "left" ? "right" : "left"}: ${theme.space[1]}px;
+                margin-${iconAlign === "left" ? "right" : "left"}: ${theme.space[2]}px;
         `};
     }
 `;
