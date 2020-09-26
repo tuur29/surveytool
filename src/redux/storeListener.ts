@@ -41,6 +41,7 @@ const calculateScoreListener = (store: StoreType): void => {
             // use a debounced callback to avoid spamming the endpoint when changing a submitted result
             if (state.config.result.postDataUrl) {
                 debouncedFetchAnswerData(state.config.result.postDataUrl, {
+                    configId: state.config.id,
                     score: newScore,
                     answers: state.answers.list,
                 });

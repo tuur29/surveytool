@@ -11,6 +11,7 @@ type DataType = {
 };
 
 const useGraphData = (postUrl: AnswerDataUrl): DataType => {
+    const configId = useStoreSelector((state) => state.config.id);
     const score = useStoreSelector((state) => state.result.score);
     const answers = useStoreSelector((state) => state.answers.list);
 
@@ -18,7 +19,7 @@ const useGraphData = (postUrl: AnswerDataUrl): DataType => {
     const [loading, setLoading] = useState(false);
 
     // Create data to be sent and create an easy to check string version for refetching with useEffect
-    const postData: AnswerPostData = { score, answers };
+    const postData: AnswerPostData = { configId, score, answers };
     const hash = JSON.stringify(postData);
 
     // Create debounced request function to avoid spamming the endpoint when changing an already submitted result

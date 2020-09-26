@@ -15,6 +15,7 @@ type PropsType = {
 const ButtonResult = (props: PropsType): JSX.Element => {
     const { config } = props;
 
+    const configId = useStoreSelector((state) => state.config.id);
     const score = useStoreSelector((state) => state.result.score);
     const answers = useStoreSelector((state) => state.answers.list);
     const dispatch = useStoreDispatch();
@@ -34,7 +35,7 @@ const ButtonResult = (props: PropsType): JSX.Element => {
                 break;
             case "postData":
                 setLoading(true);
-                await fetchAnswerData(config.url as AnswerDataUrl, { score, answers });
+                await fetchAnswerData(config.url as AnswerDataUrl, { configId, score, answers });
                 setLoading(false);
                 setLoaded(true);
                 break;
