@@ -7,6 +7,8 @@ import { isAnswerValid } from "../../utils/validator";
 import { ErrorPanel, ErrorList } from "../styles/Question";
 import { showResult } from "../../redux/resultReducer";
 
+const MAX_ERRORS = 3;
+
 type InvalidItem = { id: string; title: string };
 
 const ShowResultsButton = (): JSX.Element => {
@@ -18,10 +20,17 @@ const ShowResultsButton = (): JSX.Element => {
     const invalidDataList = allAnswers.reduce<InvalidItem[]>((invalidList, answer) => {
         const question = allQuestions.find((item) => item.id === answer.questionId)!;
         if (!isAnswerValid(question, answer)) {
-            invalidList.push({
-                id: question.id,
-                title: question.title.replace("{hint}", ""),
-            });
+            // limit the errors list to MAX_ERRORS items
+            if (invalidList.length === MAX_ERRORS) {
+                invalidList.push({ id: "more", title: "..." });
+            }
+
+            if (invalidList.length < MAX_ERRORS) {
+                invalidList.push({
+                    id: question.id,
+                    title: question.title.replace("{hint}", ""),
+                });
+            }
         }
         return invalidList;
     }, []);
