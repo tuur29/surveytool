@@ -61,6 +61,8 @@ export type RangeQuestionType = BaseQuestion & {
     step?: number;
     direction?: RangeDirectionType; // only used on slider
     tickCount?: number; // only used on slider
+    tickValues?: number[]; // overrides tickCount
+    tickLabels?: (string | null)[];
 };
 
 export type AllQuestionsType =

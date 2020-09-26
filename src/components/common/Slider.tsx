@@ -1,7 +1,9 @@
 import React, { Fragment } from "react";
 import { Slider as CompoundSlider, Rail, Handles, Tracks, Ticks } from "react-compound-slider";
+import { useTheme } from "styled-components";
 import { SliderWrapper, SliderRail, SliderHandle, SliderTick, SliderTrack, SliderTickLabel } from "../styles/Input";
 import { RangeDirectionType } from "../../types/QuestionTypes";
+import { BreakpointType } from "../../utils/theme";
 
 type PropsType = {
     min: number;
@@ -9,15 +11,20 @@ type PropsType = {
     value: number;
     step: number;
     direction: RangeDirectionType;
-    tickCount: number;
+    tickCount?: number;
+    tickValues?: number[];
+    tickLabels?: (string | null)[];
     onChange: (value: number) => void;
 };
 
 const Slider = (props: PropsType): JSX.Element => {
-    const { min, max, value, step, direction, tickCount, onChange } = props;
+    const { min, max, value, step, direction, tickCount, tickValues, tickLabels, onChange } = props;
+    const { breakpoints, space } = useTheme();
+
+    const size: BreakpointType = (max - min) / step > 15 ? "md" : "sm";
 
     return (
-        <SliderWrapper>
+        <SliderWrapper width={{ xs: 1, [size]: parseInt(breakpoints[size]) - space[4] * 2 }}>
             <CompoundSlider
                 mode={1}
                 domain={[min, max]}
@@ -45,13 +52,15 @@ const Slider = (props: PropsType): JSX.Element => {
                         </div>
                     )}
                 </Tracks>
-                <Ticks count={tickCount}>
+                <Ticks count={tickCount} values={tickValues}>
                     {({ ticks }) => (
                         <div className="slider-ticks">
-                            {ticks.map((tick) => (
+                            {ticks.map((tick, tickIndex) => (
                                 <Fragment key={tick.id}>
                                     <SliderTick percent={tick.percent} />
-                                    <SliderTickLabel percent={tick.percent}>{tick.value}</SliderTickLabel>
+                                    <SliderTickLabel percent={tick.percent}>
+                                        {tickLabels?.[tickIndex] || tick.value}
+                                    </SliderTickLabel>
                                 </Fragment>
                             ))}
                         </div>

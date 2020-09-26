@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { width, WidthProps } from "styled-system";
 import { IconWrapper } from "../common/Icon";
 import { getElevation } from "../../utils/theme";
 
@@ -271,13 +272,13 @@ const sliderTransition = css`
     transition: all 0.15s;
 `;
 
-export const SliderWrapper = styled.div<{ width?: number }>`
+export const SliderWrapper = styled.div<WidthProps>`
     > div {
         position: relative;
-        width: ${({ width }) => width || 300}px;
         height: 30px;
         margin-bottom: ${({ theme }) => theme.space[3]}px;
         user-select: none;
+        ${width}
     }
 `;
 
@@ -338,8 +339,7 @@ export const SliderTick = styled.div<{ percent: number }>`
     height: ${({ theme }) => theme.sizes.controlSliderTrackHeight};
     background-color: ${({ theme }) => theme.colors.controlSliderBack};
 
-    &:first-of-type,
-    &:last-of-type {
+    &:first-of-type ${({ percent }) => (percent === 100 ? ", &:last-of-type" : "")} {
         display: none;
     }
 `;

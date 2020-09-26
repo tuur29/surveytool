@@ -3,7 +3,7 @@ import { questionTypes } from "../types/QuestionTypes";
 import { AnswerDataUrl, resultContentTypes } from "../types/ResultTypes";
 
 export const mockConfig: Partial<ConfigType> = {
-    id: "mock1",
+    id: "mock",
     questions: [
         {
             id: "EDJUJDO",
@@ -43,6 +43,7 @@ export const mockConfig: Partial<ConfigType> = {
             min: 0,
             max: 10,
             required: true,
+            tickLabels: ["Min", "", "Two"],
         },
         {
             id: "CUIHUDAK",
@@ -106,6 +107,7 @@ export const mockConfig: Partial<ConfigType> = {
             step: 2,
             max: 8,
             default: 4,
+            direction: "decrease",
             calcFunction: (question: any, answer: any): number => (answer.value / (question.max - question.min)) * 100,
         },
     ],
