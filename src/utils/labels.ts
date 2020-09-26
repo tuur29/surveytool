@@ -5,6 +5,8 @@ export const defaultLabels = {
 
     // questions
     questionsTitle: "Questions",
+    questionsDescription:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat enim Polemonis. Iam contemni non poteris. Equidem etiam Epicurum, in physicis quidem, Democriteum puto. An quod ita callida est, ut optime possit architectari voluptates? Iam quae corporis sunt, ea nec auctoritatem cum animi partibus.",
     questionsFooter: "Last update on {date}",
     questionsErrorTitle: "These questions need to be filled in correctly to see your result:",
     inputSelectPlaceholder: "--- {count} options ---",

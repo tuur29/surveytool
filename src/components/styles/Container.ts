@@ -16,6 +16,13 @@ export const Header = styled.h1`
     text-align: center;
 `;
 
+export const Description = styled.div<SpaceProps>`
+    ${space};
+`;
+Description.defaultProps = {
+    paddingX: { xs: 2, lg: 5 },
+};
+
 export const Footer = styled(Container)<TextAlignProps>`
     font-size: ${({ theme }) => theme.sizes.footer};
     font-style: italic;

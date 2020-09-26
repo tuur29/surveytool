@@ -1,8 +1,8 @@
 import React from "react";
 import { AllQuestionsType, questionTypes } from "../types/QuestionTypes";
 import { useStoreSelector } from "../redux/store";
-import useLabel from "../hooks/useLabel";
-import { Container, Header } from "./styles/Container";
+import { useLabels } from "../hooks/useLabel";
+import { Container, Description, Header } from "./styles/Container";
 import SingleChoiceQuestion from "./questions/SingleChoiceQuestion";
 import MultipleChoiceQuestion from "./questions/MultipleChoiceQuestion";
 import TextQuestion from "./questions/TextQuestion";
@@ -24,12 +24,13 @@ const determineComponent = (question: AllQuestionsType): JSX.Element => {
 
 const QuestionList = (): JSX.Element | null => {
     const config = useStoreSelector((state) => state.config);
-    const titleLabel = useLabel("questionsTitle");
+    const [titleLabel, descriptionLabel] = useLabels(["questionsTitle", "questionsDescription"]);
 
     if (!config.questions.length) return null;
     return (
         <Container py={4}>
             {titleLabel && <Header>{titleLabel}</Header>}
+            {descriptionLabel && <Description>{descriptionLabel}</Description>}
             {config.questions.map(determineComponent)}
 
             <ShowResultsButton />
