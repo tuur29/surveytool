@@ -17,6 +17,7 @@ export const Header = styled.h1`
 `;
 
 export const Description = styled.div<SpaceProps>`
+    white-space: pre-wrap;
     ${space};
 `;
 Description.defaultProps = {
