@@ -10,6 +10,7 @@ import useLabel from "../hooks/useLabel";
 import Checkbox from "./common/Checkbox";
 import QuestionList from "./QuestionList";
 import ResultList from "./ResultList";
+import MessagesList from "./MessagesList";
 import { Label } from "./styles/Input";
 import { Footer } from "./styles/Container";
 
@@ -48,9 +49,9 @@ const App = (): JSX.Element | null => {
                         </Label>
                     </>
                 )}
+                <MessagesList />
                 <QuestionList />
                 {showResult && <ResultList />}
-
                 {showAnsweredTimetamp && footerLabel && <Footer>{footerLabel}</Footer>}
             </>
         </ThemeProvider>

@@ -47,7 +47,7 @@ export const Checkbox = styled.div<{ checked?: boolean }>`
         right: 0;
         left: ${({ checked }) => (checked ? 100 : 0)}%;
         bottom: 0;
-        z-index: 1;
+        z-index: ${({ theme }) => theme.zIndex.checkmark};
         background-color: ${({ theme }) => theme.colors.controlBack};
         transition: left 0.3s;
     }
@@ -122,7 +122,7 @@ export const SelectValue = styled.div<{ opened?: boolean }>`
     ${baseMargin};
     ${basePadding};
     position: relative;
-    z-index: 1; /* necessary to hide dropdown animation */
+    z-index: ${({ theme }) => theme.zIndex.selectValue}; /* necessary to hide dropdown animation */
 
     display: inline-flex;
     justify-content: space-between;
@@ -169,7 +169,7 @@ export const SelectDropdown = styled.ul<{ show: boolean }>`
     list-style: none;
     border-bottom-right-radius: ${({ theme }) => theme.sizes.radius};
     border-bottom-left-radius: ${({ theme }) => theme.sizes.radius};
-    box-shadow: ${getElevation(2)};
+    box-shadow: ${({ theme }) => getElevation(theme.elevation.dropdown)};
 
     /* animation */
     transform-origin: top;
@@ -293,7 +293,7 @@ export const SliderRail = styled.div`
 
 export const SliderTrack = styled.div<{ percent: number }>`
     position: absolute;
-    z-index: 1;
+    z-index: ${({ theme }) => theme.zIndex.sliderTrack};
     top: calc(50% - (${({ theme }) => theme.sizes.controlSliderTrackHeight} / 2));
     left: 0;
     right: ${({ percent }) => 100 - percent}%;
@@ -309,7 +309,7 @@ export const SliderTrack = styled.div<{ percent: number }>`
 
 export const SliderHandle = styled.div<{ percent: number }>`
     position: absolute;
-    z-index: 2;
+    z-index: ${({ theme }) => theme.zIndex.sliderHandle};
     top: calc(50% - (${({ theme }) => theme.sizes.controlSliderHandleSize} / 2));
     left: ${({ percent }) => percent}%;
     display: flex;

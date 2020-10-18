@@ -6,14 +6,14 @@ const TOOLTIP_BOUNDS_SIZE = 20;
 
 export const TooltipContent = styled.span<{ show?: boolean }>`
     position: absolute;
-    z-index: 1;
+    z-index: ${({ theme }) => theme.zIndex.tooltip};
     max-width: 300px;
     margin-top: -10px; /* TODO: fix these hardcoded margins */
     margin-left: -32px;
     padding: 10px 15px;
     color: ${({ theme }) => theme.colors.onSurface};
     background-color: ${({ theme }) => theme.colors.surface};
-    box-shadow: ${getElevation(3)};
+    box-shadow: ${({ theme }) => getElevation(theme.elevation.tooltip)};
     border-radius: 4px;
     transition: opacity 0.3s;
 

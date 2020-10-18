@@ -5,7 +5,7 @@ import { getElevation } from "../../utils/theme";
 export const Question = styled.article<SpaceProps>`
     background-color: ${({ theme }) => theme.colors.surface};
     color: ${({ theme }) => theme.colors.onSurface};
-    box-shadow: ${getElevation(1)};
+    box-shadow: ${({ theme }) => getElevation(theme.elevation.question)};
     border-radius: ${({ theme }) => theme.sizes.radius};
     ${space};
 `;

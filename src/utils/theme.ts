@@ -36,6 +36,13 @@ const colors = {
     controlOnButton: palettes.neutralLight[0],
     controlButtonDisabled: palettes.neutralLight[4],
     controlOnButtonDisabled: palettes.neutralLight[8],
+    // messages
+    messageInfo: "#BBDEFB",
+    messageInfoBorder: "#2196F3",
+    onMessageInfo: "#1976D2",
+    messageError: "#FFCDD2",
+    messageErrorBorder: "#F44336",
+    onMessageError: "#D32F2F",
     // other colours
     shadow: palettes.neutralLight[7],
     spinner: palettes.primary[9],
@@ -50,7 +57,6 @@ const sizes = {
     title: "32px",
     subtitle: "18px",
     footer: "14px",
-
     // inputs
     controlBorder: "2px",
     controlCheckOffset: "2px",
@@ -60,6 +66,23 @@ const sizes = {
     controlSliderTrackHeight: "12px",
     controlSliderHandleSize: "24px",
     buttonTextSize: "16px",
+};
+
+const zIndex = {
+    checkmark: 1,
+    tooltip: 1,
+    selectValue: 1,
+    sliderTrack: 1,
+    sliderHandle: 2,
+    messages: 3,
+};
+
+const elevation = {
+    question: 1,
+    button: 2,
+    dropdown: 2,
+    tooltip: 3,
+    message: 3,
 };
 
 // ----------------------------------------------------------------------
@@ -77,6 +100,8 @@ declare module "styled-components" {
         fonts: { [font in FontFamiliesType]: string };
         breakpoints: { [bp in BreakpointType]: string };
         sizes: { [size in SizeType]: string };
+        zIndex: { [index in keyof typeof zIndex]: number };
+        elevation: { [elevation in keyof typeof elevation]: number };
         space: number[];
     }
 }
@@ -88,6 +113,8 @@ declare module "styled-components" {
 const lightTheme: DefaultTheme = {
     colors,
     sizes,
+    zIndex,
+    elevation,
     fonts: {
         title: "Lato, sans-serif",
         text: "Open Sans, Arial, sans-serif",
@@ -123,12 +150,19 @@ const darkTheme: DefaultTheme = {
         controlBorderHover: palettes.neutralDark[6],
         controlBorderActive: palettes.neutralDark[5],
         controlPlaceholder: palettes.neutralDark[6],
-        controlTick: palettes.neutralDark[6],
+        controlTick: palettes.neutralDark[7],
         controlSliderBack: palettes.neutralDark[5],
         controlButton: palettes.primary[8],
         controlOnButton: palettes.neutralDark[8],
         controlButtonDisabled: palettes.neutralDark[5],
         controlOnButtonDisabled: palettes.neutralDark[8],
+        // messages
+        messageInfo: palettes.neutralDark[3],
+        messageInfoBorder: "#1976D2",
+        onMessageInfo: "#2196F3",
+        messageError: palettes.neutralDark[3],
+        messageErrorBorder: "#D32F2F",
+        onMessageError: "#F44336",
         // other colours
         shadow: palettes.neutralDark[0],
         icon: palettes.neutralDark[8],

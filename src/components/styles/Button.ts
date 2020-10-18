@@ -19,7 +19,7 @@ export const Button = styled.button.attrs({ type: "button" })<{ disabled?: boole
     outline: none;
     border: none;
     border-radius: ${({ theme }) => theme.sizes.radius};
-    box-shadow: ${getElevation(2)};
+    box-shadow: ${({ theme }) => getElevation(theme.elevation.button)};
     transition: background 0.3s;
     cursor: pointer;
 
