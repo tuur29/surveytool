@@ -34,6 +34,7 @@ export type ResultGraphType = {
     format: "line" | "bar";
     dataUrl: AnswerDataUrl; // sends the answers to the endpoint, see GraphDataType ApiTypes.ts for result type
     titleLabel?: string;
+    hideLegend?: boolean;
 };
 
 export type ResultIFrameType = {

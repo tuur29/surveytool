@@ -140,6 +140,7 @@ export const mockConfig: Partial<ConfigType> = {
                 dataUrl: "/surveytool/mockSingleBarGraph.json" as AnswerDataUrl,
                 format: "bar",
                 titleLabel: "Bar graph",
+                hideLegend: true,
             },
             { type: resultContentTypes.button, label: "Restart", function: "restart" },
             {
