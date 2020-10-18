@@ -1,32 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */ // We actually want to use Typescript inferring
 
-import { isDev } from "../utils/utils";
+import { MessageType } from "../types/Messages";
 
 // ----------------------------------------------------------------------
 // Initial state
 // ----------------------------------------------------------------------
 
-type MessageType = { id: string; title?: string; description: string; type: "info" | "error"; timestamp: number };
-
-const mockMessages: MessageType[] = [
-    {
-        id: "1",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat enim Polemonis.",
-        type: "info",
-        timestamp: 0,
-    },
-    {
-        id: "2",
-        title: "Title 2",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat enim Polemonis. Iam contemni non poteris. Equidem etiam Epicurum, in physicis quidem, Democriteum puto. An quod ita callida est, ut optime possit architectari voluptates? Iam quae corporis sunt, ea nec auctoritatem cum animi partibus, comparandam et cognitionem habent faciliorem.",
-        type: "error",
-        timestamp: 0,
-    },
-];
-
 export const initialMessagesState = {
-    list: (isDev(true) ? mockMessages : []) as MessageType[],
+    list: [] as MessageType[],
 };
 export type MessagesState = typeof initialMessagesState;
 
@@ -34,12 +15,12 @@ export type MessagesState = typeof initialMessagesState;
 // Actions
 // ----------------------------------------------------------------------
 
-export const addMessages = (messages: MessageType[]) => ({
+export const addMessages = (messages: Omit<MessageType, "id">[]) => ({
     type: "MESSAGES_ADD" as const,
     messages,
 });
 
-export const removeMessage = (messageId: string) => ({
+export const removeMessage = (messageId: number) => ({
     type: "MESSAGES_REMOVE" as const,
     messageId,
 });
@@ -63,9 +44,10 @@ export const messagesReducer = (
 ): MessagesState => {
     switch (action.type) {
         case "MESSAGES_ADD": {
+            const lastId = state.list[state.list.length - 1]?.id || 0;
             return {
                 ...state,
-                list: { ...state.list, ...action.messages },
+                list: [...state.list, ...action.messages.map((input, index) => ({ ...input, id: lastId + index + 1 }))],
             };
         }
         case "MESSAGES_REMOVE": {

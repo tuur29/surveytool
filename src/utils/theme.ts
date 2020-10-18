@@ -1,4 +1,4 @@
-import { DefaultTheme, createGlobalStyle } from "styled-components";
+import { DefaultTheme } from "styled-components";
 
 // prettier-ignore
 const palettes = {
@@ -43,6 +43,9 @@ const colors = {
     messageError: "#FFCDD2",
     messageErrorBorder: "#F44336",
     onMessageError: "#D32F2F",
+    messageNeutral: palettes.neutralLight[3],
+    messageNeutralBorder: palettes.neutralLight[6],
+    onMessageNeutral: palettes.neutralLight[8],
     // other colours
     shadow: palettes.neutralLight[7],
     spinner: palettes.primary[9],
@@ -75,6 +78,7 @@ const zIndex = {
     sliderTrack: 1,
     sliderHandle: 2,
     messages: 3,
+    debug: 4,
 };
 
 const elevation = {
@@ -163,6 +167,9 @@ const darkTheme: DefaultTheme = {
         messageError: palettes.neutralDark[3],
         messageErrorBorder: "#D32F2F",
         onMessageError: "#F44336",
+        messageNeutral: palettes.neutralDark[3],
+        messageNeutralBorder: palettes.neutralDark[5],
+        onMessageNeutral: palettes.neutralDark[7],
         // other colours
         shadow: palettes.neutralDark[0],
         icon: palettes.neutralDark[8],
@@ -195,10 +202,3 @@ const elevations = [
 ];
 export const getElevation = (level: number) => ({ theme }: { theme: DefaultTheme }): string =>
     (elevations[level] || "").replace(/#000000/g, theme.colors.shadow);
-
-export const GlobalDebugStyle = createGlobalStyle`
-  body {
-    color: ${({ theme }) => theme.colors.onBack};
-    background-color: ${({ theme }) => theme.colors.back};
-  }
-`;

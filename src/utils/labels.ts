@@ -2,6 +2,7 @@ export const defaultLabels = {
     // general
     dateLocaleId: "default", // used for formatting and translating dates / times, See (but replace _ with -) https://github.com/umpirsky/locale-list/blob/master/data/en_US/locales.csv
     error: "Error",
+    messageDismissAll: "Dismiss all",
 
     // questions
     questionsTitle: "Questions",

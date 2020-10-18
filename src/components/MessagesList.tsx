@@ -1,29 +1,52 @@
 import React from "react";
-import { removeMessage } from "../redux/messagesReducer";
+import { Transition, TransitionGroup } from "react-transition-group";
+import useLabel from "../hooks/useLabel";
+import { clearMessages, removeMessage } from "../redux/messagesReducer";
 import { useStoreDispatch, useStoreSelector } from "../redux/store";
+import { messageTypes } from "../types/Messages";
 import Icon from "./common/Icon";
-import { CloseButton, Description, Message, Title, Wrapper } from "./styles/Message";
+import { CloseButton, Description, Message, Title, Wrapper, DismissLabel, textColour } from "./styles/Message";
 
 // TODO: add way to integrate into existing error system instead of this one
 // TODO: remove messages after a configurable timeout
-// TODO: add animation when messages are dismissed
 const MessagesList = (): JSX.Element | null => {
     const messages = useStoreSelector((state) => state.messages.list);
     const dispatch = useStoreDispatch();
+    const dismissLabel = useLabel("messageDismissAll");
 
-    if (!messages.length) return null;
     return (
         <Wrapper>
-            {messages.map((message) => (
-                <Message key={message.id} type={message.type}>
-                    <CloseButton onClick={() => dispatch(removeMessage(message.id))}>
-                        <Icon type="close" color={message.type === "info" ? "onMessageInfo" : "onMessageError"} />
-                    </CloseButton>
-                    {message.title && <Title>{message.title}</Title>}
-                    <Description>{message.description}</Description>
-                </Message>
-            ))}
-            {/* TODO: add clear all button when more than 1 message */}
+            {/* Messages list */}
+            <TransitionGroup>
+                {messages.map((message) => (
+                    <Transition key={message.id} timeout={200}>
+                        {(state) => (
+                            <Message type={message.type} show={state === "entered"}>
+                                <CloseButton onClick={() => dispatch(removeMessage(message.id))}>
+                                    <Icon type="close" color={textColour[message.type]} />
+                                </CloseButton>
+                                {message.title && <Title>{message.title}</Title>}
+                                <Description>{message.description}</Description>
+                            </Message>
+                        )}
+                    </Transition>
+                ))}
+            </TransitionGroup>
+
+            {/* Clear all button */}
+            <Transition in={messages.length > 1} timeout={200}>
+                {(state) =>
+                    state !== "exited" && (
+                        <Message
+                            show={state === "entered"}
+                            type={messageTypes.neutral}
+                            onClick={() => dispatch(clearMessages())}
+                        >
+                            <DismissLabel>{dismissLabel}</DismissLabel>
+                        </Message>
+                    )
+                }
+            </Transition>
         </Wrapper>
     );
 };

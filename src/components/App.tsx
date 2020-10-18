@@ -2,21 +2,18 @@ import React from "react";
 import { ThemeProvider } from "styled-components";
 import { merge } from "lodash";
 import useInit from "../hooks/useInit";
-import { toggleBaseTheme } from "../redux/configReducer";
-import { useStoreDispatch, useStoreSelector } from "../redux/store";
-import { defaultThemes, GlobalDebugStyle } from "../utils/theme";
-import { isDev, formatTimestamp } from "../utils/utils";
+import { useStoreSelector } from "../redux/store";
+import { defaultThemes } from "../utils/theme";
+import { formatTimestamp } from "../utils/utils";
 import useLabel from "../hooks/useLabel";
-import Checkbox from "./common/Checkbox";
 import QuestionList from "./QuestionList";
 import ResultList from "./ResultList";
 import MessagesList from "./MessagesList";
-import { Label } from "./styles/Input";
 import { Footer } from "./styles/Container";
+import DebugPanel from "./DebugPanel";
 
 const App = (): JSX.Element | null => {
     useInit();
-    const dispatch = useStoreDispatch();
 
     // theme
     const initialized = useStoreSelector((state) => state.config.initialized);
@@ -36,24 +33,11 @@ const App = (): JSX.Element | null => {
 
     return (
         <ThemeProvider theme={overriddenTheme}>
-            <>
-                {isDev(true) && (
-                    <>
-                        <GlobalDebugStyle />
-                        <Label
-                            onClick={() => dispatch(toggleBaseTheme(!theme?.darkMode))}
-                            style={{ position: "fixed", top: "20px", right: "20px" }}
-                        >
-                            <Checkbox checked={theme?.darkMode} />
-                            Dark mode
-                        </Label>
-                    </>
-                )}
-                <MessagesList />
-                <QuestionList />
-                {showResult && <ResultList />}
-                {showAnsweredTimetamp && footerLabel && <Footer>{footerLabel}</Footer>}
-            </>
+            <DebugPanel />
+            <MessagesList />
+            <QuestionList />
+            {showResult && <ResultList />}
+            {showAnsweredTimetamp && footerLabel && <Footer>{footerLabel}</Footer>}
         </ThemeProvider>
     );
 };

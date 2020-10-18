@@ -106,7 +106,9 @@ export const fetchAnswerData = async <T extends Record<string, unknown>>(
 // Hooks
 // ----------------------------------------------------------------------
 
-// Returns true after the first render
+/**
+ * Returns true after the first render
+ */
 export const useAfterFirstRender = (): boolean => {
     const [value, setValue] = useState(false);
     useEffect(() => {
@@ -119,7 +121,10 @@ export const useAfterFirstRender = (): boolean => {
 // Type helpers
 // ----------------------------------------------------------------------
 
-// Source: https://gist.github.com/navix/6c25c15e0a2d3cd0e5bce999e0086fc9#gistcomment-3300848
+/**
+ * Makes the all properties of a type and it's sub types Partial
+ * Source: https://gist.github.com/navix/6c25c15e0a2d3cd0e5bce999e0086fc9#gistcomment-3300848
+ */
 export type DeepPartial<T> = T extends Function // eslint-disable-line @typescript-eslint/ban-types
     ? T
     : T extends object // eslint-disable-line @typescript-eslint/ban-types
