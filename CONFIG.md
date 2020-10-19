@@ -1,30 +1,6 @@
 
 # Survey Tool configuration
 
----
-
-- [Survey Tool configuration](#survey-tool-configuration)
-    - [ID](#id)
-    - [Theming](#theming)
-        - [Colours](#colours)
-            - [Control Colours](#control-colours)
-            - [Message Colours](#message-colours)
-        - [Sizes](#sizes)
-            - [Control sizes](#control-sizes)
-    - [Labels](#labels)
-        - [Datetime formatting](#datetime-formatting)
-    - [Questions](#questions)
-    - [Result](#result)
-        - [AnswerDataUrl & Posting the user's results](#answerdataurl--posting-the-users-results)
-        - [Result page content](#result-page-content)
-            - [Block: Label](#block-label)
-            - [Block: Button](#block-button)
-            - [Block: Graph](#block-graph)
-                - [Graph Data](#graph-data)
-            - [Block: IFrame](#block-iframe)
-
----
-
 This file will describe the possible content of the `window.surveyConfig` object, or the object you pass to the `window.setSurveyConfig()` function.
 
 There are 5 parts to a configuration object:
@@ -38,7 +14,31 @@ There are 5 parts to a configuration object:
 
 The example configuration used in the demo can be found here: [mock.ts](./src/utils/mock.ts)
 
-## ID
+---
+
+- [Survey Tool configuration](#survey-tool-configuration)
+    - [Config ID](#config-id)
+    - [Theming](#theming)
+        - [Colours](#colours)
+            - [Control Colours](#control-colours)
+            - [Message Colours](#message-colours)
+        - [Sizes](#sizes)
+            - [Control sizes](#control-sizes)
+    - [Labels](#labels)
+        - [Datetime formatting](#datetime-formatting)
+    - [Questions](#questions)
+    - [Result](#result)
+        - [AnswerDataUrl & saving the user's results](#answerdataurl--saving-the-users-results)
+        - [Result page content](#result-page-content)
+            - [Block: Label](#block-label)
+            - [Block: Button](#block-button)
+            - [Block: Graph](#block-graph)
+                - [Graph Data](#graph-data)
+            - [Block: IFrame](#block-iframe)
+
+---
+
+## Config ID
 
 Every configuration should have a unique id. The ID is used for the following:
 
@@ -172,7 +172,7 @@ If you want you can override this behaviour by changing the label `dateLocaleId`
 ## Result
 
 | Field name | Data type | Description |
-|---|---|---|---|
+|---|---|---|
 | `postDataUrl` | [AnswerDataUrl](#AnswerDataUrl) | When filled in the tool will save the user's result to this URL. |
 | `redirectUrl` | [AnswerDataUrl](#AnswerDataUrl) | Instead of displaying the results page, the tool will redirect the user to this URL. |
 | `enableControls` | boolean | Enables the user's ability to edit their answers after submitting them. Defaults to `false`. |
@@ -189,7 +189,7 @@ window.setSurveyConfig({ ...window.surveyConfig,
 });
 ```
 
-### AnswerDataUrl & Posting the user's results
+### AnswerDataUrl & saving the user's results
 
 The `AnswerDataUrl` value type is a string with a specific format. It can be a simple URL like `https://example.org` if desired, but can also contain:
 
@@ -224,7 +224,7 @@ This array can contain 4 different types of blocks.
 #### Block: Label
 
 | Field name | Data type | Description |
-|---|---|---|---|
+|---|---|---|
 | `type` | "label" | Required for displaying a label block |
 | `label` | string | Text to be displayed. Can contain a `{score}` placeholder, with optional denominator `{score20}` |
 | `style` | "title", "description", "scoreCounter" | "title" and "description" only change font size, while "scoreCounter" will display the score in a dial. |
@@ -252,7 +252,7 @@ Examples:
 #### Block: Button
 
 | Field name | Data type | Description |
-|---|---|---|---|
+|---|---|---|
 | `type` | "button" | Required for displaying a button block |
 | `label` | string | Text to be displayed inside the button |
 | `function` | "restart", "postData", "link" | A "restart" button will reset the user's input. "postData" will save the user's input to your server like the `postDataUrl` setting. "link" will redirect the user. |
@@ -282,7 +282,7 @@ Examples:
 #### Block: Graph
 
 | Field name | Data type | Description |
-|---|---|---|---|
+|---|---|---|
 | `type` | "graph" | Required for displaying a graph block |
 | `format` | "bar", "line" | Switches between a linegraph or barchart |
 | `dataUrl` | [AnswerDataUrl](#AnswerDataUrl) | Required. The tool will fetch this URL for [data](#Graph-Data) to be displayed. |
@@ -345,7 +345,7 @@ For examples see:
 You can use an IFrame if all else fails and you want to inject your own content (might be worth using `redirectUrl` instead).
 
 | Field name | Data type | Description |
-|---|---|---|---|
+|---|---|---|
 | `type` | "iframe" | Required for displaying a IFrame block |
 | `url` | [AnswerDataUrl](#AnswerDataUrl) | Required. The tool will fetch this URL for [data](#Graph-Data) to be displayed. Only `GET` protocol is currently supported. |
 | `height` | number | Set a custom height for the IFrame. Defaults to 400px |
