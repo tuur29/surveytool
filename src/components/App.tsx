@@ -25,7 +25,7 @@ const App = (): JSX.Element | null => {
     const lastAnsweredTimestamp = useStoreSelector((state) => state.answers.lastUpdate);
     const showAnsweredTimetamp = useStoreSelector((state) => state.answers.loadedFromStorage);
     const dateLocaleId = useLabel("dateLocaleId");
-    const footerLabel = useLabel("questionsFooter", {
+    const footerLabel = useLabel("footerText", {
         date: formatTimestamp(lastAnsweredTimestamp, dateLocaleId),
     });
 

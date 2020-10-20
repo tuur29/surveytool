@@ -27,6 +27,10 @@ The example configuration used in the demo can be found here: [mock.ts](./src/ut
     - [Labels](#labels)
         - [Datetime formatting](#datetime-formatting)
     - [Questions](#questions)
+        - [Question: Single Choice](#question-single-choice)
+        - [Question: Multiple Choice](#question-multiple-choice)
+        - [Question: Text](#question-text)
+        - [Question: Range](#question-range)
     - [Result](#result)
         - [AnswerDataUrl & saving the user's results](#answerdataurl--saving-the-users-results)
         - [Result page content](#result-page-content)
@@ -77,8 +81,6 @@ window.setSurveyConfig({ ...window.surveyConfig,
     }
 });
 ```
-
-You can find all possible theme values in the [theme file](./src/utils/theme.ts).
 
 ### Colours
 
@@ -150,12 +152,12 @@ You can supply a **(partial)** list of labels to translate the app. Labels that 
 **A full list of labels can be found here: [labels](./src/utils/labels.ts)**.
 
 Some labels can contain contextual information. This information can be swapped in for a `{placeholder}` tag in the label.  
-For example the label `questionsFooter` can contain the last edited date and time.
+For example the label `footerText` can contain the last edited date and time.
 
 ```js
 window.setSurveyConfig({ ...window.surveyConfig,
     // will be be displayed as: "Last update on 01 January 1970"
-    labels: { questionsFooter: "Last update on {date}", } }
+    labels: { footerText: "Last update on {date}", } }
 });
 ```
 
@@ -166,15 +168,193 @@ If you want you can override this behaviour by changing the label `dateLocaleId`
 
 ## Questions
 
-<!-- TODO: document questions configuration -->
-> This will be documented at a later stage, when the configuration values are more stable
+Each object in the `config.questions` array is represented with a card. There are 4 different types of question and each type corresponds to a different input / output type. All questions have these properties in common:
+
+| Field name | Data type | Description |
+|---|---|---|
+| `id` | string | Required, should be unique in a configuration. This links the question to it's answer. |
+| `title` | string | The question being asked to the user. This string can contain multiple `{hint}` placeholder. |
+| `hints` | string array | Each usage of the `{hint}` placeholder needs to have a string in this array. Optional if no hints are used. |
+| `required` | boolean | Required questions need to be filled in by the user before they can submit their answers. Defaults to `false`. |
+| `calcFunction` | `question, answer => number` | Optional function that can be used to override the default score calculations. |
+
+### Question: Single Choice
+
+- Represented by a **checkbox**
+- Answer value: `boolean`
+- Default score value: 0 for unchecked, 1 for checked
+
+In addition to the common settings parameters, the single choice question can be configured with:
+
+| Field name | Data type | Description |
+|---|---|---|
+| `type` | "single" | Required for displaying a single choice question |
+| `checkedByDefault` | boolean | Optional, defaults to `false`. Causes the checkbox to be checked when the user first loads the form. |
+
+Example:
+
+```js
+{
+    id: "abc123",
+    type: "single",
+    title: "Are you interested{hint} in eating an ice cream?{hint}",
+    hints: ["It's a word", "Say yes!"],
+    checkedByDefault: true,
+    required: true
+}
+```
+
+### Question: Multiple Choice
+
+- Represented by a **list of checkboxes / radio buttons**
+- Answer value: a list of ids (only a single item in the case of `inputType=radio` or `inputType=select`)
+- Default score value: 
+  - In case of `inputType=check`: value is the amount of items checked
+  - Default case: the index of the option that is selected
+
+In addition to the common settings parameters, the multiple choice question can be configured with:
+
+| Field name | Data type | Description |
+|---|---|---|
+| `type` | "multiple" | Required for displaying a multiple choice question |
+| `inputType` | "radio", "check", "select" | Will display the options with radio buttons (single answer), checkboxes or in a dropdown (multiple answers) |
+| `options` | object array | A required list of options. These are objects containing an id, title and optional [hints array](#questions)) |
+| `defaultIds` | string array | Optional. When filled with id's matching an option, those options will be selected when the user first loads the form. |
+
+Examples:
+
+```js
+{
+    id: "abc123",
+    type: "multiple",
+    title: "What flavour do you want?",
+    inputType: "radio",
+    options: [
+        { id: "0", title: "Vanilla" },
+        { id: "1", title: "Banana" },
+        {
+            id: "2",
+            title: "Ben & Jerry's{hint} Imagine Whirled Peace{hint}",
+            hints: ["(TM)", "Yes this is a real flavour."],
+        },
+        { id: "3", title: "Chocolat" }
+    ],
+    calcFunction: (question, answer) => {
+        return answer.values.includes("2") ? 10 : 0;
+    },
+}
+```
+
+```js
+{
+    id: "abc123",
+    type: "multiple",
+    title: "Which toppings do you want?",
+    inputType: "check",
+    options: [
+        { id: "0", title: "Sprinkels" },
+        { id: "1", title: "Crumbs" },
+        { id: "2", title: "Chocolat sauce" },
+    ],
+    defaultIds: ["1", "2"],
+}
+```
+
+### Question: Text
+
+- Represented by an input field
+- Answer value: the text provided by the user
+- Default score value:
+  - In case of `inputType=number`: the number value
+  - Default case: 0
+
+In addition to the common settings parameters, the text question can be configured with:
+
+| Field name | Data type | Description |
+|---|---|---|
+| `type` | "text" | Required for displaying a text question |
+| `inputType` | "text", "email", "number" | Will validate and limit the user's input. |
+| `placeholder` | string | Optional. Will be shown inside the input field when the user hasn't entered a value. |
+| `customValidation` | object | Optional, can contain a custom `error` message (string) and/or a custom `regex` expression for validation (string) |
+
+Example:
+
+```js
+{
+    id: "abc123",
+    type: "text",
+    inputType: "text",
+    placeholder: "name with max 10 letters...",
+    title: "How do you want to name your creation?",
+    customValidation: {
+        regex: "^.{0,10}$",
+        error: "Names longer than 10 characters are not allowed"
+    }
+}
+```
+
+### Question: Range
+
+- Represented by either a slider or list of radio buttons
+- Answer value: number
+- Default score value: the selected number value
+
+In addition to the common settings parameters, the range question can be configured with:
+
+| Field name | Data type | Description |
+|---|---|---|
+| `type` | "range" | Required for displaying a range question |
+| `inputType` | "slider", "radio" | Functionally these work the same, only the visual input method differs. "slider" has more options (ticks) |
+| `min` | int | Minimum value |
+| `max` | int | Maximum value |
+| `default` | int | Optional. The default value when the user first opens the form. |
+| `step` | int | Optional. The size of each step between slider positions / radio buttons. For example: setting this to 2 will only allow even numbers. |
+| `direction` | "increase", "decrease" | Optional, defaults to "increase". Setting this to decrease will default to and put the maximum first. |
+
+When the inputType is "slider" the following options are also available: 
+
+| Field name | Data type | Description |
+|---|---|---|
+| `tickCount` | int | Optional. Will spread out this amount of ticks on the slider. |
+| `tickValues` | int array | Optional. When set, the ticks will be displayed at these exact values. Will override the `tickCount` setting. |
+| `tickLabels` | string or null array | Optional. When set, will override the tick labels (normally just the value). Use `null` to keep a tick label empty. |
+
+Examples:
+
+```js
+{
+    id: "abc123",
+    type: "radio",
+    title: "How did you experience this form?",
+    inputType: "radio",
+    min: 2,
+    max: 8,
+    default: 4,
+    step: 2,
+    direction: "decrease"
+}
+```
+
+```js
+{
+    id: "abc123",
+    type: "slider",
+    title: "How did you experience this form?",
+    inputType: "slider",
+    min: 1,
+    max: 10,
+    direction: "increase"
+    tickLabels: [2, 4, 5, 7, 9],
+    tickLabels: ["Bad", null, "Neutral", null, "Good"]
+}
+```
 
 ## Result
 
 | Field name | Data type | Description |
 |---|---|---|
-| `postDataUrl` | [AnswerDataUrl](#AnswerDataUrl) | When filled in the tool will save the user's result to this URL. |
-| `redirectUrl` | [AnswerDataUrl](#AnswerDataUrl) | Instead of displaying the results page, the tool will redirect the user to this URL. |
+| `postDataUrl` | [AnswerDataUrl](#answerdataurl--saving-the-users-results) | When filled in the tool will save the user's result to this URL. |
+| `redirectUrl` | [AnswerDataUrl](#answerdataurl--saving-the-users-results) | Instead of displaying the results page, the tool will redirect the user to this URL. |
 | `enableControls` | boolean | Enables the user's ability to edit their answers after submitting them. Defaults to `false`. |
 | `scoreDomain` | [min, max] | An array containing the smallest and largest possible score. This is sometimes used when customizing the results page content. |
 
@@ -256,7 +436,7 @@ Examples:
 | `type` | "button" | Required for displaying a button block |
 | `label` | string | Text to be displayed inside the button |
 | `function` | "restart", "postData", "link" | A "restart" button will reset the user's input. "postData" will save the user's input to your server like the `postDataUrl` setting. "link" will redirect the user. |
-| `url` | [AnswerDataUrl](#AnswerDataUrl) | Only necessary when function is "postData" or "link" |
+| `url` | [AnswerDataUrl](#answerdataurl--saving-the-users-results) | Only necessary when function is "postData" or "link" |
 | `openInTab` | boolean | Optional, only used when the function is "link" |
 
 Examples:
@@ -285,7 +465,7 @@ Examples:
 |---|---|---|
 | `type` | "graph" | Required for displaying a graph block |
 | `format` | "bar", "line" | Switches between a linegraph or barchart |
-| `dataUrl` | [AnswerDataUrl](#AnswerDataUrl) | Required. The tool will fetch this URL for [data](#Graph-Data) to be displayed. |
+| `dataUrl` | [AnswerDataUrl](#answerdataurl--saving-the-users-results) | Required. The tool will fetch this URL for [data](#graph-data) to be displayed. |
 | `titleLabel` | string | Optional. Will display a title above the graph. |
 | `hideLegend` | boolean | Optional, defaults to false. If enabled, the legend will not be displayed. |
 
@@ -347,7 +527,7 @@ You can use an IFrame if all else fails and you want to inject your own content 
 | Field name | Data type | Description |
 |---|---|---|
 | `type` | "iframe" | Required for displaying a IFrame block |
-| `url` | [AnswerDataUrl](#AnswerDataUrl) | Required. The tool will fetch this URL for [data](#Graph-Data) to be displayed. Only `GET` protocol is currently supported. |
+| `url` | [AnswerDataUrl](#answerdataurl--saving-the-users-results) | Required. The tool will fetch this URL for [data](#graph-data) to be displayed. Only `GET` protocol is currently supported. |
 | `height` | number | Set a custom height for the IFrame. Defaults to 400px |
 | `disableScroll` | boolean | Will disable scrolling inside the IFrame when enabled. Optional, defaults to false. |
 

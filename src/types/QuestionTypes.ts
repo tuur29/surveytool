@@ -32,15 +32,15 @@ export type SingleChoiceQuestionType = BaseQuestion & {
 // example: country, gender
 export type MultipleChoiceQuestionType = BaseQuestion & {
     type: questionTypes.multiple;
+    inputType: "radio" | "check" | "select";
     options: Options[];
     defaultIds?: string[]; // this should be the ids of the default selected options
-    inputType: "radio" | "check" | "select";
 };
 
 // example: email, age
 export type TextQuestionType = BaseQuestion & {
-    type: questionTypes.text;
     inputType: "text" | "email" | "number";
+    type: questionTypes.text;
     placeholder?: string;
     customValidation?: {
         regex?: string;
@@ -54,9 +54,9 @@ export type RangeDirectionType = "increase" | "decrease"; // increase is default
 // example: ratings
 export type RangeQuestionType = BaseQuestion & {
     type: questionTypes.range;
+    inputType: "slider" | "radio";
     min: number;
     max: number;
-    inputType: "slider" | "radio";
     default?: number;
     step?: number;
     direction?: RangeDirectionType; // only used on slider

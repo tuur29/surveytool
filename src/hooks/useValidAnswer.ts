@@ -2,9 +2,9 @@ import { useStoreDispatch } from "../redux/store";
 import { AllQuestionsType, questionTypes, TextQuestionType } from "../types/QuestionTypes";
 import { LabelType } from "../utils/labels";
 import { isAnswerValid } from "../utils/validator";
+import { setAnswerFocus } from "../redux/answersReducer";
 import useLabel from "./useLabel";
 import useQuestionAnswer from "./useQuestionAnswer";
-import { setAnswerFocus } from "../redux/answersReducer";
 
 const textAnswerErrorLabelMap: Record<TextQuestionType["inputType"], LabelType> = {
     number: "inputTextErrorNumber",

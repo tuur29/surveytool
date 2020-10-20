@@ -179,5 +179,5 @@ export const mockConfig: Partial<ConfigType> = {
     //         breakpoints: { md: "600px" }
     //     }
     // },
-    // labels: { questionsFooter: "Copyright", },
+    // labels: { footerText: "Copyright", },
 };
