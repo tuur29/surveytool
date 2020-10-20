@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */ // We actually want to use Typescript inferring
 import { AllAnswersType } from "../types/AnswerTypes";
+import { DistributiveOmit } from "../utils/utils";
 
 // ----------------------------------------------------------------------
 // Initial state
@@ -27,8 +28,7 @@ export const resetAnswers = () => ({
     type: "ANSWERS_RESET" as const,
 });
 
-// TODO: Only omit focussed
-export const setAnswer = (answer: Partial<AllAnswersType>) => ({
+export const setAnswer = (answer: DistributiveOmit<AllAnswersType, "focussed">) => ({
     type: "ANSWERS_SET" as const,
     answer,
 });

@@ -132,3 +132,11 @@ export type DeepPartial<T> = T extends Function // eslint-disable-line @typescri
         ? DeepPartial<T[number]>[]
         : { [P in keyof T]?: DeepPartial<T[P]> }
     : T;
+
+/**
+ * This will spread the Omit util to all unioned types
+ * Source: https://stackoverflow.com/a/57103940
+ *
+ * @example DistributiveOmit<A | B> = Omit<A> | Omit<B>
+ */
+export type DistributiveOmit<T, K extends keyof any> = T extends any ? Omit<T, K> : never;
