@@ -11,7 +11,7 @@
         "build": "react-scripts build",
         "eject": "react-scripts eject",
         "docs:start": "start-storybook",
-        "docs:build": "build-storybook -o build/docs",
+        "docs:build": "build-storybook -o build/docs --no-dll",
         "test:lint": "eslint \"src/**/*.{ts,tsx}\"",
         "test:typing": "tsc --noEmit --pretty"
     },
