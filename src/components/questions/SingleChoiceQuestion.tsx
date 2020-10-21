@@ -11,7 +11,7 @@ import Icon from "../common/Icon";
 import { FieldError, Label } from "../styles/Input";
 import { Question, Title } from "../styles/Question";
 
-type PropsType = {
+export type PropsType = {
     question: SingleChoiceQuestionType;
 };
 

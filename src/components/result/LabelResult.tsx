@@ -13,7 +13,7 @@ const rescaleToDomain = (value: number, sourceDomain: number[], targetDomain: nu
     );
 };
 
-type PropsType = {
+export type PropsType = {
     config: ResultLabelType;
 };
 

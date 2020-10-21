@@ -30,4 +30,4 @@ jobs:
       run: yarn install
 
     - name: Build
-      run: ./deploy_demo.sh
+      run: ./scripts/deploy_demo.sh

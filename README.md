@@ -26,8 +26,9 @@ Next, either define a `surveyConfig` object on the `window` object, or call `win
 
 ### Configuration
 
-View [CONFIG.md](./CONFIG.md) for a complete guide on how to configure this tool.  
-The example configuration used in the demo can be found here: [mock.ts](./src/utils/mock.ts)
+- View [CONFIG.md](./CONFIG.md) for a complete guide on how to configure this tool.
+- This project also has a [storybook](https://tuur29.github.io/surveytool/docs)
+- The example configuration used in the demo can be found here: [mock.ts](./src/utils/mock.ts)
 
 ## Development
 
@@ -38,11 +39,11 @@ The example configuration used in the demo can be found here: [mock.ts](./src/ut
 ### Production build
 
 - `yarn build` builds the app for production to the `build` folder.
-- Bundle the output with `./bundle_build.sh`, this will give you a single `build/dist/surveytool.min.js` you can upload and use.
+- Bundle the output with `./scripts/bundle_build.sh`, this will give you a single `build/dist/surveytool.min.js` you can upload and use.
 
 Demo:
 
-- To update the demo page run `./deploy_demo.sh`.
+- To update the demo page run `./scripts/deploy_demo.sh`.
 
 ### Learn More
 
