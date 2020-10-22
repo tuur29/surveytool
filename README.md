@@ -39,6 +39,7 @@ Next, either define a `surveyConfig` object on the `window` object, or call `win
 ### Testing
 
 - `yarn run test:typing` will run a typescript check across the code
+- `yarn run test:unit` will run unit tests with jest
 - `yarn run test:lint` will run a linting check across the code
 
 ### Documentation

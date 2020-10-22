@@ -12,8 +12,9 @@
         "eject": "react-scripts eject",
         "docs:start": "start-storybook",
         "docs:build": "build-storybook -o build/docs --no-dll",
-        "test:lint": "eslint \"src/**/*.{ts,tsx}\"",
-        "test:typing": "tsc --noEmit --pretty"
+        "test:typing": "tsc --noEmit --pretty",
+        "test:unit": "jest",
+        "test:lint": "eslint \"src/**/*.{ts,tsx}\""
     },
     "dependencies": {
         "@testing-library/jest-dom": "^4.2.4",
@@ -156,7 +157,7 @@
     },
     "jest": {
         "setupFilesAfterEnv": [
-            "<rootDir>src/setupTests.ts"
+            "<rootDir>.jest/setupTests.ts"
         ],
         "transform": {
             "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/ts-jest"
@@ -164,6 +165,9 @@
         "transformIgnorePatterns": [
             "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$",
             "^.+\\.module\\.(css|sass|scss)$"
-        ]
+        ],
+        "moduleNameMapper": {
+            "\\.svg": "<rootDir>.jest/svgMock.ts"
+        }
     }
 }

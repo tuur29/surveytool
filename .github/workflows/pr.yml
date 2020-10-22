@@ -37,3 +37,6 @@ jobs:
 
     - name: Typing
       run: yarn run test:typing
+
+    - name: Unit tests
+      run: yarn run test:unit
