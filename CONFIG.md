@@ -7,7 +7,7 @@ There are 5 parts to a configuration object:
 | Field name | Data type | Description |
 |---|---|---|
 | `id` | string | Unique key to differentiate between multiple surveys / configs |
-| `theme` | [theme](./src/utils/theme.ts) | **Optional**, object containing all or some colours, font family / sizes, breakpoints and spacing |
+| `theme` | [theme](./src/utils/theme.ts) | **Optional**, object containing all or some colors, font family / sizes, breakpoints and spacing |
 | `labels` | [labels](./src/utils/labels.ts) | **Optional**, a key value map containing all or some labels in tool |
 | `questions` | [question array](./src/types/QuestionTypes.ts) | Required, complex structure containing all question parameters |
 | `results` | [results object](./src/types/ConfigTypes.ts#L15) | **Optional**, object containing settings related to the way the results of the form are handled / displayed |
@@ -17,56 +17,58 @@ The example configuration used in the demo can be found here: [mock.ts](./src/ut
 ---
 
 - [Survey Tool configuration](#survey-tool-configuration)
-    - [Config ID](#config-id)
+    - [Config id](#config-id)
     - [Theming](#theming)
-        - [Colours](#colours)
-            - [Control Colours](#control-colours)
-            - [Message Colours](#message-colours)
+        - [Colors](#colors)
+            - [Control Colors](#control-colors)
+            - [Message Colors](#message-colors)
         - [Sizes](#sizes)
             - [Control sizes](#control-sizes)
     - [Labels](#labels)
         - [Datetime formatting](#datetime-formatting)
     - [Questions](#questions)
-        - [Question: Single Choice](#question-single-choice)
-        - [Question: Multiple Choice](#question-multiple-choice)
-        - [Question: Text](#question-text)
-        - [Question: Range](#question-range)
+        - [Single Choice Question](#single-choice-question)
+        - [Multiple Choice Question](#multiple-choice-question)
+        - [Text Question](#text-question)
+        - [Range Question](#range-question)
     - [Result](#result)
         - [AnswerDataUrl & saving the user's results](#answerdataurl--saving-the-users-results)
         - [Result page content](#result-page-content)
-            - [Block: Label](#block-label)
-            - [Block: Button](#block-button)
-            - [Block: Graph](#block-graph)
+            - [Label block](#label-block)
+            - [Button block](#button-block)
+            - [Graph block](#graph-block)
                 - [Graph Data](#graph-data)
-            - [Block: IFrame](#block-iframe)
+            - [IFrame block](#iframe-block)
 
 ---
 
-## Config ID
+## Config id
 
-Every configuration should have a unique id. The ID is used for the following:
+Every configuration should have a unique id. The id is used for the following:
 
-- A user's answers are saved locally when they are filling in the form. Their progress is saved, so a reload doesn't clear their input. This data is saved based on the ID.
-- When configured, saving the users data to a server will also include the config ID so the backend knows which form is being saved.
+- A user's answers are saved locally when they are filling in the form. Their progress is saved, so a reload doesn't clear their input. This data is saved based on the id.
+- When configured, saving the users data to a server will also include the config id so the backend knows which form is being saved.
 
-> Because of this, reusing an ID between different configurations might result in client side crashes!  
-> (only happens when the questions are changed)
+> Because of this, reusing an id between different configurations might result in client side crashes!  
+> However this only happens when the question array is changed.
 
 ## Theming
 
-You can change any or all one of the possible colors used in the tool by supplying a **(partial)** theme in the configuration. Additionally you can choose to start from a predefined dark theme as a base by supplying `darkMode: true`:
+You can change any or all of the possible colors used in the tool by supplying a (partial) theme in the configuration. Additionally you can choose to start from a predefined dark theme as a base by supplying `darkMode: true`:
 
 The theme is based on [Styled System](https://styled-system.com/). It consists of the following properties:
 
 | Field name | Data type | Description |
 |---|---|---|
-| `colors` | object | A list of every colour used in the app |
+| `colors` | object | A list of every color used in the app |
 | `fonts` | object | Allows you to set different title & text fonts in the tool |
 | `sizes` | object | Contains pixel values for borders, fontSizes... |
 | `space` | int[] | A list of pixel values to ensure consistent spacing |
 | `breakpoints` | object | Key value map containing pixel values for `xs, sm, md, lg, xl` breakpoints |
 | (`zIndex`) | object | Key value map containing all used `z-index` values (probably should not be changed) |
 | (`elevation`) | object | Key value map containing the level of shadow beneath some components (probably should not be changed) |
+
+Example:
 
 ```js
 window.setSurveyConfig({ ...window.surveyConfig,
@@ -82,40 +84,40 @@ window.setSurveyConfig({ ...window.surveyConfig,
 });
 ```
 
-### Colours
+### Colors
 
-The colours object contains multiple types of colours, most elements have a background and foreground (`on`) colour.
-The main 4 colour sets are:
+The colors object contains multiple types of colors, most elements have a background and foreground (`on`) color.
+The main 4 color sets are:
 
-| Background Colour | Foreground Colour | Description |
+| Background Color | Foreground Color | Description |
 |---|---|---|
-| `primary` | `onPrimary` | Main accent colour |
-| `back` | `onBack` | Base background / foreground colour |
-| `surface` | `onSurface` | Colours for raised elements (cards) |
+| `primary` | `onPrimary` | Main accent color |
+| `back` | `onBack` | Base background / foreground color |
+| `surface` | `onSurface` | Colors for raised elements (cards) |
 | `error` | `onError` | Used for displaying errors |
 
-In addition there are also colours that are not paired up:
+In addition there are also colors that are not paired up:
 
-- `spinner`: accent colour of the loading indicator
-- `shadow`: colour of text and box (surface elevation) shadows
+- `spinner`: accent color of the loading indicator
+- `shadow`: color of text and box (surface elevation) shadows
 - `icon` / `iconHover`: info icons
-- `separator`: colour of lines and dividers between elements
+- `separator`: color of lines and dividers between elements
 
-#### Control Colours
+#### Control Colors
 
-The biggest part of the colours object consists of theming the `controls` (as in form controls / inputs).  
+The biggest part of the colors object consists of theming the `controls` (as in form controls / inputs).  
 These are: buttons, text fields, dropdowns, sliders...
 
-| Type | Colours | Description |
+| Type | Colors | Note |
 |---|---|---|
-| Background & Border | `controlBack`, `controlHighlight`, `controlBorder` | Default colours without user input |
-| Text | `controlPlaceholder` | (most text colours are defined by the default foreground colour) |
+| Background & Border | `controlBack`, `controlHighlight`, `controlBorder` | Default colors without user input |
+| Text | `controlPlaceholder` | Most text colors are defined by the default foreground color. |
 | Hover states | `controlBackHover`, `controlBorderHover` |  |
-| Active states | `controlHighlightActive`, `controlBorderActive` | Colour of selected items, checkmark and button hover |
+| Active states | `controlHighlightActive`, `controlBorderActive` | Color of selected items, checkmark and button hover |
 | Buttons | `controlButton`, `controlOnButton`, `controlButtonDisabled`, `controlOnButtonDisabled` | |
 | Slider | `controlTick`, `controlSliderBack` | |
 
-#### Message Colours
+#### Message Colors
 
 | Type| Background | Foreground | Border |
 |---|---|---|---|
@@ -127,7 +129,7 @@ These are: buttons, text fields, dropdowns, sliders...
 
 This object contains both font sizes and other arbitrary values that do not follow the `theme.space` grid.
 
-- `radius`: Rouding of cards and most controls (buttons / input fields)
+- `radius`: Rounding of cards and most controls (buttons / input fields)
 - `title`: Font-size of titles (`questionsTitle` & `resultTitle` labels)
 - `subtitle`: Font-size of subtitles (questions)
 - `footer`: Font-size of footer
@@ -138,7 +140,7 @@ This object contains both font sizes and other arbitrary values that do not foll
 - `controlCheckOffset`: Space between checkmark and the bounding box
 - `controlRadioOffset`: Space between radio bullet and the bounding box
 - `buttonTextSize`: Font-size of buttons
-- `controlError`: Font-size of message shown below invalid input input
+- `controlError`: Font-size of message shown below invalid input
 
 Slider:
 
@@ -148,7 +150,7 @@ Slider:
 
 ## Labels
 
-You can supply a **(partial)** list of labels to translate the app. Labels that aren't defined will fallback to their default English value.  
+You can supply a (partial) list of labels to translate the app. Labels that aren't defined will fallback to their default English value.  
 **A full list of labels can be found here: [labels](./src/utils/labels.ts)**.
 
 Some labels can contain contextual information. This information can be swapped in for a `{placeholder}` tag in the label.  
@@ -164,7 +166,7 @@ window.setSurveyConfig({ ...window.surveyConfig,
 ### Datetime formatting
 
 The format of dates and times is locale based. By default the end users browser settings will decided the format.  
-If you want you can override this behaviour by changing the label `dateLocaleId`. See [this list](https://github.com/umpirsky/locale-list/blob/master/data/en_US/locales.csv) for all possibilities (but replace `_` with `-`).
+It is possible to override this behavior by changing the label `dateLocaleId`. See [this list](https://github.com/umpirsky/locale-list/blob/master/data/en_US/locales.csv) for all possibilities (but replace `_` with `-`).
 
 ## Questions
 
@@ -178,7 +180,7 @@ Each object in the `config.questions` array is represented with a card. There ar
 | `required` | boolean | Required questions need to be filled in by the user before they can submit their answers. Defaults to `false`. |
 | `calcFunction` | `question, answer => number` | Optional function that can be used to override the default score calculations. |
 
-### Question: Single Choice
+### Single Choice Question
 
 - Represented by a **checkbox**
 - Answer value: `boolean`
@@ -189,7 +191,7 @@ In addition to the common settings parameters, the single choice question can be
 | Field name | Data type | Description |
 |---|---|---|
 | `type` | "single" | Required for displaying a single choice question |
-| `checkedByDefault` | boolean | Optional, defaults to `false`. Causes the checkbox to be checked when the user first loads the form. |
+| `checkedByDefault` | boolean | Optional, defaults to `false`. Causes the checkbox to already be checked when the user first loads the form. |
 
 Example:
 
@@ -204,11 +206,11 @@ Example:
 }
 ```
 
-### Question: Multiple Choice
+### Multiple Choice Question
 
-- Represented by a **list of checkboxes / radio buttons**
+- Represented by a **list of checkboxes / radio buttons / dropdown**
 - Answer value: a list of ids (only a single item in the case of `inputType=radio` or `inputType=select`)
-- Default score value: 
+- Default score value:
   - In case of `inputType=check`: value is the amount of items checked
   - Default case: the index of the option that is selected
 
@@ -218,8 +220,8 @@ In addition to the common settings parameters, the multiple choice question can 
 |---|---|---|
 | `type` | "multiple" | Required for displaying a multiple choice question |
 | `inputType` | "radio", "check", "select" | Will display the options with radio buttons (single answer), checkboxes or in a dropdown (multiple answers) |
-| `options` | object array | A required list of options. These are objects containing an id, title and optional [hints array](#questions)) |
-| `defaultIds` | string array | Optional. When filled with id's matching an option, those options will be selected when the user first loads the form. |
+| `options` | object array | A required list of possible values. These are objects containing an id, title and optional [hints array](#questions)) |
+| `defaultIds` | string array | Optional. When filled with id's matching an option, those options will already be selected when the user first loads the form. |
 
 Examples:
 
@@ -260,9 +262,9 @@ Examples:
 }
 ```
 
-### Question: Text
+### Text Question
 
-- Represented by an input field
+- Represented by a text input field
 - Answer value: the text provided by the user
 - Default score value:
   - In case of `inputType=number`: the number value
@@ -275,7 +277,7 @@ In addition to the common settings parameters, the text question can be configur
 | `type` | "text" | Required for displaying a text question |
 | `inputType` | "text", "email", "number" | Will validate and limit the user's input. |
 | `placeholder` | string | Optional. Will be shown inside the input field when the user hasn't entered a value. |
-| `customValidation` | object | Optional, can contain a custom `error` message (string) and/or a custom `regex` expression for validation (string) |
+| `customValidation` | object | Optional, can contain a custom `error` message (string) and/or a custom `regex` expression (string) for validation. |
 
 Example:
 
@@ -293,7 +295,7 @@ Example:
 }
 ```
 
-### Question: Range
+### Range Question
 
 - Represented by either a slider or list of radio buttons
 - Answer value: number
@@ -308,10 +310,10 @@ In addition to the common settings parameters, the range question can be configu
 | `min` | int | Minimum value |
 | `max` | int | Maximum value |
 | `default` | int | Optional. The default value when the user first opens the form. |
-| `step` | int | Optional. The size of each step between slider positions / radio buttons. For example: setting this to 2 will only allow even numbers. |
+| `step` | int | Optional. The size of each step between slider positions / radio buttons. For example: setting this to 2 will only allow (un)even numbers. |
 | `direction` | "increase", "decrease" | Optional, defaults to "increase". Setting this to decrease will default to and put the maximum first. |
 
-When the inputType is "slider" the following options are also available: 
+When the inputType is "slider" the following options are also available:
 
 | Field name | Data type | Description |
 |---|---|---|
@@ -398,10 +400,10 @@ Example: [mockDataPost.json](./public/mockDataPost.json)
 
 ### Result page content
 
-In addition to above settings you can also customize the content of the results page by the defining `config.result.content` array.
+In addition to above settings you can also customize the content of the results page by defining the `config.result.content` array.
 This array can contain 4 different types of blocks.
 
-#### Block: Label
+#### Label block
 
 | Field name | Data type | Description |
 |---|---|---|
@@ -429,7 +431,7 @@ Examples:
 }
 ```
 
-#### Block: Button
+#### Button block
 
 | Field name | Data type | Description |
 |---|---|---|
@@ -459,12 +461,12 @@ Examples:
 }
 ```
 
-#### Block: Graph
+#### Graph block
 
 | Field name | Data type | Description |
 |---|---|---|
 | `type` | "graph" | Required for displaying a graph block |
-| `format` | "bar", "line" | Switches between a linegraph or barchart |
+| `format` | "bar", "line" | Switches between a bar chart or line graph |
 | `dataUrl` | [AnswerDataUrl](#answerdataurl--saving-the-users-results) | Required. The tool will fetch this URL for [data](#graph-data) to be displayed. |
 | `titleLabel` | string | Optional. Will display a title above the graph. |
 | `hideLegend` | boolean | Optional, defaults to false. If enabled, the legend will not be displayed. |
@@ -493,13 +495,13 @@ Your server should return the graph data in the following JSON structure (consis
         {
             id: string, // used as key in the values array
             name: string, // will be displayed in the graph legend
-            color: string // css colour string (#fff, rgb(255,255,255)...)
+            color: string // css color string (#fff, rgb(255,255,255)...)
         },
         {
             // It is possible to define a special "highlight" series to highlight a x-value (line) or category (bar)
             id: "highlight", // used as key in the values array
             name: string,
-            color: string // default colour for highlighted values
+            color: string // default color for highlighted values
         },
         ...
     ],
@@ -507,7 +509,7 @@ Your server should return the graph data in the following JSON structure (consis
         {
             x: number | string, // Required, linegraph -> number, bargraph -> string
             [series.id]: number, // each object of this array should contain at least one series.id key with data
-            highlight: boolean | string, // optional, pass true to use the highlight series default colour, or pass a css colour string here to override it.
+            highlight: boolean | string, // optional, pass true to use the highlight series default color, or pass a css color string here to override it.
         },
         ...
     ]
@@ -517,17 +519,17 @@ Your server should return the graph data in the following JSON structure (consis
 For examples see:
 
 - [Line graph](./public/mockLineGraph.json)
-- [Line graph with only one line](./public/mockSingleBarGraph.json)
 - [Bar graph](./public/mockBarGraph.json)
+- [Bar graph with only one line](./public/mockSingleBarGraph.json)
 
-#### Block: IFrame
+#### IFrame block
 
 You can use an IFrame if all else fails and you want to inject your own content (might be worth using `redirectUrl` instead).
 
 | Field name | Data type | Description |
 |---|---|---|
 | `type` | "iframe" | Required for displaying a IFrame block |
-| `url` | [AnswerDataUrl](#answerdataurl--saving-the-users-results) | Required. The tool will fetch this URL for [data](#graph-data) to be displayed. Only `GET` protocol is currently supported. |
+| `url` | [AnswerDataUrl](#answerdataurl--saving-the-users-results) | Required. The tool will fetch this URL for [data to be displayed](#graph-data). Only the `GET` protocol is currently supported. |
 | `height` | number | Set a custom height for the IFrame. Defaults to 400px |
 | `disableScroll` | boolean | Will disable scrolling inside the IFrame when enabled. Optional, defaults to false. |
 

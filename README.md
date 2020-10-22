@@ -36,6 +36,18 @@ Next, either define a `surveyConfig` object on the `window` object, or call `win
 2. Start project (`yarn start` / `npm run start`)
 3. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+### Testing
+
+- `yarn run test:typing` will run a typescript check across the code
+- `yarn run test:lint` will run a linting check across the code
+
+### Documentation
+
+You can also view a hosted version of the storybook: https://tuur29.github.io/surveytool/docs
+
+- `yarn run docs:start` will start a locally running storybook
+- `yarn run docs:build` will build a static version of the storybook
+
 ### Production build
 
 - `yarn build` builds the app for production to the `build` folder.
