@@ -8,6 +8,7 @@ import { defaultThemes } from "../src/utils/theme";
 
 export const parameters = {
     actions: { argTypesRegex: "^on[A-Z].*" },
+    // controls: { expanded: true },
 };
 
 store.dispatch(initConfig(mockConfig));
@@ -15,6 +16,7 @@ store.dispatch(initConfig(mockConfig));
 export const decorators = [
     (Story) => (
         <StoreProvider store={store}>
+            {/* TODO: have theme match the storybooks light/dark settings */}
             <ThemeProvider theme={defaultThemes.lightTheme}>
                 <Story />
             </ThemeProvider>

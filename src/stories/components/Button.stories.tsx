@@ -9,12 +9,17 @@ import Icon from "../../components/common/Icon";
 // ----------------------------------------------------------------------
 
 export default {
-    title: "Styles/Button",
+    title: "3. Components/Button",
     component: Button,
 } as Meta;
 
-type PropType = InferStyledTypes<typeof Button>;
-const Template: Story<PropType> = (args) => <Button {...(args as any)} />;
+type PropsType = InferStyledTypes<typeof Button>;
+const Template: Story<PropsType> = (args) => (
+    <Button {...(args as any)}>
+        {args.iconAlign && <Icon type="check" />}
+        {args.children}
+    </Button>
+);
 
 // ----------------------------------------------------------------------
 // Stories
@@ -22,21 +27,13 @@ const Template: Story<PropType> = (args) => <Button {...(args as any)} />;
 
 export const Default = Template.bind({});
 Default.args = {
+    disabled: false,
     children: "Click me",
 };
 
-export const Disabled = Template.bind({});
-Disabled.args = {
-    disabled: true,
-    children: "Click me",
-};
-
-export const IconLeft = Template.bind({});
-IconLeft.args = {
+export const IconButton = Template.bind({});
+IconButton.args = {
+    disabled: false,
     iconAlign: "left",
-    children: (
-        <>
-            <Icon type="check" /> Click me
-        </>
-    ),
+    children: "Click me",
 };

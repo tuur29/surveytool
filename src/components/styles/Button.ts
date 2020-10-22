@@ -3,19 +3,23 @@ import { SpaceProps, space } from "styled-system";
 import { getElevation } from "../../utils/theme";
 import { Loader } from "./Loader";
 
-export const CenteredButtonWrapper = styled.div<SpaceProps>`
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+type ButtonType = {
+    /**
+     * When enabled, will disable user input and display a greyed out colour.
+     */
+    disabled?: boolean;
+    /**
+     * This property is required when an `<Icon>` element is defined as a child.
+     */
+    iconAlign?: "left" | "right";
+};
 
-    ${space};
-`;
-
-export const Button = styled.button.attrs({ type: "button" })<{ disabled?: boolean; iconAlign?: "left" | "right" }>`
+export const Button = styled.button.attrs({ type: "button" })<ButtonType>`
     padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
     background-color: ${({ theme }) => theme.colors.controlButton};
     color: ${({ theme }) => theme.colors.controlOnButton};
     font-size: ${({ theme }) => theme.sizes.buttonTextSize};
+    line-height: 1.2;
     outline: none;
     border: none;
     border-radius: ${({ theme }) => theme.sizes.radius};
@@ -43,7 +47,16 @@ export const Button = styled.button.attrs({ type: "button" })<{ disabled?: boole
         ${({ iconAlign, theme }) =>
             iconAlign &&
             css`
+                float: ${iconAlign};
                 margin-${iconAlign === "left" ? "right" : "left"}: ${theme.space[2]}px;
         `};
     }
+`;
+
+export const CenteredButtonWrapper = styled.div<SpaceProps>`
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    ${space};
 `;

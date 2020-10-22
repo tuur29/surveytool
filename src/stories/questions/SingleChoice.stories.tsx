@@ -1,6 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
-import SingleChoiceQuestion, { PropsType } from "../../components/questions/SingleChoiceQuestion";
+import SingleChoiceQuestion from "../../components/questions/SingleChoiceQuestion";
 import { questionTypes } from "../../types/QuestionTypes";
 
 // ----------------------------------------------------------------------
@@ -8,11 +8,20 @@ import { questionTypes } from "../../types/QuestionTypes";
 // ----------------------------------------------------------------------
 
 export default {
-    title: "Questions/SingleChoice",
+    title: "1. Questions/Single Choice",
     component: SingleChoiceQuestion,
 } as Meta;
 
-const Template: Story<PropsType> = (args) => <SingleChoiceQuestion {...args} />;
+type PropsType = React.ComponentProps<typeof SingleChoiceQuestion>["question"];
+const Template: Story<PropsType> = (args) => (
+    <SingleChoiceQuestion
+        question={{
+            id: "EDJUJDO", // TODO: need to look into better ids
+            type: questionTypes.single,
+            ...(args as any),
+        }}
+    />
+);
 
 // ----------------------------------------------------------------------
 // Stories
@@ -20,9 +29,5 @@ const Template: Story<PropsType> = (args) => <SingleChoiceQuestion {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-    question: {
-        id: "EDJUJDO", // TODO: need to look into better ids
-        type: questionTypes.single,
-        title: "Do you accept?",
-    },
+    title: "Do you accept?",
 };
