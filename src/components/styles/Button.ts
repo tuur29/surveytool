@@ -3,18 +3,7 @@ import { SpaceProps, space } from "styled-system";
 import { getElevation } from "../../utils/theme";
 import { Loader } from "./Loader";
 
-type ButtonType = {
-    /**
-     * When enabled, will disable user input and display a greyed out colour.
-     */
-    disabled?: boolean;
-    /**
-     * This property is required when an `<Icon>` element is defined as a child.
-     */
-    iconAlign?: "left" | "right";
-};
-
-export const Button = styled.button.attrs({ type: "button" })<ButtonType>`
+export const Button = styled.button.attrs({ type: "button" })<{ disabled?: boolean; iconAlign?: "left" | "right" }>`
     padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
     background-color: ${({ theme }) => theme.colors.controlButton};
     color: ${({ theme }) => theme.colors.controlOnButton};

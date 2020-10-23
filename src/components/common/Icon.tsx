@@ -21,6 +21,7 @@ const icons = {
     next: IconNext,
 };
 type IconType = keyof typeof icons;
+export const iconTypes = Object.keys(icons) as IconType[];
 
 // ----------------------------------------------------------------------
 // Styling wrappers

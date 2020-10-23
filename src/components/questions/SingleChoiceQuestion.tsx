@@ -11,7 +11,7 @@ import Icon from "../common/Icon";
 import { FieldError, Label } from "../styles/Input";
 import { Question, Title } from "../styles/Question";
 
-export type PropsType = {
+type PropsType = {
     question: SingleChoiceQuestionType;
 };
 
@@ -54,5 +54,8 @@ const SingleChoiceQuestion = (props: PropsType): JSX.Element => {
         </Question>
     );
 };
+
+// A quick way to get the doc-gen function of Storybook working correctly
+export const SingleChoiceQuestionDoc = (props: Omit<SingleChoiceQuestionType, "type" | "id">): null => props && null;
 
 export default SingleChoiceQuestion;

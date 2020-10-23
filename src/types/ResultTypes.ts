@@ -16,9 +16,15 @@ export type AnswerDataUrl = "answerDataUrl";
 
 export type ResultLabelType = {
     type: resultContentTypes.label;
-    label: string; // can contain {score}, {scoreX} placeholder (scoreX -> score/10, score/20, score/100...)
+    /**
+     * Can contain {score}, {scoreX} placeholder (scoreX -> score/10, score/20, score/100...).
+     */
+    label: string;
     style: "title" | "description" | "scoreCounter";
-    animate?: boolean; // will animate score placeholder if set
+    /**
+     * When enabled the score placeholders will count up in an animation.
+     */
+    animate?: boolean;
 };
 
 export type ResultButtonType = {

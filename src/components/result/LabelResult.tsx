@@ -13,7 +13,7 @@ const rescaleToDomain = (value: number, sourceDomain: number[], targetDomain: nu
     );
 };
 
-export type PropsType = {
+type PropsType = {
     config: ResultLabelType;
 };
 
@@ -72,5 +72,8 @@ const LabelResult = (props: PropsType): JSX.Element => {
         </Result>
     );
 };
+
+// A quick way to get the doc-gen function of Storybook working correctly
+export const LabelResultDoc = (props: Omit<ResultLabelType, "type">): null => props && null;
 
 export default LabelResult;

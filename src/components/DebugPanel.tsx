@@ -32,7 +32,7 @@ const mockMessages = [
 // Styles
 // ----------------------------------------------------------------------
 
-const GlobalDebugStyle = createGlobalStyle`
+export const GlobalDebugStyle = createGlobalStyle`
   body {
     color: ${({ theme }) => theme.colors.onBack};
     background-color: ${({ theme }) => theme.colors.back};

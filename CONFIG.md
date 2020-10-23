@@ -175,7 +175,7 @@ Each object in the `config.questions` array is represented with a card. There ar
 | Field name | Data type | Description |
 |---|---|---|
 | `id` | string | Required, should be unique in a configuration. This links the question to it's answer. |
-| `title` | string | The question being asked to the user. This string can contain multiple `{hint}` placeholder. |
+| `title` | string | The question being asked to the user. This string can contain multiple `{hint}` placeholders. |
 | `hints` | string array | Each usage of the `{hint}` placeholder needs to have a string in this array. Optional if no hints are used. |
 | `required` | boolean | Required questions need to be filled in by the user before they can submit their answers. Defaults to `false`. |
 | `calcFunction` | `question, answer => number` | Optional function that can be used to override the default score calculations. |

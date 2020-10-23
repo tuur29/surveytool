@@ -1,21 +1,32 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import { Button } from "../../components/styles/Button";
-import { InferStyledTypes } from "../../utils/utils";
 import Icon from "../../components/common/Icon";
+import { InferStyledTypes } from "../../utils/utils";
 
 // ----------------------------------------------------------------------
 // Setup
 // ----------------------------------------------------------------------
 
 export default {
-    title: "3. Components/Button",
+    title: "Components/Button",
     component: Button,
+    // doc-gen for styled components doesn't work, so setting this up manually and hiding descriptions
+    argTypes: {
+        onClick: { action: "clicked" },
+        iconAlign: {
+            control: {
+                type: "inline-radio",
+                options: ["left", "right"],
+            },
+        },
+    },
+    parameters: { controls: { expanded: false } },
 } as Meta;
 
-type PropsType = InferStyledTypes<typeof Button>;
-const Template: Story<PropsType> = (args) => (
-    <Button {...(args as any)}>
+type ButtonType = InferStyledTypes<typeof Button>;
+const Template: Story<ButtonType> = (args) => (
+    <Button onClick={args.onClick} disabled={args.disabled} iconAlign={args.iconAlign}>
         {args.iconAlign && <Icon type="check" />}
         {args.children}
     </Button>
