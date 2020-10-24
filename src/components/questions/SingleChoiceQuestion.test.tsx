@@ -95,6 +95,6 @@ describe("SingleChoiceQuestion", () => {
         validStub.returns({ ...validData, showError: true });
         const component = shallow(<SingleChoiceQuestion {...props} />);
         expect(component.find(FieldError).length).toBe(1);
-        expect(component.find(Icon).props().type).toBe("error");
+        expect(component.find(FieldError).find(Icon).props().type).toBe("error");
     });
 });

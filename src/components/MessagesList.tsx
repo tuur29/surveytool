@@ -5,7 +5,7 @@ import { clearMessages, removeMessage } from "../redux/messagesReducer";
 import { useStoreDispatch, useStoreSelector } from "../redux/store";
 import { messageTypes } from "../types/Messages";
 import Icon from "./common/Icon";
-import { CloseButton, Description, Message, Title, Wrapper, DismissLabel, textColour } from "./styles/Message";
+import { CloseButton, Description, Message, Title, Wrapper, DismissLabel, textColor } from "./styles/Message";
 
 // TODO: add way to integrate into existing error system instead of this one
 // TODO: remove messages after a configurable timeout
@@ -23,7 +23,7 @@ const MessagesList = (): JSX.Element | null => {
                         {(state) => (
                             <Message type={message.type} show={state === "entered"}>
                                 <CloseButton onClick={() => dispatch(removeMessage(message.id))}>
-                                    <Icon type="close" color={textColour[message.type]} />
+                                    <Icon type="close" color={textColor[message.type]} />
                                 </CloseButton>
                                 {message.title && <Title>{message.title}</Title>}
                                 <Description>{message.description}</Description>

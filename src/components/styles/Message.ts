@@ -8,19 +8,19 @@ import { ColorType, getElevation } from "../../utils/theme";
 
 const MESSAGE_WIDTH = 450;
 
-const backgroundColour: Record<messageTypes, ColorType> = {
+const backgroundColor: Record<messageTypes, ColorType> = {
     [messageTypes.error]: "messageError",
     [messageTypes.info]: "messageInfo",
     [messageTypes.neutral]: "messageNeutral",
 };
 
-const borderColour: Record<messageTypes, ColorType> = {
+const borderColor: Record<messageTypes, ColorType> = {
     [messageTypes.error]: "messageErrorBorder",
     [messageTypes.info]: "messageInfoBorder",
     [messageTypes.neutral]: "messageNeutralBorder",
 };
 
-export const textColour: Record<messageTypes, ColorType> = {
+export const textColor: Record<messageTypes, ColorType> = {
     [messageTypes.error]: "onMessageError",
     [messageTypes.info]: "onMessageInfo",
     [messageTypes.neutral]: "onMessageNeutral",
@@ -39,15 +39,15 @@ export const Wrapper = styled.div`
     max-width: ${MESSAGE_WIDTH}px;
 `;
 
-export const Message = styled.div<{ type: messageTypes | "neutral"; show: boolean }>`
+export const Message = styled.div<{ type: messageTypes; show: boolean }>`
     position: relative;
     right: ${({ theme, show }) => (show ? 0 : -MESSAGE_WIDTH - theme.space[3])}px;
     margin: ${({ theme }) => theme.space[3]}px ${({ theme }) => theme.space[2]}px;
     padding: ${({ theme }) => theme.space[3]}px;
-    background-color: ${({ theme, type }) => theme.colors[backgroundColour[type]]};
-    border: 1px solid ${({ theme, type }) => theme.colors[borderColour[type]]};
+    background-color: ${({ theme, type }) => theme.colors[backgroundColor[type]]};
+    border: 1px solid ${({ theme, type }) => theme.colors[borderColor[type]]};
     border-radius: ${({ theme }) => theme.sizes.radius};
-    color: ${({ theme, type }) => theme.colors[textColour[type]]};
+    color: ${({ theme, type }) => theme.colors[textColor[type]]};
     box-shadow: ${({ theme }) => getElevation(theme.elevation.message)};
     transition: right 0.3s;
 `;

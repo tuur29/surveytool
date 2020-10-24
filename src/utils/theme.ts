@@ -11,12 +11,12 @@ export const palettes = {
 };
 
 const colors = {
-    // general colours
+    // general colors
     primary: palettes.primary[8],
     back: palettes.neutralLight[0],
     surface: palettes.neutralLight[1],
     error: palettes.secondary[9],
-    // text on general colours
+    // text on general colors
     onPrimary: palettes.neutralLight[0],
     onBack: palettes.neutralLight[7],
     onSurface: palettes.neutralLight[8],
@@ -46,7 +46,7 @@ const colors = {
     messageNeutral: palettes.neutralLight[3],
     messageNeutralBorder: palettes.neutralLight[6],
     onMessageNeutral: palettes.neutralLight[8],
-    // other colours
+    // other colors
     shadow: palettes.neutralLight[7],
     spinner: palettes.primary[9],
     icon: palettes.neutralLight[6],
@@ -137,12 +137,12 @@ const darkTheme: DefaultTheme = {
     ...lightTheme,
     colors: {
         ...lightTheme.colors,
-        // general colours
+        // general colors
         primary: palettes.primary[9],
         back: palettes.neutralDark[2],
         surface: palettes.neutralDark[3],
         error: palettes.secondary[9],
-        // text on general colours
+        // text on general colors
         onPrimary: palettes.neutralDark[8],
         onBack: palettes.neutralDark[7],
         onSurface: palettes.neutralDark[8],
@@ -170,7 +170,7 @@ const darkTheme: DefaultTheme = {
         messageNeutral: palettes.neutralDark[3],
         messageNeutralBorder: palettes.neutralDark[5],
         onMessageNeutral: palettes.neutralDark[7],
-        // other colours
+        // other colors
         shadow: palettes.neutralDark[0],
         icon: palettes.neutralDark[8],
         iconHover: palettes.neutralDark[7],

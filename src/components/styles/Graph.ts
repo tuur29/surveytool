@@ -54,7 +54,7 @@ export const LegendItem = styled.div`
     margin-bottom: ${({ theme }) => theme.space[1]}px;
 `;
 
-// TODO: make colours themeable
+// TODO: make colors themeable
 export const LegendSwatch = styled.div`
     flex-shrink: 0;
     width: 0.85em;

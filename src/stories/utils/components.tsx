@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ColourSwatch = styled.div<{ value: string; name?: string; size?: number }>`
+export const ColorSwatch = styled.div<{ value: string; name?: string; size?: number }>`
     position: relative;
     display: inline-block;
     width: ${({ size }) => size || 20}px;

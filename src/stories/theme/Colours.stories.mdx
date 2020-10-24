@@ -1,22 +1,22 @@
 import { Meta } from "@storybook/addon-docs/blocks";
-import { ColourSwatch } from "../utils/components";
+import { ColorSwatch } from "../utils/components";
 import { defaultThemes, palettes } from "../../utils/theme";
 
 export const colors = defaultThemes.lightTheme.colors;
 
-<Meta title="Theme/Colours" />
+<Meta title="Theme/Colors" />
 
-# Colours
+# Colors
 
 The colors object contains multiple types of colors, most elements have a background and foreground (`on`) color.
 The main 4 color sets are:
 
 | Background Color | Foreground Color | Description |
 |---|---|---|
-| `primary` <ColourSwatch name="Primary" value={colors.primary} size={16} /> | `onPrimary` | Main accent color |
-| `back` <ColourSwatch name="Back" value={colors.back} size={16} /> | `onBack` | Base background / foreground color |
-| `surface` <ColourSwatch name="Surface" value={colors.surface} size={16} /> | `onSurface` | Colors for raised elements (cards) |
-| `error` <ColourSwatch name="Error" value={colors.error} size={16} /> | `onError` | Used for displaying errors |
+| `primary` <ColorSwatch name="Primary" value={colors.primary} size={16} /> | `onPrimary` | Main accent color |
+| `back` <ColorSwatch name="Back" value={colors.back} size={16} /> | `onBack` | Base background / foreground color |
+| `surface` <ColorSwatch name="Surface" value={colors.surface} size={16} /> | `onSurface` | Colors for raised elements (cards) |
+| `error` <ColorSwatch name="Error" value={colors.error} size={16} /> | `onError` | Used for displaying errors |
 
 In addition there are also colors that are not paired up:
 
@@ -58,7 +58,7 @@ They are based on the [Material Design](https://material.io/design/color/the-col
 
 <div>
     {Object.values(palettes.primary).map((value) => (
-        <ColourSwatch value={value} size={30} />
+        <ColorSwatch value={value} size={30} />
     ))}
 </div>
 
@@ -69,7 +69,7 @@ They are based on the [Material Design](https://material.io/design/color/the-col
 
 <div>
     {Object.values(palettes.secondary).map((value) => (
-        <ColourSwatch value={value} size={30} />
+        <ColorSwatch value={value} size={30} />
     ))}
 </div>
 
@@ -81,13 +81,13 @@ They represent 8 stops between black and white at these percentages: 0%, 3%, 6%,
 Light mode
 <div>
     {Object.values(palettes.neutralLight).map((value) => (
-        <ColourSwatch value={value} size={30} />
+        <ColorSwatch value={value} size={30} />
     ))}
 </div>
 
 Dark mode
 <div>
     {Object.values(palettes.neutralDark).map((value) => (
-        <ColourSwatch value={value} size={30} />
+        <ColorSwatch value={value} size={30} />
     ))}
 </div>

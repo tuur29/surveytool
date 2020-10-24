@@ -14,7 +14,7 @@ export type SeriesDataTypes<T extends number | string | unknown = unknown> = {
     }[];
     values: ({
         x: T;
-        [graphHighlightId]?: string | true; // overrides series colour
+        [graphHighlightId]?: string | true; // overrides series color
     } & Record<SeriesId, number | null>)[];
 };
 
