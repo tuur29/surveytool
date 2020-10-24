@@ -17,9 +17,7 @@ const useInit = (): void => {
 
     useEffect(() => {
         // allow changing config after app init
-        // TODO: app crashes when setting a new config with different questions
         window.setSurveyConfig = (config: Partial<ConfigType>) => {
-            // TODO: improve config validation (with ts types?)
             if (config?.questions && config.questions.length > 0) {
                 dispatch(initConfig(config as ConfigType));
             } else {

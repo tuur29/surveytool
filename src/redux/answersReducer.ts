@@ -49,7 +49,6 @@ export type AnswersActions =
 // Reducer
 // ----------------------------------------------------------------------
 
-// TODO: provide a way to clear answers from localstorage
 export const answersReducer = (state: AnswersState = initialAnswersState, action: AnswersActions): AnswersState => {
     switch (action.type) {
         case "ANSWERS_INIT": {

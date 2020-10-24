@@ -64,7 +64,6 @@ export type TextQuestionType = BaseQuestion & {
         regex?: string;
         error?: string;
     };
-    // TODO: add rows option?
 };
 
 export type RangeDirectionType = "increase" | "decrease"; // increase is default

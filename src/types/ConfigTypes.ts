@@ -13,10 +13,9 @@ export type ConfigType = {
     }>;
     questions: AllQuestionsType[];
     result: {
-        // TODO: add default label when results, content or postPageUrl is not configured
         postDataUrl?: AnswerDataUrl; // send answers to a custom server
         redirectUrl?: AnswerDataUrl; // redirect to custom results page, only supports GET; variant
-        enableControls?: boolean; // TODO: defaults to false, disables all answer controls when results are shown
+        enableControls?: boolean;
         scoreDomain?: number[]; // [min, max] values only used for formatting scores (scoreCounter, graph, placeholder)
         content?: AllResultContentType[]; // content is shown when postPageUrl is undefined
     };

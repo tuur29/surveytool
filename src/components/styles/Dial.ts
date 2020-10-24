@@ -8,7 +8,6 @@ export const Wrapper = styled.div<{ size: number }>`
     overflow: hidden;
 `;
 
-// TODO: make customizable via theme (also make gap customizable)
 const borderSize = 20;
 export const Dial = styled.div<{ size: number; angle: number }>`
     position: absolute;

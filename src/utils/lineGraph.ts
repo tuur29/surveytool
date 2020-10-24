@@ -143,7 +143,4 @@ export const drawLineGraph = (
                 .style("fill", "none"),
         );
     }
-
-    // TODO: add hover effect
-    // svg.call(hover, path);
 };

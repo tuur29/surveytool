@@ -8,7 +8,7 @@ export const TooltipContent = styled.span<{ show?: boolean }>`
     position: absolute;
     z-index: ${({ theme }) => theme.zIndex.tooltip};
     max-width: 300px;
-    margin-top: -10px; /* TODO: fix these hardcoded margins */
+    margin-top: -10px;
     margin-left: -32px;
     padding: 10px 15px;
     color: ${({ theme }) => theme.colors.onSurface};
@@ -39,7 +39,7 @@ export const Tooltip = styled.span`
         padding: ${TOOLTIP_BOUNDS_SIZE}px;
         margin-top: -${TOOLTIP_BOUNDS_SIZE / 2}px;
         margin-left: -${TOOLTIP_BOUNDS_SIZE / 2 - 3}px;
-        pointer-events: none; /* TODO: this shouldn't be necessary, breaks the touchzone function */
+        pointer-events: none;
     }
 
     > ${IconWrapper} {

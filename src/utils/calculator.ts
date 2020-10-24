@@ -38,7 +38,7 @@ export const calculateScore = (questions: AllQuestionsType[], answers: AllAnswer
 
         if (question.calcFunction) {
             try {
-                const score = Number.parseInt(question.calcFunction(question, answer) as any);
+                const score = Number.parseInt((question.calcFunction(question, answer) as unknown) as string);
                 if (Number.isNaN(score)) throw new Error("calcFunction does not return a number");
 
                 return total + score;

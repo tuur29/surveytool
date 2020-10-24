@@ -7,8 +7,6 @@ import { messageTypes } from "../types/Messages";
 import Icon from "./common/Icon";
 import { CloseButton, Description, Message, Title, Wrapper, DismissLabel, textColor } from "./styles/Message";
 
-// TODO: add way to integrate into existing error system instead of this one
-// TODO: remove messages after a configurable timeout
 const MessagesList = (): JSX.Element | null => {
     const messages = useStoreSelector((state) => state.messages.list);
     const dispatch = useStoreDispatch();
