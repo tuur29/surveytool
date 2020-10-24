@@ -9,5 +9,5 @@ export type MessageType = {
     title?: string;
     description: string;
     type: messageTypes;
-    timestamp: number;
+    timestamp?: number;
 };

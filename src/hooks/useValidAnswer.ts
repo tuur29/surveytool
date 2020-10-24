@@ -21,7 +21,7 @@ const getErrorLabel = (question: AllQuestionsType): LabelType => {
         case questionTypes.text:
             return textAnswerErrorLabelMap[question.inputType];
         case questionTypes.range:
-            return "error"; // the slider component should prevent invalid values
+            return "" as LabelType; // the slider component should prevent invalid values
     }
 };
 

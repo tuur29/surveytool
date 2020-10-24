@@ -1,9 +1,12 @@
 export const defaultLabels = {
     // general
     dateLocaleId: "default", // used for formatting and translating dates / times, See (but replace _ with -) https://github.com/umpirsky/locale-list/blob/master/data/en_US/locales.csv
-    error: "Error", // generic error message in case something really bad breaks
-    messageDismissAll: "Dismiss all", // button to dismiss all in case multiple notifications / messages are shown
     footerText: "Last update on {date}", // displayed in the bottom right corner, can contain timestamp of when the user last made a change
+
+    // messages
+    messageErrorTitle: "Error", // generic error message in case something really bad breaks
+    messageDismissAll: "Dismiss all", // button to dismiss all in case multiple notifications / messages are shown
+    messageInitError: "The tool could not be initialized properly.", // shown when config could not be initialized
 
     // questions
     questionsTitle: "Questions", // optional title above the list of questions

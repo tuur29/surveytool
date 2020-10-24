@@ -37,6 +37,7 @@ export const Wrapper = styled.div`
     z-index: ${({ theme }) => theme.zIndex.messages};
     padding: ${({ theme }) => theme.space[3]}px;
     max-width: ${MESSAGE_WIDTH}px;
+    min-width: 50px;
 `;
 
 export const Message = styled.div<{ type: messageTypes; show: boolean }>`
@@ -44,6 +45,7 @@ export const Message = styled.div<{ type: messageTypes; show: boolean }>`
     right: ${({ theme, show }) => (show ? 0 : -MESSAGE_WIDTH - theme.space[3])}px;
     margin: ${({ theme }) => theme.space[3]}px ${({ theme }) => theme.space[2]}px;
     padding: ${({ theme }) => theme.space[3]}px;
+    padding-right: ${({ theme }) => theme.space[4]}px;
     background-color: ${({ theme, type }) => theme.colors[backgroundColor[type]]};
     border: 1px solid ${({ theme, type }) => theme.colors[borderColor[type]]};
     border-radius: ${({ theme }) => theme.sizes.radius};
