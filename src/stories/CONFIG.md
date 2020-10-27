@@ -1,9 +1,10 @@
 
-# Survey Tool configuration
+# Configuration
 
 This file will describe the possible content of the `window.surveyConfig` object, or the object you pass to the `window.setSurveyConfig()` function.
 
 There are 5 parts to a configuration object:
+
 | Field name | Data type | Description |
 |---|---|---|
 | `id` | string | Unique key to differentiate between multiple surveys / configs |
@@ -16,7 +17,7 @@ The example configuration used in the demo can be found here: [mock.ts](./src/ut
 
 ---
 
-- [Survey Tool configuration](#survey-tool-configuration)
+- [Configuration](#configuration)
     - [Config id](#config-id)
     - [Theming](#theming)
         - [Colors](#colors)

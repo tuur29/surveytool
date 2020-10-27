@@ -26,8 +26,8 @@ Next, either define a `surveyConfig` object on the `window` object, or call `win
 
 ### Configuration
 
-- View [CONFIG.md](./CONFIG.md) for a complete guide on how to configure this tool.
-- This project also has a [storybook](https://tuur29.github.io/surveytool/docs)
+- Check out the [Storybook](https://tuur29.github.io/surveytool/docs)
+- Or read the plain text [CONFIG.md](./src/stories/CONFIG.md) for a complete guide on how to configure this tool.
 - The example configuration used in the demo can be found here: [mock.ts](./src/utils/mock.ts)
 
 ## Development

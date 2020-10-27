@@ -1,14 +1,13 @@
-import { Meta } from "@storybook/addon-docs/blocks";
+import { Meta, Markdown, Description  } from "@storybook/addon-docs/blocks";
+import config from "./CONFIG.md";
 
 <Meta title="Intro" />
 
-# SurveyTool Storybook
+# SurveyTool
 
 > This storybook is still a WIP
 
-Storybook helps you build UI components in isolation from your app's business logic, data, and context.
-That makes it easy to develop hard-to-reach states. Save these UI states as **stories** to revisit during development, testing, or QA.
+The document below contains a full explanation on how to configure the surveytool.  
+In case you want to try out some ideas directly, take a look at the stories in the sidebar.
 
-Browse example stories now by navigating to them in the sidebar.
-View their code in the `src/storybook-examples` directory to learn how they work.
-We recommend building UIs with a [**component-driven**](https://componentdriven.org) process starting with atomic components and ending with pages.
+<Description markdown={config} />
