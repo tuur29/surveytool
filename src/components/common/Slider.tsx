@@ -39,6 +39,9 @@ type PropsType = {
      * When set, will override the tick labels (normally just the value). Use `null` to keep a tick label empty.
      */
     tickLabels?: (string | null)[];
+    /**
+     * Callback run when value is changed by the user.
+     */
     onChange: (value: number) => void;
 };
 

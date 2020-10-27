@@ -2,6 +2,7 @@ import React from "react";
 import { Meta } from "@storybook/react/types-6-0";
 import Icon, { iconTypes, orientations } from "../../components/common/Icon";
 import { defaultThemes } from "../../utils/theme";
+import { getEnumValues } from "../utils/helpers";
 
 // ----------------------------------------------------------------------
 // Setup
@@ -15,7 +16,7 @@ export default {
         orientation: {
             control: {
                 type: "select",
-                options: Object.values(orientations).filter((val) => typeof val === "string"),
+                options: getEnumValues(orientations),
             },
         },
         size: {

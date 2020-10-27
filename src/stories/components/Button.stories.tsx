@@ -24,9 +24,9 @@ export default {
     parameters: { controls: { expanded: false } },
 } as Meta;
 
-type ButtonType = InferStyledTypes<typeof Button>;
+type ButtonType = Omit<InferStyledTypes<typeof Button>, "ref">;
 const Template: Story<ButtonType> = (args) => (
-    <Button onClick={args.onClick} disabled={args.disabled} iconAlign={args.iconAlign}>
+    <Button {...args}>
         {args.iconAlign && <Icon type="check" />}
         {args.children}
     </Button>

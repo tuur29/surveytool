@@ -8,14 +8,13 @@ export const Wrapper = styled.div<{ size: number }>`
     overflow: hidden;
 `;
 
-const borderSize = 20;
-export const Dial = styled.div<{ size: number; angle: number }>`
+export const Dial = styled.div<{ size: number; angle: number; borderSize: number }>`
     position: absolute;
     top: 0;
     left: 0;
-    width: ${({ size }) => size - borderSize * 2}px;
-    height: ${({ size }) => size - borderSize * 2}px;
-    border: ${borderSize}px solid #e8e8e8;
+    width: ${({ size, borderSize }) => size - borderSize * 2}px;
+    height: ${({ size, borderSize }) => size - borderSize * 2}px;
+    border: ${({ borderSize }) => borderSize}px solid #e8e8e8;
     border-radius: 50%;
     transition: transform ${resultAnimationTotalFrames * resultAnimationFrameLength}ms ease-in-out;
     transform: rotate(${({ angle }) => angle}deg);
@@ -23,11 +22,11 @@ export const Dial = styled.div<{ size: number; angle: number }>`
     &::before {
         content: "";
         position: absolute;
-        width: ${({ size }) => size - borderSize * 2}px;
-        height: ${({ size }) => size - borderSize * 2}px;
-        left: -${borderSize}px;
-        top: -${borderSize}px;
-        border: ${borderSize}px solid #bc302b;
+        width: ${({ size, borderSize }) => size - borderSize * 2}px;
+        height: ${({ size, borderSize }) => size - borderSize * 2}px;
+        left: -${({ borderSize }) => borderSize}px;
+        top: -${({ borderSize }) => borderSize}px;
+        border: ${({ borderSize }) => borderSize}px solid #bc302b;
         border-top-color: transparent;
         border-left-color: transparent;
         border-radius: 50%;

@@ -3,7 +3,7 @@ import { ResultLabelType } from "../../types/ResultTypes";
 import { Result, Title, Description } from "../styles/Result";
 import { useStoreSelector } from "../../redux/store";
 import { resultAnimationTotalFrames, resultAnimationFrameLength, useAfterFirstRender } from "../../utils/utils";
-import ScoreCounter from "./ScoreCounter";
+import ScoreCounter from "../common/ScoreCounter";
 
 const rescaleToDomain = (value: number, sourceDomain: number[], targetDomain: number[]): number => {
     // Rescale the value based on the formula for linear interpolation
