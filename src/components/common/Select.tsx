@@ -5,20 +5,13 @@ import Icon, { orientations } from "./Icon";
 import HintableLabel from "./HintableLabel";
 
 type PropsType = {
-    /**
-     * List of items in the dropdown.
-     * These options can contain hints (see HintableLabel for more info).
-     */
+    /** List of items in the dropdown. These options can contain hints (see HintableLabel for more info). */
     options: { id: string; title: string; hints?: string[] }[];
-    /**
-     * Id of the already selected option
-     */
+    /** Id of the already selected option */
     selectedOptionId: string;
-    /**
-     * Callback run when the user clicks an option
-     */
+    /** Callback run when the user clicks an option */
     onSelectOption: (id: string) => void;
-
+    /** Disable user interaction and display the value faded out. */
     disabled?: boolean;
 };
 

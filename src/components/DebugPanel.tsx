@@ -41,9 +41,16 @@ export const GlobalDebugStyle = createGlobalStyle`
 
 const Wrapper = styled.div`
     position: fixed;
-    top: ${({ theme }) => theme.space[3]}px;
+    top: 0;
     right: ${({ theme }) => theme.space[3]}px;
     z-index: ${({ theme }) => theme.zIndex.debug};
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    & > * {
+        margin-top: ${({ theme }) => theme.space[3]}px;
+    }
 `;
 
 // ----------------------------------------------------------------------
@@ -52,18 +59,28 @@ const Wrapper = styled.div`
 
 const DebugPanel = (): JSX.Element | null => {
     const dispatch = useStoreDispatch();
-    const theme = useStoreSelector((state) => state.config.theme);
+    const config = useStoreSelector((state) => state.config);
 
     if (!isDev(true)) return null;
     return (
         <>
             <GlobalDebugStyle />
             <Wrapper>
-                <Label onClick={() => dispatch(toggleBaseTheme(!theme?.darkMode))}>
-                    <Checkbox checked={theme?.darkMode} />
+                <Label onClick={() => dispatch(toggleBaseTheme(!config.theme?.darkMode))}>
+                    <Checkbox checked={config.theme?.darkMode} />
                     Dark mode
                 </Label>
                 <Button onClick={() => dispatch(addMessages(mockMessages))}>Add messages</Button>
+                <Button
+                    onClick={() =>
+                        window.setSurveyConfig({
+                            ...config,
+                            result: { ...config.result, enableControls: !config.result.enableControls },
+                        })
+                    }
+                >
+                    Toggle editable
+                </Button>
             </Wrapper>
         </>
     );

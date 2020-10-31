@@ -38,11 +38,17 @@ export default {
 
 type PropsType = React.ComponentProps<typeof Icon>;
 export const Text = ({ size, color, orientation }: PropsType): JSX.Element => (
-    <div>
+    <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", justifyContent: "center" }}>
         {iconTypes.map((icon) => (
-            <span key={icon} style={{ padding: 8 }}>
-                <Icon type={icon} size={size} color={color} orientation={orientations[orientation as any] as any} />
-            </span>
+            <p key={icon} style={{ display: "flex", alignItems: "center", padding: 16 }}>
+                <Icon
+                    type={icon}
+                    size={size}
+                    color={color}
+                    orientation={(orientations[orientation as orientations] as unknown) as orientations}
+                />
+                <span style={{ padding: 8, verticalAlign: "middle" }}>{icon}</span>
+            </p>
         ))}
     </div>
 );

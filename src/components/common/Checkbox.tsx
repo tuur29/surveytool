@@ -11,7 +11,7 @@ const Checkbox = (props: PropsType): JSX.Element => {
 
     return (
         <Styles.Checkbox checked={checked}>
-            <Icon type="check" />
+            <Icon type="check" color="controlHighlight" />
         </Styles.Checkbox>
     );
 };

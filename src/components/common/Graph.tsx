@@ -14,10 +14,11 @@ const Graph = (props: PropsType): JSX.Element => {
     const graphElement = useRef<SVGSVGElement>(null);
     const width = 600;
     const height = 300;
-    const margin = { top: 20, right: 20, bottom: 30, left: 30 };
-    const tickSpread = 80;
 
     useEffect(() => {
+        const margin = { top: 20, right: 20, bottom: 30, left: 30 };
+        const tickSpread = 80;
+
         if (!graphElement.current) return;
         switch (props.type) {
             case "line":
@@ -34,9 +35,12 @@ const Graph = (props: PropsType): JSX.Element => {
                 drawBarGraph(props.data as SeriesDataTypes<string>, graphElement.current, width, height, margin);
                 break;
         }
-    }, [props.data, props.type, margin]);
+    }, [props.data, props.type]);
 
     return <svg ref={graphElement} viewBox={`0, 0, ${width}, ${height}`} overflow="visible" />;
 };
+
+// A quick way to get the doc-gen function of Storybook working correctly
+export const GraphDoc = (props: SeriesDataTypes & Omit<PropsType, "data">): null => props && null;
 
 export default Graph;

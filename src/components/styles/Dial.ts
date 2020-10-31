@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { resultAnimationTotalFrames, resultAnimationFrameLength } from "../../utils/utils";
 
 export const Wrapper = styled.div<{ size: number }>`
@@ -8,7 +8,7 @@ export const Wrapper = styled.div<{ size: number }>`
     overflow: hidden;
 `;
 
-export const Dial = styled.div<{ size: number; angle: number; borderSize: number }>`
+export const Dial = styled.div<{ size: number; angle: number; borderSize: number; enableAnimation?: boolean }>`
     position: absolute;
     top: 0;
     left: 0;
@@ -16,8 +16,12 @@ export const Dial = styled.div<{ size: number; angle: number; borderSize: number
     height: ${({ size, borderSize }) => size - borderSize * 2}px;
     border: ${({ borderSize }) => borderSize}px solid #e8e8e8;
     border-radius: 50%;
-    transition: transform ${resultAnimationTotalFrames * resultAnimationFrameLength}ms ease-in-out;
     transform: rotate(${({ angle }) => angle}deg);
+    ${({ enableAnimation }) =>
+        enableAnimation &&
+        css`
+            transition: transform ${resultAnimationTotalFrames * resultAnimationFrameLength}ms ease-in-out;
+        `}
 
     &::before {
         content: "";

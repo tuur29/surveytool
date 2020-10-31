@@ -3,19 +3,28 @@ import { AllAnswersType } from "./AnswerTypes";
 
 type SeriesId = string;
 
+/** Typescript doesn't seem to support this strict typing so I added the supported types in comment */
+type ValueType<T extends number | string | unknown = unknown> = {
+    x: T;
+    /** Overrides series color, only `string | true` are actually supported  */
+    [graphHighlightId]?: T | string | true;
+    /** key should be SeriesId, only `number` is actually supported  */
+    [key: string]: T | number | string | true | undefined;
+};
+
 export type SeriesDataTypes<T extends number | string | unknown = unknown> = {
-    // T depends on line or bar chart
-    xLabel: number;
-    yLabel: number;
+    /** Text displayed at the end of the x-axis */
+    xLabel: string;
+    /** Text displayed at the end of the y-axis */
+    yLabel: string;
+    /** List of y-values for each line / bar-group (linked by id value). Use id "highlight" when using highlights. */
     series: {
         id: SeriesId;
         name: string;
         color: string;
     }[];
-    values: ({
-        x: T;
-        [graphHighlightId]?: string | true; // overrides series color
-    } & Record<SeriesId, number | null>)[];
+    /** List of every data point each needs to have a x-value and one or more series values. */
+    values: ValueType<T>[];
 };
 
 // Data format to post answers to server, get graph data...

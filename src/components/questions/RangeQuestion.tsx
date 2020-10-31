@@ -8,6 +8,7 @@ import useQuestionAnswer from "../../hooks/useQuestionAnswer";
 import { RangeAnswerType } from "../../types/AnswerTypes";
 import Slider from "../common/Slider";
 import RadioSlider from "../common/RadioSlider";
+import { disableControlsSelector } from "../../utils/utils";
 
 type PropsType = {
     question: RangeQuestionType;
@@ -16,7 +17,7 @@ type PropsType = {
 const RangeQuestion = (props: PropsType): JSX.Element => {
     const { question } = props;
     const dispatch = useStoreDispatch();
-    const disableControl = useStoreSelector((state) => !state.config.result.enableControls && state.result.showResult);
+    const disableControl = useStoreSelector(disableControlsSelector);
     const { value } = useQuestionAnswer<RangeAnswerType>(question.id);
 
     const setValue = (newValue: number) => {
@@ -30,17 +31,17 @@ const RangeQuestion = (props: PropsType): JSX.Element => {
         );
     };
 
-    const sliderProps = {
+    const sliderProps: React.ComponentProps<typeof Slider> | React.ComponentProps<typeof RadioSlider> = {
         min: question.min || 0,
         max: question.max || 1,
         value: value || 0,
         step: question.step || 1,
+        disabled: disableControl,
         onChange: setValue,
         direction: question.direction || "increase",
         tickCount: question.tickCount,
         tickValues: question.tickValues,
         tickLabels: question.tickLabels,
-        disabled: disableControl,
     };
 
     return (

@@ -67,6 +67,7 @@ const LabelResult = (props: PropsType): JSX.Element => {
                 <ScoreCounter
                     dialPercentage={afterFirstRender ? rescaleToDomain(score, domain, [0, 1]) : 0}
                     label={label}
+                    animate={props.config.animate}
                 />
             )}
         </Result>

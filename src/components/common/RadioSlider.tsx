@@ -3,41 +3,24 @@ import { RangeDirectionType } from "../../types/QuestionTypes";
 import { RadioListWrapper, BottomLabel, RadioButton } from "../styles/Input";
 
 type PropsType = {
-    /**
-     * Minimum allowed value
-     */
+    /** Minimum allowed value */
     min: number;
-    /**
-     * Maximum allowed value
-     */
+    /** Maximum allowed value */
     max: number;
-    /**
-     * Current value
-     */
+    /** Current value */
     value: number;
-    /**
-     * The size of each step between slider positions / radio buttons.
-     * For example, setting this to 2 will only allow (un)even numbers.
-     */
+    /** The size of each step between slider positions / radio buttons. For example, setting this to 2 will only allow (un)even numbers. */
     step: number;
-    /**
-     * Setting this to decrease will default to and put the maximum first.
-     */
+    /** Setting this to decrease will default to and put the maximum first. */
     direction: RangeDirectionType;
-    /**
-     * When set, the ticks will be displayed at these exact values. Will override the `tickCount` setting.
-     */
-    tickValues?: number[];
-    /**
-     * When set, will override the tick labels (normally just the value). Use `null` to keep a tick label empty.
-     */
-    tickLabels?: (string | null)[];
-    /**
-     * Callback run when the user clicks a value
-     */
-    onChange: (value: number) => void;
-
+    /** Disable user interaction and display the value faded out. */
     disabled?: boolean;
+    /** When set, the ticks will be displayed at these exact values. Will override the `tickCount` setting. */
+    tickValues?: number[];
+    /** When set, will override the tick labels (normally just the value). Use `null` to keep a tick label empty. */
+    tickLabels?: (string | null)[];
+    /** Callback run when the user clicks a value */
+    onChange: (value: number) => void;
 };
 
 const RadioSlider = (props: PropsType): JSX.Element => {

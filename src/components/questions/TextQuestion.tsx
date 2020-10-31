@@ -5,6 +5,7 @@ import { setAnswer } from "../../redux/answersReducer";
 import { useStoreDispatch, useStoreSelector } from "../../redux/store";
 import { TextAnswerType } from "../../types/AnswerTypes";
 import { TextQuestionType } from "../../types/QuestionTypes";
+import { disableControlsSelector } from "../../utils/utils";
 import { REGEX_NUMBER_ONLY } from "../../utils/validator";
 import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
@@ -31,7 +32,7 @@ const TextQuestion = (props: PropsType): JSX.Element => {
     const { question } = props;
 
     const dispatch = useStoreDispatch();
-    const disableControl = useStoreSelector((state) => !state.config.result.enableControls && state.result.showResult);
+    const disableControl = useStoreSelector(disableControlsSelector);
     const value = useQuestionAnswer<TextAnswerType>(question.id).value;
     const { error, showError, setFocussed } = useValidAnswer(question);
 

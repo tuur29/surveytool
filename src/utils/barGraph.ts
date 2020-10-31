@@ -115,9 +115,9 @@ export const drawBarGraph = (
                 .attr("class", `bar bar-${id}`)
                 .attr("fill", barColor)
                 .attr("x", xValue)
-                .attr("y", yScale(value!))
+                .attr("y", yScale(value as number))
                 .attr("width", barWidth)
-                .attr("height", graphHeight - yScale(value!));
+                .attr("height", graphHeight - yScale(value as number));
         });
     });
 };

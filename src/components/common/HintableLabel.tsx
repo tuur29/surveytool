@@ -3,13 +3,9 @@ import { Tooltip, TooltipContent } from "../styles/Tooltip";
 import Icon from "./Icon";
 
 type HintablePropsType = {
-    /**
-     * This string can contain multiple `{hint}` placeholders.
-     */
+    /** This string can contain multiple `{hint}` placeholders. */
     label: string;
-    /**
-     * Each usage of the `{hint}` placeholder needs to have a string in this array. Optional if no hints are used.
-     */
+    /** Each usage of the `{hint}` placeholder needs to have a string in this array. Optional if no hints are used. */
     hints?: string[];
 };
 

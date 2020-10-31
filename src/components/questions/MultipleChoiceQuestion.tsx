@@ -5,6 +5,7 @@ import { setAnswer } from "../../redux/answersReducer";
 import { useStoreDispatch, useStoreSelector } from "../../redux/store";
 import { MultipleChoiceAnswerType } from "../../types/AnswerTypes";
 import { MultipleChoiceQuestionType } from "../../types/QuestionTypes";
+import { disableControlsSelector } from "../../utils/utils";
 import Checkbox from "../common/Checkbox";
 import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
@@ -19,7 +20,7 @@ type PropsType = {
 const MultipleChoiceQuestion = (props: PropsType): JSX.Element => {
     const { question } = props;
     const dispatch = useStoreDispatch();
-    const disableControl = useStoreSelector((state) => !state.config.result.enableControls && state.result.showResult);
+    const disableControl = useStoreSelector(disableControlsSelector);
     const selectedIds = useQuestionAnswer<MultipleChoiceAnswerType>(question.id).values;
     const { error, showError, setFocussed } = useValidAnswer(question);
 

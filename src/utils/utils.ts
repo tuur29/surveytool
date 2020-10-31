@@ -5,6 +5,7 @@ import { AllAnswersType } from "../types/AnswerTypes";
 import { AnswerPostData } from "../types/DataTypes";
 import { AnswerDataUrl } from "../types/ResultTypes";
 import { ValuesType } from "./labels";
+import { StateType } from "../redux/store";
 
 // ----------------------------------------------------------------------
 // Constants
@@ -102,6 +103,16 @@ export const fetchAnswerData = async <T extends Record<string, unknown>>(
         return null;
     }
 };
+
+// ----------------------------------------------------------------------
+// State Selectors
+// ----------------------------------------------------------------------
+
+/**
+ * Checks if a control should be disabled.
+ */
+export const disableControlsSelector = (state: StateType): boolean =>
+    !state.config.result.enableControls && state.result.showResult;
 
 // ----------------------------------------------------------------------
 // Hooks

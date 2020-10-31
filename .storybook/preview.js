@@ -4,7 +4,7 @@ import { ThemeProvider } from "styled-components";
 import { initConfig } from "../src/redux/configReducer";
 import { setResult } from "../src/redux/resultReducer";
 import store from "../src/redux/store";
-import { mockConfig } from "../src/utils/mock";
+import { mockConfig } from "../src/utils/mockConfig";
 import { defaultThemes } from "../src/utils/theme";
 import { GlobalDebugStyle } from "../src/components/DebugPanel";
 

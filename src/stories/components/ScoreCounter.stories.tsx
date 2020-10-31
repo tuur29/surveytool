@@ -24,4 +24,5 @@ Default.args = {
     label: "40%",
     size: 200,
     borderSize: 20,
+    animate: true,
 };

@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css, DefaultTheme } from "styled-components";
 import { width, WidthProps } from "styled-system";
 import { IconWrapper } from "../common/Icon";
 import { getElevation } from "../../utils/theme";
@@ -58,7 +58,6 @@ export const Checkbox = styled.div<{ checked?: boolean }>`
         width: calc(100% - (${({ theme }) => theme.sizes.controlCheckOffset} * 2));
         height: calc(100% - (${({ theme }) => theme.sizes.controlCheckOffset} * 2));
         margin: ${({ theme }) => theme.sizes.controlCheckOffset};
-        color: ${({ theme }) => theme.colors.controlHighlight};
         vertical-align: super;
     }
 `;
@@ -134,8 +133,9 @@ export const SelectValue = styled.div<{ opened?: boolean; disabled?: boolean }>`
         margin-left: ${({ theme }) => theme.space[2]}px;
     }
 
-    ${({ opened }) =>
-        !opened && // default, not opened styles
+    ${({ opened, disabled }) =>
+        !opened &&
+        !disabled && // default, not opened styles
         css`
             &:hover {
                 border-color: ${({ theme }) => theme.colors.controlBorderHover};
@@ -158,8 +158,9 @@ export const SelectValue = styled.div<{ opened?: boolean; disabled?: boolean }>`
         `};
 
     ${({ disabled, theme }) =>
-        disabled &&
+        disabled && // disabled styles
         css`
+            cursor: default;
             background-color: ${theme.colors.controlBackDisabled};
             color: ${theme.colors.controlOnBackDisabled};
         `}
@@ -296,13 +297,15 @@ const sliderTransition = css`
     transition: all 0.15s;
 `;
 
-const sliderDisabled = ({ disabled, theme }: any) =>
+type SliderDisabledType = { theme: DefaultTheme; disabled?: boolean };
+
+const sliderDisabled = ({ disabled, theme }: SliderDisabledType) =>
     disabled &&
     css`
         background-color: ${theme.colors.controlSliderDisabled};
     `;
 
-const sliderOnDisabled = ({ disabled, theme }: any) =>
+const sliderOnDisabled = ({ disabled, theme }: SliderDisabledType) =>
     disabled &&
     css`
         background-color: ${theme.colors.controlSliderOnDisabled};
@@ -325,7 +328,6 @@ export const SliderRail = styled.div<{ disabled?: boolean }>`
     height: ${({ theme }) => theme.sizes.controlSliderRailHeight};
     border-radius: ${({ theme }) => theme.sizes.radius};
     background-color: ${({ theme }) => theme.colors.controlSliderBack};
-
     ${sliderDisabled}
 `;
 
@@ -341,9 +343,7 @@ export const SliderTrack = styled.div<{ percent: number; disabled?: boolean }>`
     border-radius: ${({ percent, theme }) => (percent === 100 ? theme.sizes.radius : "initial")};
     border-top-left-radius: ${({ theme }) => theme.sizes.radius};
     border-bottom-left-radius: ${({ theme }) => theme.sizes.radius};
-
     ${sliderTransition};
-
     ${sliderOnDisabled};
 `;
 
@@ -360,9 +360,7 @@ export const SliderHandle = styled.div<{ percent: number; disabled?: boolean }>`
     background-color: ${({ theme }) => theme.colors.controlHighlight};
     border-radius: 100%;
     transform: translateX(-50%); /* pick center as handle reference point */
-
     ${sliderTransition}
-
     ${sliderOnDisabled}
 
     ${({ disabled, theme }) =>
@@ -384,12 +382,11 @@ export const SliderTick = styled.div<{ percent: number; disabled?: boolean }>`
     width: 2px;
     height: ${({ theme }) => theme.sizes.controlSliderTrackHeight};
     background-color: ${({ theme }) => theme.colors.controlSliderBack};
+    ${sliderDisabled}
 
     &:first-of-type ${({ percent }) => (percent === 100 ? ", &:last-of-type" : "")} {
         display: none;
     }
-
-    ${sliderDisabled}
 `;
 
 export const SliderTickLabel = styled.span<{ percent: number }>`

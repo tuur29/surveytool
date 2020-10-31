@@ -46,6 +46,7 @@ const validData: ReturnType<typeof useValidAnswer.default> = {
 const dispatchSpy = spy();
 stub(store, "useStoreDispatch").returns(dispatchSpy);
 
+const storeSelector = stub(store, "useStoreSelector");
 const validStub = stub(useValidAnswer, "default");
 const answerStub = stub(useQuestionAnswer, "default");
 
@@ -57,6 +58,7 @@ describe("SingleChoiceQuestion", () => {
     beforeEach(() => {
         dispatchSpy.resetHistory();
         focusSpy.resetHistory();
+        storeSelector.returns(false);
         validStub.returns(validData);
         answerStub.returns(answerData);
     });
@@ -89,6 +91,13 @@ describe("SingleChoiceQuestion", () => {
 
         // updates focused state
         expect(focusSpy.callCount).toBe(1);
+    });
+
+    it("Does not update the store when clicking if disabled", () => {
+        storeSelector.returns(true);
+        const component = shallow(<SingleChoiceQuestion {...props} />);
+        component.find(Label).simulate("click");
+        expect(dispatchSpy.callCount).toBe(0);
     });
 
     it("Renders an error if the input is not valid", () => {

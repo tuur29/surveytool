@@ -111,12 +111,12 @@ These are: buttons, text fields, dropdowns, sliders...
 
 | Type | Colors | Note |
 |---|---|---|
-| Background & Border | `controlBack`, `controlHighlight`, `controlBorder` | Default colors without user input |
+| Background & Border | `controlBack`, `controlHighlight`, `controlBorder`, `controlBackDisabled`, `controlOnBackDisabled` | Default colors without user input |
 | Text | `controlPlaceholder` | Most text colors are defined by the default foreground color. |
 | Hover states | `controlBackHover`, `controlBorderHover` |  |
 | Active states | `controlHighlightActive`, `controlBorderActive` | Color of selected items, checkmark and button hover |
 | Buttons | `controlButton`, `controlOnButton`, `controlButtonDisabled`, `controlOnButtonDisabled` | |
-| Slider | `controlTick`, `controlSliderBack` | |
+| Slider | `controlTick`, `controlSliderBack`, `controlSliderDisabled`, `controlSliderOnDisabled` | |
 
 #### Message Colors
 
