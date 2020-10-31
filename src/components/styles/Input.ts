@@ -207,28 +207,43 @@ export const SelectOption = styled.li`
 // Shared Label
 // ----------------------------------------------------------------------
 
-// TODO: Checkbox isn't colored grey when disabled
 export const Label = styled.div<{ disabled?: boolean }>`
     display: flex;
     align-items: center;
     user-select: none;
+    cursor: pointer;
 
-    ${RadioButton}, ${Checkbox}, ${Checkbox}::after {
-        ${({ disabled, theme }) =>
-            disabled
-                ? css`
-                      background-color: ${theme.colors.controlBackDisabled};
-                      span svg {
-                          color: ${theme.colors.controlOnBackDisabled};
-                      }
-                  `
-                : css`
-                      cursor: pointer;
-                      &:hover {
-                          border-color: ${theme.colors.controlBorderHover};
-                      }
-                  `}
-    }
+    ${({ disabled, theme }) => css`
+        cursor: default;
+
+        /* Hover styling when not disabled */
+        ${
+            !disabled &&
+            css`
+                &:hover {
+                    ${RadioButton}, ${Checkbox} {
+                        border-color: ${({ theme }) => theme.colors.controlBorderHover};
+                    }
+                }
+            `
+        }
+
+        /* Box around the checkmark / radio-bullet */
+        ${RadioButton}, ${Checkbox} {
+            background-color: ${disabled ? theme.colors.controlBackDisabled : ""};
+            color: ${disabled ? theme.colors.controlOnBackDisabled : ""};
+        }
+
+        /* Style disabled state of the radio-bullet */
+        ${RadioButton}::before {
+            background-color: ${disabled ? theme.colors.controlOnBackDisabled : ""};
+        }
+
+        /* Style disabled state of the checkmark overlay that causes the check-animation */
+        ${Checkbox}::after {
+            background-color: ${disabled ? theme.colors.controlBackDisabled : ""};
+        }
+    `};
 `;
 
 export const BottomLabel = styled(Label)`
@@ -248,7 +263,6 @@ export const BottomLabel = styled(Label)`
 // Text
 // ----------------------------------------------------------------------
 
-// TODO: fix hover
 export const TextField = styled.input<{ isError?: boolean }>`
     ${baseColors};
     ${baseMargin};
@@ -273,6 +287,7 @@ export const TextField = styled.input<{ isError?: boolean }>`
     &:disabled {
         background-color: ${({ theme }) => theme.colors.controlBackDisabled};
         color: ${({ theme }) => theme.colors.controlOnBackDisabled};
+        border-color: ${({ theme }) => theme.colors.controlBorder};
     }
 `;
 

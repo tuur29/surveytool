@@ -21,4 +21,5 @@ const Template: Story<CheckboxType> = (args) => <Checkbox {...args} />;
 export const Default = Template.bind({});
 Default.args = {
     checked: true,
+    children: "Label",
 };

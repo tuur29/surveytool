@@ -10,7 +10,7 @@ import { questionTypes } from "../../types/QuestionTypes";
 import Checkbox from "../common/Checkbox";
 import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
-import { FieldError, Label } from "../styles/Input";
+import { FieldError } from "../styles/Input";
 import SingleChoiceQuestion from "./SingleChoiceQuestion";
 
 // ----------------------------------------------------------------------
@@ -77,7 +77,7 @@ describe("SingleChoiceQuestion", () => {
 
     it("Updates the store when clicking the checkbox", () => {
         const component = shallow(<SingleChoiceQuestion {...props} />);
-        component.find(Label).simulate("click");
+        component.find(Checkbox).simulate("click");
 
         // updates value
         expect(dispatchSpy.callCount).toBe(1);
@@ -96,7 +96,7 @@ describe("SingleChoiceQuestion", () => {
     it("Does not update the store when clicking if disabled", () => {
         storeSelector.returns(true);
         const component = shallow(<SingleChoiceQuestion {...props} />);
-        component.find(Label).simulate("click");
+        component.find(Checkbox).simulate("click");
         expect(dispatchSpy.callCount).toBe(0);
     });
 

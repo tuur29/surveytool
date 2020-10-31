@@ -38,6 +38,10 @@ export enum orientations { // values are numbers so they represent quadrants
 
 type SvgProps = { size?: number; color?: ColorType; orientation?: orientations };
 export const IconWrapper = styled.span<SvgProps>`
+    &:hover svg {
+        color: ${({ theme, color }) => (color ? theme.colors[color] : theme.colors.iconHover)};
+    }
+
     svg {
         position: relative;
         top: 2px;
@@ -48,10 +52,6 @@ export const IconWrapper = styled.span<SvgProps>`
         height: 1em;
         transition: transform 0.3s, width 0.3s, height 0.3s, color 0.3s;
         transform-origin: center;
-
-        &:hover {
-            color: ${({ theme, color }) => (color ? theme.colors[color] : theme.colors.iconHover)};
-        }
 
         ${({ orientation }) =>
             orientation &&

@@ -9,7 +9,7 @@ import { disableControlsSelector } from "../../utils/utils";
 import Checkbox from "../common/Checkbox";
 import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
-import { FieldError, Label } from "../styles/Input";
+import { FieldError } from "../styles/Input";
 import { Question, Title } from "../styles/Question";
 
 type PropsType = {
@@ -38,12 +38,11 @@ const SingleChoiceQuestion = (props: PropsType): JSX.Element => {
 
     return (
         <Question id={question.id}>
-            <Label onClick={check} disabled={disableControl}>
-                <Checkbox checked={checked || false} />
+            <Checkbox checked={checked || false} onClick={check} disabled={disableControl}>
                 <Title>
                     <HintableLabel label={question.title} hints={question.hints} />
                 </Title>
-            </Label>
+            </Checkbox>
 
             {/* always render FieldError with min-height so showing the error doesn't move content on the page */}
             <FieldError>

@@ -7,7 +7,6 @@ import { messageTypes } from "../types/Messages";
 import { isDev } from "../utils/utils";
 import Checkbox from "./common/Checkbox";
 import { Button } from "./styles/Button";
-import { Label } from "./styles/Input";
 
 // ----------------------------------------------------------------------
 // Constants
@@ -66,10 +65,12 @@ const DebugPanel = (): JSX.Element | null => {
         <>
             <GlobalDebugStyle />
             <Wrapper>
-                <Label onClick={() => dispatch(toggleBaseTheme(!config.theme?.darkMode))}>
-                    <Checkbox checked={config.theme?.darkMode} />
+                <Checkbox
+                    checked={config.theme?.darkMode}
+                    onClick={() => dispatch(toggleBaseTheme(!config.theme?.darkMode))}
+                >
                     Dark mode
-                </Label>
+                </Checkbox>
                 <Button onClick={() => dispatch(addMessages(mockMessages))}>Add messages</Button>
                 <Button
                     onClick={() =>

@@ -71,10 +71,13 @@ const MultipleChoiceQuestion = (props: PropsType): JSX.Element => {
             {question.inputType === "check" &&
                 question.options.map((option) => (
                     <Fragment key={option.id}>
-                        <Label onClick={() => select(option.id)} disabled={disableControl}>
-                            <Checkbox checked={selectedIds.includes(option.id)} />
+                        <Checkbox
+                            checked={selectedIds.includes(option.id)}
+                            onClick={() => select(option.id)}
+                            disabled={disableControl}
+                        >
                             <HintableLabel label={option.title} hints={option.hints} />
-                        </Label>
+                        </Checkbox>
                     </Fragment>
                 ))}
 

@@ -17,6 +17,7 @@ export const Dial = styled.div<{ size: number; angle: number; borderSize: number
     border: ${({ borderSize }) => borderSize}px solid #e8e8e8;
     border-radius: 50%;
     transform: rotate(${({ angle }) => angle}deg);
+
     ${({ enableAnimation }) =>
         enableAnimation &&
         css`
