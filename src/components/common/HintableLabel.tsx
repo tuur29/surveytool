@@ -24,7 +24,7 @@ const Hint = (props: { content: string }): JSX.Element => {
         <Tooltip>
             <Icon type="info" onClick={opened ? undefined : onClick} />
             <TooltipContent show={opened} onClick={opened ? onClick : undefined}>
-                <Icon type="close" color="iconHover" />
+                <Icon type="closeCircle" color="iconHover" />
                 {props.content}
             </TooltipContent>
         </Tooltip>

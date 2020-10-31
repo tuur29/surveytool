@@ -21,7 +21,7 @@ const MessagesList = (): JSX.Element | null => {
                         {(state) => (
                             <Message type={message.type} show={state === "entered"}>
                                 <CloseButton onClick={() => dispatch(removeMessage(message.id))}>
-                                    <Icon type="close" color={textColor[message.type]} />
+                                    <Icon type="closeCircle" color={textColor[message.type]} />
                                 </CloseButton>
                                 {message.title && <Title>{message.title}</Title>}
                                 <Description>{message.description}</Description>

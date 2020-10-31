@@ -13,7 +13,7 @@ There are 5 parts to a configuration object:
 | `questions` | [question array](./src/types/QuestionTypes.ts) | Required, complex structure containing all question parameters |
 | `results` | [results object](./src/types/ConfigTypes.ts#L15) | **Optional**, object containing settings related to the way the results of the form are handled / displayed |
 
-The example configuration used in the demo can be found here: [mock.ts](./src/utils/mock.ts)
+The example configuration used in the demo can be found here: [mockConfig.ts](./src/utils/mockConfig.ts)
 
 ---
 

@@ -98,7 +98,7 @@ export const fetchAnswerData = async <T extends Record<string, unknown>>(
         });
         return (await request.json()) as T;
     } catch (error) {
-        console.error("Could not post answers", error);
+        console.error("Could not fetch answer data", error);
         return null;
     }
 };

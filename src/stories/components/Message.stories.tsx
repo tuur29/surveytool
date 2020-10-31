@@ -31,7 +31,7 @@ type DocMessageType = MessageType & {
 const Template: Story<DocMessageType> = (args) => (
     <Message type={args.type} show>
         <CloseButton onClick={() => args.onDismiss(args.id)}>
-            <Icon type="close" color={textColor[args.type]} />
+            <Icon type="closeCircle" color={textColor[args.type]} />
         </CloseButton>
         {args.title && <Title>{args.title}</Title>}
         <Description>{args.description}</Description>

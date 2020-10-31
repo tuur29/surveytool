@@ -7,6 +7,7 @@ export const defaultLabels = {
     messageErrorTitle: "Error", // generic error message in case something really bad breaks
     messageDismissAll: "Dismiss all", // button to dismiss all in case multiple notifications / messages are shown
     messageInitError: "The tool could not be initialized properly.", // shown when config could not be initialized
+    messageGraphDataError: "Oops, could not display graph.", // shown when a graph could not be loaded
 
     // questions
     questionsTitle: "Questions", // optional title above the list of questions

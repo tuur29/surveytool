@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { ConfigType } from "../types/ConfigTypes";
-import { mockConfig } from "../utils/mock";
+import { mockConfig } from "../utils/mockConfig";
 import { isDev } from "../utils/utils";
 import { useStoreDispatch } from "../redux/store";
 import { initConfig } from "../redux/configReducer";

@@ -2,8 +2,11 @@ import { useState, useEffect, useCallback } from "react";
 import { debounce } from "lodash";
 import { SeriesDataTypes, AnswerPostData } from "../types/DataTypes";
 import { fetchAnswerData } from "../utils/utils";
-import { useStoreSelector } from "../redux/store";
+import { useStoreDispatch, useStoreSelector } from "../redux/store";
 import { AnswerDataUrl } from "../types/ResultTypes";
+import { addMessages } from "../redux/messagesReducer";
+import { messageTypes } from "../types/Messages";
+import { useLabels } from "./useLabel";
 
 type DataType = {
     data: SeriesDataTypes | null;
@@ -11,12 +14,15 @@ type DataType = {
 };
 
 const useGraphData = (postUrl: AnswerDataUrl): DataType => {
+    const dispatch = useStoreDispatch();
     const configId = useStoreSelector((state) => state.config.id);
     const score = useStoreSelector((state) => state.result.score);
     const answers = useStoreSelector((state) => state.answers.list);
 
+    const [title, description] = useLabels(["messageErrorTitle", "messageGraphDataError"]);
+
     const [data, setData] = useState<SeriesDataTypes | null>(null);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     // Create data to be sent and create an easy to check string version for refetching with useEffect
     const postData: AnswerPostData = { configId, score, answers };
@@ -27,22 +33,24 @@ const useGraphData = (postUrl: AnswerDataUrl): DataType => {
         debounce(async (url: AnswerDataUrl, data: AnswerPostData) => {
             setLoading(true);
 
-            try {
-                const result = await fetchAnswerData<SeriesDataTypes>(url, data);
+            const result = await fetchAnswerData<SeriesDataTypes>(url, data);
 
-                // TODO: improve graph data validation and notify user on error (hide graph?)
-                // validate result data
-                if (!result) {
-                    console.error("Could not retrieve graph data");
-                    return;
-                }
-
-                // set result
-                setData(result);
+            // validate result data
+            if (!result) {
+                setData(null);
                 setLoading(false);
-            } catch (exception) {
-                console.error("Retrieved data is not formatted correctly", exception);
+
+                console.error("Could not retrieve graph data");
+                dispatch(
+                    addMessages([{ type: messageTypes.error, title: title || "", description: description || "" }]),
+                );
+
+                return;
             }
+
+            // set result
+            setData(result);
+            setLoading(false);
         }, 500),
         [],
     );

@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import { WidthProps, width, FlexboxProps, flexbox } from "styled-system";
+import { Loader } from "./Loader";
+import { IconWrapper } from "../common/Icon";
 
 const LEGEND_RATIO = 0.25;
+export const GRAPH_LOADER_SIZE = 50;
 
 export const Card = styled.div<WidthProps>`
     display: flex;
@@ -17,6 +20,18 @@ export const Card = styled.div<WidthProps>`
 Card.defaultProps = {
     width: { xs: 1, md: 0.75 },
 };
+
+export const StatusWrapper = styled.div`
+    position: relative;
+    width: 100%;
+    min-height: 100px;
+
+    & > ${Loader}, & > ${IconWrapper} {
+        position: absolute;
+        top: calc(50% - ${GRAPH_LOADER_SIZE / 2}px);
+        left: calc(50% - ${GRAPH_LOADER_SIZE / 2}px);
+    }
+`;
 
 export const Wrapper = styled.div<FlexboxProps & WidthProps>`
     display: flex;
