@@ -2,7 +2,7 @@ import React, { SyntheticEvent } from "react";
 import useQuestionAnswer from "../../hooks/useQuestionAnswer";
 import useValidAnswer from "../../hooks/useValidAnswer";
 import { setAnswer } from "../../redux/answersReducer";
-import { useStoreDispatch } from "../../redux/store";
+import { useStoreDispatch, useStoreSelector } from "../../redux/store";
 import { TextAnswerType } from "../../types/AnswerTypes";
 import { TextQuestionType } from "../../types/QuestionTypes";
 import { REGEX_NUMBER_ONLY } from "../../utils/validator";
@@ -31,6 +31,7 @@ const TextQuestion = (props: PropsType): JSX.Element => {
     const { question } = props;
 
     const dispatch = useStoreDispatch();
+    const disableControl = useStoreSelector((state) => !state.config.result.enableControls && state.result.showResult);
     const value = useQuestionAnswer<TextAnswerType>(question.id).value;
     const { error, showError, setFocussed } = useValidAnswer(question);
 
@@ -60,6 +61,7 @@ const TextQuestion = (props: PropsType): JSX.Element => {
                 isError={showError}
                 onChange={onChange}
                 onBlur={setFocussed}
+                disabled={disableControl}
             />
 
             {/* always render FieldError with min-height so showing the error doesn't move content on the page */}

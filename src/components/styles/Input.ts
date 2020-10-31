@@ -117,7 +117,7 @@ export const SelectWrapper = styled.div`
     }
 `;
 
-export const SelectValue = styled.div<{ opened?: boolean }>`
+export const SelectValue = styled.div<{ opened?: boolean; disabled?: boolean }>`
     ${baseColors};
     ${baseMargin};
     ${basePadding};
@@ -156,6 +156,13 @@ export const SelectValue = styled.div<{ opened?: boolean }>`
                 color: ${({ theme }) => theme.colors.controlBorderActive};
             }
         `};
+
+    ${({ disabled, theme }) =>
+        disabled &&
+        css`
+            background-color: ${theme.colors.controlBackDisabled};
+            color: ${theme.colors.controlOnBackDisabled};
+        `}
 `;
 
 export const SelectDropdown = styled.ul<{ show: boolean }>`
@@ -199,16 +206,27 @@ export const SelectOption = styled.li`
 // Shared Label
 // ----------------------------------------------------------------------
 
-export const Label = styled.div`
+// TODO: Checkbox isn't colored grey when disabled
+export const Label = styled.div<{ disabled?: boolean }>`
     display: flex;
     align-items: center;
     user-select: none;
-    cursor: pointer;
 
-    &:hover {
-        ${RadioButton}, ${Checkbox} {
-            border-color: ${({ theme }) => theme.colors.controlBorderHover};
-        }
+    ${RadioButton}, ${Checkbox}, ${Checkbox}::after {
+        ${({ disabled, theme }) =>
+            disabled
+                ? css`
+                      background-color: ${theme.colors.controlBackDisabled};
+                      span svg {
+                          color: ${theme.colors.controlOnBackDisabled};
+                      }
+                  `
+                : css`
+                      cursor: pointer;
+                      &:hover {
+                          border-color: ${theme.colors.controlBorderHover};
+                      }
+                  `}
     }
 `;
 
@@ -229,6 +247,7 @@ export const BottomLabel = styled(Label)`
 // Text
 // ----------------------------------------------------------------------
 
+// TODO: fix hover
 export const TextField = styled.input<{ isError?: boolean }>`
     ${baseColors};
     ${baseMargin};
@@ -248,6 +267,11 @@ export const TextField = styled.input<{ isError?: boolean }>`
 
     &::placeholder {
         color: ${({ theme }) => theme.colors.controlPlaceholder};
+    }
+
+    &:disabled {
+        background-color: ${({ theme }) => theme.colors.controlBackDisabled};
+        color: ${({ theme }) => theme.colors.controlOnBackDisabled};
     }
 `;
 
@@ -272,6 +296,18 @@ const sliderTransition = css`
     transition: all 0.15s;
 `;
 
+const sliderDisabled = ({ disabled, theme }: any) =>
+    disabled &&
+    css`
+        background-color: ${theme.colors.controlSliderDisabled};
+    `;
+
+const sliderOnDisabled = ({ disabled, theme }: any) =>
+    disabled &&
+    css`
+        background-color: ${theme.colors.controlSliderOnDisabled};
+    `;
+
 export const SliderWrapper = styled.div<WidthProps>`
     > div {
         position: relative;
@@ -282,16 +318,18 @@ export const SliderWrapper = styled.div<WidthProps>`
     }
 `;
 
-export const SliderRail = styled.div`
+export const SliderRail = styled.div<{ disabled?: boolean }>`
     position: absolute;
     top: calc(50% - (${({ theme }) => theme.sizes.controlSliderRailHeight} / 2));
     width: 100%;
     height: ${({ theme }) => theme.sizes.controlSliderRailHeight};
     border-radius: ${({ theme }) => theme.sizes.radius};
     background-color: ${({ theme }) => theme.colors.controlSliderBack};
+
+    ${sliderDisabled}
 `;
 
-export const SliderTrack = styled.div<{ percent: number }>`
+export const SliderTrack = styled.div<{ percent: number; disabled?: boolean }>`
     position: absolute;
     z-index: ${({ theme }) => theme.zIndex.sliderTrack};
     top: calc(50% - (${({ theme }) => theme.sizes.controlSliderTrackHeight} / 2));
@@ -305,9 +343,11 @@ export const SliderTrack = styled.div<{ percent: number }>`
     border-bottom-left-radius: ${({ theme }) => theme.sizes.radius};
 
     ${sliderTransition};
+
+    ${sliderOnDisabled};
 `;
 
-export const SliderHandle = styled.div<{ percent: number }>`
+export const SliderHandle = styled.div<{ percent: number; disabled?: boolean }>`
     position: absolute;
     z-index: ${({ theme }) => theme.zIndex.sliderHandle};
     top: calc(50% - (${({ theme }) => theme.sizes.controlSliderHandleSize} / 2));
@@ -320,18 +360,24 @@ export const SliderHandle = styled.div<{ percent: number }>`
     background-color: ${({ theme }) => theme.colors.controlHighlight};
     border-radius: 100%;
     transform: translateX(-50%); /* pick center as handle reference point */
-    cursor: move;
 
-    &:hover,
-    &:focus,
-    &:active {
-        background-color: ${({ theme }) => theme.colors.controlHighlightActive};
-    }
+    ${sliderTransition}
 
-    ${sliderTransition};
+    ${sliderOnDisabled}
+
+    ${({ disabled, theme }) =>
+        !disabled &&
+        css`
+            cursor: move;
+            &:hover,
+            &:focus,
+            &:active {
+                background-color: ${theme.colors.controlHighlightActive};
+            }
+        `}
 `;
 
-export const SliderTick = styled.div<{ percent: number }>`
+export const SliderTick = styled.div<{ percent: number; disabled?: boolean }>`
     position: absolute;
     top: calc(50% - (${({ theme }) => theme.sizes.controlSliderTrackHeight} / 2));
     left: ${({ percent }) => percent}%;
@@ -342,6 +388,8 @@ export const SliderTick = styled.div<{ percent: number }>`
     &:first-of-type ${({ percent }) => (percent === 100 ? ", &:last-of-type" : "")} {
         display: none;
     }
+
+    ${sliderDisabled}
 `;
 
 export const SliderTickLabel = styled.span<{ percent: number }>`

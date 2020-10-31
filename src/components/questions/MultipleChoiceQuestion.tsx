@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import useQuestionAnswer from "../../hooks/useQuestionAnswer";
 import useValidAnswer from "../../hooks/useValidAnswer";
 import { setAnswer } from "../../redux/answersReducer";
-import { useStoreDispatch } from "../../redux/store";
+import { useStoreDispatch, useStoreSelector } from "../../redux/store";
 import { MultipleChoiceAnswerType } from "../../types/AnswerTypes";
 import { MultipleChoiceQuestionType } from "../../types/QuestionTypes";
 import Checkbox from "../common/Checkbox";
@@ -19,10 +19,12 @@ type PropsType = {
 const MultipleChoiceQuestion = (props: PropsType): JSX.Element => {
     const { question } = props;
     const dispatch = useStoreDispatch();
+    const disableControl = useStoreSelector((state) => !state.config.result.enableControls && state.result.showResult);
     const selectedIds = useQuestionAnswer<MultipleChoiceAnswerType>(question.id).values;
     const { error, showError, setFocussed } = useValidAnswer(question);
 
     const select = (selectedId: string) => {
+        if (disableControl) return;
         let newValues: string[] = [];
 
         if (question.inputType === "radio") {
@@ -58,7 +60,7 @@ const MultipleChoiceQuestion = (props: PropsType): JSX.Element => {
             {question.inputType === "radio" &&
                 question.options.map((option) => (
                     <Fragment key={option.id}>
-                        <Label onClick={() => select(option.id)}>
+                        <Label onClick={() => select(option.id)} disabled={disableControl}>
                             <RadioButton checked={selectedIds.includes(option.id)} />
                             <HintableLabel label={option.title} hints={option.hints} />
                         </Label>
@@ -68,7 +70,7 @@ const MultipleChoiceQuestion = (props: PropsType): JSX.Element => {
             {question.inputType === "check" &&
                 question.options.map((option) => (
                     <Fragment key={option.id}>
-                        <Label onClick={() => select(option.id)}>
+                        <Label onClick={() => select(option.id)} disabled={disableControl}>
                             <Checkbox checked={selectedIds.includes(option.id)} />
                             <HintableLabel label={option.title} hints={option.hints} />
                         </Label>
@@ -76,7 +78,12 @@ const MultipleChoiceQuestion = (props: PropsType): JSX.Element => {
                 ))}
 
             {question.inputType === "select" && (
-                <Select options={question.options} selectedOptionId={selectedIds[0]} onSelectOption={select} />
+                <Select
+                    options={question.options}
+                    selectedOptionId={selectedIds[0]}
+                    onSelectOption={select}
+                    disabled={disableControl}
+                />
             )}
 
             {/* always render FieldError with min-height so showing the error doesn't move content on the page */}

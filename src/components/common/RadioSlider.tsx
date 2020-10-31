@@ -36,10 +36,12 @@ type PropsType = {
      * Callback run when the user clicks a value
      */
     onChange: (value: number) => void;
+
+    disabled?: boolean;
 };
 
 const RadioSlider = (props: PropsType): JSX.Element => {
-    const { min, max, value, step, direction, tickValues, tickLabels, onChange } = props;
+    const { min, max, value, step, direction, tickValues, tickLabels, onChange, disabled } = props;
 
     const radioTickValues =
         tickValues ||
@@ -57,7 +59,7 @@ const RadioSlider = (props: PropsType): JSX.Element => {
         <RadioListWrapper>
             {ticks.map((itemValue, index) => {
                 return (
-                    <BottomLabel key={itemValue} onClick={() => onChange(itemValue)}>
+                    <BottomLabel key={itemValue} onClick={() => onChange(itemValue)} disabled={disabled}>
                         <RadioButton checked={value === itemValue} />
                         <div>{tickLabels?.[index] || itemValue}</div>
                     </BottomLabel>

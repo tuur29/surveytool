@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useLabel from "../../hooks/useLabel";
 import { SelectDropdown, SelectOption, SelectWrapper, SelectValue } from "../styles/Input";
 import Icon, { orientations } from "./Icon";
@@ -18,19 +18,25 @@ type PropsType = {
      * Callback run when the user clicks an option
      */
     onSelectOption: (id: string) => void;
+
+    disabled?: boolean;
 };
 
 const Select = (props: PropsType): JSX.Element => {
-    const { options, selectedOptionId, onSelectOption } = props;
+    const { options, selectedOptionId, onSelectOption, disabled } = props;
     const placeholder = useLabel("inputSelectPlaceholder", { count: options.length });
     const [opened, setOpened] = useState(false);
 
-    const toggleOpen = () => setOpened((prev) => !prev);
+    const toggleOpen = () => !disabled && setOpened((prev) => !prev);
     const selectedOption = options.find((option) => option.id === selectedOptionId);
+
+    useEffect(() => {
+        if (disabled) setOpened(false);
+    }, [disabled]);
 
     return (
         <SelectWrapper>
-            <SelectValue onClick={toggleOpen} opened={opened}>
+            <SelectValue onClick={toggleOpen} opened={opened} disabled={disabled}>
                 <HintableLabel label={selectedOption?.title || placeholder || ""} hints={selectedOption?.hints || []} />
                 <Icon type="upCaret" orientation={opened ? orientations.up : orientations.down} />
             </SelectValue>

@@ -1,7 +1,7 @@
 import React from "react";
 import { RangeQuestionType } from "../../types/QuestionTypes";
 import { Question, Title } from "../styles/Question";
-import { useStoreDispatch } from "../../redux/store";
+import { useStoreDispatch, useStoreSelector } from "../../redux/store";
 import { setAnswer } from "../../redux/answersReducer";
 import HintableLabel from "../common/HintableLabel";
 import useQuestionAnswer from "../../hooks/useQuestionAnswer";
@@ -16,9 +16,11 @@ type PropsType = {
 const RangeQuestion = (props: PropsType): JSX.Element => {
     const { question } = props;
     const dispatch = useStoreDispatch();
+    const disableControl = useStoreSelector((state) => !state.config.result.enableControls && state.result.showResult);
     const { value } = useQuestionAnswer<RangeAnswerType>(question.id);
 
     const setValue = (newValue: number) => {
+        if (disableControl) return;
         dispatch(
             setAnswer({
                 questionId: question.id,
@@ -38,6 +40,7 @@ const RangeQuestion = (props: PropsType): JSX.Element => {
         tickCount: question.tickCount,
         tickValues: question.tickValues,
         tickLabels: question.tickLabels,
+        disabled: disableControl,
     };
 
     return (

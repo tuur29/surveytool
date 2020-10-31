@@ -43,10 +43,12 @@ type PropsType = {
      * Callback run when value is changed by the user.
      */
     onChange: (value: number) => void;
+
+    disabled?: boolean;
 };
 
 const Slider = (props: PropsType): JSX.Element => {
-    const { min, max, value, step, direction, tickCount, tickValues, tickLabels, onChange } = props;
+    const { min, max, value, step, direction, tickCount, tickValues, tickLabels, onChange, disabled } = props;
     const { breakpoints, space } = useTheme();
 
     const size: BreakpointType = (max - min) / step > 15 ? "md" : "sm";
@@ -60,13 +62,19 @@ const Slider = (props: PropsType): JSX.Element => {
                 values={[value]}
                 reversed={direction === "decrease"}
                 onChange={(values) => onChange(values[0])}
+                disabled={disabled}
             >
-                <Rail>{({ getRailProps }) => <SliderRail {...getRailProps()} />}</Rail>
+                <Rail>{({ getRailProps }) => <SliderRail disabled={disabled} {...getRailProps()} />}</Rail>
                 <Handles>
                     {({ handles, getHandleProps }) => (
                         <div className="slider-handles">
                             {handles.map((handle) => (
-                                <SliderHandle key={handle.id} percent={handle.percent} {...getHandleProps(handle.id)} />
+                                <SliderHandle
+                                    key={handle.id}
+                                    percent={handle.percent}
+                                    disabled={disabled}
+                                    {...getHandleProps(handle.id)}
+                                />
                             ))}
                         </div>
                     )}
@@ -75,7 +83,12 @@ const Slider = (props: PropsType): JSX.Element => {
                     {({ tracks, getTrackProps }) => (
                         <div className="slider-tracks">
                             {tracks.map(({ id, source }) => (
-                                <SliderTrack key={id} percent={source.percent} {...getTrackProps()} />
+                                <SliderTrack
+                                    key={id}
+                                    percent={source.percent}
+                                    disabled={disabled}
+                                    {...getTrackProps()}
+                                />
                             ))}
                         </div>
                     )}
@@ -85,7 +98,7 @@ const Slider = (props: PropsType): JSX.Element => {
                         <div className="slider-ticks">
                             {ticks.map((tick, tickIndex) => (
                                 <Fragment key={tick.id}>
-                                    <SliderTick percent={tick.percent} />
+                                    <SliderTick percent={tick.percent} disabled={disabled} />
                                     <SliderTickLabel percent={tick.percent}>
                                         {tickLabels?.[tickIndex] || tick.value}
                                     </SliderTickLabel>

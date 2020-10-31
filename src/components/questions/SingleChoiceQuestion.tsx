@@ -2,7 +2,7 @@ import React from "react";
 import useQuestionAnswer from "../../hooks/useQuestionAnswer";
 import useValidAnswer from "../../hooks/useValidAnswer";
 import { setAnswer } from "../../redux/answersReducer";
-import { useStoreDispatch } from "../../redux/store";
+import { useStoreDispatch, useStoreSelector } from "../../redux/store";
 import { SingleChoiceAnswerType } from "../../types/AnswerTypes";
 import { SingleChoiceQuestionType } from "../../types/QuestionTypes";
 import Checkbox from "../common/Checkbox";
@@ -19,10 +19,12 @@ const SingleChoiceQuestion = (props: PropsType): JSX.Element => {
     const { question } = props;
 
     const dispatch = useStoreDispatch();
+    const disableControl = useStoreSelector((state) => !state.config.result.enableControls && state.result.showResult);
     const checked = useQuestionAnswer<SingleChoiceAnswerType>(question.id).value;
     const { error, showError, setFocussed } = useValidAnswer(question);
 
     const check = () => {
+        if (disableControl) return;
         setFocussed();
         dispatch(
             setAnswer({
@@ -35,7 +37,7 @@ const SingleChoiceQuestion = (props: PropsType): JSX.Element => {
 
     return (
         <Question id={question.id}>
-            <Label onClick={check}>
+            <Label onClick={check} disabled={disableControl}>
                 <Checkbox checked={checked || false} />
                 <Title>
                     <HintableLabel label={question.title} hints={question.hints} />
