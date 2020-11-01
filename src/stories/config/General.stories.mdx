@@ -1,0 +1,61 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Config/General" />
+
+# Configuration
+
+This file will describe the possible content of the `window.surveyConfig` object, or the object you pass to the `window.setSurveyConfig()` function.
+
+There are 5 parts to a configuration object:
+
+| Field name | Data type | Description |
+|---|---|---|
+| `id` | string | Unique key to differentiate between multiple surveys / configs |
+| `theme` | [theme](./src/utils/theme.ts) | **Optional**, object containing all or some colors, font family / sizes, breakpoints and spacing |
+| `labels` | [labels](./src/utils/labels.ts) | **Optional**, a key value map containing all or some labels in tool |
+| `questions` | [question array](./src/types/QuestionTypes.ts) | Required, complex structure containing all question parameters |
+| `results` | [results object](./src/types/ConfigTypes.ts#L15) | **Optional**, object containing settings related to the way the results of the form are handled / displayed |
+
+The example configuration used in the demo can be found here: [mockConfig.ts](./src/utils/mockConfig.ts)
+
+## Config id
+
+Every configuration should have a unique id. The id is used for the following:
+
+- A user's answers are saved locally when they are filling in the form. Their progress is saved, so a reload doesn't clear their input. This data is saved based on the id.
+- When configured, saving the users data to a server will also include the config id so the backend knows which form is being saved.
+
+> Because of this, reusing an id between different configurations might result in client side crashes!  
+> However this only happens when the question array is changed.
+
+## Theming
+
+You can change any or all of the possible colors used in the tool by supplying a (partial) theme in the configuration. Additionally you can choose to start from a predefined dark theme as a base by supplying `darkMode: true`:
+
+The theme is based on [Styled System](https://styled-system.com/). It consists of the following properties:
+
+| Field name | Data type | Description |
+|---|---|---|
+| `colors` | object | A list of every color used in the app |
+| `fonts` | object | Allows you to set different title & text fonts in the tool |
+| `sizes` | object | Contains pixel values for borders, fontSizes... |
+| `space` | int[] | A list of pixel values to ensure consistent spacing |
+| `breakpoints` | object | Key value map containing pixel values for `xs, sm, md, lg, xl` breakpoints |
+| (`zIndex`) | object | Key value map containing all used `z-index` values (probably should not be changed) |
+| (`elevation`) | object | Key value map containing the level of shadow beneath some components (probably should not be changed) |
+
+Example:
+
+```js
+window.setSurveyConfig({ ...window.surveyConfig,
+    theme: {
+        darkMode: true,
+        values: {
+            colors: { controlHighlight: "#ff00ff" },
+            sizes: { radius: "0px" },
+            fonts: { title: "Serif" },
+            breakpoints: { md: "600px" }
+        }
+    }
+});
+```

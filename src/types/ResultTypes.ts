@@ -18,6 +18,7 @@ export type ResultLabelType = {
     type: resultContentTypes.label;
     /** Can contain {score}, {scoreX} placeholder (scoreX -> score/10, score/20, score/100...). */
     label: string;
+    /** "title" and "description" only change font size, while "scoreCounter" will display the score in a dial. */
     style: "title" | "description" | "scoreCounter";
     /** When enabled the score placeholders will count up in an animation. */
     animate?: boolean;
@@ -25,24 +26,35 @@ export type ResultLabelType = {
 
 export type ResultButtonType = {
     type: resultContentTypes.button;
+    /** Text to be displayed inside the button */
     label: string;
+    /** A "restart" button will reset the user's input. "postData" will save the user's input to your server like the `postDataUrl` setting. "link" will redirect the user. */
     function: "restart" | "postData" | "link"; // postData: will post data to url, link: open url in tab
+    /** Only necessary when function is "postData" or "link" */
     url?: AnswerDataUrl;
+    /** Optional, only used when the function is "link" */
     openInTab?: boolean;
 };
 
 export type ResultGraphType = {
     type: resultContentTypes.graph;
+    /** Switches between a bar chart or line graph */
     format: "line" | "bar";
-    dataUrl: AnswerDataUrl; // sends the answers to the endpoint, see GraphDataType ApiTypes.ts for result type
+    /** Required. The tool will fetch this URL for data to be displayed, can contain `{score}` placeholder */
+    dataUrl: AnswerDataUrl;
+    /** Optional. Will display a title above the graph. */
     titleLabel?: string;
+    /** Optional, defaults to false. If enabled, the legend will not be displayed. */
     hideLegend?: boolean;
 };
 
 export type ResultIFrameType = {
     type: resultContentTypes.iframe;
-    url: AnswerDataUrl; // Will open iframe with this url, see AnswerDataUrl for more info, only supports GET; variant
+    /** Required. The tool will display this url, can contain a `{score}` placeholder */
+    url: AnswerDataUrl;
+    /** Set a custom height for the IFrame. Defaults to 400px */
     height?: number;
+    /** Will disable scrolling inside the IFrame when enabled. Optional, defaults to false. */
     disableScroll?: boolean;
 };
 

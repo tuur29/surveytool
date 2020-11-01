@@ -10,8 +10,8 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "eject": "react-scripts eject",
-        "docs:start": "start-storybook -p 9009 --quiet",
-        "docs:build": "build-storybook -o build/docs --no-dll",
+        "docs:start": "start-storybook -p 9009 -s ./public/ --quiet",
+        "docs:build": "build-storybook -o build/docs -s ./public/ --no-dll",
         "test:typing": "tsc --noEmit --pretty",
         "test:unit": "jest",
         "test:lint": "eslint \"src/**/*.{ts,tsx}\""

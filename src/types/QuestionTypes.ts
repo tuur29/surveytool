@@ -38,18 +38,26 @@ type Options = {
 // example: country, gender
 export type MultipleChoiceQuestionType = BaseQuestion & {
     type: questionTypes.multiple;
+    /** Will display the options with radio buttons (single answer), checkboxes or in a dropdown (multiple answers) */
     inputType: "radio" | "check" | "select";
+    /** A required list of possible values. These are objects containing an id, title and optional hints array */
     options: Options[];
+    /** Optional. When filled with id's matching an option, those options will already be selected when the user first loads the form. */
     defaultIds?: string[]; // this should be the ids of the default selected options
 };
 
 // example: email, age
 export type TextQuestionType = BaseQuestion & {
-    inputType: "text" | "email" | "number";
     type: questionTypes.text;
+    /** Will validate and limit the user's input. */
+    inputType: "text" | "email" | "number";
+    /** Optional. Will be shown inside the input field when the user hasn't entered a value. */
     placeholder?: string;
+    /** Optional, can contain a custom `error` message (string) and/or a custom `regex` expression (string) for validation. */
     customValidation?: {
+        /** String without regex boundaries. Example: "^.{0,10}$" */
         regex?: string;
+        /** Overrides default error message */
         error?: string;
     };
 };
@@ -59,14 +67,23 @@ export type RangeDirectionType = "increase" | "decrease"; // increase is default
 // example: ratings
 export type RangeQuestionType = BaseQuestion & {
     type: questionTypes.range;
+    /** Functionally these work the same, only the visual input method differs. "slider" has more options (ticks). */
     inputType: "slider" | "radio";
+    /** Minimum value */
     min: number;
+    /** Maximum value */
     max: number;
+    /** Optional. The default value when the user first opens the form. */
     default?: number;
+    /** Optional. The size of each step between slider positions / radio buttons. For example: setting this to 2 will only allow (un)even numbers. */
     step?: number;
-    direction?: RangeDirectionType; // only used on slider
-    tickCount?: number; // only used on slider
-    tickValues?: number[]; // overrides tickCount
+    /** Optional, defaults to "increase". Setting this to decrease will default to and put the maximum first. */
+    direction?: RangeDirectionType;
+    /** Only used on slider, optional. Will spread out this amount of ticks on the slider. */
+    tickCount?: number;
+    /** Only used on slider, optional. When set, the ticks will be displayed at these exact values. Will override the `tickCount` setting. */
+    tickValues?: number[];
+    /** Only used on slider, optional. When set, will override the tick labels (normally just the value). Use `null` to keep a tick label empty. */
     tickLabels?: (string | null)[];
 };
 

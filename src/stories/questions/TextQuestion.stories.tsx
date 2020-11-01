@@ -13,7 +13,6 @@ export default {
     component: TextQuestionDoc,
     argTypes: {
         hints: { control: "array" },
-        defaultIds: { control: "array" },
     },
 } as Meta;
 

@@ -307,7 +307,7 @@ In addition to the common settings parameters, the range question can be configu
 | Field name | Data type | Description |
 |---|---|---|
 | `type` | "range" | Required for displaying a range question |
-| `inputType` | "slider", "radio" | Functionally these work the same, only the visual input method differs. "slider" has more options (ticks) |
+| `inputType` | "slider", "radio" | Functionally these work the same, only the visual input method differs. "slider" has more options (ticks). |
 | `min` | int | Minimum value |
 | `max` | int | Maximum value |
 | `default` | int | Optional. The default value when the user first opens the form. |
@@ -530,7 +530,7 @@ You can use an IFrame if all else fails and you want to inject your own content 
 | Field name | Data type | Description |
 |---|---|---|
 | `type` | "iframe" | Required for displaying a IFrame block |
-| `url` | [AnswerDataUrl](#answerdataurl--saving-the-users-results) | Required. The tool will fetch this URL for [data to be displayed](#graph-data). Only the `GET` protocol is currently supported. |
+| `url` | [AnswerDataUrl](#answerdataurl--saving-the-users-results) | Required. The tool will display this url. Only the `GET` protocol is currently supported. |
 | `height` | number | Set a custom height for the IFrame. Defaults to 400px |
 | `disableScroll` | boolean | Will disable scrolling inside the IFrame when enabled. Optional, defaults to false. |
 

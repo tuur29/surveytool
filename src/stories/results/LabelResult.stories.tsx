@@ -34,7 +34,6 @@ Text.args = {
 
 export const Description = Template.bind({});
 Description.args = {
-    ...Text.args,
     label: "{score}%",
     style: "scoreCounter",
     animate: true,

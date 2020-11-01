@@ -22,8 +22,10 @@ export const parameters = {
                 "Questions",
                 ["Single Choice", "Multiple Choice", "Text", "Range"],
                 "Results",
+                ["Label", "Button", "Graph", "IFrame"],
                 "Components",
-                "Theme",
+                "Config",
+                ["General", "Colors", "Labels"]
             ],
         },
     },

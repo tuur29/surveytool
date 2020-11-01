@@ -1,15 +1,15 @@
 import React from "react";
 import { Meta } from "@storybook/react/types-6-0";
-import Icon, { iconTypes, orientations } from "../../components/common/Icon";
-import { defaultThemes } from "../../utils/theme";
-import { getEnumValues } from "../utils/helpers";
+import Icon, { iconTypes, orientations } from "../../../components/common/Icon";
+import { defaultThemes } from "../../../utils/theme";
+import { getEnumValues } from "../../utils/helpers";
 
 // ----------------------------------------------------------------------
 // Setup
 // ----------------------------------------------------------------------
 
 export default {
-    title: "Theme/Icons",
+    title: "Components/Display/Icons",
     component: Icon,
     argTypes: {
         onClick: { action: "clicked" },

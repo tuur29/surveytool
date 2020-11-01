@@ -1,0 +1,40 @@
+import { Meta, ArgsTable } from "@storybook/addon-docs/blocks";
+import { GeneralLabelDoc, MessageLabelDoc, QuestionLabelDoc, ResultLabelDoc } from "../utils/components";
+
+<Meta title="Config/Labels" />
+
+# Labels
+
+You can supply a (partial) list of labels to translate the app. Labels that aren't defined will fallback to their default English value.
+
+Some labels can contain contextual information. This information can be swapped in for a `{placeholder}` tag in the label.  
+For example the label `footerText` can contain the last edited date and time.
+
+```js
+window.setSurveyConfig({ ...window.surveyConfig,
+    // will be be displayed as: "Last update on 01 January 1970"
+    labels: { footerText: "Last update on {date}", } }
+});
+```
+
+## General
+
+<ArgsTable of={GeneralLabelDoc} />
+
+### Datetime formatting
+
+The format of dates and times is locale based. By default the end users browser settings will decided the format.  
+It is possible to override this behavior by changing the label `dateLocaleId`. See [this list](https://github.com/umpirsky/locale-list/blob/master/data/en_US/locales.csv) for all possibilities (but replace `_` with `-`).
+
+
+## Messages
+
+<ArgsTable of={MessageLabelDoc} />
+
+## Questions
+
+<ArgsTable of={QuestionLabelDoc} />
+
+## Results
+
+<ArgsTable of={ResultLabelDoc} />
