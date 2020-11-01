@@ -1,7 +1,8 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import SingleChoiceQuestion, { SingleChoiceQuestionDoc } from "../../components/questions/SingleChoiceQuestion";
-import { questionTypes } from "../../types/QuestionTypes";
+import { questionTypes, SingleChoiceQuestionType } from "../../types/QuestionTypes";
+import { mockConfig } from "../../utils/mockConfig";
 
 // ----------------------------------------------------------------------
 // Setup
@@ -19,9 +20,9 @@ type PropsType = React.ComponentProps<typeof SingleChoiceQuestionDoc>;
 const Template: Story<PropsType> = (args) => (
     <SingleChoiceQuestion
         question={{
-            id: "EDJUJDO", // TODO: need to look into better mock ids
-            type: questionTypes.single,
             ...args,
+            id: "EDJUJDO",
+            type: questionTypes.single,
         }}
     />
 );
@@ -32,7 +33,8 @@ const Template: Story<PropsType> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-    title: "Do you accept the terms and conditions{hint}?",
-    hints: ["See below..."],
-    checkedByDefault: false,
+    ...(mockConfig.questions?.find((question) => question.id === "EDJUJDO") as SingleChoiceQuestionType),
+    // Stop storybook from making these props
+    ["id" as string]: undefined,
+    ["type" as string]: undefined,
 };

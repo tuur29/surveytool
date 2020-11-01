@@ -43,7 +43,7 @@ export const ColorText = styled.div<{ color: ColorType; lightText?: boolean }>`
     vertical-align: middle;
 
     &::before {
-        color: ${({ lightText }) => (lightText ? "white" : "dark")};
+        color: ${({ lightText }) => (lightText ? "white" : "black")};
         content: "${({ color }) => color}";
     }
 

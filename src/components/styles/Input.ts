@@ -211,15 +211,13 @@ export const Label = styled.div<{ disabled?: boolean }>`
     display: flex;
     align-items: center;
     user-select: none;
-    cursor: pointer;
 
     ${({ disabled, theme }) => css`
-        cursor: default;
-
         /* Hover styling when not disabled */
         ${
             !disabled &&
             css`
+                cursor: pointer;
                 &:hover {
                     ${RadioButton}, ${Checkbox} {
                         border-color: ${({ theme }) => theme.colors.controlBorderHover};
