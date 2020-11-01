@@ -1,14 +1,14 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
-import Graph, { GraphDoc } from "../../components/common/Graph";
-import { mockBarData, mockLineData } from "../utils/helpers";
+import Graph, { GraphDoc } from "../../../components/common/Graph";
+import { mockBarData, mockLineData } from "../../utils/helpers";
 
 // ----------------------------------------------------------------------
 // Setup
 // ----------------------------------------------------------------------
 
 export default {
-    title: "Components/Graph",
+    title: "Components/Display/Graph",
     component: GraphDoc,
 } as Meta;
 

@@ -1,16 +1,16 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
-import { CloseButton, Description, Message, textColor, Title } from "../../components/styles/Message";
-import { MessageType, messageTypes } from "../../types/Messages";
-import { getEnumValues } from "../utils/helpers";
-import Icon from "../../components/common/Icon";
+import { CloseButton, Description, Message, textColor, Title } from "../../../components/styles/Message";
+import { MessageType, messageTypes } from "../../../types/Messages";
+import { getEnumValues } from "../../utils/helpers";
+import Icon from "../../../components/common/Icon";
 
 // ----------------------------------------------------------------------
 // Setup
 // ----------------------------------------------------------------------
 
 export default {
-    title: "Components/Message",
+    title: "Components/Display/Message",
     component: Message,
     // doc-gen for styled components doesn't work, so setting this up manually and hiding descriptions
     argTypes: {

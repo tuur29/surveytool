@@ -1,21 +1,18 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
-import HintableLabel from "../../components/common/HintableLabel";
+import Checkbox from "../../../components/common/Checkbox";
 
 // ----------------------------------------------------------------------
 // Setup
 // ----------------------------------------------------------------------
 
 export default {
-    title: "Components/HintableLabel",
-    component: HintableLabel,
-    argTypes: {
-        hints: { control: "array" },
-    },
+    title: "Components/Input/Checkbox",
+    component: Checkbox,
 } as Meta;
 
-type HintableLabelType = React.ComponentProps<typeof HintableLabel>;
-const Template: Story<HintableLabelType> = (args) => <HintableLabel {...args} />;
+type CheckboxType = React.ComponentProps<typeof Checkbox>;
+const Template: Story<CheckboxType> = (args) => <Checkbox {...args} />;
 
 // ----------------------------------------------------------------------
 // Stories
@@ -23,6 +20,6 @@ const Template: Story<HintableLabelType> = (args) => <HintableLabel {...args} />
 
 export const Default = Template.bind({});
 Default.args = {
-    hints: ["Hint 1", "Second Hint"],
-    label: "This is a piece {hint} of text containing 2 hints{hint}",
+    checked: true,
+    children: "Label",
 };

@@ -1,18 +1,21 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
-import ScoreCounter from "../../components/common/ScoreCounter";
+import HintableLabel from "../../../components/common/HintableLabel";
 
 // ----------------------------------------------------------------------
 // Setup
 // ----------------------------------------------------------------------
 
 export default {
-    title: "Components/ScoreCounter",
-    component: ScoreCounter,
+    title: "Components/Display/HintableLabel",
+    component: HintableLabel,
+    argTypes: {
+        hints: { control: "array" },
+    },
 } as Meta;
 
-type ScoreCounterType = React.ComponentProps<typeof ScoreCounter>;
-const Template: Story<ScoreCounterType> = (args) => <ScoreCounter {...args} />;
+type HintableLabelType = React.ComponentProps<typeof HintableLabel>;
+const Template: Story<HintableLabelType> = (args) => <HintableLabel {...args} />;
 
 // ----------------------------------------------------------------------
 // Stories
@@ -20,9 +23,6 @@ const Template: Story<ScoreCounterType> = (args) => <ScoreCounter {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-    dialPercentage: 0.4,
-    label: "40%",
-    size: 200,
-    borderSize: 20,
-    animate: true,
+    hints: ["Hint 1", "Second Hint"],
+    label: "This is a piece {hint} of text containing 2 hints{hint}",
 };

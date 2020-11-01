@@ -1,18 +1,21 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
-import Checkbox from "../../components/common/Checkbox";
+import { Loader } from "../../../components/styles/Loader";
+import { InferStyledTypes } from "../../../utils/utils";
 
 // ----------------------------------------------------------------------
 // Setup
 // ----------------------------------------------------------------------
 
 export default {
-    title: "Components/Checkbox",
-    component: Checkbox,
+    title: "Components/Display/Loader",
+    component: Loader,
+    // doc-gen for styled components doesn't work, so setting this up manually and hiding descriptions
+    parameters: { controls: { expanded: false } },
 } as Meta;
 
-type CheckboxType = React.ComponentProps<typeof Checkbox>;
-const Template: Story<CheckboxType> = (args) => <Checkbox {...args} />;
+type LoaderType = Omit<InferStyledTypes<typeof Loader>, "ref">;
+const Template: Story<LoaderType> = (args) => <Loader {...args} />;
 
 // ----------------------------------------------------------------------
 // Stories
@@ -20,6 +23,5 @@ const Template: Story<CheckboxType> = (args) => <Checkbox {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-    checked: true,
-    children: "Label",
+    size: 50,
 };

@@ -1,5 +1,5 @@
 import { Meta } from "@storybook/addon-docs/blocks";
-import { ColorSwatch } from "../utils/components";
+import { ColorSwatch, ColorText } from "../utils/components";
 import { defaultThemes, palettes } from "../../utils/theme";
 
 export const colors = defaultThemes.lightTheme.colors;
@@ -11,41 +11,41 @@ export const colors = defaultThemes.lightTheme.colors;
 The colors object contains multiple types of colors, most elements have a background and foreground (`on`) color.
 The main 4 color sets are:
 
-| Background Color | Foreground Color | Description |
-|---|---|---|
-| `primary` <ColorSwatch name="Primary" value={colors.primary} size={16} /> | `onPrimary` | Main accent color |
-| `back` <ColorSwatch name="Back" value={colors.back} size={16} /> | `onBack` | Base background / foreground color |
-| `surface` <ColorSwatch name="Surface" value={colors.surface} size={16} /> | `onSurface` | Colors for raised elements (cards) |
-| `error` <ColorSwatch name="Error" value={colors.error} size={16} /> | `onError` | Used for displaying errors |
+| Background Color                        | Foreground Color                          | Description                        |
+| --------------------------------------- | ----------------------------------------- | ---------------------------------- |
+| <ColorText color="primary" lightText /> | <ColorText color="onPrimary" />           | Main accent color                  |
+| <ColorText color="back" />              | <ColorText color="onBack" lightText />    | Base background / foreground color |
+| <ColorText color="surface" />           | <ColorText color="onSurface" lightText /> | Colors for raised elements (cards) |
+| <ColorText color="error" />             | <ColorText color="onError" />             | Used for displaying errors         |
 
 In addition there are also colors that are not paired up:
 
-- `spinner`: accent color of the loading indicator
-- `shadow`: color of text and box (surface elevation) shadows
-- `icon` / `iconHover`: info icons
-- `separator`: color of lines and dividers between elements
+-   <ColorText color="spinner" lightText />: accent color of the loading indicator
+-   <ColorText color="shadow" lightText />: color of text and box (surface elevation) shadows
+-   <ColorText color="icon" /> & <ColorText color="iconHover" lightText />: info icons
+-   <ColorText color="separator" />: color of lines and dividers between elements
 
 ## Control Colors
 
 The biggest part of the colors object consists of theming the `controls` (as in form controls / inputs).  
 These are: buttons, text fields, dropdowns, sliders...
 
-| Type | Colors | Note |
-|---|---|---|
-| Background & Border | `controlBack`, `controlHighlight`, `controlBorder`, `controlBackDisabled`, `controlOnBackDisabled` | Default colors without user input |
-| Text | `controlPlaceholder` | Most text colors are defined by the default foreground color. |
-| Hover states | `controlBackHover`, `controlBorderHover` |  |
-| Active states | `controlHighlightActive`, `controlBorderActive` | Color of selected items, checkmark and button hover |
-| Buttons | `controlButton`, `controlOnButton`, `controlButtonDisabled`, `controlOnButtonDisabled` | |
-| Slider | `controlTick`, `controlSliderBack`, `controlSliderDisabled`, `controlSliderOnDisabled` | |
+| Type                | Colors                                                                                                                                                                                                                           | Note                                                          |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| Background & Border | <ColorText color="controlBack" /><br /><ColorText color="controlHighlight" lightText /><br /><ColorText color="controlBorder" /><br /><ColorText color="controlBackDisabled" /><br /><ColorText color="controlOnBackDisabled" /> | Default colors without user input                             |
+| Text                | <ColorText color="controlPlaceholder" />                                                                                                                                                                                         | Most text colors are defined by the default foreground color. |
+| Hover states        | <ColorText color="controlBackHover" /><br /><ColorText color="controlBorderHover" lightText />                                                                                                                                   |                                                               |
+| Active states       | <ColorText color="controlHighlightActive" /><br /><ColorText color="controlBorderActive" />                                                                                                                                      | Color of selected items, checkmark and button hover           |
+| Buttons             | <ColorText color="controlButton" lightText /><br /><ColorText color="controlOnButton" /><br /><ColorText color="controlButtonDisabled" /><br /><ColorText color="controlOnButtonDisabled" lightText />                           |                                                               |
+| Slider              | <ColorText color="controlTick" /><br /><ColorText color="controlSliderBack" /><br /><ColorText color="controlSliderDisabled" /><br /><ColorText color="controlSliderOnDisabled" />                                               |                                                               |
 
 ## Message Colors
 
-| Type| Background | Foreground | Border |
-|---|---|---|---|
-| Error | `messageError` | `onMessageError` | `messageErrorBorder` |
-| Info | `messageInfo` | `onMessageInfo` | `messageInfoBorder` |
-| Neutral | `messageNeutral` | `onMessageNeutral` | `messageNeutralBorder` |
+| Type    | Background                           | Foreground                                       | Border                                               |
+| ------- | ------------------------------------ | ------------------------------------------------ | ---------------------------------------------------- |
+| Error   | <ColorText color="messageError" />   | <ColorText color="onMessageError" lightText />   | <ColorText color="messageErrorBorder" />             |
+| Info    | <ColorText color="messageInfo" />    | <ColorText color="onMessageInfo" lightText />    | <ColorText color="messageInfoBorder" />              |
+| Neutral | <ColorText color="messageNeutral" /> | <ColorText color="onMessageNeutral" lightText /> | <ColorText color="messageNeutralBorder" lightText /> |
 
 ## Color Palettes
 
@@ -79,6 +79,7 @@ These grey values are used for text, backgrounds, shadows...
 They represent 8 stops between black and white at these percentages: 0%, 3%, 6%, 9%, 15%, 21%, 36%, 57%, 93%, 100%
 
 Light mode
+
 <div>
     {Object.values(palettes.neutralLight).map((value) => (
         <ColorSwatch value={value} size={30} />
@@ -86,6 +87,7 @@ Light mode
 </div>
 
 Dark mode
+
 <div>
     {Object.values(palettes.neutralDark).map((value) => (
         <ColorSwatch value={value} size={30} />

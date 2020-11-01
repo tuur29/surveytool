@@ -1,15 +1,15 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
-import { Button } from "../../components/styles/Button";
-import Icon from "../../components/common/Icon";
-import { InferStyledTypes } from "../../utils/utils";
+import { Button } from "../../../components/styles/Button";
+import Icon from "../../../components/common/Icon";
+import { InferStyledTypes } from "../../../utils/utils";
 
 // ----------------------------------------------------------------------
 // Setup
 // ----------------------------------------------------------------------
 
 export default {
-    title: "Components/Button",
+    title: "Components/Input/Button",
     component: Button,
     // doc-gen for styled components doesn't work, so setting this up manually and hiding descriptions
     argTypes: {

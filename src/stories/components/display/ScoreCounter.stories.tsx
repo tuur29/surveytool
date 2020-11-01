@@ -1,21 +1,18 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
-import { Loader } from "../../components/styles/Loader";
-import { InferStyledTypes } from "../../utils/utils";
+import ScoreCounter from "../../../components/common/ScoreCounter";
 
 // ----------------------------------------------------------------------
 // Setup
 // ----------------------------------------------------------------------
 
 export default {
-    title: "Components/Loader",
-    component: Loader,
-    // doc-gen for styled components doesn't work, so setting this up manually and hiding descriptions
-    parameters: { controls: { expanded: false } },
+    title: "Components/Display/ScoreCounter",
+    component: ScoreCounter,
 } as Meta;
 
-type LoaderType = Omit<InferStyledTypes<typeof Loader>, "ref">;
-const Template: Story<LoaderType> = (args) => <Loader {...args} />;
+type ScoreCounterType = React.ComponentProps<typeof ScoreCounter>;
+const Template: Story<ScoreCounterType> = (args) => <ScoreCounter {...args} />;
 
 // ----------------------------------------------------------------------
 // Stories
@@ -23,5 +20,9 @@ const Template: Story<LoaderType> = (args) => <Loader {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-    size: 50,
+    dialPercentage: 0.4,
+    label: "40%",
+    size: 200,
+    borderSize: 20,
+    animate: true,
 };

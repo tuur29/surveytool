@@ -1,13 +1,13 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
-import Slider from "../../components/common/Slider";
+import Slider from "../../../components/common/Slider";
 
 // ----------------------------------------------------------------------
 // Setup
 // ----------------------------------------------------------------------
 
 export default {
-    title: "Components/Slider",
+    title: "Components/Input/Slider",
     component: Slider,
     argTypes: {
         onChange: { action: "onChange" },

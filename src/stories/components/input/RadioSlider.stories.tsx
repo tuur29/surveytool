@@ -1,13 +1,13 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
-import RadioSlider from "../../components/common/RadioSlider";
+import RadioSlider from "../../../components/common/RadioSlider";
 
 // ----------------------------------------------------------------------
 // Setup
 // ----------------------------------------------------------------------
 
 export default {
-    title: "Components/RadioSlider",
+    title: "Components/Input/RadioSlider",
     component: RadioSlider,
     argTypes: {
         onChange: { action: "onClick" },

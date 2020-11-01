@@ -1,13 +1,13 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
-import Select from "../../components/common/Select";
+import Select from "../../../components/common/Select";
 
 // ----------------------------------------------------------------------
 // Setup
 // ----------------------------------------------------------------------
 
 export default {
-    title: "Components/Select",
+    title: "Components/Input/Select",
     component: Select,
     argTypes: {
         onSelectOption: { action: "onSelectOption" },
