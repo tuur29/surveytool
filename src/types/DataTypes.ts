@@ -6,8 +6,8 @@ type SeriesId = string;
 /** Typescript doesn't seem to support this strict typing so I added the supported types in comment */
 type ValueType<T extends number | string | unknown = unknown> = {
     x: T;
-    /** Overrides series color, only `string | true` are actually supported  */
-    [graphHighlightId]?: T | string | true;
+    /** Overrides series color when a string is provided */
+    [graphHighlightId]?: string | true;
     /** key should be SeriesId, only `number` is actually supported  */
     [key: string]: T | number | string | true | undefined;
 };

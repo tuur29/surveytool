@@ -124,7 +124,7 @@ export const drawLineGraph = (
             if (value.highlight) {
                 list.push({
                     x: value.x,
-                    color: value.highlight === true ? highlightSeries.color : (value.highlight as string),
+                    color: value.highlight === true ? highlightSeries.color : value.highlight,
                 });
             }
             return list;

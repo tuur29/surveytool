@@ -212,36 +212,34 @@ export const Label = styled.div<{ disabled?: boolean }>`
     align-items: center;
     user-select: none;
 
-    ${({ disabled, theme }) => css`
-        /* Hover styling when not disabled */
-        ${
-            !disabled &&
-            css`
-                cursor: pointer;
-                &:hover {
-                    ${RadioButton}, ${Checkbox} {
-                        border-color: ${({ theme }) => theme.colors.controlBorderHover};
-                    }
-                }
-            `
-        }
+    ${({ disabled, theme }) =>
+        disabled
+            ? css`
+                  /* Box around the checkmark / radio-bullet */
+                  ${RadioButton}, ${Checkbox} {
+                      background-color: ${theme.colors.controlBackDisabled};
+                      color: ${theme.colors.controlOnBackDisabled};
+                  }
 
-        /* Box around the checkmark / radio-bullet */
-        ${RadioButton}, ${Checkbox} {
-            background-color: ${disabled ? theme.colors.controlBackDisabled : ""};
-            color: ${disabled ? theme.colors.controlOnBackDisabled : ""};
-        }
+                  /* Style disabled state of the radio-bullet */
+                  ${RadioButton}::before {
+                      background-color: ${theme.colors.controlOnBackDisabled};
+                  }
 
-        /* Style disabled state of the radio-bullet */
-        ${RadioButton}::before {
-            background-color: ${disabled ? theme.colors.controlOnBackDisabled : ""};
-        }
-
-        /* Style disabled state of the checkmark overlay that causes the check-animation */
-        ${Checkbox}::after {
-            background-color: ${disabled ? theme.colors.controlBackDisabled : ""};
-        }
-    `};
+                  /* Style disabled state of the checkmark overlay that causes the check-animation */
+                  ${Checkbox}::after {
+                      background-color: ${theme.colors.controlBackDisabled};
+                  }
+              `
+            : css`
+                  /* Hover styling when not disabled */
+                  cursor: pointer;
+                  &:hover {
+                      ${RadioButton}, ${Checkbox} {
+                          border-color: ${({ theme }) => theme.colors.controlBorderHover};
+                      }
+                  }
+              `}
 `;
 
 export const BottomLabel = styled(Label)`
