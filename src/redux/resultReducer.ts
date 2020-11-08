@@ -9,6 +9,7 @@ import { generateShowResultStorageKey, isDev } from "../utils/utils";
 export const initialResultState = {
     showResult: isDev() ? JSON.parse(localStorage.getItem(generateShowResultStorageKey()) || "false") : false, // remember setting for easier debugging
     score: 0,
+    restartTimestamp: 0,
 };
 export type ResultState = typeof initialResultState;
 
@@ -26,7 +27,15 @@ export const showResult = (visible = true) => ({
     visible,
 });
 
-export type ResultActions = ReturnType<typeof setResult> | ReturnType<typeof showResult>;
+export const updateRestartTimer = (timestamp: number) => ({
+    type: "RESULT_UPDATE_RESTART_TIMER" as const,
+    timestamp,
+});
+
+export type ResultActions =
+    | ReturnType<typeof setResult>
+    | ReturnType<typeof showResult>
+    | ReturnType<typeof updateRestartTimer>;
 
 // ----------------------------------------------------------------------
 // Reducer
@@ -46,6 +55,12 @@ export const resultReducer = (state: ResultState = initialResultState, action: R
             return {
                 ...state,
                 showResult: action.visible,
+            };
+        }
+        case "RESULT_UPDATE_RESTART_TIMER": {
+            return {
+                ...state,
+                restartTimestamp: action.timestamp,
             };
         }
         default: {

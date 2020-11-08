@@ -26,6 +26,8 @@ export type ConfigType = {
         enableControls?: boolean;
         /** An array containing the smallest and largest possible score. This is sometimes used when customizing the results page content. */
         scoreDomain?: number[];
+        /** The number of seconds before the survey restarts after results are shown. */
+        restartTimeout?: number;
         content?: AllResultContentType[];
     };
 };

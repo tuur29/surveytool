@@ -2,8 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import { ResultLabelType } from "../../types/ResultTypes";
 import { Result, Title, Description } from "../styles/Result";
 import { useStoreSelector } from "../../redux/store";
-import { resultAnimationTotalFrames, resultAnimationFrameLength, useAfterFirstRender } from "../../utils/utils";
+import {
+    resultAnimationTotalFrames,
+    resultAnimationFrameLength,
+    useAfterFirstRender,
+    replaceValues,
+} from "../../utils/utils";
 import ScoreCounter from "../common/ScoreCounter";
+import useRestartTimer from "../../hooks/useRestartTimer";
 
 const rescaleToDomain = (value: number, sourceDomain: number[], targetDomain: number[]): number => {
     // Rescale the value based on the formula for linear interpolation
@@ -23,6 +29,7 @@ const LabelResult = (props: PropsType): JSX.Element => {
     const domain = useStoreSelector((state) => state.config.result.scoreDomain || [0, 1]);
 
     const afterFirstRender = useAfterFirstRender(); // makes sure scoreCounter animation is visible when reloading page
+    const countdown = useRestartTimer();
 
     // animation
     const animation = useRef<number>();
@@ -49,15 +56,19 @@ const LabelResult = (props: PropsType): JSX.Element => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [score]);
 
-    // display score in label
+    // display score and countdown in label
     const labelParts = config.label.split(new RegExp("\\{score(\\d+)?\\}")); // split label on each possible score placeholder and keep X value
-    const label = labelParts
-        .map((text, index) => {
-            if (index % 2 === 0) return text; // only uneven items are placeholders for score
-            if (text === undefined) return Math.round(animatedScore); // {score}
-            return Math.round(rescaleToDomain(animatedScore, domain, [0, parseInt(text)])); // {scoreX}
-        })
-        .join("");
+    const label =
+        replaceValues(
+            labelParts
+                .map((text, index) => {
+                    if (index % 2 === 0) return text; // only uneven items are placeholders for score
+                    if (text === undefined) return Math.round(animatedScore); // {score}
+                    return Math.round(rescaleToDomain(animatedScore, domain, [0, parseInt(text)])); // {scoreX}
+                })
+                .join(""),
+            { countdown },
+        ) || "";
 
     return (
         <Result>

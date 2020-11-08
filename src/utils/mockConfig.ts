@@ -114,8 +114,9 @@ export const mockConfig: Partial<ConfigType> = {
     result: {
         scoreDomain: [0, 130],
         postDataUrl: "POST;https://example.org/api/answer" as AnswerDataUrl,
+        restartTimeout: 1000,
         content: [
-            { type: resultContentTypes.label, style: "title", label: "Thanks for your {score10}/10 submission" },
+            { type: resultContentTypes.label, style: "title", label: "Thanks for your {score10}/10 submission." },
             {
                 type: resultContentTypes.label,
                 style: "description",
@@ -167,6 +168,11 @@ export const mockConfig: Partial<ConfigType> = {
                 url: "https://example.org/?score={score}" as AnswerDataUrl,
                 height: 300,
                 disableScroll: true,
+            },
+            {
+                type: resultContentTypes.label,
+                style: "description",
+                label: "The survey will restart in {countdown} seconds.",
             },
         ],
     },
