@@ -4,7 +4,7 @@ import { toggleBaseTheme } from "../redux/configReducer";
 import { addMessages } from "../redux/messagesReducer";
 import { useStoreDispatch, useStoreSelector } from "../redux/store";
 import { messageTypes } from "../types/Messages";
-import { isDev } from "../utils/utils";
+import { isDev } from "../utils/devUtils";
 import Checkbox from "./common/Checkbox";
 import { Button } from "./styles/Button";
 

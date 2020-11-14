@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { resetAnswers } from "../../redux/answersReducer";
-import { showResult } from "../../redux/resultReducer";
 import { useStoreDispatch, useStoreSelector } from "../../redux/store";
 import { AnswerDataUrl, ResultButtonType } from "../../types/ResultTypes";
-import { fetchAnswerData, replaceValues } from "../../utils/utils";
+import { fetchAnswerData, replaceValues, resetFormDispatcher } from "../../utils/utils";
 import Icon from "../common/Icon";
 import { Button, CenteredButtonWrapper } from "../styles/Button";
 import { Loader } from "../styles/Loader";
@@ -29,9 +27,7 @@ const ButtonResult = (props: PropsType): JSX.Element => {
         const url = replaceValues(config.url, { score })!;
         switch (config.function) {
             case "restart":
-                window.scrollTo({ top: 0 });
-                dispatch(showResult(false));
-                dispatch(resetAnswers());
+                resetFormDispatcher(dispatch);
                 break;
             case "postData":
                 setLoading(true);

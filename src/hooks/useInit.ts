@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import { ConfigType } from "../types/ConfigTypes";
-import { isDev } from "../utils/utils";
+import { resetFormDispatcher } from "../utils/utils";
+import { isDev } from "../utils/devUtils";
 import { useStoreDispatch } from "../redux/store";
 import { initConfig } from "../redux/configReducer";
 import { addMessages } from "../redux/messagesReducer";
 import { messageTypes } from "../types/Messages";
 import { mockConfig } from "../utils/mockConfig";
 import { useLabels } from "./useLabel";
+import useRestartTimer from "./useRestartTimer";
 
 /**
  * Contains logic to initialize the app, should be called in root component
@@ -42,8 +44,15 @@ const useInit = (): void => {
         if (isDev(true)) {
             window.mockConfig = mockConfig;
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [title, description, dispatch]);
+
+    // restart timer
+    const restartTime = useRestartTimer();
+    useEffect(() => {
+        if (restartTime !== null && restartTime <= 0) {
+            resetFormDispatcher(dispatch);
+        }
+    }, [restartTime, dispatch]);
 };
 
 export default useInit;

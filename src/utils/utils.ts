@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { AnyStyledComponent, StyledComponentInnerComponent, StyledComponentInnerOtherProps } from "styled-components";
+import { Dispatch } from "redux";
 import { AllQuestionsType, questionTypes } from "../types/QuestionTypes";
 import { AllAnswersType } from "../types/AnswerTypes";
 import { AnswerPostData } from "../types/DataTypes";
 import { AnswerDataUrl } from "../types/ResultTypes";
+import { ActionsType, StateType } from "../redux/store";
+import { showResult, updateRestartTimer } from "../redux/resultReducer";
+import { resetAnswers } from "../redux/answersReducer";
 import { ValuesType } from "./labels";
-import { StateType } from "../redux/store";
 
 // ----------------------------------------------------------------------
 // Constants
@@ -18,9 +21,6 @@ export const graphHighlightId = "highlight";
 // ----------------------------------------------------------------------
 // Helper methods
 // ----------------------------------------------------------------------
-
-export const isDev = (allowOnDemo?: boolean): boolean =>
-    process.env.NODE_ENV !== "production" || (!!allowOnDemo && !!process.env.REACT_APP_DEMO);
 
 export const generateAnswerStorageKey = (configId: string): string => `surveyTool-answers-${configId}`;
 
@@ -71,6 +71,7 @@ export const replaceValues = (label?: string | null, values?: ValuesType, replac
 
     // loop over provided values and replace those keys with their values in the provided label
     return Object.entries(values).reduce((newLabel, [key, value]) => {
+        if (value === null) return newLabel;
         const regex = new RegExp(`{${key}}`, replaceAll ? "g" : "");
         return newLabel.replace(regex, `${value}`);
     }, label);
@@ -102,6 +103,13 @@ export const fetchAnswerData = async <T extends Record<string, unknown>>(
         console.error("Could not fetch answer data", error);
         return null;
     }
+};
+
+export const resetFormDispatcher = (dispatch: Dispatch<ActionsType>): void => {
+    window.scrollTo({ top: 0 });
+    dispatch(showResult(false));
+    dispatch(resetAnswers());
+    dispatch(updateRestartTimer(null));
 };
 
 // ----------------------------------------------------------------------

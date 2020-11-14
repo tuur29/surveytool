@@ -52,5 +52,5 @@ export const defaultLabels = {
     ...resultLabels,
 };
 
-export type ValuesType = Partial<Record<"count" | "date" | "score" | "countdown", string | number>>;
+export type ValuesType = Partial<Record<"count" | "date" | "score" | "countdown", string | number | null>>;
 export type LabelType = keyof typeof defaultLabels;
