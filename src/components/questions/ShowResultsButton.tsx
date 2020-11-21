@@ -5,7 +5,7 @@ import Icon from "../common/Icon";
 import { useStoreSelector, useStoreDispatch } from "../../redux/store";
 import { isAnswerValid } from "../../utils/validator";
 import { ErrorPanel, ErrorList } from "../styles/Question";
-import { showResult } from "../../redux/resultReducer";
+import { showResult } from "../../redux/actions/resultActions";
 
 const MAX_ERRORS = 3;
 

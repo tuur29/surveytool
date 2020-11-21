@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { WidthProps, width, FlexboxProps, flexbox } from "styled-system";
-import { Loader } from "./Loader";
 import { IconWrapper } from "../common/Icon";
+import { Loader } from "./Loader";
 
 const LEGEND_RATIO = 0.25;
 export const GRAPH_LOADER_SIZE = 50;

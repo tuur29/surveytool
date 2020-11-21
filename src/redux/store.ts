@@ -3,11 +3,15 @@ import { createStore, combineReducers, MiddlewareAPI, Dispatch } from "redux";
 import { useSelector, TypedUseSelectorHook, useDispatch } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { middlewares } from "./storeMiddleware";
-import { answersReducer, initialAnswersState, AnswersActions } from "./answersReducer";
-import { configReducer, initialConfigState, ConfigActions } from "./configReducer";
-import { resultReducer, initialResultState, ResultActions } from "./resultReducer";
-import { messagesReducer, initialMessagesState, MessagesActions } from "./messagesReducer";
 import { listeners } from "./storeListener";
+import { answersReducer, initialAnswersState } from "./reducers/answersReducer";
+import { AnswersActions } from "./actions/answersActions";
+import { configReducer, initialConfigState } from "./reducers/configReducer";
+import { ConfigActions } from "./actions/configActions";
+import { resultReducer, initialResultState } from "./reducers/resultReducer";
+import { ResultActions } from "./actions/resultActions";
+import { messagesReducer, initialMessagesState } from "./reducers/messagesReducer";
+import { MessagesActions } from "./actions/messagesActions";
 
 const rootReducer = combineReducers({
     answers: answersReducer,

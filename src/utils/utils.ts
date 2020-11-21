@@ -6,8 +6,8 @@ import { AllAnswersType } from "../types/AnswerTypes";
 import { AnswerPostData } from "../types/DataTypes";
 import { AnswerDataUrl } from "../types/ResultTypes";
 import { ActionsType, StateType } from "../redux/store";
-import { showResult, updateRestartTimer } from "../redux/resultReducer";
-import { resetAnswers } from "../redux/answersReducer";
+import { resetAnswers } from "../redux/actions/answersActions";
+import { showResult, updateRestartTimer } from "../redux/actions/resultActions";
 import { ValuesType } from "./labels";
 
 // ----------------------------------------------------------------------
@@ -21,6 +21,9 @@ export const graphHighlightId = "highlight";
 // ----------------------------------------------------------------------
 // Helper methods
 // ----------------------------------------------------------------------
+
+export const isDev = (allowOnDemo?: boolean): boolean =>
+    process.env.NODE_ENV !== "production" || (!!allowOnDemo && !!process.env.REACT_APP_DEMO);
 
 export const generateAnswerStorageKey = (configId: string): string => `surveyTool-answers-${configId}`;
 

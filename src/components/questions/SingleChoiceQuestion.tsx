@@ -1,7 +1,6 @@
 import React from "react";
 import useQuestionAnswer from "../../hooks/useQuestionAnswer";
 import useValidAnswer from "../../hooks/useValidAnswer";
-import { setAnswer } from "../../redux/answersReducer";
 import { useStoreDispatch, useStoreSelector } from "../../redux/store";
 import { SingleChoiceAnswerType } from "../../types/AnswerTypes";
 import { SingleChoiceQuestionType } from "../../types/QuestionTypes";
@@ -11,6 +10,7 @@ import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
 import { FieldError } from "../styles/Input";
 import { Question, Title } from "../styles/Question";
+import { setAnswer } from "../../redux/actions/answersActions";
 
 type PropsType = {
     question: SingleChoiceQuestionType;

@@ -1,10 +1,10 @@
 import React from "react";
 import styled, { createGlobalStyle } from "styled-components";
-import { toggleBaseTheme } from "../redux/configReducer";
-import { addMessages } from "../redux/messagesReducer";
 import { useStoreDispatch, useStoreSelector } from "../redux/store";
 import { messageTypes } from "../types/Messages";
-import { isDev } from "../utils/devUtils";
+import { isDev } from "../utils/utils";
+import { toggleBaseTheme } from "../redux/actions/configActions";
+import { addMessages } from "../redux/actions/messagesActions";
 import Checkbox from "./common/Checkbox";
 import { Button } from "./styles/Button";
 

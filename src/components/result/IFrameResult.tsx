@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { debounce } from "lodash";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useStoreSelector } from "../../redux/store";

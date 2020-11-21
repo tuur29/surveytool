@@ -2,13 +2,13 @@ import React from "react";
 import { RangeQuestionType } from "../../types/QuestionTypes";
 import { Question, Title } from "../styles/Question";
 import { useStoreDispatch, useStoreSelector } from "../../redux/store";
-import { setAnswer } from "../../redux/answersReducer";
 import HintableLabel from "../common/HintableLabel";
 import useQuestionAnswer from "../../hooks/useQuestionAnswer";
 import { RangeAnswerType } from "../../types/AnswerTypes";
 import Slider from "../common/Slider";
 import RadioSlider from "../common/RadioSlider";
 import { disableControlsSelector } from "../../utils/utils";
+import { setAnswer } from "../../redux/actions/answersActions";
 
 type PropsType = {
     question: RangeQuestionType;

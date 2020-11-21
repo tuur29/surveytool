@@ -1,11 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useCallback } from "react";
 import { debounce } from "lodash";
 import { SeriesDataTypes, AnswerPostData } from "../types/DataTypes";
 import { fetchAnswerData } from "../utils/utils";
 import { useStoreDispatch, useStoreSelector } from "../redux/store";
 import { AnswerDataUrl } from "../types/ResultTypes";
-import { addMessages } from "../redux/messagesReducer";
 import { messageTypes } from "../types/Messages";
+import { addMessages } from "../redux/actions/messagesActions";
 import { useLabels } from "./useLabel";
 
 type DataType = {

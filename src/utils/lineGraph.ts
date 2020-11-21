@@ -93,7 +93,7 @@ export const drawLineGraph = (
 
     // draw a single series line
     const drawLine = (series: LineSeriesType): string | null => {
-        const lineFunc = line<any>()
+        const lineFunc = line<number>()
             .x((x) => xScale(x))
             .y((_, index) => yScale(series.y[index]));
 

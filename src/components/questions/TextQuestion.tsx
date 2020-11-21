@@ -1,7 +1,6 @@
 import React, { SyntheticEvent } from "react";
 import useQuestionAnswer from "../../hooks/useQuestionAnswer";
 import useValidAnswer from "../../hooks/useValidAnswer";
-import { setAnswer } from "../../redux/answersReducer";
 import { useStoreDispatch, useStoreSelector } from "../../redux/store";
 import { TextAnswerType } from "../../types/AnswerTypes";
 import { TextQuestionType } from "../../types/QuestionTypes";
@@ -11,6 +10,7 @@ import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
 import { FieldError, TextField } from "../styles/Input";
 import { Question, Title } from "../styles/Question";
+import { setAnswer } from "../../redux/actions/answersActions";
 
 // blocks users from entering
 const hasForbiddenCharacter = (format: TextQuestionType["inputType"], value: string): boolean => {

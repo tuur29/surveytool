@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import useQuestionAnswer from "../../hooks/useQuestionAnswer";
 import useValidAnswer from "../../hooks/useValidAnswer";
-import { setAnswer } from "../../redux/answersReducer";
 import { useStoreDispatch, useStoreSelector } from "../../redux/store";
 import { MultipleChoiceAnswerType } from "../../types/AnswerTypes";
 import { MultipleChoiceQuestionType } from "../../types/QuestionTypes";
@@ -12,6 +11,7 @@ import Icon from "../common/Icon";
 import Select from "../common/Select";
 import { FieldError, Label, RadioButton } from "../styles/Input";
 import { Question, Title } from "../styles/Question";
+import { setAnswer } from "../../redux/actions/answersActions";
 
 type PropsType = {
     question: MultipleChoiceQuestionType;

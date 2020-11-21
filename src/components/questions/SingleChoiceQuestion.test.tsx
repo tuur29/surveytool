@@ -3,7 +3,6 @@ import React from "react";
 import { spy, stub } from "sinon";
 import * as useQuestionAnswer from "../../hooks/useQuestionAnswer";
 import * as useValidAnswer from "../../hooks/useValidAnswer";
-import { setAnswer } from "../../redux/answersReducer";
 import * as store from "../../redux/store";
 import { SingleChoiceAnswerType } from "../../types/AnswerTypes";
 import { questionTypes } from "../../types/QuestionTypes";
@@ -11,6 +10,7 @@ import Checkbox from "../common/Checkbox";
 import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
 import { FieldError } from "../styles/Input";
+import { setAnswer } from "../../redux/actions/answersActions";
 import SingleChoiceQuestion from "./SingleChoiceQuestion";
 
 // ----------------------------------------------------------------------

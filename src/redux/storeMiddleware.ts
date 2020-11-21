@@ -1,11 +1,8 @@
-/* eslint-disable array-callback-return */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Middleware, Dispatch, applyMiddleware } from "redux";
-import { AllAnswersType } from "../types/AnswerTypes";
-import { questionTypes } from "../types/QuestionTypes";
 import { generateAnswerStorageKey, generateInitialAnswers } from "../utils/utils";
 import { ActionsType, StoreType } from "./store";
-import { initAnswers, AnswersState } from "./answersReducer";
+import { AnswersState } from "./reducers/answersReducer";
+import { initAnswers } from "./actions/answersActions";
 
 const AllLogicMiddleware: Middleware = (store: StoreType) => (next: Dispatch<ActionsType>) => (action: ActionsType) => {
     switch (action.type) {

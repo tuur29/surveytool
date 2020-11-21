@@ -1,12 +1,11 @@
 import { useEffect } from "react";
 import { ConfigType } from "../types/ConfigTypes";
-import { resetFormDispatcher } from "../utils/utils";
-import { isDev } from "../utils/devUtils";
+import { isDev, resetFormDispatcher } from "../utils/utils";
 import { useStoreDispatch } from "../redux/store";
-import { initConfig } from "../redux/configReducer";
-import { addMessages } from "../redux/messagesReducer";
 import { messageTypes } from "../types/Messages";
 import { mockConfig } from "../utils/mockConfig";
+import { initConfig } from "../redux/actions/configActions";
+import { addMessages } from "../redux/actions/messagesActions";
 import { useLabels } from "./useLabel";
 import useRestartTimer from "./useRestartTimer";
 
@@ -17,6 +16,9 @@ const useInit = (): void => {
     const dispatch = useStoreDispatch();
     const [title, description] = useLabels(["messageErrorTitle", "messageInitError"]);
 
+    // ----------------------------------------------------------------------
+    // Init / update configuration
+    // ----------------------------------------------------------------------
     useEffect(() => {
         // allow changing config after app init
         window.setSurveyConfig = (config: Partial<ConfigType>) => {
@@ -36,17 +38,20 @@ const useInit = (): void => {
             window.setSurveyConfig(window.surveyConfig || mockConfig);
         }
 
-        // add mockconfig to window so we can easily access it later for testing
-        // for example:
-        // window.setSurveyConfig({ ...window.mockConfig, theme: { darkMode: true, values: { colors: { controlHighlight: "#ff00ff" } } } });
-        // window.setSurveyConfig({questions: [...window.mockConfig.questions.slice(2,4)]});
-        // window.setSurveyConfig({ ...window.mockConfig, labels: { questionsTitle: "Hi!" } });
+        /*
+         * Add mockconfig to window so we can easily access it later for testing, examples:
+         * window.setSurveyConfig({ ...window.mockConfig, theme: { darkMode: true, values: { colors: { controlHighlight: "#ff00ff" } } } });
+         * window.setSurveyConfig({questions: [...window.mockConfig.questions.slice(2,4)]});
+         * window.setSurveyConfig({ ...window.mockConfig, labels: { questionsTitle: "Hi!" } });
+         */
         if (isDev(true)) {
             window.mockConfig = mockConfig;
         }
     }, [title, description, dispatch]);
 
-    // restart timer
+    // ----------------------------------------------------------------------
+    // Init restart timer
+    // ----------------------------------------------------------------------
     const restartTime = useRestartTimer();
     useEffect(() => {
         if (restartTime !== null && restartTime <= 0) {

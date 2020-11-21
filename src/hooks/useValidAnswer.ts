@@ -2,7 +2,7 @@ import { useStoreDispatch } from "../redux/store";
 import { AllQuestionsType, questionTypes, TextQuestionType } from "../types/QuestionTypes";
 import { LabelType } from "../utils/labels";
 import { isAnswerValid } from "../utils/validator";
-import { setAnswerFocus } from "../redux/answersReducer";
+import { setAnswerFocus } from "../redux/actions/answersActions";
 import useLabel from "./useLabel";
 import useQuestionAnswer from "./useQuestionAnswer";
 

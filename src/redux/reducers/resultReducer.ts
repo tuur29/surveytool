@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */ // We actually want to use Typescript inferring
-
-import { generateShowResultStorageKey } from "../utils/utils";
-import { isDev } from "../utils/devUtils";
+import { generateShowResultStorageKey, isDev } from "../../utils/utils";
+import { ResultActions } from "../actions/resultActions";
 
 // ----------------------------------------------------------------------
 // Initial state
@@ -13,30 +11,6 @@ export const initialResultState = {
     restartTimestamp: null as number | null,
 };
 export type ResultState = typeof initialResultState;
-
-// ----------------------------------------------------------------------
-// Actions
-// ----------------------------------------------------------------------
-
-export const setResult = (score: number) => ({
-    type: "RESULT_SET" as const,
-    score,
-});
-
-export const showResult = (visible = true) => ({
-    type: "RESULT_SHOW" as const,
-    visible,
-});
-
-export const updateRestartTimer = (timestamp: number | null) => ({
-    type: "RESULT_UPDATE_RESTART_TIMER" as const,
-    timestamp,
-});
-
-export type ResultActions =
-    | ReturnType<typeof setResult>
-    | ReturnType<typeof showResult>
-    | ReturnType<typeof updateRestartTimer>;
 
 // ----------------------------------------------------------------------
 // Reducer

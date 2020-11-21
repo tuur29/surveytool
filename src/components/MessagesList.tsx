@@ -1,9 +1,9 @@
 import React from "react";
 import { Transition, TransitionGroup } from "react-transition-group";
 import useLabel from "../hooks/useLabel";
-import { clearMessages, removeMessage } from "../redux/messagesReducer";
 import { useStoreDispatch, useStoreSelector } from "../redux/store";
 import { messageTypes } from "../types/Messages";
+import { clearMessages, removeMessage } from "../redux/actions/messagesActions";
 import Icon from "./common/Icon";
 import { CloseButton, Description, Message, Title, Wrapper, DismissLabel, textColor } from "./styles/Message";
 

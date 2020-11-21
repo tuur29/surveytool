@@ -5,7 +5,7 @@ import { AnswerPostData } from "../types/DataTypes";
 import { AnswerDataUrl } from "../types/ResultTypes";
 import { generateAnswerStorageKey, replaceValues, fetchAnswerData } from "../utils/utils";
 import { StoreType } from "./store";
-import { setResult, updateRestartTimer } from "./resultReducer";
+import { setResult, updateRestartTimer } from "./actions/resultActions";
 
 // ----------------------------------------------------------------------
 // calculateScoreListener
@@ -52,7 +52,6 @@ const calculateScoreListener = (store: StoreType): void => {
             // Start or restart timer when configured
             if (state.config.result.restartTimeout) {
                 store.dispatch(updateRestartTimer(Date.now() + state.config.result.restartTimeout * 1000));
-                // TODO: implement restart
             }
         }
     }
