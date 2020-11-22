@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import useRestartTimer from "../../hooks/useRestartTimer";
 import { useStoreDispatch, useStoreSelector } from "../../redux/store";
 import { AnswerDataUrl, ResultButtonType } from "../../types/ResultTypes";
 import { fetchAnswerData, replaceValues, resetFormDispatcher } from "../../utils/utils";
@@ -21,6 +22,8 @@ const ButtonResult = (props: PropsType): JSX.Element => {
     const [loading, setLoading] = useState(false);
     const [loaded, setLoaded] = useState(false);
 
+    const countdown = useRestartTimer();
+    const label = replaceValues(config.label, { countdown, score });
     const hash = JSON.stringify(answers);
 
     const onClick = async (): Promise<void> => {
@@ -53,7 +56,7 @@ const ButtonResult = (props: PropsType): JSX.Element => {
     return (
         <CenteredButtonWrapper mb={4}>
             <Button onClick={onClick} disabled={loading || loaded} iconAlign="right">
-                {config.label}
+                {label}
                 {loading && <Loader size={12} />}
                 {loaded && <Icon type="check" />}
             </Button>

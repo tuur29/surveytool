@@ -114,7 +114,7 @@ export const mockConfig: Partial<ConfigType> = {
     result: {
         scoreDomain: [0, 130],
         postDataUrl: "POST;https://example.org/api/answer" as AnswerDataUrl,
-        restartTimeout: 10,
+        restartTimeout: 1000,
         content: [
             { type: resultContentTypes.label, style: "title", label: "Thanks for your {score10}/10 submission." },
             {
@@ -143,7 +143,7 @@ export const mockConfig: Partial<ConfigType> = {
                 titleLabel: "Bar graph",
                 hideLegend: true,
             },
-            { type: resultContentTypes.button, label: "Restart", function: "restart" },
+            { type: resultContentTypes.button, label: "Restart ({countdown})", function: "restart" },
             {
                 type: resultContentTypes.button,
                 label: "Save results",
