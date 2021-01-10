@@ -1,6 +1,6 @@
 import React from "react";
 import { RangeQuestionType } from "../../types/QuestionTypes";
-import { Question, Title } from "../styles/Question";
+import { Question, Image, Title } from "../styles/Question";
 import { useStoreDispatch, useStoreSelector } from "../../redux/store";
 import HintableLabel from "../common/HintableLabel";
 import useQuestionAnswer from "../../hooks/useQuestionAnswer";
@@ -45,13 +45,17 @@ const RangeQuestion = (props: PropsType): JSX.Element => {
     };
 
     return (
-        <Question id={question.id}>
-            <Title>
-                <HintableLabel label={question.title} hints={question.hints} />
-            </Title>
+        <Question id={question.id} imagePosition={question.image ? question.image.alignment || "right" : undefined}>
+            {question.image && <Image src={question.image.url} widthPercentage={question.image.size} />}
 
-            {question.inputType === "slider" && <Slider {...sliderProps} tickCount={question.tickCount} />}
-            {question.inputType === "radio" && <RadioSlider {...sliderProps} />}
+            <div>
+                <Title>
+                    <HintableLabel label={question.title} hints={question.hints} />
+                </Title>
+
+                {question.inputType === "slider" && <Slider {...sliderProps} tickCount={question.tickCount} />}
+                {question.inputType === "radio" && <RadioSlider {...sliderProps} />}
+            </div>
         </Question>
     );
 };

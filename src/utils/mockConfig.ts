@@ -27,6 +27,9 @@ export const mockConfig: Partial<ConfigType> = {
                 { id: "3", title: "Chocolat" },
             ],
             required: true,
+            image: {
+                url: "https://via.placeholder.com/350x65",
+            },
         },
         {
             id: "PXCHUDAK",
@@ -97,6 +100,11 @@ export const mockConfig: Partial<ConfigType> = {
             title: "Did you like this order flow?",
             checkedByDefault: true,
             required: true,
+            image: {
+                url: "https://via.placeholder.com/350x65",
+                alignment: "center",
+                size: 0.6,
+            },
         },
         {
             id: "PDJRLCWT",

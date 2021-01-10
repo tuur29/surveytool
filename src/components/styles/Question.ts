@@ -1,13 +1,22 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { SpaceProps, space } from "styled-system";
+import { ImageType } from "../../types/QuestionTypes";
 import { getElevation } from "../../utils/theme";
 
-export const Question = styled.article<SpaceProps>`
+export const Question = styled.article<SpaceProps & { imagePosition?: ImageType["alignment"] }>`
     background-color: ${({ theme }) => theme.colors.surface};
     color: ${({ theme }) => theme.colors.onSurface};
     box-shadow: ${({ theme }) => getElevation(theme.elevation.question)};
     border-radius: ${({ theme }) => theme.sizes.radius};
     ${space};
+
+    ${({ imagePosition }) =>
+        imagePosition &&
+        css`
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: space-between;
+        `};
 `;
 
 Question.defaultProps = {
@@ -16,10 +25,16 @@ Question.defaultProps = {
     paddingX: { xs: 3, lg: 4 },
 };
 
+export const Image = styled.img<{ widthPercentage?: number }>`
+    flex-grow: 1;
+    width: ${({ widthPercentage }) => (widthPercentage ? `${widthPercentage * 100}%` : "auto")};
+    margin-left: ${({ theme }) => theme.space[3]}px;
+`;
+
 export const Title = styled.h2`
+    margin: ${({ theme }) => theme.space[3]}px 0;
     font-weight: normal;
     font-size: ${({ theme }) => theme.sizes.subtitle};
-    margin: ${({ theme }) => theme.space[3]}px 0;
 `;
 
 export const ErrorPanel = styled.div`

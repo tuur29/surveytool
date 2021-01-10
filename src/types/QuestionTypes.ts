@@ -13,6 +13,14 @@ type Hintable = {
     hints?: string[];
 };
 
+export type ImageType = {
+    url: string;
+    /** Optional, "left" is not supported in questions */
+    alignment?: "left" | "center" | "right";
+    /** Decimal between 0 and 1, represents total width of parent */
+    size?: number;
+};
+
 type BaseQuestion = {
     /** Should be unique in a configuration. This links the question to it's answer. */
     id: string;
@@ -22,6 +30,8 @@ type BaseQuestion = {
     required?: boolean;
     /** Optional function that can be used to override the default score calculations. */
     calcFunction?: (question: AllQuestionsType, answer: AllAnswersType) => number | undefined;
+    /** Will be displayed above or to the right of the question title. */
+    image?: ImageType;
 } & Hintable;
 
 // example: "I agree with terms and conditions"

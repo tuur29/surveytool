@@ -9,7 +9,7 @@ import Checkbox from "../common/Checkbox";
 import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
 import { FieldError } from "../styles/Input";
-import { Question, Title } from "../styles/Question";
+import { Question, Image, Title } from "../styles/Question";
 import { setAnswer } from "../../redux/actions/answersActions";
 
 type PropsType = {
@@ -37,22 +37,26 @@ const SingleChoiceQuestion = (props: PropsType): JSX.Element => {
     };
 
     return (
-        <Question id={question.id}>
-            <Checkbox checked={checked || false} onClick={check} disabled={disableControl}>
-                <Title>
-                    <HintableLabel label={question.title} hints={question.hints} />
-                </Title>
-            </Checkbox>
+        <Question id={question.id} imagePosition={question.image ? question.image.alignment || "left" : undefined}>
+            {question.image && <Image src={question.image.url} widthPercentage={question.image.size} />}
 
-            {/* always render FieldError with min-height so showing the error doesn't move content on the page */}
-            <FieldError>
-                {showError && (
-                    <>
-                        <Icon type="error" color="error" />
-                        {error}
-                    </>
-                )}
-            </FieldError>
+            <div>
+                <Checkbox checked={checked || false} onClick={check} disabled={disableControl}>
+                    <Title>
+                        <HintableLabel label={question.title} hints={question.hints} />
+                    </Title>
+                </Checkbox>
+
+                {/* always render FieldError with min-height so showing the error doesn't move content on the page */}
+                <FieldError>
+                    {showError && (
+                        <>
+                            <Icon type="error" color="error" />
+                            {error}
+                        </>
+                    )}
+                </FieldError>
+            </div>
         </Question>
     );
 };

@@ -10,7 +10,7 @@ import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
 import Select from "../common/Select";
 import { FieldError, Label, RadioButton } from "../styles/Input";
-import { Question, Title } from "../styles/Question";
+import { Question, Image, Title } from "../styles/Question";
 import { setAnswer } from "../../redux/actions/answersActions";
 
 type PropsType = {
@@ -53,52 +53,56 @@ const MultipleChoiceQuestion = (props: PropsType): JSX.Element => {
     };
 
     return (
-        <Question id={question.id}>
-            <Title>
-                <HintableLabel label={question.title} hints={question.hints} />
-            </Title>
+        <Question id={question.id} imagePosition={question.image ? question.image.alignment || "right" : undefined}>
+            {question.image && <Image src={question.image.url} widthPercentage={question.image.size} />}
 
-            {question.inputType === "radio" &&
-                question.options.map((option) => (
-                    <Fragment key={option.id}>
-                        <Label onClick={() => select(option.id)} disabled={disableControl}>
-                            <RadioButton checked={selectedIds.includes(option.id)} />
-                            <HintableLabel label={option.title} hints={option.hints} />
-                        </Label>
-                    </Fragment>
-                ))}
+            <div>
+                <Title>
+                    <HintableLabel label={question.title} hints={question.hints} />
+                </Title>
 
-            {question.inputType === "check" &&
-                question.options.map((option) => (
-                    <Fragment key={option.id}>
-                        <Checkbox
-                            checked={selectedIds.includes(option.id)}
-                            onClick={() => select(option.id)}
-                            disabled={disableControl}
-                        >
-                            <HintableLabel label={option.title} hints={option.hints} />
-                        </Checkbox>
-                    </Fragment>
-                ))}
+                {question.inputType === "radio" &&
+                    question.options.map((option) => (
+                        <Fragment key={option.id}>
+                            <Label onClick={() => select(option.id)} disabled={disableControl}>
+                                <RadioButton checked={selectedIds.includes(option.id)} />
+                                <HintableLabel label={option.title} hints={option.hints} />
+                            </Label>
+                        </Fragment>
+                    ))}
 
-            {question.inputType === "select" && (
-                <Select
-                    options={question.options}
-                    selectedOptionId={selectedIds[0]}
-                    onSelectOption={select}
-                    disabled={disableControl}
-                />
-            )}
+                {question.inputType === "check" &&
+                    question.options.map((option) => (
+                        <Fragment key={option.id}>
+                            <Checkbox
+                                checked={selectedIds.includes(option.id)}
+                                onClick={() => select(option.id)}
+                                disabled={disableControl}
+                            >
+                                <HintableLabel label={option.title} hints={option.hints} />
+                            </Checkbox>
+                        </Fragment>
+                    ))}
 
-            {/* always render FieldError with min-height so showing the error doesn't move content on the page */}
-            <FieldError>
-                {showError && (
-                    <>
-                        <Icon type="error" color="error" />
-                        {error}
-                    </>
+                {question.inputType === "select" && (
+                    <Select
+                        options={question.options}
+                        selectedOptionId={selectedIds[0]}
+                        onSelectOption={select}
+                        disabled={disableControl}
+                    />
                 )}
-            </FieldError>
+
+                {/* always render FieldError with min-height so showing the error doesn't move content on the page */}
+                <FieldError>
+                    {showError && (
+                        <>
+                            <Icon type="error" color="error" />
+                            {error}
+                        </>
+                    )}
+                </FieldError>
+            </div>
         </Question>
     );
 };

@@ -9,7 +9,7 @@ import { REGEX_NUMBER_ONLY } from "../../utils/validator";
 import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
 import { FieldError, TextField } from "../styles/Input";
-import { Question, Title } from "../styles/Question";
+import { Question, Image, Title } from "../styles/Question";
 import { setAnswer } from "../../redux/actions/answersActions";
 
 // blocks users from entering
@@ -51,29 +51,33 @@ const TextQuestion = (props: PropsType): JSX.Element => {
     };
 
     return (
-        <Question id={question.id}>
-            <Title>
-                <HintableLabel label={question.title} hints={question.hints} />
-            </Title>
+        <Question id={question.id} imagePosition={question.image ? question.image.alignment || "right" : undefined}>
+            {question.image && <Image src={question.image.url} widthPercentage={question.image.size} />}
 
-            <TextField
-                value={value}
-                placeholder={question.placeholder || ""}
-                isError={showError}
-                onChange={onChange}
-                onBlur={setFocussed}
-                disabled={disableControl}
-            />
+            <div>
+                <Title>
+                    <HintableLabel label={question.title} hints={question.hints} />
+                </Title>
 
-            {/* always render FieldError with min-height so showing the error doesn't move content on the page */}
-            <FieldError>
-                {showError && (
-                    <>
-                        <Icon type="error" color="error" />
-                        {error}
-                    </>
-                )}
-            </FieldError>
+                <TextField
+                    value={value}
+                    placeholder={question.placeholder || ""}
+                    isError={showError}
+                    onChange={onChange}
+                    onBlur={setFocussed}
+                    disabled={disableControl}
+                />
+
+                {/* always render FieldError with min-height so showing the error doesn't move content on the page */}
+                <FieldError>
+                    {showError && (
+                        <>
+                            <Icon type="error" color="error" />
+                            {error}
+                        </>
+                    )}
+                </FieldError>
+            </div>
         </Question>
     );
 };
