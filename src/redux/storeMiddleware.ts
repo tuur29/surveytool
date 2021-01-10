@@ -1,7 +1,7 @@
 import { Middleware, Dispatch, applyMiddleware } from "redux";
 import { generateAnswerStorageKey, generateInitialAnswers } from "../utils/utils";
+import { AllAnswersType } from "../types/AnswerTypes";
 import { ActionsType, StoreType } from "./store";
-import { AnswersState } from "./reducers/answersReducer";
 import { initAnswers } from "./actions/answersActions";
 
 const AllLogicMiddleware: Middleware = (store: StoreType) => (next: Dispatch<ActionsType>) => (action: ActionsType) => {
@@ -9,20 +9,23 @@ const AllLogicMiddleware: Middleware = (store: StoreType) => (next: Dispatch<Act
         // Prepopulate default or locally saved answers in store
         case "CONFIG_INIT": {
             // attempt to load from localstorage so answers are persisted between reloads
-            try {
-                const locallyStoredAnswers = localStorage.getItem(generateAnswerStorageKey(action.config.id));
-                if (locallyStoredAnswers && locallyStoredAnswers.length) {
-                    const answers: AnswersState = JSON.parse(locallyStoredAnswers);
-                    store.dispatch(initAnswers(answers.list, answers.lastUpdate));
-                    break;
-                }
-            } catch (exception) {
-                console.error("Something went wrong when loading previously stored answers", exception);
-            }
+            const localAnswersString = localStorage.getItem(generateAnswerStorageKey(action.config.id));
+            const loadedAnswers: AllAnswersType[] =
+                localAnswersString && localAnswersString.length ? JSON.parse(localAnswersString).list : [];
 
             // or create a new set of placeholder answers
             const initialAnswers = generateInitialAnswers(action.config.questions);
-            store.dispatch(initAnswers(initialAnswers));
+
+            // merge loaded and initial answers
+            const mergedAnswers = initialAnswers.map((answer) => {
+                const foundLoadedAnswer = loadedAnswers.find(
+                    (loadedAnswer) =>
+                        loadedAnswer.questionId === answer.questionId && loadedAnswer.type === answer.type,
+                );
+                return foundLoadedAnswer || answer;
+            });
+
+            store.dispatch(initAnswers(mergedAnswers));
             break;
         }
 
