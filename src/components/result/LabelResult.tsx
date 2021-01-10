@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ResultLabelType } from "../../types/ResultTypes";
-import { Result, Title, Description } from "../styles/Result";
+import { Result } from "../styles/Result";
+import { Description, Header } from "../styles/Container";
 import { useStoreSelector } from "../../redux/store";
 import {
     resultAnimationTotalFrames,
@@ -72,7 +73,7 @@ const LabelResult = (props: PropsType): JSX.Element => {
 
     return (
         <Result>
-            {config.style === "title" && <Title>{label}</Title>}
+            {config.style === "title" && <Header>{label}</Header>}
             {config.style === "description" && <Description>{label}</Description>}
             {config.style === "scoreCounter" && (
                 <ScoreCounter

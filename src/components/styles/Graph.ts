@@ -6,6 +6,8 @@ import { Loader } from "./Loader";
 const LEGEND_RATIO = 0.25;
 export const GRAPH_LOADER_SIZE = 50;
 
+export const Title = styled.h2``;
+
 export const Card = styled.div<WidthProps>`
     display: flex;
     flex-direction: column;

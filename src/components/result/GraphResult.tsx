@@ -2,8 +2,17 @@ import React from "react";
 import { ResultGraphType } from "../../types/ResultTypes";
 import useGraphData from "../../hooks/useGraphData";
 import { Loader } from "../styles/Loader";
-import { Card, Legend, LegendItem, Wrapper, LegendSwatch, StatusWrapper, GRAPH_LOADER_SIZE } from "../styles/Graph";
-import { Title, Result } from "../styles/Result";
+import {
+    Title,
+    Card,
+    Legend,
+    LegendItem,
+    Wrapper,
+    LegendSwatch,
+    StatusWrapper,
+    GRAPH_LOADER_SIZE,
+} from "../styles/Graph";
+import { Result } from "../styles/Result";
 import Graph from "../common/Graph";
 import Icon from "../common/Icon";
 

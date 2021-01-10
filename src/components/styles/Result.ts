@@ -12,7 +12,3 @@ Result.defaultProps = {
     paddingY: 3,
     paddingX: { xs: 3, lg: 4 },
 };
-
-export const Title = styled.h2``;
-
-export const Description = styled.div``;

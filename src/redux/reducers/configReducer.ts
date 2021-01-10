@@ -16,7 +16,7 @@ export const initialConfigState: ConfigType & { initialized: boolean } = {
     result: {
         scoreDomain: [0, 100],
         enableControls: false,
-        content: [{ type: resultContentTypes.label, style: "title", label: "Thanks for your submission" }],
+        content: [{ type: resultContentTypes.label, style: "title", label: "Thanks for your submission!" }],
     },
 };
 export type ConfigState = typeof initialConfigState;
@@ -40,6 +40,10 @@ export const configReducer = (state: ConfigState = initialConfigState, action: C
                     ...initialConfigState.theme,
                     ...action.config.theme,
                     ...locallyStoredTheme,
+                },
+                result: {
+                    ...initialConfigState.result,
+                    ...action.config.result,
                 },
             };
         }

@@ -39,8 +39,6 @@ export const questionLabels = {
 };
 
 export const resultLabels = {
-    /** Optional title shown above results page */
-    resultTitle: "Result",
     /** Button below the questions list to submit your answers / view your results */
     resultSeeButton: "See results",
 };
