@@ -11,7 +11,7 @@ Some labels can contain contextual information. This information can be swapped 
 For example the label `footerText` can contain the last edited date and time.
 
 ```js
-window.setSurveyConfig({ ...window.surveyConfig,
+tool.updateConfig({ ...tool.config,
     // will be be displayed as: "Last update on 01 January 1970"
     labels: { footerText: "Last update on {date}", } }
 });
@@ -25,7 +25,6 @@ window.setSurveyConfig({ ...window.surveyConfig,
 
 The format of dates and times is locale based. By default the end users browser settings will decided the format.  
 It is possible to override this behavior by changing the label `dateLocaleId`. See [this list](https://github.com/umpirsky/locale-list/blob/master/data/en_US/locales.csv) for all possibilities (but replace `_` with `-`).
-
 
 ## Messages
 

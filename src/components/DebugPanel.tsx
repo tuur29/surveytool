@@ -3,7 +3,7 @@ import styled, { createGlobalStyle } from "styled-components";
 import { useStoreDispatch, useStoreSelector } from "../redux/store";
 import { messageTypes } from "../types/Messages";
 import { isDev } from "../utils/utils";
-import { toggleBaseTheme } from "../redux/actions/configActions";
+import { initConfig, toggleBaseTheme } from "../redux/actions/configActions";
 import { addMessages } from "../redux/actions/messagesActions";
 import Checkbox from "./common/Checkbox";
 import { Button } from "./styles/Button";
@@ -74,10 +74,12 @@ const DebugPanel = (): JSX.Element | null => {
                 <Button onClick={() => dispatch(addMessages(mockMessages))}>Add messages</Button>
                 <Button
                     onClick={() =>
-                        window.setSurveyConfig({
-                            ...config,
-                            result: { ...config.result, enableControls: !config.result.enableControls },
-                        })
+                        dispatch(
+                            initConfig({
+                                ...config,
+                                result: { ...config.result, enableControls: !config.result.enableControls },
+                            }),
+                        )
                     }
                 >
                     Toggle editable

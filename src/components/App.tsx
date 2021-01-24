@@ -1,11 +1,11 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
 import { merge } from "lodash";
-import useInit from "../hooks/useInit";
 import { useStoreSelector } from "../redux/store";
 import { defaultThemes } from "../utils/theme";
 import { formatTimestamp } from "../utils/utils";
 import useLabel from "../hooks/useLabel";
+import { useInitTimer } from "../hooks/timerHooks";
 import QuestionList from "./QuestionList";
 import ResultList from "./ResultList";
 import MessagesList from "./MessagesList";
@@ -13,7 +13,7 @@ import { Footer } from "./styles/Container";
 import DebugPanel from "./DebugPanel";
 
 const App = (): JSX.Element | null => {
-    useInit();
+    useInitTimer();
 
     // theme
     const initialized = useStoreSelector((state) => state.config.initialized);

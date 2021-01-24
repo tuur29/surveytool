@@ -10,8 +10,6 @@ export const messageLabels = {
     messageErrorTitle: "Error",
     /** Button to dismiss all in case multiple notifications / messages are shown */
     messageDismissAll: "Dismiss all",
-    /** Shown when config could not be initialized */
-    messageInitError: "The tool could not be initialized properly.",
     /** Shown when a graph could not be loaded */
     messageGraphDataError: "Oops, could not display graph.",
 };
@@ -24,7 +22,7 @@ export const questionLabels = {
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat enim Polemonis. Iam contemni non poteris.\nEquidem etiam Epicurum, in physicis quidem, Democriteum puto. An quod ita callida est, ut optime possit architectari voluptates? Iam quae corporis sunt, ea nec auctoritatem cum animi partibus.",
     /** Will be shown below the list of questions to announce which questions still need to be filled in */
     questionsErrorTitle: "These questions need to be filled in correctly to see your result:",
-    /** The placeholder text on a Multiple Choice select / dropdown input, can countain a {count} placeholder for the amount of options the question has */
+    /** The placeholder text on a Multiple Choice select / dropdown input, can contain a {count} placeholder for the amount of options the question has */
     inputSelectPlaceholder: "--- {count} options ---",
     /** Error message shown below a text input (inputType=number) when the input is invalid */
     inputTextErrorNumber: "Please provide a valid number",

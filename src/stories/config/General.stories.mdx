@@ -4,7 +4,7 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 # Configuration
 
-This file will describe the possible content of the `window.surveyConfig` object, or the object you pass to the `window.setSurveyConfig()` function.
+This file will describe the possible content of the `config` object, or the object you pass to the constructor `new SurveyTool()` or `tool.updateConfig()` function.
 
 There are 5 parts to a configuration object:
 
@@ -47,7 +47,7 @@ The theme is based on [Styled System](https://styled-system.com/). It consists o
 Example:
 
 ```js
-window.setSurveyConfig({ ...window.surveyConfig,
+tool.updateConfig({ ...tool.config,
     theme: {
         darkMode: true,
         values: {

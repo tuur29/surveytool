@@ -10,7 +10,7 @@ import {
     replaceValues,
 } from "../../utils/utils";
 import ScoreCounter from "../common/ScoreCounter";
-import useRestartTimer from "../../hooks/useRestartTimer";
+import { useRestartTimer } from "../../hooks/timerHooks";
 
 const rescaleToDomain = (value: number, sourceDomain: number[], targetDomain: number[]): number => {
     // Rescale the value based on the formula for linear interpolation

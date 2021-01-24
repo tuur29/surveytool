@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { createStore, combineReducers, MiddlewareAPI, Dispatch } from "redux";
+import { createStore, combineReducers, MiddlewareAPI, Dispatch, Store } from "redux";
 import { useSelector, TypedUseSelectorHook, useDispatch } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { middlewares } from "./storeMiddleware";
@@ -27,15 +27,19 @@ const initialState = {
     messages: initialMessagesState,
 };
 
-const enchancers = composeWithDevTools(middlewares);
-const store = createStore(rootReducer, initialState, enchancers);
-listeners.forEach((listener) => store.subscribe(() => listener(store)));
-
 export type StateType = typeof initialState;
 export type ActionsType = AnswersActions | ConfigActions | ResultActions | MessagesActions;
-export type StoreType = MiddlewareAPI<Dispatch<ActionsType>, StateType>;
+export type StoreApiType = MiddlewareAPI<Dispatch<ActionsType>, StateType>;
+export type StoreType = Store<StateType, ActionsType>;
 
 export const useStoreSelector: TypedUseSelectorHook<StateType> = useSelector;
 export const useStoreDispatch: () => Dispatch<ActionsType> = useDispatch;
 
-export default store;
+const createNewStore = (): StoreType => {
+    const enchancers = composeWithDevTools(middlewares);
+    const store = createStore(rootReducer, initialState, enchancers);
+    listeners.forEach((listener) => store.subscribe(() => listener(store)));
+    return store;
+};
+
+export default createNewStore;

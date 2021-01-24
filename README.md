@@ -6,22 +6,23 @@ Demo on: https://tuur29.github.io/surveytool/
 
 ## Integration in your own site
 
-Load the [production script file](https://github.com/tuur29/surveytool/releases) inside your own website and create an empty div with `surveyTool` as ID.
-Next, either define a `surveyConfig` object on the `window` object, or call `window.setSurveyConfig()` with the same config object at a later date to initialize the tool:
+Load the [production script file](https://github.com/tuur29/surveytool/releases) inside your own website and create an empty div.
+Next, either initialize the tool in said div with `new SurveyTool(cssSelector, {...})` with the same config object at a later date to initialize the tool:
 
+<!-- TODO: fix other documentation -->
 ```html
+<script src="[...]/surveytool-1.0.0.min.js"></script>
 <div id="surveyTool"></div>
 <script>
-    const config = { ... };
+    const config = {...};
+    const tool = new SurveyTool("#surveyTool", config);
 
-    // initialize directly:
-    window.surveyConfig = config;
     // or async (for example on button click):
     document.querySelector("#button").addEventListener("click", () => {
-        window.setSurveyConfig(config);
+        tool.resetAnswers();
+        tool.updateConfig(config);
     });
 </script>
-<script src="[...]/surveytool-1.0.0.min.js"></script>
 ```
 
 ### Configuration
@@ -62,7 +63,7 @@ Demo:
 
 This tool was created with:
 
-- [Create React App](https://facebook.github.io/create-react-app/docs/getting-started).
+- [Create React App](https://facebook.github.io/create-react-app/docs/getting-started)
 - [Redux](https://redux.js.org/introduction/getting-started)
 - [Styled components](https://styled-components.com/docs)
 - [Typescript](https://www.typescriptlang.org/docs/home.html)

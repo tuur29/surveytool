@@ -1,10 +1,12 @@
 import { Middleware, Dispatch, applyMiddleware } from "redux";
 import { generateAnswerStorageKey, generateInitialAnswers } from "../utils/utils";
 import { AllAnswersType } from "../types/AnswerTypes";
-import { ActionsType, StoreType } from "./store";
+import { ActionsType, StoreApiType } from "./store";
 import { initAnswers } from "./actions/answersActions";
 
-const AllLogicMiddleware: Middleware = (store: StoreType) => (next: Dispatch<ActionsType>) => (action: ActionsType) => {
+const AllLogicMiddleware: Middleware = (store: StoreApiType) => (next: Dispatch<ActionsType>) => (
+    action: ActionsType,
+) => {
     switch (action.type) {
         // Prepopulate default or locally saved answers in store
         case "CONFIG_INIT": {

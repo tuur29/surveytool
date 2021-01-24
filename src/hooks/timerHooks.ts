@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { useStoreSelector } from "../redux/store";
+import { useStoreDispatch, useStoreSelector } from "../redux/store";
+import { resetFormDispatcher } from "../utils/utils";
 
 const calcCountdown = (timestamp: number): number => Math.round((timestamp - Date.now()) / 1000);
 
 /**
  * Returns the number of seconds before the survey will restart
  */
-const useRestartTimer = (): number | null => {
+export const useRestartTimer = (): number | null => {
     const restartTimestamp = useStoreSelector((state) => state.result.restartTimestamp);
     const [countdown, setCountdown] = useState(restartTimestamp ? calcCountdown(restartTimestamp) : null);
     const timerInterval = useRef<number>();
@@ -27,4 +28,15 @@ const useRestartTimer = (): number | null => {
     return countdown;
 };
 
-export default useRestartTimer;
+/**
+ * Resets the answer state when the timer reaches 0
+ */
+export const useInitTimer = (): void => {
+    const dispatch = useStoreDispatch();
+    const restartTime = useRestartTimer();
+    useEffect(() => {
+        if (restartTime !== null && restartTime <= 0) {
+            resetFormDispatcher(dispatch);
+        }
+    }, [restartTime, dispatch]);
+};

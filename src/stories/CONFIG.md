@@ -1,7 +1,7 @@
 
 # Configuration
 
-This file will describe the possible content of the `window.surveyConfig` object, or the object you pass to the `window.setSurveyConfig()` function.
+This file will describe the possible content of the `config` object.
 
 There are 5 parts to a configuration object:
 
@@ -72,7 +72,7 @@ The theme is based on [Styled System](https://styled-system.com/). It consists o
 Example:
 
 ```js
-window.setSurveyConfig({ ...window.surveyConfig,
+tool.updateConfig({ ...tool.config,
     theme: {
         darkMode: true,
         values: {
@@ -158,7 +158,7 @@ Some labels can contain contextual information. This information can be swapped 
 For example the label `footerText` can contain the last edited date and time.
 
 ```js
-window.setSurveyConfig({ ...window.surveyConfig,
+tool.updateConfig({ ...tool.config,
     // will be be displayed as: "Last update on 01 January 1970"
     labels: { footerText: "Last update on {date}", } }
 });
@@ -362,7 +362,7 @@ Examples:
 | `scoreDomain` | [min, max] | An array containing the smallest and largest possible score. This is sometimes used when customizing the results page content. |
 
 ```js
-window.setSurveyConfig({ ...window.surveyConfig,
+tool.updateConfig({ ...tool.config,
     result: {
         postDataUrl: "POST;https://example.org/api/answer",
         redirectUrl: "https://example.org/results?score={score}",

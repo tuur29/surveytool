@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import useRestartTimer from "../../hooks/useRestartTimer";
+import { useRestartTimer } from "../../hooks/timerHooks";
 import { useStoreDispatch, useStoreSelector } from "../../redux/store";
 import { AnswerDataUrl, ResultButtonType } from "../../types/ResultTypes";
 import { fetchAnswerData, replaceValues, resetFormDispatcher } from "../../utils/utils";

@@ -4,7 +4,7 @@ import { AllAnswersType } from "../types/AnswerTypes";
 import { AnswerPostData } from "../types/DataTypes";
 import { AnswerDataUrl } from "../types/ResultTypes";
 import { generateAnswerStorageKey, replaceValues, fetchAnswerData } from "../utils/utils";
-import { StoreType } from "./store";
+import { StoreApiType } from "./store";
 import { setResult, updateRestartTimer } from "./actions/resultActions";
 
 // ----------------------------------------------------------------------
@@ -20,7 +20,7 @@ let prevScoreAnswerList: AllAnswersType[];
 let prevScoreValue = 0;
 
 // calculate new score when results are visible (links to ANSWERS_SET and dispatches RESULT_SET)
-const calculateScoreListener = (store: StoreType): void => {
+const calculateScoreListener = (store: StoreApiType): void => {
     const state = store.getState();
 
     if (state.config.initialized && state.result.showResult && prevScoreAnswerList !== state.answers.list) {
@@ -64,7 +64,7 @@ const calculateScoreListener = (store: StoreType): void => {
 let prevPersistAnswerList: AllAnswersType[];
 
 // persist to localstorage and return
-const persistAnswerListener = (store: StoreType): void => {
+const persistAnswerListener = (store: StoreApiType): void => {
     const state = store.getState();
 
     if (prevPersistAnswerList !== state.answers.list && state.config.initialized && state.answers.initialized) {
