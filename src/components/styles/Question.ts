@@ -3,6 +3,17 @@ import { SpaceProps, space } from "styled-system";
 import { ImageType } from "../../types/QuestionTypes";
 import { getElevation } from "../../utils/theme";
 
+export const Image = styled.img<{ widthPercentage?: number }>`
+    ${({ widthPercentage }) =>
+        widthPercentage
+            ? css`
+                  width: ${widthPercentage * 100}%;
+              `
+            : css`
+                  flex-grow: 1;
+              `};
+`;
+
 export const Question = styled.article<SpaceProps & { imagePosition?: ImageType["alignment"] }>`
     background-color: ${({ theme }) => theme.colors.surface};
     color: ${({ theme }) => theme.colors.onSurface};
@@ -14,8 +25,13 @@ export const Question = styled.article<SpaceProps & { imagePosition?: ImageType[
         imagePosition &&
         css`
             display: flex;
-            flex-direction: row-reverse;
+            flex-direction: ${imagePosition === "right" ? "row-reverse" : "column"};
             justify-content: space-between;
+
+            ${Image} {
+                align-self: ${imagePosition === "center" ? "center" : "unset"};
+                margin-left: ${({ theme }) => (imagePosition === "right" ? theme.space[4] : 0)}px;
+            }
         `};
 `;
 
@@ -24,12 +40,6 @@ Question.defaultProps = {
     paddingY: 3,
     paddingX: { xs: 3, lg: 4 },
 };
-
-export const Image = styled.img<{ widthPercentage?: number }>`
-    flex-grow: 1;
-    width: ${({ widthPercentage }) => (widthPercentage ? `${widthPercentage * 100}%` : "auto")};
-    margin-left: ${({ theme }) => theme.space[3]}px;
-`;
 
 export const Title = styled.h2`
     margin: ${({ theme }) => theme.space[3]}px 0;

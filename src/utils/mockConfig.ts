@@ -29,6 +29,7 @@ export const mockConfig: Partial<ConfigType> = {
             required: true,
             image: {
                 url: "https://via.placeholder.com/350x65",
+                alt: "Placeholder 1",
             },
         },
         {
@@ -47,6 +48,12 @@ export const mockConfig: Partial<ConfigType> = {
             max: 10,
             required: true,
             tickLabels: ["Min", "", "Two"],
+            image: {
+                url: "https://via.placeholder.com/350x65",
+                alignment: "right",
+                size: 0.3,
+                alt: "Placeholder 2",
+            },
         },
         {
             id: "CUIHUDAK",
@@ -90,6 +97,12 @@ export const mockConfig: Partial<ConfigType> = {
                 regex: "^.{0,10}$",
                 error: "Names longer than 10 characters are not allowed",
             },
+            image: {
+                url: "https://via.placeholder.com/350x65",
+                alignment: "left",
+                size: 0.3,
+                alt: "Placeholder 3",
+            },
             calcFunction: (question: any, answer: any) => {
                 return answer.value.length;
             },
@@ -104,6 +117,7 @@ export const mockConfig: Partial<ConfigType> = {
                 url: "https://via.placeholder.com/350x65",
                 alignment: "center",
                 size: 0.6,
+                alt: "Placeholder 4",
             },
         },
         {

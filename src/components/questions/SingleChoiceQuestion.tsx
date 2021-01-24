@@ -38,7 +38,9 @@ const SingleChoiceQuestion = (props: PropsType): JSX.Element => {
 
     return (
         <Question id={question.id} imagePosition={question.image ? question.image.alignment || "left" : undefined}>
-            {question.image && <Image src={question.image.url} widthPercentage={question.image.size} />}
+            {question.image && (
+                <Image src={question.image.url} widthPercentage={question.image.size} alt={question.image.alt} />
+            )}
 
             <div>
                 <Checkbox checked={checked || false} onClick={check} disabled={disableControl}>

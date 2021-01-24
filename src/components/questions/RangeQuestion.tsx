@@ -46,7 +46,9 @@ const RangeQuestion = (props: PropsType): JSX.Element => {
 
     return (
         <Question id={question.id} imagePosition={question.image ? question.image.alignment || "right" : undefined}>
-            {question.image && <Image src={question.image.url} widthPercentage={question.image.size} />}
+            {question.image && (
+                <Image src={question.image.url} widthPercentage={question.image.size} alt={question.image.alt} />
+            )}
 
             <div>
                 <Title>
