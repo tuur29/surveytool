@@ -3,6 +3,7 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 import TextQuestion, { TextQuestionDoc } from "../../components/questions/TextQuestion";
 import { TextQuestionType, questionTypes } from "../../types/QuestionTypes";
 import { mockConfig } from "../../utils/mockConfig";
+import { flattenQuestionGroups } from "../../utils/utils";
 
 // ----------------------------------------------------------------------
 // Setup
@@ -32,21 +33,21 @@ const Template: Story<PropsType> = (args) => (
 
 export const Text = Template.bind({});
 Text.args = {
-    ...(mockConfig.questions?.find((question) => question.id === "PZQUDAF") as TextQuestionType),
+    ...(flattenQuestionGroups(mockConfig.groups!).find((question) => question.id === "PZQUDAF") as TextQuestionType),
     // Stop storybook from making these props
     ["type" as string]: undefined,
 };
 
 export const Number = Template.bind({});
 Number.args = {
-    ...(mockConfig.questions?.find((question) => question.id === "PXCHUDAK") as TextQuestionType),
+    ...(flattenQuestionGroups(mockConfig.groups!).find((question) => question.id === "PXCHUDAK") as TextQuestionType),
     // Stop storybook from making these props
     ["type" as string]: undefined,
 };
 
 export const Email = Template.bind({});
 Email.args = {
-    ...(mockConfig.questions?.find((question) => question.id === "CUIHUDAK") as TextQuestionType),
+    ...(flattenQuestionGroups(mockConfig.groups!).find((question) => question.id === "CUIHUDAK") as TextQuestionType),
     // Stop storybook from making these props
     ["type" as string]: undefined,
 };

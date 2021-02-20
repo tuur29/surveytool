@@ -1,8 +1,7 @@
 import React from "react";
 import { AllQuestionsType, questionTypes } from "../types/QuestionTypes";
 import { useStoreSelector } from "../redux/store";
-import { useLabels } from "../hooks/useLabel";
-import { Container, Description, Header } from "./styles/Container";
+import { Container, Group, Line, Header, Description } from "./styles/Container";
 import SingleChoiceQuestion from "./questions/SingleChoiceQuestion";
 import MultipleChoiceQuestion from "./questions/MultipleChoiceQuestion";
 import TextQuestion from "./questions/TextQuestion";
@@ -24,15 +23,18 @@ const determineComponent = (question: AllQuestionsType): JSX.Element => {
 
 const QuestionList = (): JSX.Element | null => {
     const config = useStoreSelector((state) => state.config);
-    const [titleLabel, descriptionLabel] = useLabels(["questionsTitle", "questionsDescription"]);
-
-    if (!config.questions.length) return null;
+    if (!config.groups.length) return null;
     return (
         <Container py={4}>
-            {titleLabel && <Header>{titleLabel}</Header>}
-            {descriptionLabel && <Description>{descriptionLabel}</Description>}
-            {config.questions.map(determineComponent)}
-
+            {config.groups.map((group, i) => (
+                <Group key={i} showSeparator={i > 0}>
+                    <Line />
+                    {/* TODO: implement hintable, description HTML, image & color support */}
+                    {group.title && <Header>{group.title}</Header>}
+                    {group.description && <Description>{group.description}</Description>}
+                    {group.questions.map(determineComponent)}
+                </Group>
+            ))}
             <ShowResultsButton />
         </Container>
     );

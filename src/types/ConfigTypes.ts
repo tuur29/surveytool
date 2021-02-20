@@ -1,7 +1,7 @@
 import { DefaultTheme } from "styled-components";
 import { DeepPartial } from "../utils/utils";
 import { LabelType } from "../utils/labels";
-import { AllQuestionsType } from "./QuestionTypes";
+import { QuestionGroup } from "./QuestionTypes";
 import { AllResultContentType, AnswerDataUrl } from "./ResultTypes";
 
 export type ConfigType = {
@@ -16,7 +16,7 @@ export type ConfigType = {
         darkMode: boolean;
         values: DefaultTheme;
     }>;
-    questions: AllQuestionsType[];
+    groups: QuestionGroup[];
     result: {
         /** When filled in the tool will save the user's result to this URL. */
         postDataUrl?: AnswerDataUrl;

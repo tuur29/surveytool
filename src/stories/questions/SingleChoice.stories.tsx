@@ -3,6 +3,7 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 import SingleChoiceQuestion, { SingleChoiceQuestionDoc } from "../../components/questions/SingleChoiceQuestion";
 import { questionTypes, SingleChoiceQuestionType } from "../../types/QuestionTypes";
 import { mockConfig } from "../../utils/mockConfig";
+import { flattenQuestionGroups } from "../../utils/utils";
 
 // ----------------------------------------------------------------------
 // Setup
@@ -33,7 +34,9 @@ const Template: Story<PropsType> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-    ...(mockConfig.questions?.find((question) => question.id === "EDJUJDO") as SingleChoiceQuestionType),
+    ...(flattenQuestionGroups(mockConfig.groups!).find(
+        (question) => question.id === "EDJUJDO",
+    ) as SingleChoiceQuestionType),
     // Stop storybook from making these props
     ["id" as string]: undefined,
     ["type" as string]: undefined,

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { SpaceProps, space, TextAlignProps, textAlign } from "styled-system";
 import { BreakpointType } from "../../utils/theme";
 
@@ -10,6 +10,12 @@ Container.defaultProps = {
     marginX: "auto",
     paddingX: { xs: 0, sm: 2, lg: 3 },
 };
+
+export const Line = styled.hr`
+    display: none;
+    margin: ${({ theme }) => theme.space[5]}px 0;
+    border-top: 1px solid ${({ theme }) => theme.colors.separator};
+`;
 
 export const Header = styled.h1`
     font-size: ${({ theme }) => theme.sizes.title};
@@ -23,6 +29,22 @@ export const Description = styled.div<SpaceProps>`
 Description.defaultProps = {
     paddingX: { xs: 2, lg: 5 },
 };
+
+export const Group = styled.div<{ showSeparator?: boolean }>`
+    ${({ theme, showSeparator }) =>
+        showSeparator &&
+        css`
+            ${Line} {
+                display: block;
+            }
+
+            ${Header}, ${Description} {
+                margin: -${theme.space[3]}px;
+                margin-bottom: ${theme.space[3]}px;
+                padding: 0 ${theme.space[3]}px;
+            }
+        `}
+`;
 
 export const Footer = styled(Container)<TextAlignProps>`
     font-size: ${({ theme }) => theme.sizes.footer};

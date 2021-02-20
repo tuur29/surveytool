@@ -12,7 +12,7 @@ export const initialConfigState: ConfigType & { initialized: boolean } = {
     id: "",
     labels: {},
     theme: {},
-    questions: [],
+    groups: [],
     result: {
         scoreDomain: [0, 100],
         enableControls: false,

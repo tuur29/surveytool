@@ -3,6 +3,7 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 import RangeQuestion, { RangeQuestionDoc } from "../../components/questions/RangeQuestion";
 import { RangeQuestionType, questionTypes } from "../../types/QuestionTypes";
 import { mockConfig } from "../../utils/mockConfig";
+import { flattenQuestionGroups } from "../../utils/utils";
 
 // ----------------------------------------------------------------------
 // Setup
@@ -32,14 +33,14 @@ const Template: Story<PropsType> = (args) => (
 
 export const Slider = Template.bind({});
 Slider.args = {
-    ...(mockConfig.questions?.find((question) => question.id === "QXCHUKIH") as RangeQuestionType),
+    ...(flattenQuestionGroups(mockConfig.groups!).find((question) => question.id === "QXCHUKIH") as RangeQuestionType),
     // Stop storybook from making these props
     ["type" as string]: undefined,
 };
 
 export const RadioButtons = Template.bind({});
 RadioButtons.args = {
-    ...(mockConfig.questions?.find((question) => question.id === "PDJRLCWT") as RangeQuestionType),
+    ...(flattenQuestionGroups(mockConfig.groups!).find((question) => question.id === "PDJRLCWT") as RangeQuestionType),
     // Stop storybook from making these props
     ["type" as string]: undefined,
 };

@@ -6,6 +6,7 @@ import { useStoreSelector, useStoreDispatch } from "../../redux/store";
 import { isAnswerValid } from "../../utils/validator";
 import { ErrorPanel, ErrorList } from "../styles/Question";
 import { showResult } from "../../redux/actions/resultActions";
+import { getAllQuestionsSelector } from "../../utils/utils";
 
 const MAX_ERRORS = 3;
 
@@ -13,7 +14,7 @@ type InvalidItem = { id: string; title: string };
 
 const ShowResultsButton = (): JSX.Element => {
     const dispatch = useStoreDispatch();
-    const allQuestions = useStoreSelector((state) => state.config.questions);
+    const allQuestions = useStoreSelector(getAllQuestionsSelector);
     const allAnswers = useStoreSelector((state) => state.answers.list);
     const [buttonLabel, errorTitleLabel] = useLabels(["resultSeeButton", "questionsErrorTitle"]);
 

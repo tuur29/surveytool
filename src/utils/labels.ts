@@ -15,11 +15,6 @@ export const messageLabels = {
 };
 
 export const questionLabels = {
-    /** Optional title above the list of questions */
-    questionsTitle: "Questions",
-    /** Optional description above the list of questions */
-    questionsDescription:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat enim Polemonis. Iam contemni non poteris.\nEquidem etiam Epicurum, in physicis quidem, Democriteum puto. An quod ita callida est, ut optime possit architectari voluptates? Iam quae corporis sunt, ea nec auctoritatem cum animi partibus.",
     /** Will be shown below the list of questions to announce which questions still need to be filled in */
     questionsErrorTitle: "These questions need to be filled in correctly to see your result:",
     /** The placeholder text on a Multiple Choice select / dropdown input, can contain a {count} placeholder for the amount of options the question has */

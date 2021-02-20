@@ -39,7 +39,7 @@ export class SurveyTool {
      * @returns boolean indicating a valid config
      */
     updateConfig(config: ConfigType): boolean {
-        if (config.questions && config.questions.length > 0) {
+        if (config.groups && config.groups.length > 0) {
             this._store.dispatch(initConfig(config));
         } else {
             console.error("Supplied data is not a valid config", config);

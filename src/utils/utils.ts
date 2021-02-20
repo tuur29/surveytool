@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { AnyStyledComponent, StyledComponentInnerComponent, StyledComponentInnerOtherProps } from "styled-components";
 import { Dispatch } from "redux";
-import { AllQuestionsType, questionTypes } from "../types/QuestionTypes";
+import { AllQuestionsType, QuestionGroup, questionTypes } from "../types/QuestionTypes";
 import { AllAnswersType } from "../types/AnswerTypes";
 import { AnswerPostData } from "../types/DataTypes";
 import { AnswerDataUrl } from "../types/ResultTypes";
@@ -62,6 +62,9 @@ export const generateInitialAnswers = (questions: AllQuestionsType[]): AllAnswer
             }
         }
     });
+
+export const flattenQuestionGroups = (groups: QuestionGroup[]): AllQuestionsType[] =>
+    groups.reduce<AllQuestionsType[]>((list, group) => [...list, ...group.questions], []);
 
 /**
  * Will replace {key1} inside a string with the provided value for the key
@@ -124,6 +127,12 @@ export const resetFormDispatcher = (dispatch: Dispatch<ActionsType>): void => {
  */
 export const disableControlsSelector = (state: StateType): boolean =>
     !state.config.result.enableControls && state.result.showResult;
+
+/**
+ * Returns a flat list of all questions in the config.
+ */
+export const getAllQuestionsSelector = (state: StateType): AllQuestionsType[] =>
+    flattenQuestionGroups(state.config.groups);
 
 // ----------------------------------------------------------------------
 // Hooks

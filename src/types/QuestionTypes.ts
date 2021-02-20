@@ -104,3 +104,15 @@ export type AllQuestionsType =
     | MultipleChoiceQuestionType
     | TextQuestionType
     | RangeQuestionType;
+
+export type QuestionGroup = {
+    title?: string;
+    /** Can contain HTML */
+    description?: string;
+    /** Will be displayed above or to the right of the question title. */
+    image?: ImageType;
+    /** Accent colour for the questions in the group, can be CSS hex */
+    color?: string;
+    questions: AllQuestionsType[];
+    showOnNewPage?: boolean;
+} & Partial<Hintable>;
