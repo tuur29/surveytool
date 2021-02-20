@@ -32,7 +32,8 @@ type DataType = {
 };
 
 /**
- * Returns the matching answer field for a question id, also takes care of type casting
+ * Returns the matching answer field for a question id, also takes care of type casting.
+ * (!) Attention, because of it's direct store usage, it will not trigger a re-render on it's own when used in a React component!
  */
 const getValidAnswerData = <Q extends AllQuestionsType>(question: Q, store: StoreType): DataType => {
     // get answer value
