@@ -3,11 +3,10 @@ import { RangeQuestionType } from "../../types/QuestionTypes";
 import { Question, Image, Title } from "../styles/Question";
 import { useStoreDispatch, useStoreSelector } from "../../redux/store";
 import HintableLabel from "../common/HintableLabel";
-import useQuestionAnswer from "../../hooks/useQuestionAnswer";
 import { RangeAnswerType } from "../../types/AnswerTypes";
 import Slider from "../common/Slider";
 import RadioSlider from "../common/RadioSlider";
-import { disableControlsSelector } from "../../utils/utils";
+import { disableControlsSelector, getQuestionAnswerSelector } from "../../utils/utils";
 import { setAnswer } from "../../redux/actions/answersActions";
 
 type PropsType = {
@@ -18,7 +17,7 @@ const RangeQuestion = (props: PropsType): JSX.Element => {
     const { question } = props;
     const dispatch = useStoreDispatch();
     const disableControl = useStoreSelector(disableControlsSelector);
-    const { value } = useQuestionAnswer<RangeAnswerType>(question.id);
+    const { value } = useStoreSelector(getQuestionAnswerSelector<RangeAnswerType>(question.id));
 
     const setValue = (newValue: number) => {
         if (disableControl) return;

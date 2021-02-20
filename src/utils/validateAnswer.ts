@@ -1,18 +1,18 @@
-import { useStoreDispatch } from "../redux/store";
+import { StoreType } from "../redux/store";
 import { AllQuestionsType, questionTypes, TextQuestionType } from "../types/QuestionTypes";
-import { LabelType } from "../utils/labels";
-import { isAnswerValid } from "../utils/validator";
 import { setAnswerFocus } from "../redux/actions/answersActions";
-import useLabel from "./useLabel";
-import useQuestionAnswer from "./useQuestionAnswer";
+import { getLabel } from "../hooks/useLabel";
+import { LabelKeyType } from "./labels";
+import { isAnswerValid } from "./validator";
+import { getQuestionAnswerSelector } from "./utils";
 
-const textAnswerErrorLabelMap: Record<TextQuestionType["inputType"], LabelType> = {
+const textAnswerErrorLabelMap: Record<TextQuestionType["inputType"], LabelKeyType> = {
     number: "inputTextErrorNumber",
     email: "inputTextErrorEmail",
     text: "inputTextErrorText",
 };
 
-const getErrorLabel = (question: AllQuestionsType): LabelType => {
+const getErrorLabel = (question: AllQuestionsType): LabelKeyType => {
     switch (question.type) {
         case questionTypes.single:
             return "inputSingleRequiredError";
@@ -21,7 +21,7 @@ const getErrorLabel = (question: AllQuestionsType): LabelType => {
         case questionTypes.text:
             return textAnswerErrorLabelMap[question.inputType];
         case questionTypes.range:
-            return "" as LabelType; // the slider component should prevent invalid values
+            return "" as LabelKeyType; // the slider component should prevent invalid values
     }
 };
 
@@ -31,22 +31,24 @@ type DataType = {
     setFocussed: () => void;
 };
 
-// TODO: refactor this to a util selector
 /**
  * Returns the matching answer field for a question id, also takes care of type casting
  */
-const useValidAnswer = <Q extends AllQuestionsType>(question: Q): DataType => {
+const getValidAnswerData = <Q extends AllQuestionsType>(question: Q, store: StoreType): DataType => {
     // get answer value
-    const dispatch = useStoreDispatch();
-    const answer = useQuestionAnswer(question.id);
+    const { dispatch, getState } = store;
+    const state = getState();
+    const answer = getQuestionAnswerSelector(question.id)(state);
 
     // get correct error label
-    const errorLabel = useLabel(getErrorLabel(question))!;
+    const labels = state.config.labels;
+    const errorLabel = getLabel(labels, getErrorLabel(question));
+
     const customErrorLabel = (question as TextQuestionType).customValidation?.error;
     const valid = isAnswerValid(question, answer);
 
     return {
-        error: customErrorLabel || errorLabel,
+        error: customErrorLabel || errorLabel || "Error",
         showError: !valid && answer.focussed,
         setFocussed: () => {
             dispatch(setAnswerFocus(answer.questionId, true));
@@ -54,4 +56,4 @@ const useValidAnswer = <Q extends AllQuestionsType>(question: Q): DataType => {
     };
 };
 
-export default useValidAnswer;
+export default getValidAnswerData;

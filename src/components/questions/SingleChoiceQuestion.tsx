@@ -1,10 +1,9 @@
 import React from "react";
-import useQuestionAnswer from "../../hooks/useQuestionAnswer";
-import useValidAnswer from "../../hooks/useValidAnswer";
-import { useStoreDispatch, useStoreSelector } from "../../redux/store";
+import getValidAnswerData from "../../utils/validateAnswer";
+import { useStoreDispatch, useStoreSelector, useTypedStore } from "../../redux/store";
 import { SingleChoiceAnswerType } from "../../types/AnswerTypes";
 import { SingleChoiceQuestionType } from "../../types/QuestionTypes";
-import { disableControlsSelector } from "../../utils/utils";
+import { disableControlsSelector, getQuestionAnswerSelector } from "../../utils/utils";
 import Checkbox from "../common/Checkbox";
 import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
@@ -21,8 +20,10 @@ const SingleChoiceQuestion = (props: PropsType): JSX.Element => {
 
     const dispatch = useStoreDispatch();
     const disableControl = useStoreSelector(disableControlsSelector);
-    const checked = useQuestionAnswer<SingleChoiceAnswerType>(question.id).value;
-    const { error, showError, setFocussed } = useValidAnswer(question);
+    const checked = useStoreSelector(getQuestionAnswerSelector<SingleChoiceAnswerType>(question.id)).value;
+
+    const store = useTypedStore();
+    const { error, showError, setFocussed } = getValidAnswerData(question, store);
 
     const check = () => {
         if (disableControl) return;

@@ -2,7 +2,7 @@ import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import { CloseButton, Description, Message, textColor, Title } from "../../../components/styles/Message";
 import { MessageType, messageTypes } from "../../../types/Messages";
-import { getEnumValues } from "../../utils/helpers";
+import { getEnumValues } from "../../utils/utils";
 import Icon from "../../../components/common/Icon";
 
 // ----------------------------------------------------------------------

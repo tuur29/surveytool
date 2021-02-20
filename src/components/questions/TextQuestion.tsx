@@ -1,10 +1,9 @@
 import React, { SyntheticEvent } from "react";
-import useQuestionAnswer from "../../hooks/useQuestionAnswer";
-import useValidAnswer from "../../hooks/useValidAnswer";
-import { useStoreDispatch, useStoreSelector } from "../../redux/store";
+import getValidAnswerData from "../../utils/validateAnswer";
+import { useStoreDispatch, useStoreSelector, useTypedStore } from "../../redux/store";
 import { TextAnswerType } from "../../types/AnswerTypes";
 import { TextQuestionType } from "../../types/QuestionTypes";
-import { disableControlsSelector } from "../../utils/utils";
+import { disableControlsSelector, getQuestionAnswerSelector } from "../../utils/utils";
 import { REGEX_NUMBER_ONLY } from "../../utils/validator";
 import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
@@ -33,8 +32,10 @@ const TextQuestion = (props: PropsType): JSX.Element => {
 
     const dispatch = useStoreDispatch();
     const disableControl = useStoreSelector(disableControlsSelector);
-    const value = useQuestionAnswer<TextAnswerType>(question.id).value;
-    const { error, showError, setFocussed } = useValidAnswer(question);
+    const { value } = useStoreSelector(getQuestionAnswerSelector<TextAnswerType>(question.id));
+
+    const store = useTypedStore();
+    const { error, showError, setFocussed } = getValidAnswerData(question, store);
 
     const onChange = (event: SyntheticEvent) => {
         const newValue = (event.target as HTMLInputElement).value;

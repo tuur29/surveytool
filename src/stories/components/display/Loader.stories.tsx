@@ -1,7 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import { Loader } from "../../../components/styles/Loader";
-import { InferStyledTypes } from "../../utils/helpers";
+import { InferStyledTypes } from "../../utils/utils";
 
 // ----------------------------------------------------------------------
 // Setup

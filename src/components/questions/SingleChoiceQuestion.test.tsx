@@ -1,8 +1,7 @@
 import { shallow } from "enzyme";
 import React from "react";
 import { spy, stub } from "sinon";
-import * as useQuestionAnswer from "../../hooks/useQuestionAnswer";
-import * as useValidAnswer from "../../hooks/useValidAnswer";
+import * as getValidAnswerData from "../../utils/validateAnswer";
 import * as store from "../../redux/store";
 import { SingleChoiceAnswerType } from "../../types/AnswerTypes";
 import { questionTypes } from "../../types/QuestionTypes";
@@ -33,7 +32,7 @@ const answerData: SingleChoiceAnswerType = {
 };
 
 const focusSpy = spy();
-const validData: ReturnType<typeof useValidAnswer.default> = {
+const validData: ReturnType<typeof getValidAnswerData.default> = {
     error: "error",
     showError: false,
     setFocussed: focusSpy,
@@ -45,10 +44,10 @@ const validData: ReturnType<typeof useValidAnswer.default> = {
 
 const dispatchSpy = spy();
 stub(store, "useStoreDispatch").returns(dispatchSpy);
+stub(store, "useTypedStore").returns({} as any);
 
 const storeSelector = stub(store, "useStoreSelector");
-const validStub = stub(useValidAnswer, "default");
-const answerStub = stub(useQuestionAnswer, "default");
+const validStub = stub(getValidAnswerData, "default");
 
 // ----------------------------------------------------------------------
 // Tests
@@ -58,9 +57,11 @@ describe("SingleChoiceQuestion", () => {
     beforeEach(() => {
         dispatchSpy.resetHistory();
         focusSpy.resetHistory();
-        storeSelector.returns(false);
         validStub.returns(validData);
-        answerStub.returns(answerData);
+
+        storeSelector.resetHistory();
+        storeSelector.onCall(0).returns(false); // disableControl
+        storeSelector.onCall(1).returns(answerData);
     });
 
     it("Renders a checkbox and label", () => {
@@ -70,7 +71,7 @@ describe("SingleChoiceQuestion", () => {
     });
 
     it("Renders a checked checkbox", () => {
-        answerStub.returns({ ...answerData, value: true });
+        storeSelector.onCall(1).returns({ ...answerData, value: true });
         const component = shallow(<SingleChoiceQuestion {...props} />);
         expect(component.find(Checkbox).props().checked).toBe(true);
     });
@@ -94,7 +95,7 @@ describe("SingleChoiceQuestion", () => {
     });
 
     it("Does not update the store when clicking if disabled", () => {
-        storeSelector.returns(true);
+        storeSelector.onCall(0).returns(true);
         const component = shallow(<SingleChoiceQuestion {...props} />);
         component.find(Checkbox).simulate("click");
         expect(dispatchSpy.callCount).toBe(0);

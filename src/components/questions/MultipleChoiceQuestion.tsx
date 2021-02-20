@@ -1,10 +1,9 @@
 import React, { Fragment } from "react";
-import useQuestionAnswer from "../../hooks/useQuestionAnswer";
-import useValidAnswer from "../../hooks/useValidAnswer";
-import { useStoreDispatch, useStoreSelector } from "../../redux/store";
+import getValidAnswerData from "../../utils/validateAnswer";
+import { useStoreDispatch, useStoreSelector, useTypedStore } from "../../redux/store";
 import { MultipleChoiceAnswerType } from "../../types/AnswerTypes";
 import { MultipleChoiceQuestionType } from "../../types/QuestionTypes";
-import { disableControlsSelector } from "../../utils/utils";
+import { disableControlsSelector, getQuestionAnswerSelector } from "../../utils/utils";
 import Checkbox from "../common/Checkbox";
 import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
@@ -21,8 +20,10 @@ const MultipleChoiceQuestion = (props: PropsType): JSX.Element => {
     const { question } = props;
     const dispatch = useStoreDispatch();
     const disableControl = useStoreSelector(disableControlsSelector);
-    const selectedIds = useQuestionAnswer<MultipleChoiceAnswerType>(question.id).values;
-    const { error, showError, setFocussed } = useValidAnswer(question);
+    const selectedIds = useStoreSelector(getQuestionAnswerSelector<MultipleChoiceAnswerType>(question.id)).values;
+
+    const store = useTypedStore();
+    const { error, showError, setFocussed } = getValidAnswerData(question, store);
 
     const select = (selectedId: string) => {
         if (disableControl) return;

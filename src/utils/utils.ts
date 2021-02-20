@@ -133,6 +133,12 @@ export const disableControlsSelector = (state: StateType): boolean =>
 export const getAllQuestionsSelector = (state: StateType): AllQuestionsType[] =>
     flattenQuestionGroups(state.config.groups);
 
+/**
+ * Returns the matching answer field for a question id, also takes care of type casting
+ */
+export const getQuestionAnswerSelector = <A extends AllAnswersType>(questionId: string) => (state: StateType): A =>
+    (state.answers.list.find((answer) => answer.questionId === questionId) as A) || ({} as A);
+
 // ----------------------------------------------------------------------
 // Hooks
 // ----------------------------------------------------------------------

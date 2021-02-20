@@ -1,7 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import Graph, { GraphDoc } from "../../../components/common/Graph";
-import { mockBarData, mockLineData } from "../../utils/helpers";
+import { mockBarData, mockLineData } from "../../utils/utils";
 
 // ----------------------------------------------------------------------
 // Setup

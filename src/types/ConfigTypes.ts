@@ -1,6 +1,6 @@
 import { DefaultTheme } from "styled-components";
 import { DeepPartial } from "../utils/utils";
-import { LabelType } from "../utils/labels";
+import { LabelsType } from "../utils/labels";
 import { QuestionGroup } from "./QuestionTypes";
 import { AllResultContentType, AnswerDataUrl } from "./ResultTypes";
 
@@ -11,7 +11,7 @@ export type ConfigType = {
      * - When configured, saving the users data to a server will also include the config id so the backend knows which form is being saved.
      */
     id: string;
-    labels: Partial<Record<LabelType, string | null>>;
+    labels: LabelsType;
     theme: DeepPartial<{
         darkMode: boolean;
         values: DefaultTheme;

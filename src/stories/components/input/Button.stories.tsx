@@ -2,7 +2,7 @@ import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import { Button } from "../../../components/styles/Button";
 import Icon from "../../../components/common/Icon";
-import { InferStyledTypes } from "../../utils/helpers";
+import { InferStyledTypes } from "../../utils/utils";
 
 // ----------------------------------------------------------------------
 // Setup

@@ -2,7 +2,7 @@ import React from "react";
 import { Meta } from "@storybook/react/types-6-0";
 import Icon, { iconTypes, orientations } from "../../../components/common/Icon";
 import { defaultThemes } from "../../../utils/theme";
-import { getEnumValues } from "../../utils/helpers";
+import { getEnumValues } from "../../utils/utils";
 
 // ----------------------------------------------------------------------
 // Setup

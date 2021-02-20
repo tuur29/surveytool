@@ -4,7 +4,7 @@ import MultipleChoiceQuestion, { MultipleChoiceQuestionDoc } from "../../compone
 import { MultipleChoiceQuestionType, questionTypes } from "../../types/QuestionTypes";
 import { mockConfig } from "../../utils/mockConfig";
 import { flattenQuestionGroups } from "../../utils/utils";
-import { sharedQuestionArgTypes } from "../utils/helpers";
+import { sharedQuestionArgTypes } from "../utils/utils";
 import { getSharedQuestionParams } from "../utils/components";
 
 // ----------------------------------------------------------------------
