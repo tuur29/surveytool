@@ -1,9 +1,9 @@
 import React from "react";
 import { Provider as StoreProvider } from "react-redux";
 import { ThemeProvider } from "styled-components";
-import { initConfig } from "../src/redux/configReducer";
-import { setResult } from "../src/redux/resultReducer";
-import store from "../src/redux/store";
+import { initConfig } from "../src/redux/actions/configActions";
+import { setResult } from "../src/redux/actions/resultActions";
+import createNewStore from "../src/redux/store";
 import { mockConfig } from "../src/utils/mockConfig";
 import { defaultThemes } from "../src/utils/theme";
 import { GlobalDebugStyle } from "../src/components/DebugPanel";
@@ -15,22 +15,28 @@ import { GlobalDebugStyle } from "../src/components/DebugPanel";
 export const parameters = {
     actions: { argTypesRegex: "^on[A-Z].*" },
     layout: "centered",
+    viewMode: "story",
+    previewTabs: {
+        "storybook/docs/panel": { hidden: true }
+    },
     options: {
+        enableShortcuts: false,
         storySort: {
             order: [
                 "Intro",
-                "Questions",
-                ["Single Choice", "Multiple Choice", "Text", "Range"],
-                "Results",
-                ["Label", "Button", "Graph", "IFrame"],
-                "Components",
                 "Config",
-                ["General", "Colors", "Labels"]
+                ["General", "Colors", "Labels", "Example"],
+                "Questions",
+                ["General", "Single Choice", "Multiple Choice", "Text", "Range"],
+                "Results",
+                ["General", "Label", "Button", "Graph", "IFrame"],
+                "Components"
             ],
         },
     },
-    controls: { expanded: true },
+    controls: { expanded: true }
 };
+
 
 export const globalTypes = {
     theme: {
@@ -60,6 +66,7 @@ export const globalTypes = {
 // Setup components
 // ----------------------------------------------------------------------
 
+const store = createNewStore();
 store.dispatch(initConfig(mockConfig));
 store.dispatch(setResult(25));
 

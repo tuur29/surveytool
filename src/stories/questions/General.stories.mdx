@@ -1,0 +1,23 @@
+import { Meta, ArgsTable } from "@storybook/addon-docs/blocks";
+import { QuestionGroupDoc, QuestionBaseDoc, QuestionImageTypeDoc } from "../utils/components";
+
+<Meta title="Questions/General" />
+
+## Groups
+
+Questions in this tool are always part of a group. This allows you to display some extra content to the user before showing the questions.
+
+<ArgsTable of={QuestionGroupDoc} />
+
+## Questions
+
+Each object in the `group.questions` array is represented with a card. There are 4 different types of question and each type corresponds to a different input / output type. All questions have these properties in common:
+
+<ArgsTable of={QuestionBaseDoc} />
+
+## Images
+
+Both questions and their groups can have an image. This image can be configured with these params:
+
+<ArgsTable of={QuestionImageTypeDoc} />
+

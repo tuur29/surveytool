@@ -19,8 +19,8 @@ type PropsType = React.ComponentProps<typeof ButtonResultDoc>;
 const Template: Story<PropsType> = (args) => (
     <ButtonResult
         config={{
-            type: resultContentTypes.button,
             ...args,
+            type: resultContentTypes.button,
         }}
     />
 );

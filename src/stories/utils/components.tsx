@@ -1,4 +1,7 @@
+import React from "react";
 import styled, { css } from "styled-components";
+import { Title, Description, ArgsTable, Stories, PRIMARY_STORY } from "@storybook/addon-docs/blocks";
+import { BaseQuestion, ImageType, QuestionGroup } from "../../types/QuestionTypes";
 import { generalLabels, messageLabels, questionLabels, resultLabels } from "../../utils/labels";
 import { ColorType, defaultThemes } from "../../utils/theme";
 
@@ -11,6 +14,32 @@ export const GeneralLabelDoc = (props: Partial<typeof generalLabels> = generalLa
 export const MessageLabelDoc = (props: Partial<typeof messageLabels> = messageLabels): null => props && null;
 export const QuestionLabelDoc = (props: Partial<typeof questionLabels> = questionLabels): null => props && null;
 export const ResultLabelDoc = (props: Partial<typeof resultLabels> = resultLabels): null => props && null;
+export const QuestionGroupDoc = (props: QuestionGroup): null => props && null;
+export const QuestionBaseDoc = (props: BaseQuestion): null => props && null;
+export const QuestionImageTypeDoc = (props: ImageType): null => props && null;
+
+// ----------------------------------------------------------------------
+// Questions
+// ----------------------------------------------------------------------
+
+/** Set of shared params for question components */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const getSharedQuestionParams = (description: string) => ({
+    viewMode: "docs", // set default to docs mode
+    previewTabs: {
+        "storybook/docs/panel": { hidden: false, index: -1 }, // unhide docs panel
+    },
+    docs: {
+        page: () => (
+            <>
+                <Title />
+                <Description markdown={description} />
+                <ArgsTable story={PRIMARY_STORY} />
+                <Stories includePrimary />
+            </>
+        ),
+    },
+});
 
 // ----------------------------------------------------------------------
 // Colors

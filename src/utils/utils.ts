@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { AnyStyledComponent, StyledComponentInnerComponent, StyledComponentInnerOtherProps } from "styled-components";
 import { Dispatch } from "redux";
 import { AllQuestionsType, QuestionGroup, questionTypes } from "../types/QuestionTypes";
 import { AllAnswersType } from "../types/AnswerTypes";
@@ -172,12 +171,3 @@ export type DeepPartial<T> = T extends Function // eslint-disable-line @typescri
  * @example DistributiveOmit<A | B, "key"> = Omit<A, "key"> | Omit<B, "key">
  */
 export type DistributiveOmit<T, K extends keyof any> = T extends any ? Omit<T, K> : never;
-
-/**
- * Retrieve the actual prop type of a styled component
- *  * Source: https://stackoverflow.com/a/64055248
- *
- * @example type ButtonPropsType = InferStyledTypes<typeof Button>
- */
-export type InferStyledTypes<T extends AnyStyledComponent> = React.ComponentProps<StyledComponentInnerComponent<T>> &
-    StyledComponentInnerOtherProps<T>;

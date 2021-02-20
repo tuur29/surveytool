@@ -1,0 +1,96 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Results/General" />
+
+# Results
+
+This tool will by default display a results page after the user submitted their answers. This page and other related settings can be configured in the `config.results` object.
+
+| Field name | Data type | Description |
+|---|---|---|
+| `postDataUrl` | [AnswerDataUrl](#answerdataurl--saving-the-users-results) | When filled in the tool will save the user's result to this URL. |
+| `redirectUrl` | [AnswerDataUrl](#answerdataurl--saving-the-users-results) | Instead of displaying the results page, the tool will redirect the user to this URL. |
+| `enableControls` | boolean | Enables the user's ability to edit their answers after submitting them. Defaults to `false`. |
+| `scoreDomain` | [min, max] | An array containing the smallest and largest possible score. This is sometimes used when customizing the results page content. |
+| `results` | `content array` | See other pages in this chapter |
+
+```js
+tool.updateConfig({ ...tool.config,
+    result: {
+        postDataUrl: "POST;https://example.org/api/answer",
+        redirectUrl: "https://example.org/results?score={score}",
+        enableControls: true,
+        scoreDomain: [0, 130]
+    }
+});
+```
+
+In addition to above settings you can also customize the content of the results page by defining the `config.result.content` array.  
+This array can contain 4 different types of blocks.
+
+## AnswerDataUrl & saving the user's results
+
+The `AnswerDataUrl` value type is a string with a specific format. It can be a simple URL like `https://example.org` if desired, but can also contain:
+
+- The request method: `POST;https://example.org` (will default to `GET`)
+- A placeholder for the user's score `https://example.org?data={score}`
+
+The tool will send the user's input to the URL specified in the following JSON structure:
+
+```ts
+{
+    configId: string,
+    score: number, // total calculated score
+    answers: [
+        {
+            questionId: string,
+            type: "single" | "multiple" | "text" | "range",
+            value: string | number | boolean, // type is based on the question type
+            values: [] // only set when the question is a MultipleChoice question
+        },
+        ...
+    ]
+}
+```
+
+Example: [mockDataPost.json](https://github.com/tuur29/surveytool/blob/master/public/mockDataPost.json)
+
+## Graph Data
+
+Your server should return the graph data in the following JSON structure (consistent between line and bar graphs):
+
+```ts
+{
+    xLabel: string,
+    yLabel: string,
+    series: [
+        {
+            id: string, // used as key in the values array
+            name: string, // will be displayed in the graph legend
+            color: string // css color string (#fff, rgb(255,255,255)...)
+        },
+        {
+            // It is possible to define a special "highlight" series to highlight a x-value (line) or category (bar)
+            id: "highlight", // used as key in the values array
+            name: string,
+            color: string // default color for highlighted values
+        },
+        ...
+    ],
+    values: [
+        {
+            x: number | string, // Required, linegraph -> number, bargraph -> string
+            [series.id]: number, // each object of this array should contain at least one series.id key with data
+            highlight: boolean | string, // optional, pass true to use the highlight series default color, or pass a css color string here to override it.
+        },
+        ...
+    ]
+}
+```
+
+For examples see:
+
+- [Line graph](https://github.com/tuur29/surveytool/blob/master/public/mockLineGraph.json)
+- [Bar graph](https://github.com/tuur29/surveytool/blob/master/public/mockBarGraph.json)
+- [Bar graph with only one line](https://github.com/tuur29/surveytool/blob/master/public/mockSingleBarGraph.json)
+

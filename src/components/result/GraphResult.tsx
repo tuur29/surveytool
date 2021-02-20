@@ -53,6 +53,6 @@ const GraphResult = (props: PropsType): JSX.Element => {
 };
 
 // A quick way to get the doc-gen function of Storybook working correctly
-export const GraphResultDoc = (props: Omit<ResultGraphType, "type">): null => props && null;
+export const GraphResultDoc = (props: ResultGraphType): null => props && null;
 
 export default GraphResult;

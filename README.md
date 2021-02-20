@@ -9,7 +9,6 @@ Demo on: https://tuur29.github.io/surveytool/
 Load the [production script file](https://github.com/tuur29/surveytool/releases) inside your own website and create an empty div.
 Next, either initialize the tool in said div with `new SurveyTool(cssSelector, {...})` with the same config object at a later date to initialize the tool:
 
-<!-- TODO: fix other documentation -->
 ```html
 <script src="[...]/surveytool-1.0.0.min.js"></script>
 <div id="surveyTool"></div>

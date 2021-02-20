@@ -23,7 +23,7 @@ export type ImageType = {
     alt?: string;
 };
 
-type BaseQuestion = {
+export type BaseQuestion = {
     /** Should be unique in a configuration. This links the question to it's answer. */
     id: string;
     /** The question being asked to the user. This string can contain multiple `{hint}` placeholders. */

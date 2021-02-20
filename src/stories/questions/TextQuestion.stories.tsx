@@ -4,17 +4,26 @@ import TextQuestion, { TextQuestionDoc } from "../../components/questions/TextQu
 import { TextQuestionType, questionTypes } from "../../types/QuestionTypes";
 import { mockConfig } from "../../utils/mockConfig";
 import { flattenQuestionGroups } from "../../utils/utils";
+import { sharedQuestionArgTypes } from "../utils/helpers";
+import { getSharedQuestionParams } from "../utils/components";
 
 // ----------------------------------------------------------------------
 // Setup
 // ----------------------------------------------------------------------
 
+const description = `
+- Represented by a text input field
+- Answer value: the text provided by the user
+- Default score value:
+  - In case of \`inputType=number\`: the number value
+  - Default case: 0
+`;
+
 export default {
     title: "Questions/Text",
     component: TextQuestionDoc,
-    argTypes: {
-        hints: { control: "array" },
-    },
+    argTypes: sharedQuestionArgTypes,
+    parameters: getSharedQuestionParams(description),
 } as Meta;
 
 type PropsType = React.ComponentProps<typeof TextQuestionDoc>;
@@ -34,20 +43,14 @@ const Template: Story<PropsType> = (args) => (
 export const Text = Template.bind({});
 Text.args = {
     ...(flattenQuestionGroups(mockConfig.groups!).find((question) => question.id === "PZQUDAF") as TextQuestionType),
-    // Stop storybook from making these props
-    ["type" as string]: undefined,
 };
 
 export const Number = Template.bind({});
 Number.args = {
     ...(flattenQuestionGroups(mockConfig.groups!).find((question) => question.id === "PXCHUDAK") as TextQuestionType),
-    // Stop storybook from making these props
-    ["type" as string]: undefined,
 };
 
 export const Email = Template.bind({});
 Email.args = {
     ...(flattenQuestionGroups(mockConfig.groups!).find((question) => question.id === "CUIHUDAK") as TextQuestionType),
-    // Stop storybook from making these props
-    ["type" as string]: undefined,
 };

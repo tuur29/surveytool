@@ -16,8 +16,8 @@ type PropsType = React.ComponentProps<typeof LabelResultDoc>;
 const Template: Story<PropsType> = (args) => (
     <LabelResult
         config={{
-            type: resultContentTypes.label,
             ...args,
+            type: resultContentTypes.label,
         }}
     />
 );

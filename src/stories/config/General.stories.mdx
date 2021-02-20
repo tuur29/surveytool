@@ -10,13 +10,11 @@ There are 5 parts to a configuration object:
 
 | Field name | Data type | Description |
 |---|---|---|
-| `id` | string | Unique key to differentiate between multiple surveys / configs |
-| `theme` | [theme](./src/utils/theme.ts) | **Optional**, object containing all or some colors, font family / sizes, breakpoints and spacing |
-| `labels` | [labels](./src/utils/labels.ts) | **Optional**, a key value map containing all or some labels in tool |
-| `questions` | [question array](./src/types/QuestionTypes.ts) | Required, complex structure containing all question parameters |
-| `results` | [results object](./src/types/ConfigTypes.ts#L15) | **Optional**, object containing settings related to the way the results of the form are handled / displayed |
-
-The example configuration used in the demo can be found here: [mockConfig.ts](./src/utils/mockConfig.ts)
+| `id` | string | Unique key to differentiate between multiple surveys / configs, see below, |
+| `theme` | [theme](https://github.com/tuur29/surveytool/blob/master/src/utils/theme.ts) | **Optional**, object containing all or some colors, font family / sizes, breakpoints and spacing, see below. |
+| `labels` | [labels](https://github.com/tuur29/surveytool/blob/master/src/utils/labels.ts) | **Optional**, a key value map containing all or some labels in tool |
+| `groups` | [question group array](https://github.com/tuur29/surveytool/blob/master/src/types/QuestionTypes.ts) | Required, complex structure containing all question(groups) parameters |
+| `results` | [results object](https://github.com/tuur29/surveytool/blob/master/src/types/ConfigTypes.ts#L15) | **Optional**, object containing settings related to the way the results of the form are handled / displayed |
 
 ## Config id
 

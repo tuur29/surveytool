@@ -65,6 +65,6 @@ const ButtonResult = (props: PropsType): JSX.Element => {
 };
 
 // A quick way to get the doc-gen function of Storybook working correctly
-export const ButtonResultDoc = (props: Omit<ResultButtonType, "type">): null => props && null;
+export const ButtonResultDoc = (props: ResultButtonType): null => props && null;
 
 export default ButtonResult;

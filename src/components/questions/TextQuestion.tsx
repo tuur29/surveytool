@@ -85,6 +85,6 @@ const TextQuestion = (props: PropsType): JSX.Element => {
 };
 
 // A quick way to get the doc-gen function of Storybook working correctly
-export const TextQuestionDoc = (props: Omit<TextQuestionType, "type">): null => props && null;
+export const TextQuestionDoc = (props: TextQuestionType): null => props && null;
 
 export default TextQuestion;

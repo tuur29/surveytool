@@ -19,8 +19,8 @@ type PropsType = React.ComponentProps<typeof IFrameResultDoc>;
 const Template: Story<PropsType> = (args) => (
     <IFrameResult
         config={{
-            type: resultContentTypes.iframe,
             ...args,
+            type: resultContentTypes.iframe,
         }}
     />
 );

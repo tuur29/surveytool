@@ -20,8 +20,8 @@ const Template: Story<PropsType> = (args) => (
     <div style={{ width: 900, height: 450 }}>
         <GraphResult
             config={{
-                type: resultContentTypes.graph,
                 ...args,
+                type: resultContentTypes.graph,
             }}
         />
     </div>

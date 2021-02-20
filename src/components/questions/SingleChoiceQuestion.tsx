@@ -64,6 +64,6 @@ const SingleChoiceQuestion = (props: PropsType): JSX.Element => {
 };
 
 // A quick way to get the doc-gen function of Storybook working correctly
-export const SingleChoiceQuestionDoc = (props: Omit<SingleChoiceQuestionType, "type" | "id">): null => props && null;
+export const SingleChoiceQuestionDoc = (props: SingleChoiceQuestionType): null => props && null;
 
 export default SingleChoiceQuestion;

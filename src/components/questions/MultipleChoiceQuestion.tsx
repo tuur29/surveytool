@@ -110,6 +110,6 @@ const MultipleChoiceQuestion = (props: PropsType): JSX.Element => {
 };
 
 // A quick way to get the doc-gen function of Storybook working correctly
-export const MultipleChoiceQuestionDoc = (props: Omit<MultipleChoiceQuestionType, "type">): null => props && null;
+export const MultipleChoiceQuestionDoc = (props: MultipleChoiceQuestionType): null => props && null;
 
 export default MultipleChoiceQuestion;

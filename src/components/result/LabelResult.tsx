@@ -87,6 +87,6 @@ const LabelResult = (props: PropsType): JSX.Element => {
 };
 
 // A quick way to get the doc-gen function of Storybook working correctly
-export const LabelResultDoc = (props: Omit<ResultLabelType, "type">): null => props && null;
+export const LabelResultDoc = (props: ResultLabelType): null => props && null;
 
 export default LabelResult;

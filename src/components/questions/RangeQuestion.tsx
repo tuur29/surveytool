@@ -63,6 +63,6 @@ const RangeQuestion = (props: PropsType): JSX.Element => {
 };
 
 // A quick way to get the doc-gen function of Storybook working correctly
-export const RangeQuestionDoc = (props: Omit<RangeQuestionType, "type">): null => props && null;
+export const RangeQuestionDoc = (props: RangeQuestionType): null => props && null;
 
 export default RangeQuestion;

@@ -4,17 +4,24 @@ import SingleChoiceQuestion, { SingleChoiceQuestionDoc } from "../../components/
 import { questionTypes, SingleChoiceQuestionType } from "../../types/QuestionTypes";
 import { mockConfig } from "../../utils/mockConfig";
 import { flattenQuestionGroups } from "../../utils/utils";
+import { sharedQuestionArgTypes } from "../utils/helpers";
+import { getSharedQuestionParams } from "../utils/components";
 
 // ----------------------------------------------------------------------
 // Setup
 // ----------------------------------------------------------------------
 
+const description = `
+- Represented by a **checkbox**
+- Answer value: \`boolean\`
+- Default score value: 0 for unchecked, 1 for checked
+`;
+
 export default {
     title: "Questions/Single Choice",
     component: SingleChoiceQuestionDoc,
-    argTypes: {
-        hints: { control: "array" },
-    },
+    argTypes: sharedQuestionArgTypes,
+    parameters: getSharedQuestionParams(description),
 } as Meta;
 
 type PropsType = React.ComponentProps<typeof SingleChoiceQuestionDoc>;
@@ -22,7 +29,6 @@ const Template: Story<PropsType> = (args) => (
     <SingleChoiceQuestion
         question={{
             ...args,
-            id: "EDJUJDO",
             type: questionTypes.single,
         }}
     />
@@ -37,7 +43,4 @@ Default.args = {
     ...(flattenQuestionGroups(mockConfig.groups!).find(
         (question) => question.id === "EDJUJDO",
     ) as SingleChoiceQuestionType),
-    // Stop storybook from making these props
-    ["id" as string]: undefined,
-    ["type" as string]: undefined,
 };

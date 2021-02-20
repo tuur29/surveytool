@@ -1,9 +1,37 @@
+import { AnyStyledComponent, StyledComponentInnerComponent, StyledComponentInnerOtherProps } from "styled-components";
 import { SeriesDataTypes } from "../../types/DataTypes";
 
+/**
+ * Helper to return string values of an enum
+ */
 export const getEnumValues = <T extends string | number>(input: Record<string, T>): T[] =>
     Object.values(input).filter((val) => typeof val === "string");
 
-// Copy of /public/mockBarGraph.json because Storybook cannot access from the public folder
+/**
+ * Retrieve the actual prop type of a styled component
+ *  * Source: https://stackoverflow.com/a/64055248
+ *
+ * @example type ButtonPropsType = InferStyledTypes<typeof Button>
+ */
+export type InferStyledTypes<T extends AnyStyledComponent> = React.ComponentProps<StyledComponentInnerComponent<T>> &
+    StyledComponentInnerOtherProps<T>;
+
+/**
+ * Set of shared argTypes for base question components
+ */
+export const sharedQuestionArgTypes = {
+    id: { control: { disable: true }, table: { category: "Base question" } }, // also disable
+    title: { table: { category: "Base question" } },
+    required: { table: { category: "Base question" } },
+    calcFunction: { table: { category: "Base question" } },
+    image: { table: { category: "Base question" } },
+    hints: { control: "array", table: { category: "Base question" } }, // also set array type
+    type: { control: { disable: true }, table: { category: "Base question" } }, // also disable
+};
+
+/**
+ * Copy of /public/mockBarGraph.json because Storybook cannot access from the public folder
+ */
 export const mockBarData: SeriesDataTypes<string> = {
     xLabel: "Abscissa",
     yLabel: "Ordinate",
@@ -26,7 +54,9 @@ export const mockBarData: SeriesDataTypes<string> = {
     ],
 };
 
-// Copy of /public/mockLineGraph.json because Storybook cannot access from the public folder
+/**
+ * Copy of /public/mockBarGraph.json because Storybook cannot access from the public folder
+ */
 export const mockLineData: SeriesDataTypes<number> = {
     xLabel: "Abscissa",
     yLabel: "Ordinate",
