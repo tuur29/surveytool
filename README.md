@@ -6,6 +6,8 @@ Demo on: https://tuur29.github.io/surveytool/
 
 ## Integration in your own site
 
+<!-- There is an exact copy of this section on the Storybook homepage -->
+<!-- START -->
 Load the [production script file](https://github.com/tuur29/surveytool/releases) inside your own website and create an empty div.
 Next, either initialize the tool in said div with `new SurveyTool(cssSelector, {...})` with the same config object at a later date to initialize the tool:
 
@@ -23,11 +25,11 @@ Next, either initialize the tool in said div with `new SurveyTool(cssSelector, {
     });
 </script>
 ```
+<!-- END -->
 
 ### Configuration
 
 - Check out the [Storybook](https://tuur29.github.io/surveytool/docs)
-- Or read the plain text [CONFIG.md](./src/stories/CONFIG.md) for a complete guide on how to configure this tool.
 - The example configuration used in the demo can be found here: [mockConfig.ts](./src/utils/mockConfig.ts)
 
 ## Development
