@@ -1,6 +1,7 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useMemo } from "react";
 import { useStoreSelector } from "../redux/store";
 import { AllResultContentType, resultContentTypes } from "../types/ResultTypes";
+import { useInitResetTimer } from "../hooks/timerHooks";
 import { Container } from "./styles/Container";
 import LabelResult from "./result/LabelResult";
 import GraphResult from "./result/GraphResult";
@@ -21,8 +22,11 @@ const determineComponent = (block: AllResultContentType, index: number): JSX.Ele
 };
 
 const ResultList = (): JSX.Element | null => {
+    const showResult = useStoreSelector((state) => state.result.showResult);
     const content = useStoreSelector((state) => state.config.result.content);
     const containerRef = useRef<HTMLDivElement>(null);
+
+    useInitResetTimer();
 
     // Scroll to results when it becomes visible
     useEffect(() => {
@@ -31,12 +35,15 @@ const ResultList = (): JSX.Element | null => {
         }
     }, []);
 
-    if (!content || !content.length) return null;
-    return (
-        <Container ref={containerRef} pb={4} maxBreakpoint="lg">
-            {content.map(determineComponent)}
-        </Container>
-    );
+    // We need to wrap this in useMemo because the useInitResetTimer will otherwise trigger a re-render every second
+    return useMemo(() => {
+        if (!showResult || !content || !content.length) return null;
+        return (
+            <Container ref={containerRef} pb={4} maxBreakpoint="lg">
+                {content.map(determineComponent)}
+            </Container>
+        );
+    }, [showResult, content]);
 };
 
 export default ResultList;

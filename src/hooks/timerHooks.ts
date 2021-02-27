@@ -31,7 +31,7 @@ export const useRestartTimer = (): number | null => {
 /**
  * Resets the answer state when the timer reaches 0
  */
-export const useInitTimer = (): void => {
+export const useInitResetTimer = (): void => {
     const dispatch = useStoreDispatch();
     const restartTime = useRestartTimer();
     useEffect(() => {
