@@ -111,8 +111,10 @@ export type QuestionGroup = {
     description?: string;
     /** Will be displayed above or to the right of the question title. */
     image?: ImageType;
-    /** Accent colour for the questions in the group, can be CSS hex */
-    color?: string;
+    /** When filled in a left border will be shown in the CSS hex colour */
+    accentColor?: string;
+    /** Colours the question wrappers in this CSS hex colour */
+    backgroundColor?: string;
     questions: AllQuestionsType[];
-    showOnNewPage?: boolean;
-} & Partial<Hintable>;
+    // showOnNewPage?: boolean; // TODO: Allow pagination via groups
+};

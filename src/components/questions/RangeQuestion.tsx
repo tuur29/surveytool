@@ -1,6 +1,7 @@
 import React from "react";
 import { RangeQuestionType } from "../../types/QuestionTypes";
-import { Question, Image, Title } from "../styles/Question";
+import { Question, Title } from "../styles/Question";
+import { Image } from "../styles/Image";
 import { useStoreDispatch, useStoreSelector } from "../../redux/store";
 import HintableLabel from "../common/HintableLabel";
 import { RangeAnswerType } from "../../types/AnswerTypes";

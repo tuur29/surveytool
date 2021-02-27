@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components";
 import { SpaceProps, space, TextAlignProps, textAlign } from "styled-system";
 import { BreakpointType } from "../../utils/theme";
+import { ImageWrapper } from "./Image";
+import { Question } from "./Question";
 
 export const Container = styled.div<SpaceProps & { maxBreakpoint?: BreakpointType }>`
     max-width: ${({ theme, maxBreakpoint }) => theme.breakpoints[maxBreakpoint || "xl"]};
@@ -30,7 +32,7 @@ Description.defaultProps = {
     paddingX: { xs: 2, lg: 5 },
 };
 
-export const Group = styled.div<{ showSeparator?: boolean }>`
+export const Group = styled.div<{ showSeparator?: boolean; accentColor?: string; questionBackgroundColor?: string }>`
     ${({ theme, showSeparator }) =>
         showSeparator &&
         css`
@@ -38,12 +40,33 @@ export const Group = styled.div<{ showSeparator?: boolean }>`
                 display: block;
             }
 
-            ${Header}, ${Description} {
+            ${Description} {
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            ${ImageWrapper} {
                 margin: -${theme.space[3]}px;
                 margin-bottom: ${theme.space[3]}px;
-                padding: 0 ${theme.space[3]}px;
+                padding: 0 ${theme.space[5]}px;
             }
         `}
+
+    ${Question} {
+        ${({ accentColor }) =>
+            accentColor
+                ? css`
+                      border-left: 6px solid ${accentColor};
+                  `
+                : ""};
+
+        ${({ questionBackgroundColor }) =>
+            questionBackgroundColor
+                ? css`
+                      background-color: ${questionBackgroundColor};
+                  `
+                : ""};
+    }
 `;
 
 export const Footer = styled(Container)<TextAlignProps>`

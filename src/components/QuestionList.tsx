@@ -7,6 +7,7 @@ import MultipleChoiceQuestion from "./questions/MultipleChoiceQuestion";
 import TextQuestion from "./questions/TextQuestion";
 import RangeQuestion from "./questions/RangeQuestion";
 import ShowResultsButton from "./questions/ShowResultsButton";
+import { Image, ImageWrapper } from "./styles/Image";
 
 const determineComponent = (question: AllQuestionsType): JSX.Element => {
     switch (question.type) {
@@ -27,12 +28,28 @@ const QuestionList = (): JSX.Element | null => {
     return (
         <Container py={4}>
             {config.groups.map((group, i) => (
-                <Group key={i} showSeparator={i > 0}>
+                <Group
+                    key={i}
+                    showSeparator={i > 0}
+                    accentColor={group.accentColor}
+                    questionBackgroundColor={group.backgroundColor}
+                >
                     <Line />
-                    {/* TODO: implement hintable, description HTML, image & color support */}
-                    {group.title && <Header>{group.title}</Header>}
-                    {group.description && <Description>{group.description}</Description>}
-                    {group.questions.map(determineComponent)}
+                    <ImageWrapper imagePosition={group.image ? group.image.alignment || "right" : undefined}>
+                        <div>
+                            {group.title && <Header>{group.title}</Header>}
+                            {group.description && (
+                                <Description>
+                                    <span dangerouslySetInnerHTML={{ __html: group.description }} />
+                                </Description>
+                            )}
+                        </div>
+
+                        {group.image && (
+                            <Image src={group.image.url} widthPercentage={group.image.size} alt={group.image.alt} />
+                        )}
+                    </ImageWrapper>
+                    <div>{group.questions.map(determineComponent)}</div>
                 </Group>
             ))}
             <ShowResultsButton />

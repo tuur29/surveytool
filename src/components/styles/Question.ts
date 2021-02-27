@@ -2,17 +2,7 @@ import styled, { css } from "styled-components";
 import { SpaceProps, space } from "styled-system";
 import { ImageType } from "../../types/QuestionTypes";
 import { getElevation } from "../../utils/theme";
-
-export const Image = styled.img<{ widthPercentage?: number }>`
-    ${({ widthPercentage }) =>
-        widthPercentage
-            ? css`
-                  width: ${widthPercentage * 100}%;
-              `
-            : css`
-                  flex-grow: 1;
-              `};
-`;
+import { imageAlignmentStyles } from "./Image";
 
 export const Question = styled.article<SpaceProps & { imagePosition?: ImageType["alignment"] }>`
     background-color: ${({ theme }) => theme.colors.surface};
@@ -21,17 +11,11 @@ export const Question = styled.article<SpaceProps & { imagePosition?: ImageType[
     border-radius: ${({ theme }) => theme.sizes.radius};
     ${space};
 
+    ${imageAlignmentStyles}
     ${({ imagePosition }) =>
         imagePosition &&
         css`
-            display: flex;
             flex-direction: ${imagePosition === "right" ? "row-reverse" : "column"};
-            justify-content: space-between;
-
-            ${Image} {
-                align-self: ${imagePosition === "center" ? "center" : "unset"};
-                margin-left: ${({ theme }) => (imagePosition === "right" ? theme.space[4] : 0)}px;
-            }
         `};
 `;
 

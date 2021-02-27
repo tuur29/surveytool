@@ -8,7 +8,8 @@ import { REGEX_NUMBER_ONLY } from "../../utils/validator";
 import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
 import { FieldError, TextField } from "../styles/Input";
-import { Question, Image, Title } from "../styles/Question";
+import { Question, Title } from "../styles/Question";
+import { Image } from "../styles/Image";
 import { setAnswer } from "../../redux/actions/answersActions";
 
 // blocks users from entering

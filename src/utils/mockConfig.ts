@@ -9,6 +9,7 @@ export const mockConfig: Partial<ConfigType> = {
             title: "Questions",
             description:
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat enim Polemonis. Iam contemni non poteris.\nEquidem etiam Epicurum, in physicis quidem, Democriteum puto. An quod ita callida est, ut optime possit architectari voluptates? Iam quae corporis sunt, ea nec auctoritatem cum animi partibus.",
+            accentColor: "#db3f37",
             questions: [
                 {
                     id: "EDJUJDO",
@@ -35,6 +36,7 @@ export const mockConfig: Partial<ConfigType> = {
                     image: {
                         url: "https://via.placeholder.com/350x65",
                         alt: "Placeholder 1",
+                        alignment: "left",
                     },
                 },
                 {
@@ -55,7 +57,6 @@ export const mockConfig: Partial<ConfigType> = {
                     tickLabels: ["Min", "", "Two"],
                     image: {
                         url: "https://via.placeholder.com/350x65",
-                        alignment: "right",
                         size: 0.3,
                         alt: "Placeholder 2",
                     },
@@ -63,8 +64,14 @@ export const mockConfig: Partial<ConfigType> = {
             ],
         },
         {
+            accentColor: "#1E88E5",
             description:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat enim Polemonis. Iam contemni non poteris.\nEquidem etiam Epicurum, in physicis quidem, Democriteum puto. An quod ita callida est, ut optime possit architectari voluptates? Iam quae corporis sunt, ea nec auctoritatem cum animi partibus.",
+                "Lorem <strong>ipsum dolor sit amet</strong>, consectetur adipiscing elit. Erat enim Polemonis. Iam contemni non poteris.\nEquidem etiam Epicurum, in physicis quidem, Democriteum puto. An quod ita callida est, ut optime possit architectari voluptates? Iam quae corporis sunt, ea nec auctoritatem cum animi partibus.",
+            image: {
+                url: "https://via.placeholder.com/200x200",
+                alt: "Placeholder 3",
+                alignment: "right",
+            },
             questions: [
                 {
                     id: "CUIHUDAK",
@@ -110,8 +117,7 @@ export const mockConfig: Partial<ConfigType> = {
                     },
                     image: {
                         url: "https://via.placeholder.com/350x65",
-                        alignment: "left",
-                        size: 0.3,
+                        alignment: "right",
                         alt: "Placeholder 3",
                     },
                     calcFunction: (question: any, answer: any) => {

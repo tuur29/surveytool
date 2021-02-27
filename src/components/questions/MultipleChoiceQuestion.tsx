@@ -9,7 +9,8 @@ import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
 import Select from "../common/Select";
 import { FieldError, Label, RadioButton } from "../styles/Input";
-import { Question, Image, Title } from "../styles/Question";
+import { Question, Title } from "../styles/Question";
+import { Image } from "../styles/Image";
 import { setAnswer } from "../../redux/actions/answersActions";
 
 type PropsType = {
