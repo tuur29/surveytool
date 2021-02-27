@@ -1,0 +1,16 @@
+{
+    "configId": "mock",
+    "score": 83,
+    "answers": [
+        { "questionId": "EDJUJDO", "focussed": false, "type": "single", "value": false },
+        { "questionId": "JIWMEFJA", "type": "multiple", "values": ["1"], "focussed": true },
+        { "questionId": "PXCHUDAK", "type": "text", "value": "12", "focussed": true },
+        { "questionId": "QXCHUKIH", "focussed": false, "type": "range", "value": 0 },
+        { "questionId": "CUIHUDAK", "type": "text", "value": "a@b.com", "focussed": true },
+        { "questionId": "LPAKDUCZUD", "focussed": false, "type": "multiple", "values": [] },
+        { "questionId": "ENARECZUD", "focussed": false, "type": "multiple", "values": ["1", "2"] },
+        { "questionId": "PZQUDAF", "focussed": false, "type": "text", "value": "" },
+        { "questionId": "EPOCOCVOD", "focussed": false, "type": "single", "value": true },
+        { "questionId": "PDJRLCWT", "focussed": false, "type": "range", "value": 4 }
+    ]
+}

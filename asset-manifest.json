@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/surveytool/static/css/main.8b60bc61.chunk.css",
+    "main.js": "/surveytool/static/js/main.29c09a1f.chunk.js",
+    "main.js.map": "/surveytool/static/js/main.29c09a1f.chunk.js.map",
+    "runtime-main.js": "/surveytool/static/js/runtime-main.b2a638df.js",
+    "runtime-main.js.map": "/surveytool/static/js/runtime-main.b2a638df.js.map",
+    "static/js/2.b043c558.chunk.js": "/surveytool/static/js/2.b043c558.chunk.js",
+    "static/js/2.b043c558.chunk.js.map": "/surveytool/static/js/2.b043c558.chunk.js.map",
+    "index.html": "/surveytool/index.html",
+    "precache-manifest.e9d3456ad04b314d5d37d7c6b44b4686.js": "/surveytool/precache-manifest.e9d3456ad04b314d5d37d7c6b44b4686.js",
+    "service-worker.js": "/surveytool/service-worker.js",
+    "static/css/main.8b60bc61.chunk.css.map": "/surveytool/static/css/main.8b60bc61.chunk.css.map",
+    "static/js/2.b043c558.chunk.js.LICENSE.txt": "/surveytool/static/js/2.b043c558.chunk.js.LICENSE.txt",
+    "static/media/arrow-circle-right-solid.e7f07410.svg": "/surveytool/static/media/arrow-circle-right-solid.e7f07410.svg",
+    "static/media/caret-up-solid.f1c37d9b.svg": "/surveytool/static/media/caret-up-solid.f1c37d9b.svg",
+    "static/media/check-solid.e597acab.svg": "/surveytool/static/media/check-solid.e597acab.svg",
+    "static/media/exclamation-triangle-solid.a35f82b9.svg": "/surveytool/static/media/exclamation-triangle-solid.a35f82b9.svg",
+    "static/media/info-circle-solid.d9a24d05.svg": "/surveytool/static/media/info-circle-solid.d9a24d05.svg",
+    "static/media/times-circle-solid.bb7daa97.svg": "/surveytool/static/media/times-circle-solid.bb7daa97.svg",
+    "static/media/times-solid.2c5552a1.svg": "/surveytool/static/media/times-solid.2c5552a1.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b2a638df.js",
+    "static/js/2.b043c558.chunk.js",
+    "static/css/main.8b60bc61.chunk.css",
+    "static/js/main.29c09a1f.chunk.js"
+  ]
+}
