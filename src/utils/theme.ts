@@ -56,6 +56,9 @@ const colors = {
     icon: palettes.neutralLight[6],
     iconHover: palettes.neutralLight[7],
     separator: palettes.neutralLight[4],
+    // score counter
+    scoreCounterFront: palettes.primary[8],
+    scoreCounterBack: palettes.neutralLight[3],
 };
 
 const sizes = {
@@ -73,6 +76,9 @@ const sizes = {
     controlSliderTrackHeight: "12px",
     controlSliderHandleSize: "24px",
     buttonTextSize: "16px",
+    // scoreCounter
+    scoreCounterSize: "200px",
+    scoreCounterThickness: "20px",
 };
 
 const zIndex = {

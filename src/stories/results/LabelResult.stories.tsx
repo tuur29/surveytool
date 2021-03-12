@@ -32,9 +32,16 @@ Text.args = {
     style: "title",
 };
 
-export const Description = Template.bind({});
-Description.args = {
+export const ScoreCounter180 = Template.bind({});
+ScoreCounter180.args = {
     label: "{score}%",
-    style: "scoreCounter",
+    style: "scoreCounter180",
+    animate: true,
+};
+
+export const ScoreCounter270 = Template.bind({});
+ScoreCounter270.args = {
+    label: "{score}%",
+    style: "scoreCounter270",
     animate: true,
 };

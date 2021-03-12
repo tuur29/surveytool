@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider as StoreProvider } from "react-redux";
-import "./index.css";
 import App from "./components/App";
 import createNewStore, { StoreType } from "./redux/store";
 import * as serviceWorker from "./serviceWorker";

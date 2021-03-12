@@ -19,7 +19,7 @@ export type ResultLabelType = {
     /** Can contain {score}, {scoreX} placeholder (scoreX -> score/10, score/20, score/100...). */
     label: string;
     /** "title" and "description" only change font size, while "scoreCounter" will display the score in a dial. */
-    style: "title" | "description" | "scoreCounter";
+    style: "title" | "description" | "scoreCounter180" | "scoreCounter270";
     /** When enabled the score placeholders will count up in an animation. */
     animate?: boolean;
 };

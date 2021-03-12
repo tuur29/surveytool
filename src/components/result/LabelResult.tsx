@@ -9,7 +9,8 @@ import {
     useAfterFirstRender,
     replaceValues,
 } from "../../utils/utils";
-import ScoreCounter from "../common/ScoreCounter";
+import ScoreCounter180 from "../common/ScoreCounter180";
+import ScoreCounter270 from "../common/ScoreCounter270";
 import { useRestartTimer } from "../../hooks/timerHooks";
 
 const rescaleToDomain = (value: number, sourceDomain: number[], targetDomain: number[]): number => {
@@ -75,8 +76,15 @@ const LabelResult = (props: PropsType): JSX.Element => {
         <Result>
             {config.style === "title" && <Header>{label}</Header>}
             {config.style === "description" && <Description>{label}</Description>}
-            {config.style === "scoreCounter" && (
-                <ScoreCounter
+            {config.style === "scoreCounter180" && (
+                <ScoreCounter180
+                    dialPercentage={afterFirstRender ? rescaleToDomain(score, domain, [0, 1]) : 0}
+                    label={label}
+                    animate={props.config.animate}
+                />
+            )}
+            {config.style === "scoreCounter270" && (
+                <ScoreCounter270
                     dialPercentage={afterFirstRender ? rescaleToDomain(score, domain, [0, 1]) : 0}
                     label={label}
                     animate={props.config.animate}
