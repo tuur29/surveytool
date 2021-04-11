@@ -1,7 +1,8 @@
 import { questionTypes } from "./QuestionTypes";
 
 type BaseAnswerType = {
-    questionId: string;
+    /** Format is "{hash}-{id}" */
+    questionIdHash: string;
     focussed: boolean;
 };
 

@@ -3,7 +3,7 @@ import getValidAnswerData from "../../utils/validateAnswer";
 import { useStoreDispatch, useStoreSelector, useTypedStore } from "../../redux/store";
 import { MultipleChoiceAnswerType } from "../../types/AnswerTypes";
 import { MultipleChoiceQuestionType } from "../../types/QuestionTypes";
-import { disableControlsSelector, getQuestionAnswerSelector } from "../../utils/utils";
+import { disableControlsSelector, getQuestionAnswerSelector, getQuestionIdHash } from "../../utils/utils";
 import Checkbox from "../common/Checkbox";
 import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
@@ -21,7 +21,7 @@ const MultipleChoiceQuestion = (props: PropsType): JSX.Element => {
     const { question } = props;
     const dispatch = useStoreDispatch();
     const disableControl = useStoreSelector(disableControlsSelector);
-    const selectedIds = useStoreSelector(getQuestionAnswerSelector<MultipleChoiceAnswerType>(question.id)).values;
+    const selectedIds = useStoreSelector(getQuestionAnswerSelector<MultipleChoiceAnswerType>(question)).values;
 
     const store = useTypedStore();
     const { error, showError, setFocussed } = getValidAnswerData(question, store);
@@ -47,7 +47,7 @@ const MultipleChoiceQuestion = (props: PropsType): JSX.Element => {
         setFocussed();
         dispatch(
             setAnswer({
-                questionId: question.id,
+                questionIdHash: getQuestionIdHash(question),
                 type: question.type,
                 values: newValues,
             }),
@@ -55,7 +55,10 @@ const MultipleChoiceQuestion = (props: PropsType): JSX.Element => {
     };
 
     return (
-        <Question id={question.id} imagePosition={question.image ? question.image.alignment || "right" : undefined}>
+        <Question
+            id={`question-${getQuestionIdHash(question)}`}
+            imagePosition={question.image ? question.image.alignment || "right" : undefined}
+        >
             {question.image && (
                 <Image src={question.image.url} widthPercentage={question.image.size} alt={question.image.alt} />
             )}

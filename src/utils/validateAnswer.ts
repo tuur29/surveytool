@@ -39,7 +39,7 @@ const getValidAnswerData = <Q extends AllQuestionsType>(question: Q, store: Stor
     // get answer value
     const { dispatch, getState } = store;
     const state = getState();
-    const answer = getQuestionAnswerSelector(question.id)(state);
+    const answer = getQuestionAnswerSelector(question)(state);
 
     // get correct error label
     const labels = state.config.labels;
@@ -52,9 +52,10 @@ const getValidAnswerData = <Q extends AllQuestionsType>(question: Q, store: Stor
         error: customErrorLabel || errorLabel || "Error",
         showError: !valid && answer.focussed,
         setFocussed: () => {
-            dispatch(setAnswerFocus(answer.questionId, true));
+            dispatch(setAnswerFocus(answer.questionIdHash, true));
         },
     };
 };
 
+// TODO: combine this with validator.ts file
 export default getValidAnswerData;

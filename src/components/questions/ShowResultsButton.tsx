@@ -6,7 +6,7 @@ import { useStoreSelector, useStoreDispatch } from "../../redux/store";
 import { isAnswerValid } from "../../utils/validator";
 import { ErrorPanel, ErrorList } from "../styles/Question";
 import { showResult } from "../../redux/actions/resultActions";
-import { getAllQuestionsSelector } from "../../utils/utils";
+import { getAllQuestionsSelector, getQuestionIdHash } from "../../utils/utils";
 
 const MAX_ERRORS = 3;
 
@@ -19,8 +19,8 @@ const ShowResultsButton = (): JSX.Element => {
     const [buttonLabel, errorTitleLabel] = useLabels(["resultSeeButton", "questionsErrorTitle"]);
 
     const invalidDataList = allAnswers.reduce<InvalidItem[]>((invalidList, answer) => {
-        const question = allQuestions.find((item) => item.id === answer.questionId)!;
-        if (!isAnswerValid(question, answer)) {
+        const question = allQuestions.find((question) => answer.questionIdHash.includes(question.hash!));
+        if (question && !isAnswerValid(question, answer)) {
             // limit the errors list to MAX_ERRORS items
             if (invalidList.length === MAX_ERRORS) {
                 invalidList.push({ id: "more", title: "..." });
@@ -28,7 +28,7 @@ const ShowResultsButton = (): JSX.Element => {
 
             if (invalidList.length < MAX_ERRORS) {
                 invalidList.push({
-                    id: question.id,
+                    id: getQuestionIdHash(question),
                     title: question.title.replace("{hint}", ""),
                 });
             }
@@ -38,7 +38,7 @@ const ShowResultsButton = (): JSX.Element => {
     const isValid = invalidDataList.length < 1;
 
     const scrollToQuestionId = (id: string) => {
-        document.querySelector(`#${id}`)?.scrollIntoView({
+        document.querySelector(`#question-${id}`)?.scrollIntoView({
             behavior: "smooth",
         });
     };

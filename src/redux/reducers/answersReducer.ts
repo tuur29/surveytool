@@ -35,16 +35,16 @@ export const answersReducer = (state: AnswersState = initialAnswersState, action
         case "ANSWERS_SET": {
             const { answer } = action;
             const newAnswersList = [...state.list]; // do not mutate original state
-            const index = newAnswersList.findIndex((a) => a.questionId === answer.questionId); // find index of answer to edit
+            const index = newAnswersList.findIndex((a) => a.questionIdHash.includes(answer.questionIdHash)); // find index of answer to edit
             const newAnswer = { ...answer, focussed: true } as AllAnswersType; // Add focussed flag
             newAnswersList[index > -1 ? index : newAnswersList.length] = newAnswer; // fallback to adding item as next one in the list
             return { ...state, list: newAnswersList, lastUpdate: Date.now() }; // replace answer
         }
 
         case "ANSWERS_SET_FOCUS": {
-            const { questionId, focussed } = action;
+            const { questionHash, focussed } = action;
             const newAnswersList = [...state.list];
-            const index = newAnswersList.findIndex((a) => a.questionId === questionId);
+            const index = newAnswersList.findIndex((a) => a.questionIdHash.includes(questionHash));
             newAnswersList[index] = { ...newAnswersList[index], focussed };
             return { ...state, list: newAnswersList };
         }

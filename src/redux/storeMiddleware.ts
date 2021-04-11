@@ -2,8 +2,9 @@ import { Middleware, Dispatch, applyMiddleware } from "redux";
 import {
     flattenQuestionGroups,
     generateAnswerStorageKey,
-    generateInitialAnswers,
+    generateInitialAnswer,
     getAllQuestionsSelector,
+    populateQuestionHash,
 } from "../utils/utils";
 import { AllAnswersType } from "../types/AnswerTypes";
 import { ActionsType, StoreApiType } from "./store";
@@ -21,13 +22,15 @@ const AllLogicMiddleware: Middleware = (store: StoreApiType) => (next: Dispatch<
                 localAnswersString && localAnswersString.length ? JSON.parse(localAnswersString).list : [];
 
             // or create a new set of placeholder answers
-            const initialAnswers = generateInitialAnswers(flattenQuestionGroups(action.config.groups));
+            const initialAnswers = flattenQuestionGroups(action.config.groups)
+                .map(populateQuestionHash)
+                .map(generateInitialAnswer);
 
             // merge loaded and initial answers
             const mergedAnswers = initialAnswers.map((answer) => {
                 const foundLoadedAnswer = loadedAnswers.find(
                     (loadedAnswer) =>
-                        loadedAnswer.questionId === answer.questionId && loadedAnswer.type === answer.type,
+                        loadedAnswer.questionIdHash === answer.questionIdHash && loadedAnswer.type === answer.type,
                 );
                 return foundLoadedAnswer || answer;
             });
@@ -38,7 +41,7 @@ const AllLogicMiddleware: Middleware = (store: StoreApiType) => (next: Dispatch<
 
         case "ANSWERS_RESET": {
             const questions = getAllQuestionsSelector(store.getState());
-            const initialAnswers = generateInitialAnswers(questions);
+            const initialAnswers = questions.map(generateInitialAnswer);
             // Reuse initAnswers instead of dispatching the reset action
             store.dispatch(initAnswers(initialAnswers));
             return;

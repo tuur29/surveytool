@@ -3,7 +3,7 @@ import getValidAnswerData from "../../utils/validateAnswer";
 import { useStoreDispatch, useStoreSelector, useTypedStore } from "../../redux/store";
 import { TextAnswerType } from "../../types/AnswerTypes";
 import { TextQuestionType } from "../../types/QuestionTypes";
-import { disableControlsSelector, getQuestionAnswerSelector } from "../../utils/utils";
+import { disableControlsSelector, getQuestionAnswerSelector, getQuestionIdHash } from "../../utils/utils";
 import { REGEX_NUMBER_ONLY } from "../../utils/validator";
 import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
@@ -33,7 +33,7 @@ const TextQuestion = (props: PropsType): JSX.Element => {
 
     const dispatch = useStoreDispatch();
     const disableControl = useStoreSelector(disableControlsSelector);
-    const { value } = useStoreSelector(getQuestionAnswerSelector<TextAnswerType>(question.id));
+    const { value } = useStoreSelector(getQuestionAnswerSelector<TextAnswerType>(question));
 
     const store = useTypedStore();
     const { error, showError, setFocussed } = getValidAnswerData(question, store);
@@ -45,7 +45,7 @@ const TextQuestion = (props: PropsType): JSX.Element => {
 
         dispatch(
             setAnswer({
-                questionId: question.id,
+                questionIdHash: getQuestionIdHash(question),
                 type: question.type,
                 value: newValue,
             }),
@@ -53,7 +53,10 @@ const TextQuestion = (props: PropsType): JSX.Element => {
     };
 
     return (
-        <Question id={question.id} imagePosition={question.image ? question.image.alignment || "right" : undefined}>
+        <Question
+            id={`question-${getQuestionIdHash(question)}`}
+            imagePosition={question.image ? question.image.alignment || "right" : undefined}
+        >
             {question.image && (
                 <Image src={question.image.url} widthPercentage={question.image.size} alt={question.image.alt} />
             )}

@@ -41,6 +41,6 @@ const Template: Story<PropsType> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
     ...(flattenQuestionGroups(mockConfig.groups!).find(
-        (question) => question.id === "EDJUJDO",
+        (question) => question.id === "interested",
     ) as SingleChoiceQuestionType),
 };

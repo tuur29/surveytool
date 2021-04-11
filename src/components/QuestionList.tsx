@@ -1,6 +1,7 @@
 import React from "react";
 import { AllQuestionsType, questionTypes } from "../types/QuestionTypes";
 import { useStoreSelector } from "../redux/store";
+import { getQuestionIdHash } from "../utils/utils";
 import { Container, Group, Line, Header, Description } from "./styles/Container";
 import SingleChoiceQuestion from "./questions/SingleChoiceQuestion";
 import MultipleChoiceQuestion from "./questions/MultipleChoiceQuestion";
@@ -12,13 +13,13 @@ import { Image, ImageWrapper } from "./styles/Image";
 const determineComponent = (question: AllQuestionsType): JSX.Element => {
     switch (question.type) {
         case questionTypes.single:
-            return <SingleChoiceQuestion key={question.id} question={question} />;
+            return <SingleChoiceQuestion key={getQuestionIdHash(question)} question={question} />;
         case questionTypes.multiple:
-            return <MultipleChoiceQuestion key={question.id} question={question} />;
+            return <MultipleChoiceQuestion key={getQuestionIdHash(question)} question={question} />;
         case questionTypes.text:
-            return <TextQuestion key={question.id} question={question} />;
+            return <TextQuestion key={getQuestionIdHash(question)} question={question} />;
         case questionTypes.range:
-            return <RangeQuestion key={question.id} question={question} />;
+            return <RangeQuestion key={getQuestionIdHash(question)} question={question} />;
     }
 };
 

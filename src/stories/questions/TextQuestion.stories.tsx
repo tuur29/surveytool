@@ -42,15 +42,19 @@ const Template: Story<PropsType> = (args) => (
 
 export const Text = Template.bind({});
 Text.args = {
-    ...(flattenQuestionGroups(mockConfig.groups!).find((question) => question.id === "PZQUDAF") as TextQuestionType),
+    ...(flattenQuestionGroups(mockConfig.groups!).find((question) => question.id === "name") as TextQuestionType),
 };
 
 export const Number = Template.bind({});
 Number.args = {
-    ...(flattenQuestionGroups(mockConfig.groups!).find((question) => question.id === "PXCHUDAK") as TextQuestionType),
+    ...(flattenQuestionGroups(mockConfig.groups!).find(
+        (question) => question.id === "flavour-shared",
+    ) as TextQuestionType),
 };
 
 export const Email = Template.bind({});
 Email.args = {
-    ...(flattenQuestionGroups(mockConfig.groups!).find((question) => question.id === "CUIHUDAK") as TextQuestionType),
+    ...(flattenQuestionGroups(mockConfig.groups!).find(
+        (question) => question.id === "mailaddress",
+    ) as TextQuestionType),
 };

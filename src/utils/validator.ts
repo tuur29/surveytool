@@ -5,7 +5,7 @@ import { AllAnswersType, TextAnswerType } from "../types/AnswerTypes";
 export const REGEX_EMAIL_FORMAT = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // https://emailregex.com/
 export const REGEX_NUMBER_ONLY = /^[0-9]*$/;
 
-export const isAnswerValueFilledIn = (answer: AllAnswersType): boolean => {
+const isAnswerValueFilledIn = (answer: AllAnswersType): boolean => {
     switch (answer.type) {
         case questionTypes.multiple: {
             return answer.values.length > 0;
@@ -42,9 +42,10 @@ const isTextAnswerValid = (question: TextQuestionType, answer: TextAnswerType): 
 };
 
 export const isAnswerValid = (question: AllQuestionsType, answer: AllAnswersType): boolean => {
-    if (question.type !== answer.type || question.id !== answer.questionId) {
+    // Because the hash isn't 100% collision proof we also check some other fields here, just in case.
+    if (!answer.questionIdHash.includes(question.hash!) || question.type !== answer.type) {
         throw new Error(
-            `Cannot validate answer with data from a different question. Question id: ${question.id}, answers question id: ${answer.questionId}`,
+            `Cannot validate answer with data from a different question. Question hash: ${question.hash}, answers question idHash: ${answer.questionIdHash}`,
         );
     }
 

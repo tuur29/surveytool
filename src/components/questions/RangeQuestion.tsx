@@ -7,7 +7,7 @@ import HintableLabel from "../common/HintableLabel";
 import { RangeAnswerType } from "../../types/AnswerTypes";
 import Slider from "../common/Slider";
 import RadioSlider from "../common/RadioSlider";
-import { disableControlsSelector, getQuestionAnswerSelector } from "../../utils/utils";
+import { disableControlsSelector, getQuestionAnswerSelector, getQuestionIdHash } from "../../utils/utils";
 import { setAnswer } from "../../redux/actions/answersActions";
 
 type PropsType = {
@@ -18,13 +18,13 @@ const RangeQuestion = (props: PropsType): JSX.Element => {
     const { question } = props;
     const dispatch = useStoreDispatch();
     const disableControl = useStoreSelector(disableControlsSelector);
-    const { value } = useStoreSelector(getQuestionAnswerSelector<RangeAnswerType>(question.id));
+    const { value } = useStoreSelector(getQuestionAnswerSelector<RangeAnswerType>(question));
 
     const setValue = (newValue: number) => {
         if (disableControl) return;
         dispatch(
             setAnswer({
-                questionId: question.id,
+                questionIdHash: getQuestionIdHash(question),
                 type: question.type,
                 value: newValue,
             }),
@@ -45,7 +45,10 @@ const RangeQuestion = (props: PropsType): JSX.Element => {
     };
 
     return (
-        <Question id={question.id} imagePosition={question.image ? question.image.alignment || "right" : undefined}>
+        <Question
+            id={`question-${getQuestionIdHash(question)}`}
+            imagePosition={question.image ? question.image.alignment || "right" : undefined}
+        >
             {question.image && (
                 <Image src={question.image.url} widthPercentage={question.image.size} alt={question.image.alt} />
             )}

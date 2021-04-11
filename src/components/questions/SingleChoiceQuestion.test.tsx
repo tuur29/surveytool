@@ -19,13 +19,14 @@ import SingleChoiceQuestion from "./SingleChoiceQuestion";
 const props: React.ComponentProps<typeof SingleChoiceQuestion> = {
     question: {
         id: "id",
+        hash: "hash",
         type: questionTypes.single,
         title: "Title",
     },
 };
 
 const answerData: SingleChoiceAnswerType = {
-    questionId: "id",
+    questionIdHash: "id",
     type: questionTypes.single,
     focussed: false,
     value: false,
@@ -84,7 +85,7 @@ describe("SingleChoiceQuestion", () => {
         expect(dispatchSpy.callCount).toBe(1);
         expect(dispatchSpy.args[0]).toStrictEqual([
             setAnswer({
-                questionId: "id",
+                questionIdHash: "hash-id",
                 type: questionTypes.single,
                 value: true,
             }),

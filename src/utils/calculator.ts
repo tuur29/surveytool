@@ -6,6 +6,7 @@ import {
     RangeAnswerType,
     TextAnswerType,
 } from "../types/AnswerTypes";
+import { getQuestionIdHash } from "./utils";
 
 const calculateDefaultAnswerScore = (question: AllQuestionsType, answer: AllAnswersType): number => {
     switch (question.type) {
@@ -43,7 +44,7 @@ export const calculateScore = (questions: AllQuestionsType[], answers: AllAnswer
 
                 return total + score;
             } catch (exception) {
-                console.error(`Failed to calculate score of question ${question.id}`, exception);
+                console.error(`Failed to calculate score of question ${getQuestionIdHash(question)}`, exception);
             }
         }
 

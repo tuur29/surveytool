@@ -17,9 +17,9 @@ export const setAnswer = (answer: DistributiveOmit<AllAnswersType, "focussed">) 
     answer,
 });
 
-export const setAnswerFocus = (questionId: string, focussed: boolean) => ({
+export const setAnswerFocus = (questionHash: string, focussed: boolean) => ({
     type: "ANSWERS_SET_FOCUS" as const,
-    questionId,
+    questionHash,
     focussed,
 });
 

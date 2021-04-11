@@ -3,7 +3,13 @@ import { calculateScore } from "../utils/calculator";
 import { AllAnswersType } from "../types/AnswerTypes";
 import { AnswerPostData } from "../types/DataTypes";
 import { AnswerDataUrl } from "../types/ResultTypes";
-import { generateAnswerStorageKey, replaceValues, fetchAnswerData, getAllQuestionsSelector } from "../utils/utils";
+import {
+    generateAnswerStorageKey,
+    replaceValues,
+    fetchAnswerData,
+    getAllQuestionsSelector,
+    getInitializedSelector,
+} from "../utils/utils";
 import { StoreApiType } from "./store";
 import { setResult, updateRestartTimer } from "./actions/resultActions";
 
@@ -23,7 +29,7 @@ let prevScoreValue = 0;
 const calculateScoreListener = (store: StoreApiType): void => {
     const state = store.getState();
 
-    if (state.config.initialized && state.result.showResult && prevScoreAnswerList !== state.answers.list) {
+    if (getInitializedSelector(state) && state.result.showResult && prevScoreAnswerList !== state.answers.list) {
         const newScore = calculateScore(getAllQuestionsSelector(state), state.answers.list);
         prevScoreAnswerList = state.answers.list;
 

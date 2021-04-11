@@ -46,20 +46,20 @@ const Template: Story<PropsType> = (args) => (
 export const Checkbox = Template.bind({});
 Checkbox.args = {
     ...(flattenQuestionGroups(mockConfig.groups!).find(
-        (question) => question.id === "ENARECZUD",
+        (question) => question.id === "toppings",
     ) as MultipleChoiceQuestionType),
 };
 
 export const Radio = Template.bind({});
 Radio.args = {
     ...(flattenQuestionGroups(mockConfig.groups!).find(
-        (question) => question.id === "JIWMEFJA",
+        (question) => question.id === "flavour",
     ) as MultipleChoiceQuestionType),
 };
 
 export const Select = Template.bind({});
 Select.args = {
     ...(flattenQuestionGroups(mockConfig.groups!).find(
-        (question) => question.id === "LPAKDUCZUD",
+        (question) => question.id === "location",
     ) as MultipleChoiceQuestionType),
 };

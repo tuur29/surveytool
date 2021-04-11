@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Dispatch } from "redux";
+import hash from "object-hash";
 import { AllQuestionsType, QuestionGroup, questionTypes } from "../types/QuestionTypes";
 import { AllAnswersType } from "../types/AnswerTypes";
 import { AnswerPostData } from "../types/DataTypes";
@@ -41,26 +42,39 @@ export const formatTimestamp = (timestamp: number, localeId: string | null | und
         second: "2-digit",
     }).format(new Date(timestamp));
 
-// Create a new set of placeholder answers
-export const generateInitialAnswers = (questions: AllQuestionsType[]): AllAnswersType[] =>
-    // eslint-disable-next-line array-callback-return
-    questions.map((question) => {
-        const baseAnswer = { questionId: question.id, focussed: false };
-        switch (question.type) {
-            case questionTypes.single: {
-                return { ...baseAnswer, type: questionTypes.single, value: question.checkedByDefault || false };
-            }
-            case questionTypes.multiple: {
-                return { ...baseAnswer, type: questionTypes.multiple, values: question.defaultIds || [] };
-            }
-            case questionTypes.text: {
-                return { ...baseAnswer, type: questionTypes.text, value: "" };
-            }
-            case questionTypes.range: {
-                return { ...baseAnswer, type: questionTypes.range, value: question.default || 0 };
-            }
+/**
+ * Returns the correct format for the `answers.questionIdHash` field
+ */
+export const getQuestionIdHash = (question: AllQuestionsType): string => `${question.hash}-${question.id}`;
+
+/**
+ * Adds the hash field to a question.
+ */
+export const populateQuestionHash = <Q extends AllQuestionsType>(question: Q): Q => ({
+    ...question,
+    hash: hash(question),
+});
+
+/**
+ * Create a new answer object based on a question.
+ */
+export const generateInitialAnswer = (question: AllQuestionsType): AllAnswersType => {
+    const baseAnswer = { questionIdHash: getQuestionIdHash(question), focussed: false };
+    switch (question.type) {
+        case questionTypes.single: {
+            return { ...baseAnswer, type: questionTypes.single, value: question.checkedByDefault || false };
         }
-    });
+        case questionTypes.multiple: {
+            return { ...baseAnswer, type: questionTypes.multiple, values: question.defaultIds || [] };
+        }
+        case questionTypes.text: {
+            return { ...baseAnswer, type: questionTypes.text, value: "" };
+        }
+        case questionTypes.range: {
+            return { ...baseAnswer, type: questionTypes.range, value: question.default || 0 };
+        }
+    }
+};
 
 export const flattenQuestionGroups = (groups: QuestionGroup[]): AllQuestionsType[] =>
     groups.reduce<AllQuestionsType[]>((list, group) => [...list, ...group.questions], []);
@@ -122,6 +136,12 @@ export const resetFormDispatcher = (dispatch: Dispatch<ActionsType>): void => {
 // ----------------------------------------------------------------------
 
 /**
+ * Checks if the app is initialized
+ */
+export const getInitializedSelector = (state: StateType): boolean =>
+    state.config.initialized && state.answers.initialized;
+
+/**
  * Checks if a control should be disabled.
  */
 export const disableControlsSelector = (state: StateType): boolean =>
@@ -136,8 +156,9 @@ export const getAllQuestionsSelector = (state: StateType): AllQuestionsType[] =>
 /**
  * Returns the matching answer field for a question id, also takes care of type casting
  */
-export const getQuestionAnswerSelector = <A extends AllAnswersType>(questionId: string) => (state: StateType): A =>
-    (state.answers.list.find((answer) => answer.questionId === questionId) as A) || ({} as A);
+export const getQuestionAnswerSelector = <A extends AllAnswersType>(question: AllQuestionsType) => (
+    state: StateType,
+): A => (state.answers.list.find((answer) => answer.questionIdHash.includes(question.hash!)) as A) || ({} as A);
 
 // ----------------------------------------------------------------------
 // Hooks

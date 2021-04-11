@@ -12,13 +12,13 @@ export const mockConfig: Partial<ConfigType> = {
             accentColor: "#db3f37",
             questions: [
                 {
-                    id: "EDJUJDO",
+                    id: "interested",
                     type: questionTypes.single,
                     title: "Are you interested{hint} in eating an ice cream?{hint}",
                     hints: ["It's a word", "Say yes!"],
                 },
                 {
-                    id: "JIWMEFJA",
+                    id: "flavour",
                     type: questionTypes.multiple,
                     title: "What flavour do you want?",
                     inputType: "radio",
@@ -40,14 +40,14 @@ export const mockConfig: Partial<ConfigType> = {
                     },
                 },
                 {
-                    id: "PXCHUDAK",
+                    id: "flavour-shared",
                     type: questionTypes.text,
                     inputType: "number",
                     title: "How many other people would you estimate that share your favourite flavour?",
                     required: true,
                 },
                 {
-                    id: "QXCHUKIH",
+                    id: "amount",
                     type: questionTypes.range,
                     title: "How many do you want?",
                     inputType: "slider",
@@ -74,7 +74,7 @@ export const mockConfig: Partial<ConfigType> = {
             },
             questions: [
                 {
-                    id: "CUIHUDAK",
+                    id: "mailaddress",
                     type: questionTypes.text,
                     inputType: "email",
                     placeholder: "ben@jerry.com",
@@ -82,7 +82,7 @@ export const mockConfig: Partial<ConfigType> = {
                     hints: ["Do not worry it won't melt."],
                 },
                 {
-                    id: "LPAKDUCZUD",
+                    id: "location",
                     type: questionTypes.multiple,
                     title: "Where do you live?",
                     inputType: "select",
@@ -95,7 +95,7 @@ export const mockConfig: Partial<ConfigType> = {
                     },
                 },
                 {
-                    id: "ENARECZUD",
+                    id: "toppings",
                     type: questionTypes.multiple,
                     title: "Which toppings do you want?",
                     inputType: "check",
@@ -107,7 +107,7 @@ export const mockConfig: Partial<ConfigType> = {
                     defaultIds: ["1", "2"],
                 },
                 {
-                    id: "PZQUDAF",
+                    id: "name",
                     type: questionTypes.text,
                     inputType: "text",
                     title: "How do you want to name your creation?",
@@ -125,7 +125,7 @@ export const mockConfig: Partial<ConfigType> = {
                     },
                 },
                 {
-                    id: "EPOCOCVOD",
+                    id: "rating-order",
                     type: questionTypes.single,
                     title: "Did you like this order flow?",
                     checkedByDefault: true,
@@ -138,7 +138,7 @@ export const mockConfig: Partial<ConfigType> = {
                     },
                 },
                 {
-                    id: "PDJRLCWT",
+                    id: "rating-product",
                     type: questionTypes.range,
                     title: "How much did you like it?",
                     inputType: "radio",

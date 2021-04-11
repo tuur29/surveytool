@@ -3,7 +3,7 @@ import getValidAnswerData from "../../utils/validateAnswer";
 import { useStoreDispatch, useStoreSelector, useTypedStore } from "../../redux/store";
 import { SingleChoiceAnswerType } from "../../types/AnswerTypes";
 import { SingleChoiceQuestionType } from "../../types/QuestionTypes";
-import { disableControlsSelector, getQuestionAnswerSelector } from "../../utils/utils";
+import { disableControlsSelector, getQuestionAnswerSelector, getQuestionIdHash } from "../../utils/utils";
 import Checkbox from "../common/Checkbox";
 import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
@@ -21,7 +21,7 @@ const SingleChoiceQuestion = (props: PropsType): JSX.Element => {
 
     const dispatch = useStoreDispatch();
     const disableControl = useStoreSelector(disableControlsSelector);
-    const checked = useStoreSelector(getQuestionAnswerSelector<SingleChoiceAnswerType>(question.id)).value;
+    const checked = useStoreSelector(getQuestionAnswerSelector<SingleChoiceAnswerType>(question)).value;
 
     const store = useTypedStore();
     const { error, showError, setFocussed } = getValidAnswerData(question, store);
@@ -31,7 +31,7 @@ const SingleChoiceQuestion = (props: PropsType): JSX.Element => {
         setFocussed();
         dispatch(
             setAnswer({
-                questionId: question.id,
+                questionIdHash: getQuestionIdHash(question),
                 type: question.type,
                 value: !checked,
             }),
@@ -39,7 +39,10 @@ const SingleChoiceQuestion = (props: PropsType): JSX.Element => {
     };
 
     return (
-        <Question id={question.id} imagePosition={question.image ? question.image.alignment || "left" : undefined}>
+        <Question
+            id={`question-${getQuestionIdHash(question)}`}
+            imagePosition={question.image ? question.image.alignment || "left" : undefined}
+        >
             {question.image && (
                 <Image src={question.image.url} widthPercentage={question.image.size} alt={question.image.alt} />
             )}

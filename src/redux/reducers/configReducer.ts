@@ -1,5 +1,5 @@
 import { ConfigType } from "../../types/ConfigTypes";
-import { generateThemeStorageKey } from "../../utils/utils";
+import { generateThemeStorageKey, populateQuestionHash } from "../../utils/utils";
 import { resultContentTypes } from "../../types/ResultTypes";
 import { ConfigActions } from "../actions/configActions";
 
@@ -36,6 +36,10 @@ export const configReducer = (state: ConfigState = initialConfigState, action: C
                 ...initialConfigState,
                 ...action.config,
                 initialized: true,
+                groups: action.config.groups.map((group) => ({
+                    ...group,
+                    questions: group.questions.map(populateQuestionHash),
+                })),
                 theme: {
                     ...initialConfigState.theme,
                     ...action.config.theme,

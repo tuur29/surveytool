@@ -24,8 +24,14 @@ export type ImageType = {
 };
 
 export type BaseQuestion = {
-    /** Should be unique in a configuration. This links the question to it's answer. */
-    id: string;
+    /** Can be used for easy identification in calcFunction and while debugging. */
+    id?: string;
+    /**
+     * Created by application to identify the question. This links the question to it's answer.
+     * It is always set, but because we are using the same input as output typing it is defined as optional.
+     * @internal
+     */
+    hash?: string;
     /** The question being asked to the user. This string can contain multiple `{hint}` placeholders. */
     title: string;
     /** Required questions need to be filled in by the user before they can submit their answers. */

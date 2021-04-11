@@ -45,10 +45,12 @@ const Template: Story<PropsType> = (args) => (
 
 export const Slider = Template.bind({});
 Slider.args = {
-    ...(flattenQuestionGroups(mockConfig.groups!).find((question) => question.id === "QXCHUKIH") as RangeQuestionType),
+    ...(flattenQuestionGroups(mockConfig.groups!).find((question) => question.id === "amount") as RangeQuestionType),
 };
 
 export const RadioButtons = Template.bind({});
 RadioButtons.args = {
-    ...(flattenQuestionGroups(mockConfig.groups!).find((question) => question.id === "PDJRLCWT") as RangeQuestionType),
+    ...(flattenQuestionGroups(mockConfig.groups!).find(
+        (question) => question.id === "rating-product",
+    ) as RangeQuestionType),
 };
