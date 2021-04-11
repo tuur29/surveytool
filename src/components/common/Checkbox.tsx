@@ -7,7 +7,7 @@ type PropsType = {
     /** Disable user interaction and display the value faded out. */
     disabled?: boolean;
     /** Will be used as label. Clicking the label will also check the checkbox. */
-    children: React.ReactNode;
+    children?: React.ReactNode;
     onClick: (newValue: boolean) => void;
 };
 

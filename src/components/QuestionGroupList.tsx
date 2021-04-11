@@ -8,6 +8,7 @@ import MultipleChoiceQuestion from "./questions/MultipleChoiceQuestion";
 import TextQuestion from "./questions/TextQuestion";
 import RangeQuestion from "./questions/RangeQuestion";
 import ShowResultsButton from "./questions/ShowResultsButton";
+import QuestionTable from "./groups/QuestionTable";
 import { Image, ImageWrapper } from "./styles/Image";
 
 const determineComponent = (question: AllQuestionsType): JSX.Element => {
@@ -23,7 +24,7 @@ const determineComponent = (question: AllQuestionsType): JSX.Element => {
     }
 };
 
-const QuestionList = (): JSX.Element | null => {
+const QuestionGroupList = (): JSX.Element | null => {
     const config = useStoreSelector((state) => state.config);
     if (!config.groups.length) return null;
     return (
@@ -50,7 +51,12 @@ const QuestionList = (): JSX.Element | null => {
                             <Image src={group.image.url} widthPercentage={group.image.size} alt={group.image.alt} />
                         )}
                     </ImageWrapper>
-                    <div>{group.questions.map(determineComponent)}</div>
+
+                    {group.tabledView ? (
+                        <QuestionTable group={group} />
+                    ) : (
+                        <div>{group.questions.map(determineComponent)}</div>
+                    )}
                 </Group>
             ))}
             <ShowResultsButton />
@@ -58,4 +64,4 @@ const QuestionList = (): JSX.Element | null => {
     );
 };
 
-export default QuestionList;
+export default QuestionGroupList;

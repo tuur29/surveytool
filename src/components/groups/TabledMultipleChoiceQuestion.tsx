@@ -14,14 +14,13 @@ import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
 import Select from "../common/Select";
 import { FieldError, Label, RadioButton } from "../styles/Input";
-import { Question, Title } from "../styles/Question";
-import { Image } from "../styles/Image";
+import { TitleCell, InputCell } from "../styles/GroupTable";
 
 type PropsType = {
     question: MultipleChoiceQuestionType;
 };
 
-const MultipleChoiceQuestion = (props: PropsType): JSX.Element => {
+const TabledMultipleChoiceQuestion = (props: PropsType): JSX.Element => {
     const { question } = props;
     const dispatch = useStoreDispatch();
     const disableControl = useStoreSelector(disableControlsSelector);
@@ -31,19 +30,12 @@ const MultipleChoiceQuestion = (props: PropsType): JSX.Element => {
     const { error, showError } = getValidAnswerData(question, store);
 
     return (
-        <Question
-            id={getQuestionScrollId(question)}
-            imagePosition={question.image ? question.image.alignment || "right" : undefined}
-        >
-            {question.image && (
-                <Image src={question.image.url} widthPercentage={question.image.size} alt={question.image.alt} />
-            )}
+        <>
+            <TitleCell>
+                <HintableLabel label={question.title} hints={question.hints} />
+            </TitleCell>
 
-            <div>
-                <Title>
-                    <HintableLabel label={question.title} hints={question.hints} />
-                </Title>
-
+            <InputCell id={getQuestionScrollId(question)}>
                 {question.inputType === "radio" &&
                     question.options.map((option) => (
                         <Fragment key={option.id}>
@@ -88,12 +80,12 @@ const MultipleChoiceQuestion = (props: PropsType): JSX.Element => {
                         </>
                     )}
                 </FieldError>
-            </div>
-        </Question>
+            </InputCell>
+        </>
     );
 };
 
 // A quick way to get the doc-gen function of Storybook working correctly
 export const MultipleChoiceQuestionDoc = (props: MultipleChoiceQuestionType): null => props && null;
 
-export default MultipleChoiceQuestion;
+export default TabledMultipleChoiceQuestion;

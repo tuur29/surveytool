@@ -26,16 +26,19 @@ type PropsType = {
     tickLabels?: (string | null)[];
     /** Callback run when value is changed by the user. */
     onChange: (value: number) => void;
+    /** By default the slider's width is related to the breakpoints size for a pleasing effect. Set this to full the width instead. */
+    fullWidth?: boolean;
 };
 
 const Slider = (props: PropsType): JSX.Element => {
-    const { min, max, value, step, direction, tickCount, tickValues, tickLabels, onChange, disabled } = props;
+    const { min, max, value, step, direction, onChange, disabled, fullWidth } = props;
+    const { tickCount, tickValues, tickLabels } = props;
     const { breakpoints, space } = useTheme();
 
     const size: BreakpointType = (max - min) / step > 15 ? "md" : "sm";
 
     return (
-        <SliderWrapper width={{ xs: 1, [size]: parseInt(breakpoints[size]) - space[4] * 2 }}>
+        <SliderWrapper width={fullWidth ? 1 : { xs: 1, [size]: parseInt(breakpoints[size]) - space[4] * 2 }}>
             <CompoundSlider
                 mode={1}
                 domain={[min, max]}

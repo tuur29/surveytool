@@ -10,17 +10,16 @@ import {
     onSingleAnswerClick,
 } from "../../utils/utils";
 import Checkbox from "../common/Checkbox";
-import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
 import { FieldError } from "../styles/Input";
-import { Question, Title } from "../styles/Question";
-import { Image } from "../styles/Image";
+import HintableLabel from "../common/HintableLabel";
+import { TitleCell, InputCell } from "../styles/GroupTable";
 
 type PropsType = {
     question: SingleChoiceQuestionType;
 };
 
-const SingleChoiceQuestion = (props: PropsType): JSX.Element => {
+const TabledSingleChoiceQuestion = (props: PropsType): JSX.Element => {
     const { question } = props;
 
     const dispatch = useStoreDispatch();
@@ -31,26 +30,18 @@ const SingleChoiceQuestion = (props: PropsType): JSX.Element => {
     const { error, showError } = getValidAnswerData(question, store);
 
     return (
-        <Question
-            id={getQuestionScrollId(question)}
-            imagePosition={question.image ? question.image.alignment || "left" : undefined}
-        >
-            {question.image && (
-                <Image src={question.image.url} widthPercentage={question.image.size} alt={question.image.alt} />
-            )}
-
-            <div>
+        <>
+            <TitleCell>
+                <HintableLabel label={question.title} hints={question.hints} />
+            </TitleCell>
+            <InputCell id={getQuestionScrollId(question)}>
                 <Checkbox
                     checked={checked || false}
                     disabled={disableControl}
                     onClick={() => onSingleAnswerClick(question, dispatch, !checked)}
-                >
-                    <Title>
-                        <HintableLabel label={question.title} hints={question.hints} />
-                    </Title>
-                </Checkbox>
+                />
 
-                {/* always render FieldError with min-height so showing the error doesn't move content on the page */}
+                {/* Always render FieldError with min-height so showing the error doesn't move content on the page */}
                 <FieldError>
                     {showError && (
                         <>
@@ -59,12 +50,9 @@ const SingleChoiceQuestion = (props: PropsType): JSX.Element => {
                         </>
                     )}
                 </FieldError>
-            </div>
-        </Question>
+            </InputCell>
+        </>
     );
 };
 
-// A quick way to get the doc-gen function of Storybook working correctly
-export const SingleChoiceQuestionDoc = (props: SingleChoiceQuestionType): null => props && null;
-
-export default SingleChoiceQuestion;
+export default TabledSingleChoiceQuestion;

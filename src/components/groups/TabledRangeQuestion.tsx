@@ -1,7 +1,5 @@
 import React from "react";
 import { RangeQuestionType } from "../../types/QuestionTypes";
-import { Question, Title } from "../styles/Question";
-import { Image } from "../styles/Image";
 import { useStoreDispatch, useStoreSelector } from "../../redux/store";
 import HintableLabel from "../common/HintableLabel";
 import { RangeAnswerType } from "../../types/AnswerTypes";
@@ -13,12 +11,13 @@ import {
     getQuestionScrollId,
     getRangeQuestionDefaultProps,
 } from "../../utils/utils";
+import { TitleCell, InputCell } from "../styles/GroupTable";
 
 type PropsType = {
     question: RangeQuestionType;
 };
 
-const RangeQuestion = (props: PropsType): JSX.Element => {
+const TabledRangeQuestion = (props: PropsType): JSX.Element => {
     const { question } = props;
     const dispatch = useStoreDispatch();
     const disableControl = useStoreSelector(disableControlsSelector);
@@ -30,27 +29,22 @@ const RangeQuestion = (props: PropsType): JSX.Element => {
     };
 
     return (
-        <Question
-            id={getQuestionScrollId(question)}
-            imagePosition={question.image ? question.image.alignment || "right" : undefined}
-        >
-            {question.image && (
-                <Image src={question.image.url} widthPercentage={question.image.size} alt={question.image.alt} />
-            )}
+        <>
+            <TitleCell>
+                <HintableLabel label={question.title} hints={question.hints} />
+            </TitleCell>
 
-            <div>
-                <Title>
-                    <HintableLabel label={question.title} hints={question.hints} />
-                </Title>
-
-                {question.inputType === "slider" && <Slider {...sliderProps} tickCount={question.tickCount} />}
+            <InputCell id={getQuestionScrollId(question)}>
+                {question.inputType === "slider" && (
+                    <Slider {...sliderProps} tickCount={question.tickCount} fullWidth />
+                )}
                 {question.inputType === "radio" && <RadioSlider {...sliderProps} />}
-            </div>
-        </Question>
+            </InputCell>
+        </>
     );
 };
 
 // A quick way to get the doc-gen function of Storybook working correctly
 export const RangeQuestionDoc = (props: RangeQuestionType): null => props && null;
 
-export default RangeQuestion;
+export default TabledRangeQuestion;

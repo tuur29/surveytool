@@ -1,14 +1,25 @@
 import { useState, useEffect } from "react";
 import { Dispatch } from "redux";
 import hash from "object-hash";
-import { AllQuestionsType, QuestionGroup, questionTypes } from "../types/QuestionTypes";
+import {
+    AllQuestionsType,
+    MultipleChoiceQuestionType,
+    QuestionGroup,
+    questionTypes,
+    RangeQuestionType,
+    SingleChoiceQuestionType,
+    TextQuestionType,
+} from "../types/QuestionTypes";
 import { AllAnswersType } from "../types/AnswerTypes";
 import { AnswerPostData } from "../types/DataTypes";
 import { AnswerDataUrl } from "../types/ResultTypes";
 import { ActionsType, StateType } from "../redux/store";
-import { resetAnswers } from "../redux/actions/answersActions";
+import { resetAnswers, setAnswer, setAnswerFocus } from "../redux/actions/answersActions";
 import { showResult, updateRestartTimer } from "../redux/actions/resultActions";
+import Slider from "../components/common/Slider";
+import RadioSlider from "../components/common/RadioSlider";
 import { ValuesType } from "./labels";
+import { hasTextAnswerForbiddenCharacter } from "./validator";
 
 // ----------------------------------------------------------------------
 // Constants
@@ -46,6 +57,11 @@ export const formatTimestamp = (timestamp: number, localeId: string | null | und
  * Returns the correct format for the `answers.questionIdHash` field
  */
 export const getQuestionIdHash = (question: AllQuestionsType): string => `${question.hash}-${question.id}`;
+
+/**
+ * Linked tot the element selector in ShowResultsButton.
+ */
+export const getQuestionScrollId = (question: AllQuestionsType): string => `question-${getQuestionIdHash(question)}`;
 
 /**
  * Adds the hash field to a question.
@@ -98,7 +114,7 @@ export const replaceValues = (label?: string | null, values?: ValuesType, replac
 
 /**
  * Post data to an url and get return typed data
- * This url can  contain the method and the score:
+ * This url can contain the method and the score:
  * GET;http://example.org?score={score} or POST;http://example.org
  */
 export const fetchAnswerData = async <T extends Record<string, unknown>>(
@@ -129,6 +145,98 @@ export const resetFormDispatcher = (dispatch: Dispatch<ActionsType>): void => {
     dispatch(showResult(false));
     dispatch(resetAnswers());
     dispatch(updateRestartTimer(null));
+};
+
+// ----------------------------------------------------------------------
+// Answer event handling
+// ----------------------------------------------------------------------
+
+export const onTextAnswerChange = (
+    question: TextQuestionType,
+    dispatch: Dispatch<ActionsType>,
+    value: string,
+): void => {
+    // only block forbidden characters when no custom validation is applied, just to keep all options open
+    if (!question.customValidation && hasTextAnswerForbiddenCharacter(question.inputType, value)) return;
+    dispatch(
+        setAnswer({
+            questionIdHash: getQuestionIdHash(question),
+            type: question.type,
+            value: value,
+        }),
+    );
+};
+
+export const onSingleAnswerClick = (
+    question: SingleChoiceQuestionType,
+    dispatch: Dispatch<ActionsType>,
+    value: boolean,
+): void => {
+    dispatch(setAnswerFocus(getQuestionIdHash(question), true));
+    dispatch(
+        setAnswer({
+            questionIdHash: getQuestionIdHash(question),
+            type: question.type,
+            value,
+        }),
+    );
+};
+
+// TODO: could we define these defaults into the config
+export const getRangeQuestionDefaultProps = (
+    question: RangeQuestionType,
+    dispatch: Dispatch<ActionsType>,
+    value: number,
+): React.ComponentProps<typeof Slider> | React.ComponentProps<typeof RadioSlider> => ({
+    min: question.min || 0,
+    max: question.max || 1,
+    value: value || 0,
+    step: question.step || 1,
+    disabled: false,
+    direction: question.direction || "increase",
+    tickCount: question.tickCount,
+    tickValues: question.tickValues,
+    tickLabels: question.tickLabels,
+    onChange: (value: number): void => {
+        dispatch(
+            setAnswer({
+                questionIdHash: getQuestionIdHash(question),
+                type: question.type,
+                value,
+            }),
+        );
+    },
+});
+
+export const onMultipleAnswerClick = (
+    question: MultipleChoiceQuestionType,
+    dispatch: Dispatch<ActionsType>,
+    selectedIds: string[],
+    newSelectedId: string,
+): void => {
+    let newValues: string[] = [];
+    if (question.inputType === "radio") {
+        newValues = selectedIds.includes(newSelectedId) ? ([] as string[]) : [newSelectedId];
+    }
+
+    if (question.inputType === "check") {
+        newValues = selectedIds.includes(newSelectedId)
+            ? selectedIds.filter((id) => id !== newSelectedId)
+            : [...selectedIds, newSelectedId];
+    }
+
+    if (question.inputType === "select") {
+        newValues = [newSelectedId];
+    }
+
+    dispatch(setAnswerFocus(getQuestionIdHash(question), true));
+    dispatch(
+        setAnswer({
+            questionIdHash: getQuestionIdHash(question),
+            type: question.type,
+            values: newValues,
+        }),
+    );
 };
 
 // ----------------------------------------------------------------------

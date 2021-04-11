@@ -12,14 +12,13 @@ import {
 import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
 import { FieldError, TextField } from "../styles/Input";
-import { Question, Title } from "../styles/Question";
-import { Image } from "../styles/Image";
+import { TitleCell, InputCell } from "../styles/GroupTable";
 
 type PropsType = {
     question: TextQuestionType;
 };
 
-const TextQuestion = (props: PropsType): JSX.Element => {
+const TabledTextQuestion = (props: PropsType): JSX.Element => {
     const { question } = props;
 
     const dispatch = useStoreDispatch();
@@ -30,19 +29,12 @@ const TextQuestion = (props: PropsType): JSX.Element => {
     const { error, showError, setFocussed } = getValidAnswerData(question, store);
 
     return (
-        <Question
-            id={getQuestionScrollId(question)}
-            imagePosition={question.image ? question.image.alignment || "right" : undefined}
-        >
-            {question.image && (
-                <Image src={question.image.url} widthPercentage={question.image.size} alt={question.image.alt} />
-            )}
+        <>
+            <TitleCell>
+                <HintableLabel label={question.title} hints={question.hints} />
+            </TitleCell>
 
-            <div>
-                <Title>
-                    <HintableLabel label={question.title} hints={question.hints} />
-                </Title>
-
+            <InputCell id={getQuestionScrollId(question)}>
                 <TextField
                     value={value}
                     placeholder={question.placeholder || ""}
@@ -61,12 +53,12 @@ const TextQuestion = (props: PropsType): JSX.Element => {
                         </>
                     )}
                 </FieldError>
-            </div>
-        </Question>
+            </InputCell>
+        </>
     );
 };
 
 // A quick way to get the doc-gen function of Storybook working correctly
 export const TextQuestionDoc = (props: TextQuestionType): null => props && null;
 
-export default TextQuestion;
+export default TabledTextQuestion;

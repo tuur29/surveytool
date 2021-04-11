@@ -10,7 +10,7 @@ import { getAllQuestionsSelector, getQuestionIdHash } from "../../utils/utils";
 
 const MAX_ERRORS = 3;
 
-type InvalidItem = { id: string; title: string };
+type InvalidItem = { idHash: string; title: string };
 
 const ShowResultsButton = (): JSX.Element => {
     const dispatch = useStoreDispatch();
@@ -23,12 +23,12 @@ const ShowResultsButton = (): JSX.Element => {
         if (question && !isAnswerValid(question, answer)) {
             // limit the errors list to MAX_ERRORS items
             if (invalidList.length === MAX_ERRORS) {
-                invalidList.push({ id: "more", title: "..." });
+                invalidList.push({ idHash: "more", title: "..." });
             }
 
             if (invalidList.length < MAX_ERRORS) {
                 invalidList.push({
-                    id: getQuestionIdHash(question),
+                    idHash: getQuestionIdHash(question),
                     title: question.title.replace("{hint}", ""),
                 });
             }
@@ -37,8 +37,8 @@ const ShowResultsButton = (): JSX.Element => {
     }, []);
     const isValid = invalidDataList.length < 1;
 
-    const scrollToQuestionId = (id: string) => {
-        document.querySelector(`#question-${id}`)?.scrollIntoView({
+    const scrollToQuestionId = (idHash: string) => {
+        document.querySelector(`#question-${idHash}`)?.scrollIntoView({
             behavior: "smooth",
         });
     };
@@ -59,7 +59,7 @@ const ShowResultsButton = (): JSX.Element => {
                     <p>{errorTitleLabel}</p>
                     <ErrorList>
                         {invalidDataList.map((item) => (
-                            <li key={item.id} onClick={() => scrollToQuestionId(item.id)}>
+                            <li key={item.idHash} onClick={() => scrollToQuestionId(item.idHash)}>
                                 {item.title}
                             </li>
                         ))}

@@ -60,3 +60,17 @@ export const isAnswerValid = (question: AllQuestionsType, answer: AllAnswersType
     // singleChoice, multipleChoice and range question types cannot be filled in with invalid values
     return true;
 };
+
+/**
+ * Blocks the user from entering a character. Not to be confused with isTextAnswerValid.
+ */
+export const hasTextAnswerForbiddenCharacter = (format: TextQuestionType["inputType"], value: string): boolean => {
+    switch (format) {
+        case "number":
+            return !value.match(REGEX_NUMBER_ONLY);
+        case "email":
+            return value.includes(" "); // no spaces allowed
+        case "text":
+            return false; // everything is allowed
+    }
+};

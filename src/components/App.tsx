@@ -4,7 +4,7 @@ import { merge } from "lodash";
 import { useStoreSelector } from "../redux/store";
 import { getInitializedSelector } from "../utils/utils";
 import { defaultThemes } from "../utils/theme";
-import QuestionList from "./QuestionList";
+import QuestionGroupList from "./QuestionGroupList";
 import ResultList from "./ResultList";
 import MessagesList from "./MessagesList";
 import DebugPanel from "./DebugPanel";
@@ -20,7 +20,7 @@ const App = (): JSX.Element | null => {
         <ThemeProvider theme={overriddenTheme}>
             <DebugPanel />
             <MessagesList />
-            <QuestionList />
+            <QuestionGroupList />
             <ResultList />
             <Footer />
         </ThemeProvider>

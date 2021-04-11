@@ -122,5 +122,9 @@ export type QuestionGroup = {
     /** Colours the question wrappers in this CSS hex colour */
     backgroundColor?: string;
     questions: AllQuestionsType[];
+    /** Displays all questions/inputs in a compact table view */
+    tabledView?: boolean;
+    /** Headings above the input column */
+    tableInputHeadings?: string[];
     // showOnNewPage?: boolean; // TODO: Allow pagination via groups
 };
