@@ -38,6 +38,12 @@ Next, either initialize the tool in said div with `new SurveyTool(cssSelector, {
 2. Start project (`yarn start` / `npm run start`)
 3. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+Tip: to circumvent TS compile errors during development you can add this to a `.env` file in the root folder:
+
+```env
+TSC_COMPILE_ON_ERROR=true
+```
+
 ### Testing
 
 - `yarn run test:typing` will run a typescript check across the code
