@@ -9,7 +9,7 @@ import Checkbox from "../common/Checkbox";
 import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
 import { FieldError } from "../styles/Input";
-import { setAnswer } from "../../redux/actions/answersActions";
+import { setAnswer, setAnswerFocus } from "../../redux/actions/answersActions";
 import SingleChoiceQuestion from "./SingleChoiceQuestion";
 
 // ----------------------------------------------------------------------
@@ -82,8 +82,8 @@ describe("SingleChoiceQuestion", () => {
         component.find(Checkbox).simulate("click");
 
         // updates value
-        expect(dispatchSpy.callCount).toBe(1);
-        expect(dispatchSpy.args[0]).toStrictEqual([
+        expect(dispatchSpy.callCount).toBe(2);
+        expect(dispatchSpy.args[1]).toStrictEqual([
             setAnswer({
                 questionIdHash: "hash-id",
                 type: questionTypes.single,
@@ -92,14 +92,7 @@ describe("SingleChoiceQuestion", () => {
         ]);
 
         // updates focused state
-        expect(focusSpy.callCount).toBe(1);
-    });
-
-    it("Does not update the store when clicking if disabled", () => {
-        storeSelector.onCall(0).returns(true);
-        const component = shallow(<SingleChoiceQuestion {...props} />);
-        component.find(Checkbox).simulate("click");
-        expect(dispatchSpy.callCount).toBe(0);
+        expect(dispatchSpy.args[0]).toStrictEqual([setAnswerFocus("hash-id", true)]);
     });
 
     it("Renders an error if the input is not valid", () => {
