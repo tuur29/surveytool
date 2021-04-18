@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { Checkbox, Label, SliderWrapper, TextField } from "./Input";
+import { BottomLabel, Checkbox, RadioButton, RadioListWrapper, SliderWrapper, TextField } from "./Input";
 
 export const Table = styled.div`
     display: grid;
@@ -31,29 +31,51 @@ const surfacedCellStyles = css`
 export const HeadingCell = styled.div`
     ${surfacedCellStyles}
     display: flex;
-    justify-content: space-between;
+    justify-content: stretch;
     flex-wrap: nowrap;
-    gap: ${({ theme }) => theme.space[3]}px;
+    gap: ${({ theme }) => theme.space[2]}px;
     font-weight: bold;
+
+    > div {
+        flex-grow: 1;
+        flex-basis: 0;
+    }
 `;
 
-// TODO: finish styling
-export const InputCell = styled.div`
+export const InputCell = styled.div<{ isRadioButtonSlider?: boolean }>`
     ${surfacedCellStyles}
 
+    ${({ isRadioButtonSlider: includeMargin, theme }) =>
+        !includeMargin
+            ? css`
+                  padding: ${theme.space[2]}px ${theme.space[3]}px;
+              `
+            : ""}
+
+    > * {
+        margin: 0 ${({ theme, isRadioButtonSlider: includeMargin }) => (includeMargin ? theme.space[3] : 0)}px;
+    }
+
     ${TextField} {
-        width: 100%;
+        width: calc(100% - ${({ theme, isRadioButtonSlider: includeMargin }) =>
+            includeMargin ? theme.space[3] * 2 : 0}px);
     }
 
-    ${Label} {
-        height: 100%;
-    }
-
-    ${Checkbox} {
+    ${Checkbox}, ${RadioButton} {
         font-size: 20px; /* To match fontsize of the other checkbox rendered in a h2 tag */
     }
 
     ${SliderWrapper} {
-        margin: 0 ${({ theme }) => theme.space[3]}px;
+        margin: 0 26px; /* Pixel perfect, I promise :) */
+    }
+
+    ${RadioListWrapper} {
+        justify-content: space-around;
+        gap: ${({ theme }) => theme.space[2]}px;
+        margin-top: 0;
+    }
+
+    ${BottomLabel} > div:not(${RadioButton}) {
+        display: none;
     }
 `;

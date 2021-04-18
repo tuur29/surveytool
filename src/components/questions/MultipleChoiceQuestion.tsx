@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import getValidAnswerData from "../../utils/validateAnswer";
 import { useStoreDispatch, useStoreSelector, useTypedStore } from "../../redux/store";
 import { MultipleChoiceAnswerType } from "../../types/AnswerTypes";
@@ -46,28 +46,26 @@ const MultipleChoiceQuestion = (props: PropsType): JSX.Element => {
 
                 {question.inputType === "radio" &&
                     question.options.map((option) => (
-                        <Fragment key={option.id}>
-                            <Label
-                                onClick={() => onMultipleAnswerClick(question, dispatch, selectedIds, option.id)}
-                                disabled={disableControl}
-                            >
-                                <RadioButton checked={selectedIds.includes(option.id)} />
-                                <HintableLabel label={option.title} hints={option.hints} />
-                            </Label>
-                        </Fragment>
+                        <Label
+                            key={option.id}
+                            onClick={() => onMultipleAnswerClick(question, dispatch, selectedIds, option.id)}
+                            disabled={disableControl}
+                        >
+                            <RadioButton checked={selectedIds.includes(option.id)} />
+                            <HintableLabel label={option.title} hints={option.hints} />
+                        </Label>
                     ))}
 
                 {question.inputType === "check" &&
                     question.options.map((option) => (
-                        <Fragment key={option.id}>
-                            <Checkbox
-                                checked={selectedIds.includes(option.id)}
-                                onClick={() => onMultipleAnswerClick(question, dispatch, selectedIds, option.id)}
-                                disabled={disableControl}
-                            >
-                                <HintableLabel label={option.title} hints={option.hints} />
-                            </Checkbox>
-                        </Fragment>
+                        <Checkbox
+                            key={option.id}
+                            checked={selectedIds.includes(option.id)}
+                            onClick={() => onMultipleAnswerClick(question, dispatch, selectedIds, option.id)}
+                            disabled={disableControl}
+                        >
+                            <HintableLabel label={option.title} hints={option.hints} />
+                        </Checkbox>
                     ))}
 
                 {question.inputType === "select" && (

@@ -33,23 +33,21 @@ const TabledSingleChoiceQuestion = (props: PropsType): JSX.Element => {
         <>
             <TitleCell>
                 <HintableLabel label={question.title} hints={question.hints} />
+
+                {showError && (
+                    <FieldError>
+                        <Icon type="error" color="error" />
+                        {error}
+                    </FieldError>
+                )}
             </TitleCell>
-            <InputCell id={getQuestionScrollId(question)}>
+
+            <InputCell id={getQuestionScrollId(question)} isRadioButtonSlider>
                 <Checkbox
                     checked={checked || false}
                     disabled={disableControl}
                     onClick={() => onSingleAnswerClick(question, dispatch, !checked)}
                 />
-
-                {/* Always render FieldError with min-height so showing the error doesn't move content on the page */}
-                <FieldError>
-                    {showError && (
-                        <>
-                            <Icon type="error" color="error" />
-                            {error}
-                        </>
-                    )}
-                </FieldError>
             </InputCell>
         </>
     );

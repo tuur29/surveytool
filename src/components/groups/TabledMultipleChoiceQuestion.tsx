@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import getValidAnswerData from "../../utils/validateAnswer";
 import { useStoreDispatch, useStoreSelector, useTypedStore } from "../../redux/store";
 import { MultipleChoiceAnswerType } from "../../types/AnswerTypes";
@@ -33,33 +33,38 @@ const TabledMultipleChoiceQuestion = (props: PropsType): JSX.Element => {
         <>
             <TitleCell>
                 <HintableLabel label={question.title} hints={question.hints} />
+
+                {showError && (
+                    <FieldError>
+                        <Icon type="error" color="error" />
+                        {error}
+                    </FieldError>
+                )}
             </TitleCell>
 
-            <InputCell id={getQuestionScrollId(question)}>
+            <InputCell id={getQuestionScrollId(question)} isRadioButtonSlider>
                 {question.inputType === "radio" &&
                     question.options.map((option) => (
-                        <Fragment key={option.id}>
-                            <Label
-                                onClick={() => onMultipleAnswerClick(question, dispatch, selectedIds, option.id)}
-                                disabled={disableControl}
-                            >
-                                <RadioButton checked={selectedIds.includes(option.id)} />
-                                <HintableLabel label={option.title} hints={option.hints} />
-                            </Label>
-                        </Fragment>
+                        <Label
+                            key={option.id}
+                            onClick={() => onMultipleAnswerClick(question, dispatch, selectedIds, option.id)}
+                            disabled={disableControl}
+                        >
+                            <RadioButton checked={selectedIds.includes(option.id)} />
+                            <HintableLabel label={option.title} hints={option.hints} />
+                        </Label>
                     ))}
 
                 {question.inputType === "check" &&
                     question.options.map((option) => (
-                        <Fragment key={option.id}>
-                            <Checkbox
-                                checked={selectedIds.includes(option.id)}
-                                onClick={() => onMultipleAnswerClick(question, dispatch, selectedIds, option.id)}
-                                disabled={disableControl}
-                            >
-                                <HintableLabel label={option.title} hints={option.hints} />
-                            </Checkbox>
-                        </Fragment>
+                        <Checkbox
+                            key={option.id}
+                            checked={selectedIds.includes(option.id)}
+                            onClick={() => onMultipleAnswerClick(question, dispatch, selectedIds, option.id)}
+                            disabled={disableControl}
+                        >
+                            <HintableLabel label={option.title} hints={option.hints} />
+                        </Checkbox>
                     ))}
 
                 {question.inputType === "select" && (
@@ -70,22 +75,9 @@ const TabledMultipleChoiceQuestion = (props: PropsType): JSX.Element => {
                         disabled={disableControl}
                     />
                 )}
-
-                {/* always render FieldError with min-height so showing the error doesn't move content on the page */}
-                <FieldError>
-                    {showError && (
-                        <>
-                            <Icon type="error" color="error" />
-                            {error}
-                        </>
-                    )}
-                </FieldError>
             </InputCell>
         </>
     );
 };
-
-// A quick way to get the doc-gen function of Storybook working correctly
-export const MultipleChoiceQuestionDoc = (props: MultipleChoiceQuestionType): null => props && null;
 
 export default TabledMultipleChoiceQuestion;

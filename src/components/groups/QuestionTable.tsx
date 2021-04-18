@@ -1,6 +1,6 @@
 import React from "react";
 import { AllQuestionsType, QuestionGroup, questionTypes } from "../../types/QuestionTypes";
-import { HeadingCell, Table } from "../styles/GroupTable";
+import { HeadingCell, InputCell, Table } from "../styles/GroupTable";
 import TabledSingleChoiceQuestion from "./TabledSingleChoiceQuestion";
 import TabledMultipleChoiceQuestion from "./TabledMultipleChoiceQuestion";
 import TabledTextQuestion from "./TabledTextQuestion";
@@ -36,6 +36,8 @@ const QuestionTable = (props: PropsType): JSX.Element => {
                 </HeadingCell>
             )}
             {group.questions.map(determineTabledComponent)}
+            {/* Sneaky bottom margin without breaking the row alignment */}
+            <InputCell />
         </Table>
     );
 };

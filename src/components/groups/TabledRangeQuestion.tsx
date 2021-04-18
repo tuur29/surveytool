@@ -34,7 +34,7 @@ const TabledRangeQuestion = (props: PropsType): JSX.Element => {
                 <HintableLabel label={question.title} hints={question.hints} />
             </TitleCell>
 
-            <InputCell id={getQuestionScrollId(question)}>
+            <InputCell id={getQuestionScrollId(question)} isRadioButtonSlider={question.inputType !== "radio"}>
                 {question.inputType === "slider" && (
                     <Slider {...sliderProps} tickCount={question.tickCount} fullWidth />
                 )}
@@ -43,8 +43,5 @@ const TabledRangeQuestion = (props: PropsType): JSX.Element => {
         </>
     );
 };
-
-// A quick way to get the doc-gen function of Storybook working correctly
-export const RangeQuestionDoc = (props: RangeQuestionType): null => props && null;
 
 export default TabledRangeQuestion;

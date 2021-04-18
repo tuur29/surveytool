@@ -103,6 +103,8 @@ export const RadioButton = styled.div<{ checked?: boolean }>`
 export const RadioListWrapper = styled.div`
     display: flex;
     justify-content: flex-start;
+    gap: ${({ theme }) => theme.space[4]}px;
+    margin-top: ${({ theme }) => theme.space[2]}px;
 `;
 
 // ----------------------------------------------------------------------
@@ -246,8 +248,6 @@ export const BottomLabel = styled(Label)`
     flex-direction: column;
     justify-content: end;
     text-align: center;
-    margin-top: ${({ theme }) => theme.space[2]}px;
-    margin-right: ${({ theme }) => theme.space[4]}px;
     color: ${({ theme }) => theme.colors.controlTick};
 
     ${RadioButton}, ${Checkbox} {

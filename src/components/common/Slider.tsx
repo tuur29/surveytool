@@ -35,6 +35,7 @@ const Slider = (props: PropsType): JSX.Element => {
     const { tickCount, tickValues, tickLabels } = props;
     const { breakpoints, space } = useTheme();
 
+    // TODO: fix layout on tablet breakpoints
     const size: BreakpointType = (max - min) / step > 15 ? "md" : "sm";
 
     return (

@@ -32,9 +32,16 @@ const TabledTextQuestion = (props: PropsType): JSX.Element => {
         <>
             <TitleCell>
                 <HintableLabel label={question.title} hints={question.hints} />
+
+                {showError && (
+                    <FieldError>
+                        <Icon type="error" color="error" />
+                        {error}
+                    </FieldError>
+                )}
             </TitleCell>
 
-            <InputCell id={getQuestionScrollId(question)}>
+            <InputCell id={getQuestionScrollId(question)} isRadioButtonSlider>
                 <TextField
                     value={value}
                     placeholder={question.placeholder || ""}
@@ -43,22 +50,9 @@ const TabledTextQuestion = (props: PropsType): JSX.Element => {
                     onBlur={setFocussed}
                     disabled={disableControl}
                 />
-
-                {/* always render FieldError with min-height so showing the error doesn't move content on the page */}
-                <FieldError>
-                    {showError && (
-                        <>
-                            <Icon type="error" color="error" />
-                            {error}
-                        </>
-                    )}
-                </FieldError>
             </InputCell>
         </>
     );
 };
-
-// A quick way to get the doc-gen function of Storybook working correctly
-export const TextQuestionDoc = (props: TextQuestionType): null => props && null;
 
 export default TabledTextQuestion;
