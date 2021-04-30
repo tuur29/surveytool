@@ -66,10 +66,11 @@ export const getQuestionScrollId = (question: AllQuestionsType): string => `ques
 /**
  * Adds the hash field to a question.
  */
-export const populateQuestionHash = <Q extends AllQuestionsType>(question: Q): Q => ({
-    ...question,
-    hash: hash(question),
-});
+export const populateQuestionHash = <Q extends AllQuestionsType>(question: Q): Q => {
+    const newQuestion = { ...question };
+    delete newQuestion.hash;
+    return { ...newQuestion, hash: hash(newQuestion) };
+};
 
 /**
  * Create a new answer object based on a question.
