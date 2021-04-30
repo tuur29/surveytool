@@ -11,7 +11,7 @@ import {
     getInitializedSelector,
 } from "../utils/utils";
 import { StoreApiType } from "./store";
-import { setResult, updateRestartTimer } from "./actions/resultActions";
+import { setResult, showResult, updateRestartTimer } from "./actions/resultActions";
 
 // ----------------------------------------------------------------------
 // calculateScoreListener
@@ -30,6 +30,11 @@ const calculateScoreListener = (store: StoreApiType): void => {
     const state = store.getState();
 
     if (getInitializedSelector(state) && state.result.showResult && prevScoreAnswerList !== state.answers.list) {
+        if (state.config.result.enableControls) {
+            store.dispatch(showResult(false));
+            store.dispatch(updateRestartTimer(null));
+        }
+
         const newScore = calculateScore(getAllQuestionsSelector(state), state.answers.list);
         prevScoreAnswerList = state.answers.list;
 

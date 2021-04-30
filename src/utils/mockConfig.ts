@@ -240,6 +240,7 @@ export const mockConfig: Partial<ConfigType> = {
         scoreDomain: [0, 130],
         postDataUrl: "POST;https://example.org/api/answer" as AnswerDataUrl,
         restartTimeout: 1000,
+        enableControls: true,
         content: [
             { type: resultContentTypes.label, style: "title", label: "Thanks for your {score10}/10 submission." },
             {
