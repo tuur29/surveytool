@@ -11,7 +11,7 @@ import {
     getInitializedSelector,
 } from "../utils/utils";
 import { StoreApiType } from "./store";
-import { setResult, showResult, updateRestartTimer } from "./actions/resultActions";
+import { setResult, updateRestartTimer } from "./actions/resultActions";
 
 // ----------------------------------------------------------------------
 // calculateScoreListener
@@ -30,13 +30,8 @@ const calculateScoreListener = (store: StoreApiType): void => {
     const state = store.getState();
 
     if (getInitializedSelector(state) && state.result.showResult && prevScoreAnswerList !== state.answers.list) {
-        if (state.config.result.enableControls) {
-            store.dispatch(showResult(false));
-            store.dispatch(updateRestartTimer(null));
-        }
-
-        const newScore = calculateScore(getAllQuestionsSelector(state), state.answers.list);
         prevScoreAnswerList = state.answers.list;
+        const newScore = calculateScore(getAllQuestionsSelector(state), state.answers.list);
 
         if (newScore !== prevScoreValue) {
             prevScoreValue = newScore;
@@ -59,11 +54,11 @@ const calculateScoreListener = (store: StoreApiType): void => {
             }
 
             store.dispatch(setResult(newScore));
+        }
 
-            // Start or restart timer when configured
-            if (state.config.result.restartTimeout) {
-                store.dispatch(updateRestartTimer(Date.now() + state.config.result.restartTimeout * 1000));
-            }
+        // Restart timer when results were visible and answers change + start timer when showing results
+        if (state.config.result.restartTimeout) {
+            store.dispatch(updateRestartTimer(Date.now() + state.config.result.restartTimeout * 1000));
         }
     }
 };

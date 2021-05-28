@@ -24,6 +24,8 @@ export type ConfigType = {
         redirectUrl?: AnswerDataUrl;
         /** Enables the user's ability to edit their answers after submitting them. Defaults to `false`. */
         enableControls?: boolean;
+        /** Hide results page again when the user changes an answer */
+        hideResultsAfterUpdate?: boolean;
         /** An array containing the smallest and largest possible score. This is sometimes used when customizing the results page content. */
         scoreDomain?: number[];
         /** The number of seconds before the survey restarts after results are shown. */

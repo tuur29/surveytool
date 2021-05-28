@@ -9,6 +9,7 @@ import {
 import { AllAnswersType } from "../types/AnswerTypes";
 import { ActionsType, StoreApiType } from "./store";
 import { initAnswers } from "./actions/answersActions";
+import { showResult, updateRestartTimer } from "./actions/resultActions";
 
 const AllLogicMiddleware: Middleware = (store: StoreApiType) => (next: Dispatch<ActionsType>) => (
     action: ActionsType,
@@ -45,6 +46,25 @@ const AllLogicMiddleware: Middleware = (store: StoreApiType) => (next: Dispatch<
             // Reuse initAnswers instead of dispatching the reset action
             store.dispatch(initAnswers(initialAnswers));
             return;
+        }
+
+        case "ANSWERS_SET": {
+            // Hide results when changing an answer
+            if (
+                store.getState().config.result.enableControls &&
+                store.getState().config.result.hideResultsAfterUpdate
+            ) {
+                store.dispatch(showResult(false));
+            }
+            break;
+        }
+
+        case "RESULT_SHOW": {
+            // Reset the update timer when it's no longer visible
+            if (!action.visible && store.getState().result.restartTimestamp) {
+                store.dispatch(updateRestartTimer(null));
+            }
+            break;
         }
     }
 

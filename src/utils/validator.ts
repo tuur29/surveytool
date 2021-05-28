@@ -2,7 +2,7 @@ import { AllQuestionsType, questionTypes, TextQuestionType } from "../types/Ques
 import { AllAnswersType, TextAnswerType } from "../types/AnswerTypes";
 
 // eslint-disable-next-line
-export const REGEX_EMAIL_FORMAT = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // https://emailregex.com/
+export const REGEX_EMAIL_FORMAT = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{1,}))$/; // https://emailregex.com/
 export const REGEX_NUMBER_ONLY = /^[0-9]*$/;
 
 const isAnswerValueFilledIn = (answer: AllAnswersType): boolean => {
