@@ -37,8 +37,8 @@ export const useStoreDispatch: () => Dispatch<ActionsType> = useDispatch;
 export const useTypedStore: () => StoreType = useStore;
 
 const createNewStore = (): StoreType => {
-    const enchancers = composeWithDevTools(middlewares);
-    const store = createStore(rootReducer, initialStoreState, enchancers);
+    const enhancers = composeWithDevTools(middlewares);
+    const store = createStore(rootReducer, initialStoreState, enhancers);
     listeners.forEach((listener) => store.subscribe(() => listener(store)));
     return store;
 };
