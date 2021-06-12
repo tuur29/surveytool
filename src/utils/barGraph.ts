@@ -17,7 +17,7 @@ export const drawBarGraph = (
     svg.selectAll("*").remove();
 
     const graphWidth = width - margin.right; // 100% on x-axis
-    const graphHeight = height - margin.bottom; // 0% on y-axis
+    const graphHeight = height - margin.bottom - 10; // 0% on y-axis (+ extra spacing for x axis label)
     const categories = inputData.values.map((d) => d.x);
     const barPadding = 0.2;
 
@@ -28,7 +28,21 @@ export const drawBarGraph = (
         .padding(barPadding);
 
     // render x axis
-    svg.append("g").attr("class", "axis-x").attr("transform", `translate(0,${graphHeight})`).call(axisBottom(xScale));
+    const xAxis = svg
+        .append("g")
+        .attr("class", "axis-x")
+        .attr("transform", `translate(0,${graphHeight})`)
+        .call(axisBottom(xScale));
+
+    // render x axis label 
+    xAxis
+        .append("text")
+        .attr("x", width / 2 + margin.left / 4) // magic numbers ¯\_(ツ)_/¯
+        .attr("y", 32)
+        .attr("text-anchor", "center")
+        .attr("font-weight", "bold")
+        .attr("fill", "currentColor")
+        .text(inputData.xLabel);
 
     // y axis
     const [yMin, yMax] = inputData.values.reduce(

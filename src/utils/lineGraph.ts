@@ -66,6 +66,15 @@ export const drawLineGraph = (
             axisBottom(xScale)
                 .ticks(width / tickSpread)
                 .tickSizeOuter(0),
+        )
+        .call((group) =>
+            group // render x axis label
+                .select(".tick:last-of-type text")
+                .clone()
+                .attr("y", -16)
+                .attr("text-anchor", "end")
+                .attr("font-weight", "bold")
+                .text(inputData.xLabel),
         );
 
     // y axis
