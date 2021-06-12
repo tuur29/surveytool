@@ -7,6 +7,7 @@ import { isAnswerValid } from "../../utils/validator";
 import { ErrorPanel, ErrorList } from "../styles/Question";
 import { showResult } from "../../redux/actions/resultActions";
 import { getAllQuestionsSelector, getQuestionIdHash } from "../../utils/utils";
+import { setAnswerFocus } from "../../redux/actions/answersActions";
 
 const MAX_ERRORS = 3;
 
@@ -38,6 +39,7 @@ const ShowResultsButton = (): JSX.Element => {
     const isValid = invalidDataList.length < 1;
 
     const scrollToQuestionId = (idHash: string) => {
+        dispatch(setAnswerFocus(idHash, true));
         document.querySelector(`#question-${idHash}`)?.scrollIntoView({
             behavior: "smooth",
         });
