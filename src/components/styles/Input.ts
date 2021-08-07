@@ -259,10 +259,18 @@ export const BottomLabel = styled(Label)`
 // Text
 // ----------------------------------------------------------------------
 
-export const TextField = styled.input<{ isError?: boolean }>`
+export const TextFieldWrapper = styled.div`
+    overflow-x: auto;
+`;
+
+export const TextField = styled.input<{ isError?: boolean; rows?: number }>`
     ${baseColors};
     ${baseMargin};
     ${basePadding};
+    width: ${({ theme, rows }) => (rows && rows > 1 ? theme.sizes.controlWidthMulti : theme.sizes.controlWidthSingle)};
+    min-width: ${({ theme, rows }) =>
+        rows && rows > 1 ? theme.sizes.controlWidthMulti : theme.sizes.controlWidthSingle};
+    min-height: 15px;
     border-radius: ${({ theme }) => theme.sizes.radius};
     color: ${({ theme }) => theme.colors.onSurface};
 

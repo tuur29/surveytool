@@ -68,6 +68,8 @@ const sizes = {
     subtitle: "18px",
     footer: "14px",
     // inputs
+    controlWidthSingle: "150px",
+    controlWidthMulti: "250px",
     controlBorder: "2px",
     controlCheckOffset: "2px",
     controlRadioOffset: "3px",

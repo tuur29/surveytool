@@ -123,6 +123,7 @@ export const mockConfig: Partial<ConfigType> = {
                     calcFunction: (question: any, answer: any) => {
                         return answer.value.length;
                     },
+                    rowCount: 5,
                 },
                 {
                     id: "rating-order",

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import getValidAnswerData from "../../utils/validateAnswer";
 import { useStoreDispatch, useStoreSelector, useTypedStore } from "../../redux/store";
 import { TextAnswerType } from "../../types/AnswerTypes";
@@ -11,7 +11,7 @@ import {
 } from "../../utils/utils";
 import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
-import { FieldError, TextField } from "../styles/Input";
+import { FieldError, TextField, TextFieldWrapper } from "../styles/Input";
 import { Question, Title } from "../styles/Question";
 import { Image } from "../styles/Image";
 
@@ -38,7 +38,7 @@ const TextQuestion = (props: PropsType): JSX.Element => {
                 <Image src={question.image.url} widthPercentage={question.image.size} alt={question.image.alt} />
             )}
 
-            <div>
+            <TextFieldWrapper>
                 <Title>
                     <HintableLabel label={question.title} hints={question.hints} />
                 </Title>
@@ -47,9 +47,13 @@ const TextQuestion = (props: PropsType): JSX.Element => {
                     value={value}
                     placeholder={question.placeholder || ""}
                     isError={showError}
-                    onChange={(event) => onTextAnswerChange(question, dispatch, event.target.value)}
+                    onChange={(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                        onTextAnswerChange(question, dispatch, event.target.value)
+                    }
                     onBlur={setFocussed}
                     disabled={disableControl}
+                    as={(question.rowCount || 1) > 1 ? "textarea" : undefined}
+                    rows={question.rowCount}
                 />
 
                 {/* always render FieldError with min-height so showing the error doesn't move content on the page */}
@@ -61,7 +65,7 @@ const TextQuestion = (props: PropsType): JSX.Element => {
                         </>
                     )}
                 </FieldError>
-            </div>
+            </TextFieldWrapper>
         </Question>
     );
 };

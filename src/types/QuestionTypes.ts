@@ -78,6 +78,8 @@ export type TextQuestionType = BaseQuestion & {
         /** Overrides default error message */
         error?: string;
     };
+    /** Optional, when filled in displays a multiline field */
+    rowCount?: number;
 };
 
 export type RangeDirectionType = "increase" | "decrease"; // increase is default
