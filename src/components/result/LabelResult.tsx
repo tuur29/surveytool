@@ -36,12 +36,15 @@ const LabelResult = (props: PropsType): JSX.Element => {
     // animation
     const animation = useRef<number>();
     const frame = useRef(0);
-    const [animatedScore, setAnimatedScore] = useState(config.animate ? domain[0] : score); // default to score when not animating
+    const [displayedScore, setDisplayedScore] = useState(config.animate ? domain[0] : score); // default to score when not animating
     useEffect(() => {
-        if (!config.animate) return;
+        if (!config.animate) {
+            setDisplayedScore(score);
+            return;
+        }
 
         // reset after actual score change
-        setAnimatedScore(domain[0]);
+        setDisplayedScore(domain[0]);
         frame.current = 0;
         if (animation.current) clearInterval(animation.current);
 
@@ -49,11 +52,11 @@ const LabelResult = (props: PropsType): JSX.Element => {
         animation.current = setInterval(() => {
             if (frame.current >= resultAnimationTotalFrames) {
                 clearInterval(animation.current);
-                setAnimatedScore(score);
+                setDisplayedScore(score);
                 return;
             }
             frame.current = frame.current + 1;
-            setAnimatedScore(score * (frame.current / resultAnimationTotalFrames));
+            setDisplayedScore(score * (frame.current / resultAnimationTotalFrames));
         }, resultAnimationFrameLength); // ms
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [score]);
@@ -65,8 +68,8 @@ const LabelResult = (props: PropsType): JSX.Element => {
             labelParts
                 .map((text, index) => {
                     if (index % 2 === 0) return text; // only uneven items are placeholders for score
-                    if (text === undefined) return Math.round(animatedScore); // {score}
-                    return Math.round(rescaleToDomain(animatedScore, domain, [0, parseInt(text)])); // {scoreX}
+                    if (text === undefined) return Math.round(displayedScore); // {score}
+                    return Math.round(rescaleToDomain(displayedScore, domain, [0, parseInt(text)])); // {scoreX}
                 })
                 .join(""),
             { countdown },

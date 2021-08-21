@@ -24,6 +24,7 @@ const determineComponent = (block: AllResultContentType, index: number): JSX.Ele
 const ResultList = (): JSX.Element | null => {
     const showResult = useStoreSelector((state) => state.result.showResult);
     const content = useStoreSelector((state) => state.config.result.content);
+    const score = useStoreSelector((state) => state.result.score);
     const containerRef = useRef<HTMLDivElement>(null);
 
     useInitResetTimer();
@@ -40,10 +41,16 @@ const ResultList = (): JSX.Element | null => {
         if (!showResult || !content || !content.length) return null;
         return (
             <Container ref={containerRef} pb={4} maxBreakpoint="lg">
-                {content.map(determineComponent)}
+                {content
+                    .filter(
+                        (block) =>
+                            !block.visibleScoreDomain ||
+                            (block.visibleScoreDomain[0] <= score && score <= block.visibleScoreDomain[1]),
+                    )
+                    .map(determineComponent)}
             </Container>
         );
-    }, [showResult, content]);
+    }, [showResult, content, score]);
 };
 
 export default ResultList;

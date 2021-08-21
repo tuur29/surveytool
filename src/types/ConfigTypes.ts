@@ -27,7 +27,7 @@ export type ConfigType = {
         /** Hide results page again when the user changes an answer */
         hideResultsAfterUpdate?: boolean;
         /** An array containing the smallest and largest possible score. This is sometimes used when customizing the results page content. */
-        scoreDomain?: number[];
+        scoreDomain?: [number, number];
         /** The number of seconds before the survey restarts after results are shown. */
         restartTimeout?: number;
         content?: AllResultContentType[];

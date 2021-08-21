@@ -14,7 +14,12 @@ export enum resultContentTypes {
  */
 export type AnswerDataUrl = "answerDataUrl";
 
-export type ResultLabelType = {
+type BaseResult = {
+    /** Optional, domain that determines when the content is visible */
+    visibleScoreDomain?: [number, number];
+};
+
+export type ResultLabelType = BaseResult & {
     type: resultContentTypes.label;
     /** Can contain {score}, {scoreX} placeholder (scoreX -> score/10, score/20, score/100...). */
     label: string;
@@ -24,7 +29,7 @@ export type ResultLabelType = {
     animate?: boolean;
 };
 
-export type ResultButtonType = {
+export type ResultButtonType = BaseResult & {
     type: resultContentTypes.button;
     /** Text to be displayed inside the button */
     label: string;
@@ -36,19 +41,19 @@ export type ResultButtonType = {
     openInTab?: boolean;
 };
 
-export type ResultGraphType = {
+export type ResultGraphType = BaseResult & {
     type: resultContentTypes.graph;
     /** Switches between a bar chart or line graph */
     format: "line" | "bar";
     /** Required. The tool will fetch this URL for data to be displayed, can contain `{score}` placeholder */
     dataUrl: AnswerDataUrl;
-    /** Optional. Will display a title above the graph. */
+    /** Optional, will display a title above the graph. */
     titleLabel?: string;
     /** Optional, defaults to false. If enabled, the legend will not be displayed. */
     hideLegend?: boolean;
 };
 
-export type ResultIFrameType = {
+export type ResultIFrameType = BaseResult & {
     type: resultContentTypes.iframe;
     /** Required. The tool will display this url, can contain a `{score}` placeholder */
     url: AnswerDataUrl;

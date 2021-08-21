@@ -111,10 +111,10 @@ export const mockConfig: Partial<ConfigType> = {
                     type: questionTypes.text,
                     inputType: "text",
                     title: "How do you want to name your creation?",
-                    customValidation: {
-                        regex: "^.{0,10}$",
-                        error: "Names longer than 10 characters are not allowed",
-                    },
+                    // customValidation: {
+                    //     regex: "^.{0,10}$",
+                    //     error: "Names longer than 10 characters are not allowed",
+                    // },
                     image: {
                         url: "https://via.placeholder.com/350x65",
                         alignment: "right",
@@ -249,8 +249,20 @@ export const mockConfig: Partial<ConfigType> = {
                 label:
                     "Lorem {score5}/5 ipsum dolor sit amet ({score}) consectetur adipiscing elit. {score20} out of 20 Erat enim Polemonis. Iam contemni non poteris. Equidem etiam Epicurum, in physicis quidem, Democriteum puto. An quod ita callida est, ut optime possit architectari voluptates? Iam quae corporis sunt, ea nec auctoritatem cum animi partibus, comparandam et cognitionem habent faciliorem. Duo Reges: constructio interrete. Sine ea igitur iucunde negat posse se vivere? Cur tantas regiones barbarorum pedibus obiit, tot maria transmisit? Bonum incolumis acies: misera caecitas. Cur tantas regiones barbarorum pedibus obiit, tot maria transmisit?",
             },
-            { type: resultContentTypes.label, style: "scoreCounter270", label: "{score100}%", animate: true },
-            { type: resultContentTypes.label, style: "scoreCounter180", label: "{score100}%", animate: true },
+            {
+                type: resultContentTypes.label,
+                style: "scoreCounter270",
+                label: "{score100}%",
+                animate: true,
+                visibleScoreDomain: [300, Number.MAX_SAFE_INTEGER],
+            },
+            {
+                type: resultContentTypes.label,
+                style: "scoreCounter180",
+                label: "{score100}%",
+                animate: true,
+                visibleScoreDomain: [0, 300],
+            },
             {
                 type: resultContentTypes.graph,
                 dataUrl: "GET;/surveytool/mockLineGraph.json?score={score}" as AnswerDataUrl,
