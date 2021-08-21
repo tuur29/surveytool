@@ -1,4 +1,5 @@
 import { ConfigType } from "../types/ConfigTypes";
+import { ExternalMessageType } from "../types/MessageTypes";
 import { questionTypes } from "../types/QuestionTypes";
 import { AnswerDataUrl, resultContentTypes } from "../types/ResultTypes";
 
@@ -314,6 +315,13 @@ export const mockConfig: Partial<ConfigType> = {
                 label: "The survey will restart in {countdown} seconds.",
             },
         ],
+    },
+    settings: {
+        customMessageHandler: (messages: ExternalMessageType[]): boolean => {
+            // eslint-disable-next-line no-console
+            messages.forEach(console.info);
+            return true;
+        },
     },
     // theme: {
     //     darkMode: true,

@@ -66,6 +66,18 @@ const AllLogicMiddleware: Middleware = (store: StoreApiType) => (next: Dispatch<
             }
             break;
         }
+
+        case "MESSAGES_ADD": {
+            const { customMessageHandler } = store.getState().config.settings;
+            if (customMessageHandler) {
+                try {
+                    const stopErrorInternally = !customMessageHandler(action.messages);
+                    if (stopErrorInternally) return;
+                } catch (exception) {
+                    console.error(`Custom message handler failed`, exception);
+                }
+            }
+        }
     }
 
     return next(action);

@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import { useStoreDispatch, useStoreSelector } from "../redux/store";
-import { messageTypes } from "../types/Messages";
+import { messageTypes } from "../types/MessageTypes";
 import { isDev } from "../utils/utils";
 import { initConfig, toggleBaseTheme } from "../redux/actions/configActions";
 import { addMessages } from "../redux/actions/messagesActions";

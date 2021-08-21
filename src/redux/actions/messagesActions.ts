@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */ // We actually want to use Typescript inferring
-import { MessageType } from "../../types/Messages";
+import { ExternalMessageType } from "../../types/MessageTypes";
 
-export const addMessages = (messages: Omit<MessageType, "id">[]) => ({
+export const addMessages = (messages: ExternalMessageType[]) => ({
     type: "MESSAGES_ADD" as const,
     messages,
 });

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { messageTypes } from "../../types/Messages";
+import { messageTypes } from "../../types/MessageTypes";
 import { ColorType, getElevation } from "../../utils/theme";
 
 // ----------------------------------------------------------------------

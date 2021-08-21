@@ -1,4 +1,4 @@
-import { MessageType } from "../../types/Messages";
+import { MessageType } from "../../types/MessageTypes";
 import { MessagesActions } from "../actions/messagesActions";
 
 // ----------------------------------------------------------------------

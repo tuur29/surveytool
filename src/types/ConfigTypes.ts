@@ -3,6 +3,7 @@ import { DeepPartial } from "../utils/utils";
 import { LabelsType } from "../utils/labels";
 import { QuestionGroup } from "./QuestionTypes";
 import { AllResultContentType, AnswerDataUrl } from "./ResultTypes";
+import { ExternalMessageType } from "./MessageTypes";
 
 export type ConfigType = {
     /**
@@ -31,5 +32,9 @@ export type ConfigType = {
         /** The number of seconds before the survey restarts after results are shown. */
         restartTimeout?: number;
         content?: AllResultContentType[];
+    };
+    settings: {
+        /** Optional, extend built-in error handling. Return false to display your own errors. */
+        customMessageHandler?: (messages: ExternalMessageType[]) => boolean;
     };
 };

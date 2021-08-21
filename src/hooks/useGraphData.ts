@@ -5,7 +5,7 @@ import { SeriesDataTypes, AnswerPostData } from "../types/DataTypes";
 import { fetchAnswerData } from "../utils/utils";
 import { useStoreDispatch, useStoreSelector } from "../redux/store";
 import { AnswerDataUrl } from "../types/ResultTypes";
-import { messageTypes } from "../types/Messages";
+import { messageTypes } from "../types/MessageTypes";
 import { addMessages } from "../redux/actions/messagesActions";
 import { useLabels } from "./useLabel";
 
