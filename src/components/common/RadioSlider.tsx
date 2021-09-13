@@ -42,7 +42,7 @@ const RadioSlider = (props: PropsType): JSX.Element => {
         <RadioListWrapper>
             {ticks.map((itemValue, index) => {
                 return (
-                    <BottomLabel key={itemValue} onClick={() => onChange(itemValue)} disabled={disabled}>
+                    <BottomLabel key={itemValue} onClick={() => !disabled && onChange(itemValue)} disabled={disabled}>
                         <RadioButton checked={value === itemValue} />
                         <div>{tickLabels?.[index] || itemValue}</div>
                     </BottomLabel>

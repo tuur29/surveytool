@@ -47,7 +47,9 @@ const TabledMultipleChoiceQuestion = (props: PropsType): JSX.Element => {
                     question.options.map((option) => (
                         <Label
                             key={option.id}
-                            onClick={() => onMultipleAnswerClick(question, dispatch, selectedIds, option.id)}
+                            onClick={() =>
+                                !disableControl && onMultipleAnswerClick(question, dispatch, selectedIds, option.id)
+                            }
                             disabled={disableControl}
                         >
                             <RadioButton checked={selectedIds.includes(option.id)} />
