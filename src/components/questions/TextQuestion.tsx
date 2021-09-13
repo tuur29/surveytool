@@ -1,5 +1,4 @@
 import React, { ChangeEvent } from "react";
-import getValidAnswerData from "../../utils/validateAnswer";
 import { useStoreDispatch, useStoreSelector, useTypedStore } from "../../redux/store";
 import { TextAnswerType } from "../../types/AnswerTypes";
 import { TextQuestionType } from "../../types/QuestionTypes";
@@ -14,6 +13,7 @@ import Icon from "../common/Icon";
 import { FieldError, TextField, TextFieldWrapper } from "../styles/Input";
 import { Question, Title } from "../styles/Question";
 import { Image } from "../styles/Image";
+import { getValidAnswerData } from "../../utils/validator";
 
 type PropsType = {
     question: TextQuestionType;

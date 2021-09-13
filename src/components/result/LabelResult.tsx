@@ -3,12 +3,8 @@ import { ResultLabelType } from "../../types/ResultTypes";
 import { Result } from "../styles/Result";
 import { Description, Header } from "../styles/Container";
 import { useStoreSelector } from "../../redux/store";
-import {
-    resultAnimationTotalFrames,
-    resultAnimationFrameLength,
-    useAfterFirstRender,
-    replaceValues,
-} from "../../utils/utils";
+import { resultAnimationTotalFrames, resultAnimationFrameLength, replaceValues } from "../../utils/utils";
+import { useAfterFirstRender } from "../../hooks/useAfterFirstRender";
 import ScoreCounter180 from "../common/ScoreCounter180";
 import ScoreCounter270 from "../common/ScoreCounter270";
 import { useRestartTimer } from "../../hooks/timerHooks";

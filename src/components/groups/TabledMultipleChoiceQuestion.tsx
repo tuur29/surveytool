@@ -1,5 +1,4 @@
 import React from "react";
-import getValidAnswerData from "../../utils/validateAnswer";
 import { useStoreDispatch, useStoreSelector, useTypedStore } from "../../redux/store";
 import { MultipleChoiceAnswerType } from "../../types/AnswerTypes";
 import { MultipleChoiceQuestionType } from "../../types/QuestionTypes";
@@ -15,6 +14,7 @@ import Icon from "../common/Icon";
 import Select from "../common/Select";
 import { FieldError, Label, RadioButton } from "../styles/Input";
 import { TitleCell, InputCell } from "../styles/GroupTable";
+import { getValidAnswerData } from "../../utils/validator";
 
 type PropsType = {
     question: MultipleChoiceQuestionType;

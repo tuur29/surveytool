@@ -1,9 +1,32 @@
 import { AllQuestionsType, questionTypes, TextQuestionType } from "../types/QuestionTypes";
 import { AllAnswersType, TextAnswerType } from "../types/AnswerTypes";
+import { getLabel } from "../hooks/useLabel";
+import { setAnswerFocus } from "../redux/actions/answersActions";
+import { StoreType } from "../redux/store";
+import { LabelKeyType } from "./labels";
+import { getQuestionAnswerSelector } from "./utils";
 
 // eslint-disable-next-line
-export const REGEX_EMAIL_FORMAT = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{1,}))$/; // https://emailregex.com/
-export const REGEX_NUMBER_ONLY = /^[0-9]*$/;
+const REGEX_EMAIL_FORMAT = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{1,}))$/; // https://emailregex.com/
+const REGEX_NUMBER_ONLY = /^[0-9]*$/;
+
+/**
+ * Blocks the user from entering a character. Not to be confused with isTextAnswerValid.
+ */
+export const hasTextAnswerForbiddenCharacter = (format: TextQuestionType["inputType"], value: string): boolean => {
+    switch (format) {
+        case "number":
+            return !value.match(REGEX_NUMBER_ONLY);
+        case "email":
+            return value.includes(" "); // no spaces allowed
+        case "text":
+            return false; // everything is allowed
+    }
+};
+
+// ----------------------------------------------------------------------
+// isAnswerValid
+// ----------------------------------------------------------------------
 
 const isAnswerValueFilledIn = (answer: AllAnswersType): boolean => {
     switch (answer.type) {
@@ -61,16 +84,57 @@ export const isAnswerValid = (question: AllQuestionsType, answer: AllAnswersType
     return true;
 };
 
-/**
- * Blocks the user from entering a character. Not to be confused with isTextAnswerValid.
- */
-export const hasTextAnswerForbiddenCharacter = (format: TextQuestionType["inputType"], value: string): boolean => {
-    switch (format) {
-        case "number":
-            return !value.match(REGEX_NUMBER_ONLY);
-        case "email":
-            return value.includes(" "); // no spaces allowed
-        case "text":
-            return false; // everything is allowed
+// ----------------------------------------------------------------------
+// getValidAnswerData
+// ----------------------------------------------------------------------
+
+const textAnswerErrorLabelMap: Record<TextQuestionType["inputType"], LabelKeyType> = {
+    number: "inputTextErrorNumber",
+    email: "inputTextErrorEmail",
+    text: "inputTextErrorText",
+};
+
+const getErrorLabel = (question: AllQuestionsType): LabelKeyType => {
+    switch (question.type) {
+        case questionTypes.single:
+            return "inputSingleRequiredError";
+        case questionTypes.multiple:
+            return "inputMultipleRequiredError";
+        case questionTypes.text:
+            return textAnswerErrorLabelMap[question.inputType];
+        case questionTypes.range:
+            return "" as LabelKeyType; // the slider component should prevent invalid values
     }
+};
+
+type DataType = {
+    error: string;
+    showError: boolean;
+    setFocussed: () => void;
+};
+
+/**
+ * Returns the matching answer field for a question id, also takes care of type casting.
+ * (!) Attention, because of it's direct store usage, it will not trigger a re-render on it's own when used in a React component!
+ */
+export const getValidAnswerData = <Q extends AllQuestionsType>(question: Q, store: StoreType): DataType => {
+    // get answer value
+    const { dispatch, getState } = store;
+    const state = getState();
+    const answer = getQuestionAnswerSelector(question)(state);
+
+    // get correct error label
+    const labels = state.config.labels;
+    const errorLabel = getLabel(labels, getErrorLabel(question));
+
+    const customErrorLabel = (question as TextQuestionType).customValidation?.error;
+    const valid = isAnswerValid(question, answer);
+
+    return {
+        error: customErrorLabel || errorLabel || "Error",
+        showError: !valid && answer.focussed,
+        setFocussed: () => {
+            dispatch(setAnswerFocus(answer.questionIdHash, true));
+        },
+    };
 };

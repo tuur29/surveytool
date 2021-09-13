@@ -1,5 +1,4 @@
 import React from "react";
-import getValidAnswerData from "../../utils/validateAnswer";
 import { useStoreDispatch, useStoreSelector, useTypedStore } from "../../redux/store";
 import { SingleChoiceAnswerType } from "../../types/AnswerTypes";
 import { SingleChoiceQuestionType } from "../../types/QuestionTypes";
@@ -14,6 +13,7 @@ import Icon from "../common/Icon";
 import { FieldError } from "../styles/Input";
 import HintableLabel from "../common/HintableLabel";
 import { TitleCell, InputCell } from "../styles/GroupTable";
+import { getValidAnswerData } from "../../utils/validator";
 
 type PropsType = {
     question: SingleChoiceQuestionType;

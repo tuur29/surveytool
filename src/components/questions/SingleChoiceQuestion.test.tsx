@@ -1,7 +1,6 @@
 import { shallow } from "enzyme";
 import React from "react";
 import { spy, stub } from "sinon";
-import * as getValidAnswerData from "../../utils/validateAnswer";
 import * as store from "../../redux/store";
 import { SingleChoiceAnswerType } from "../../types/AnswerTypes";
 import { questionTypes } from "../../types/QuestionTypes";
@@ -10,6 +9,7 @@ import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
 import { FieldError } from "../styles/Input";
 import { setAnswer, setAnswerFocus } from "../../redux/actions/answersActions";
+import * as validatorUtils from "../../utils/validator";
 import SingleChoiceQuestion from "./SingleChoiceQuestion";
 
 // ----------------------------------------------------------------------
@@ -33,7 +33,7 @@ const answerData: SingleChoiceAnswerType = {
 };
 
 const focusSpy = spy();
-const validData: ReturnType<typeof getValidAnswerData.default> = {
+const validData: ReturnType<typeof validatorUtils.getValidAnswerData> = {
     error: "error",
     showError: false,
     setFocussed: focusSpy,
@@ -48,7 +48,7 @@ stub(store, "useStoreDispatch").returns(dispatchSpy);
 stub(store, "useTypedStore").returns({} as any);
 
 const storeSelector = stub(store, "useStoreSelector");
-const validStub = stub(getValidAnswerData, "default");
+const validStub = stub(validatorUtils, "getValidAnswerData");
 
 // ----------------------------------------------------------------------
 // Tests

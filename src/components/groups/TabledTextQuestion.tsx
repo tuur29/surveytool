@@ -1,5 +1,4 @@
 import React from "react";
-import getValidAnswerData from "../../utils/validateAnswer";
 import { useStoreDispatch, useStoreSelector, useTypedStore } from "../../redux/store";
 import { TextAnswerType } from "../../types/AnswerTypes";
 import { TextQuestionType } from "../../types/QuestionTypes";
@@ -13,6 +12,7 @@ import HintableLabel from "../common/HintableLabel";
 import Icon from "../common/Icon";
 import { FieldError, TextField } from "../styles/Input";
 import { TitleCell, InputCell } from "../styles/GroupTable";
+import { getValidAnswerData } from "../../utils/validator";
 
 type PropsType = {
     question: TextQuestionType;

@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { Dispatch } from "redux";
 import hash from "object-hash";
 import {
@@ -187,7 +186,6 @@ export const onSingleAnswerClick = (
     );
 };
 
-// TODO: could we define these defaults into the config
 export const getRangeQuestionDefaultProps = (
     question: RangeQuestionType,
     dispatch: Dispatch<ActionsType>,
@@ -272,21 +270,6 @@ export const getAllQuestionsSelector = (state: StateType): AllQuestionsType[] =>
 export const getQuestionAnswerSelector = <A extends AllAnswersType>(question: AllQuestionsType) => (
     state: StateType,
 ): A => (state.answers.list.find((answer) => answer.questionIdHash.includes(question.hash!)) as A) || ({} as A);
-
-// ----------------------------------------------------------------------
-// Hooks
-// ----------------------------------------------------------------------
-
-/**
- * Returns true after the first render
- */
-export const useAfterFirstRender = (): boolean => {
-    const [value, setValue] = useState(false);
-    useEffect(() => {
-        setValue(true);
-    }, []);
-    return value;
-};
 
 // ----------------------------------------------------------------------
 // Type helpers
