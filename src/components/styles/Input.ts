@@ -144,7 +144,7 @@ export const SelectValue = styled.div<{ opened?: boolean; disabled?: boolean }>`
             }
 
             &:hover > * > svg {
-                color: ${({ theme }) => theme.colors.controlBorderHover};
+                color: ${({ theme }) => theme.colors.iconHover};
             }
         `};
 

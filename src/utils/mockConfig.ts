@@ -239,7 +239,7 @@ export const mockConfig: Partial<ConfigType> = {
         },
     ],
     result: {
-        scoreDomain: [0, 130],
+        scoreDomain: [0, 150],
         postDataUrl: "POST;https://example.org/api/answer" as AnswerDataUrl,
         restartTimeout: 1000,
         content: [
@@ -255,14 +255,14 @@ export const mockConfig: Partial<ConfigType> = {
                 style: "scoreCounter270",
                 label: "{score100}%",
                 animate: true,
-                visibleScoreDomain: [300, Number.MAX_SAFE_INTEGER],
+                visibleScoreDomain: [75, Number.MAX_SAFE_INTEGER],
             },
             {
                 type: resultContentTypes.label,
                 style: "scoreCounter180",
                 label: "{score100}%",
                 animate: true,
-                visibleScoreDomain: [0, 300],
+                visibleScoreDomain: [Number.MIN_SAFE_INTEGER, 75],
             },
             {
                 type: resultContentTypes.graph,

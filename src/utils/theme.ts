@@ -188,8 +188,8 @@ const darkTheme: DefaultTheme = {
         onMessageNeutral: palettes.neutralDark[7],
         // other colors
         shadow: palettes.neutralDark[0],
-        icon: palettes.neutralDark[8],
-        iconHover: palettes.neutralDark[7],
+        icon: palettes.neutralDark[7],
+        iconHover: palettes.neutralDark[8],
         separator: palettes.neutralDark[5],
     },
 };

@@ -50,7 +50,7 @@ const ShowResultsButton = (): JSX.Element => {
     };
 
     return (
-        <CenteredButtonWrapper>
+        <CenteredButtonWrapper mt={4}>
             <Button disabled={!isValid} onClick={goToResults} iconAlign="right">
                 {buttonLabel}
                 <Icon type="next" />
