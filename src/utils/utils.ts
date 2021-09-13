@@ -141,6 +141,10 @@ export const fetchAnswerData = async <T extends Record<string, unknown>>(
     }
 };
 
+// ----------------------------------------------------------------------
+// Dispatcher helpers
+// ----------------------------------------------------------------------
+
 export const resetFormDispatcher = (dispatch: Dispatch<ActionsType>): void => {
     window.scrollTo({ top: 0 });
     dispatch(showResult(false));

@@ -1,3 +1,4 @@
+import { Dispatch } from "redux";
 import { debounce } from "lodash";
 import { calculateScore } from "../utils/calculator";
 import { AllAnswersType } from "../types/AnswerTypes";
@@ -13,6 +14,13 @@ import {
 import { StoreApiType } from "./store";
 import { setResult, updateRestartTimer } from "./actions/resultActions";
 
+// This is an extra safety measure against loops because every dispatch triggers another listener
+// The actions here should be manually checked for changes below.
+type SafeActions = ReturnType<typeof setResult> | ReturnType<typeof updateRestartTimer>;
+type SafeStoreApiType = Omit<StoreApiType, "dispatch"> & {
+    dispatch: Dispatch<SafeActions>;
+};
+
 // ----------------------------------------------------------------------
 // calculateScoreListener
 // ----------------------------------------------------------------------
@@ -25,14 +33,25 @@ const debouncedFetchAnswerData = debounce(
 let prevScoreAnswerList: AllAnswersType[];
 let prevScoreValue = 0;
 
-// calculate new score when results are visible (links to ANSWERS_SET and dispatches RESULT_SET)
-const calculateScoreListener = (store: StoreApiType): void => {
+/**
+ * Calculate new score when results are visible (links to ANSWERS_SET and dispatches RESULT_SET). Why is this here?
+ * - Because we can circumvent complexity in the middleware. However we modify answers, it will always be picked up here.
+ * - This dispatch is an end state and the other option, redirect, feels wrong inside middleware
+ */
+const calculateScoreListener = (store: SafeStoreApiType): void => {
     const state = store.getState();
 
-    if (getInitializedSelector(state) && state.result.showResult && prevScoreAnswerList !== state.answers.list) {
+    // When viewing results or after, when answers change
+    if (getInitializedSelector(state) && state.result.showResult && state.answers.list !== prevScoreAnswerList) {
         prevScoreAnswerList = state.answers.list;
-        const newScore = calculateScore(getAllQuestionsSelector(state), state.answers.list);
 
+        // Restart timer when results were visible and answers change, also starts timer when showing results
+        if (state.config.result.restartTimeout) {
+            store.dispatch(updateRestartTimer(Date.now() + state.config.result.restartTimeout * 1000));
+        }
+
+        // Create and handle new score
+        const newScore = calculateScore(getAllQuestionsSelector(state), state.answers.list);
         if (newScore !== prevScoreValue) {
             prevScoreValue = newScore;
 
@@ -55,11 +74,6 @@ const calculateScoreListener = (store: StoreApiType): void => {
 
             store.dispatch(setResult(newScore));
         }
-
-        // Restart timer when results were visible and answers change + start timer when showing results
-        if (state.config.result.restartTimeout) {
-            store.dispatch(updateRestartTimer(Date.now() + state.config.result.restartTimeout * 1000));
-        }
     }
 };
 
@@ -69,8 +83,7 @@ const calculateScoreListener = (store: StoreApiType): void => {
 
 let prevPersistAnswerList: AllAnswersType[];
 
-// persist to localstorage and return
-const persistAnswerListener = (store: StoreApiType): void => {
+const persistAnswerListener = (store: SafeStoreApiType): void => {
     const state = store.getState();
 
     if (prevPersistAnswerList !== state.answers.list && state.config.initialized && state.answers.initialized) {

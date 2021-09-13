@@ -15,8 +15,8 @@ const AllLogicMiddleware: Middleware = (store: StoreApiType) => (next: Dispatch<
     action: ActionsType,
 ) => {
     switch (action.type) {
-        // Prepopulate default or locally saved answers in store
         case "CONFIG_INIT": {
+            // Prepopulate default or locally saved answers in store
             // attempt to load from localstorage so answers are persisted between reloads
             const localAnswersString = localStorage.getItem(generateAnswerStorageKey(action.config.id));
             const loadedAnswers: AllAnswersType[] =
@@ -41,19 +41,17 @@ const AllLogicMiddleware: Middleware = (store: StoreApiType) => (next: Dispatch<
         }
 
         case "ANSWERS_RESET": {
+            // Reuse initAnswers instead of dispatching the reset action
             const questions = getAllQuestionsSelector(store.getState());
             const initialAnswers = questions.map(generateInitialAnswer);
-            // Reuse initAnswers instead of dispatching the reset action
             store.dispatch(initAnswers(initialAnswers));
             return;
         }
 
         case "ANSWERS_SET": {
             // Hide results when changing an answer
-            if (
-                store.getState().config.result.enableControls &&
-                store.getState().config.result.hideResultsAfterUpdate
-            ) {
+            const { enableControls, hideResultsAfterUpdate } = store.getState().config.result;
+            if (enableControls && hideResultsAfterUpdate) {
                 store.dispatch(showResult(false));
             }
             break;
@@ -72,6 +70,7 @@ const AllLogicMiddleware: Middleware = (store: StoreApiType) => (next: Dispatch<
             if (customMessageHandler) {
                 try {
                     const stopErrorInternally = !customMessageHandler(action.messages);
+                    // Do not add message to store otherwise duplicate visualization will occur
                     if (stopErrorInternally) return;
                 } catch (exception) {
                     console.error(`Custom message handler failed`, exception);
