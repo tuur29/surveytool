@@ -1,6 +1,9 @@
+import { ImageType } from "./CommonTypes";
+
 export enum resultContentTypes {
     label = "label",
     button = "button",
+    image = "image",
     graph = "graph",
     iframe = "iframe",
 }
@@ -41,6 +44,10 @@ export type ResultButtonType = BaseResult & {
     openInTab?: boolean;
 };
 
+export type ResultImageType = BaseResult & {
+    type: resultContentTypes.image;
+} & Omit<ImageType, "alignment">;
+
 export type ResultGraphType = BaseResult & {
     type: resultContentTypes.graph;
     /** Switches between a bar chart or line graph */
@@ -63,4 +70,9 @@ export type ResultIFrameType = BaseResult & {
     disableScroll?: boolean;
 };
 
-export type AllResultContentType = ResultLabelType | ResultButtonType | ResultGraphType | ResultIFrameType;
+export type AllResultContentType =
+    | ResultLabelType
+    | ResultButtonType
+    | ResultImageType
+    | ResultGraphType
+    | ResultIFrameType;

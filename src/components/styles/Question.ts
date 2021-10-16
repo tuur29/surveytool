@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { SpaceProps, space } from "styled-system";
-import { ImageType } from "../../types/QuestionTypes";
+import { ImageType } from "../../types/CommonTypes";
 import { getElevation } from "../../utils/theme";
 import { imageAlignmentStyles } from "./Image";
 

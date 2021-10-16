@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { ImageType } from "../../types/QuestionTypes";
+import { ImageType } from "../../types/CommonTypes";
 
 export const imageAlignmentStyles = css<{ imagePosition?: ImageType["alignment"] }>`
     ${({ imagePosition }) =>

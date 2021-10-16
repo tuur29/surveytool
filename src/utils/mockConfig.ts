@@ -265,6 +265,12 @@ export const mockConfig: Partial<ConfigType> = {
                 visibleScoreDomain: [Number.MIN_SAFE_INTEGER, 75],
             },
             {
+                type: resultContentTypes.image,
+                url: "https://via.placeholder.com/350x65",
+                size: 0.7,
+                alt: "Placeholder 1",
+            },
+            {
                 type: resultContentTypes.graph,
                 dataUrl: "GET;/surveytool/mockLineGraph.json?score={score}" as AnswerDataUrl,
                 format: "line",

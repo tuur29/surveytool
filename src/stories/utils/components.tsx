@@ -1,7 +1,8 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { Title, Description, ArgsTable, Stories, PRIMARY_STORY } from "@storybook/addon-docs/blocks";
-import { BaseQuestion, ImageType, QuestionGroup } from "../../types/QuestionTypes";
+import { BaseQuestion, QuestionGroup } from "../../types/QuestionTypes";
+import { ImageType } from "../../types/CommonTypes";
 import { generalLabels, messageLabels, questionLabels, resultLabels } from "../../utils/labels";
 import { ColorType, defaultThemes } from "../../utils/theme";
 
