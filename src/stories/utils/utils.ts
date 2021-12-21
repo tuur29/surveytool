@@ -8,8 +8,23 @@ export const getEnumValues = <T extends string | number>(input: Record<string, T
     Object.values(input).filter((val) => typeof val === "string");
 
 /**
+ * Returns white/black depending on the perceived brightness of the hex input color
+ *
+ * Source: https://stackoverflow.com/a/39077686 + https://stackoverflow.com/a/11868159
+ */
+export const getContrastedTextColor = (hex: string): string => {
+    const rgb = hex
+        .replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i, (m, r, g, b) => "#" + r + r + g + g + b + b)
+        .substring(1)
+        .match(/.{2}/g)!
+        .map((x) => parseInt(x, 16));
+    const bri = Math.round((rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000);
+    return bri > 125 ? "black" : "white";
+};
+
+/**
  * Retrieve the actual prop type of a styled component
- *  * Source: https://stackoverflow.com/a/64055248
+ * Source: https://stackoverflow.com/a/64055248
  *
  * @example type ButtonPropsType = InferStyledTypes<typeof Button>
  */

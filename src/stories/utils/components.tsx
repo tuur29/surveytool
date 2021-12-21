@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { Title, Description, ArgsTable, Stories, PRIMARY_STORY } from "@storybook/addon-docs/blocks";
 import { BaseQuestion, QuestionGroup } from "../../types/QuestionTypes";
 import { ImageType } from "../../types/CommonTypes";
 import { generalLabels, messageLabels, questionLabels, resultLabels } from "../../utils/labels";
 import { ColorType, defaultThemes } from "../../utils/theme";
+import { getContrastedTextColor } from "./utils";
 
 // ----------------------------------------------------------------------
 // Labels
@@ -46,6 +47,34 @@ export const getSharedQuestionParams = (description: string) => ({
 // Colors
 // ----------------------------------------------------------------------
 
+/** Used for both swatches and text components, adds easy copy/paste functionality */
+const ColorComponent = (props: {
+    // shared
+    name?: ColorType;
+    // swatch
+    value?: string;
+    size?: number;
+    // text
+    theme?: "light" | "dark";
+    // for styled components
+    className: string;
+}): JSX.Element => {
+    const [copied, setCopied] = useState(false);
+    const theme = defaultThemes[props.theme === "dark" ? "darkTheme" : "lightTheme"];
+    return (
+        <div
+            className={`${props.className}${copied ? " copied" : ""}`}
+            onMouseLeave={() => setCopied(false)}
+            onClick={() => {
+                navigator.clipboard.writeText(props.value || (props.name ? theme.colors[props.name] : ""));
+                setCopied(true);
+            }}
+        >
+            {props.name ?? props.value}
+        </div>
+    );
+};
+
 /** Shows popup over swatch / text ion mouse hover */
 const colorPopup = (text: string) => css`
     &:hover::after {
@@ -57,43 +86,55 @@ const colorPopup = (text: string) => css`
         content: "${text}";
         padding: 8px;
         background: white;
+        color: #000;
         border-radius: 4px;
         box-shadow: 0 0 3px grey;
         transform: translateY(-50%);
+        white-space: nowrap;
+    }
+
+    &.copied:hover::after {
+        content: "✅ Copied";
     }
 `;
 
 /** Square preview for colors. Popup contains the name and hex value */
-export const ColorSwatch = styled.div<{ value: string; name?: string; size?: number }>`
+export const ColorSwatch = styled(ColorComponent)`
     position: relative;
-    display: inline-block;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     width: ${({ size }) => size || 20}px;
     height: ${({ size }) => size || 20}px;
     margin: 8px;
     background-color: ${({ value }) => value || "grey"};
+    color: ${({ value }) => getContrastedTextColor(value!)};
     border: ${({ size }) => (size || 20) / 10}px solid white;
     border-radius: 4px;
     box-shadow: 0 0 3px grey;
     vertical-align: middle;
+    cursor: pointer;
 
-    ${({ name, value }) => colorPopup(name ? `${name} ${value}` : value)}
+    ${({ value }) => colorPopup(value!)}
 `;
 
 /** Renders the color's name with a colored background. Popup contains hex value. */
-export const ColorText = styled.div<{ color: ColorType; lightText?: boolean }>`
+export const ColorText = styled(ColorComponent)`
     position: relative;
     display: inline-block;
     margin: 4px;
     padding: 2px 8px;
-    background-color: ${({ color }) => defaultThemes.lightTheme.colors[color]};
     border: 1px solid grey;
     border-radius: 4px;
     vertical-align: middle;
+    cursor: pointer;
 
-    &::before {
-        color: ${({ lightText }) => (lightText ? "white" : "black")};
-        content: "${({ color }) => color}";
-    }
-
-    ${({ color }) => colorPopup(defaultThemes.lightTheme.colors[color])}
+    ${({ name, theme }) => {
+        const value = defaultThemes[theme === "dark" ? "darkTheme" : "lightTheme"].colors[name!];
+        return css`
+            background-color: ${value};
+            color: ${getContrastedTextColor(value)};
+            ${colorPopup(value)}
+        `;
+    }}
 `;

@@ -1,0 +1,46 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ColorSwatch, ColorText } from "../../utils/components";
+import { defaultThemes, palettes } from "../../../utils/theme";
+
+<Meta title="Config/Colors/Light" />
+
+# Light colors
+
+The colors object contains multiple types of colors, most elements have a background and foreground (`on`) color.
+The main 4 color sets are:
+
+| Background Color             | Foreground Color               | Description                        |
+| ---------------------------- | ------------------------------ | ---------------------------------- |
+| <ColorText name="primary" /> | <ColorText name="onPrimary" /> | Main accent color                  |
+| <ColorText name="back" />    | <ColorText name="onBack" />    | Base background / foreground color |
+| <ColorText name="surface" /> | <ColorText name="onSurface" /> | Colors for raised elements (cards) |
+| <ColorText name="error" />   | <ColorText name="onError" />   | Used for displaying errors         |
+
+In addition there are also colors that are not paired up:
+
+-   <ColorText name="spinner" />: accent color of the loading indicator
+-   <ColorText name="shadow" />: color of text and box (surface elevation) shadows
+-   <ColorText name="icon" /> & <ColorText name="iconHover" />: info icons
+-   <ColorText name="separator" />: color of lines and dividers between elements
+
+## Control Colors
+
+The biggest part of the colors object consists of theming the `controls` (as in form controls / inputs).  
+These are: buttons, text fields, dropdowns, sliders...
+
+| Type                | Colors                                                                                                                                                                                                            | Note                                                          |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| Background & Border | <ColorText name="controlBack" /><br /><ColorText name="controlHighlight" /><br /><ColorText name="controlBorder" /><br /><ColorText name="controlBackDisabled" /><br /><ColorText name="controlOnBackDisabled" /> | Default colors without user input                             |
+| Text                | <ColorText name="controlPlaceholder" />                                                                                                                                                                           | Most text colors are defined by the default foreground color. |
+| Hover states        | <ColorText name="controlBackHover" /><br /><ColorText name="controlBorderHover" />                                                                                                                                |                                                               |
+| Active states       | <ColorText name="controlHighlightActive" /><br /><ColorText name="controlBorderActive" />                                                                                                                         | Color of selected items, checkmark and button hover           |
+| Buttons             | <ColorText name="controlButton" /><br /><ColorText name="controlOnButton" /><br /><ColorText name="controlButtonDisabled" /><br /><ColorText name="controlOnButtonDisabled" />                                    |                                                               |
+| Slider              | <ColorText name="controlTick" /><br /><ColorText name="controlSliderBack" /><br /><ColorText name="controlSliderDisabled" /><br /><ColorText name="controlSliderOnDisabled" />                                    |                                                               |
+
+## Message Colors
+
+| Type    | Background                          | Foreground                            | Border                                    |
+| ------- | ----------------------------------- | ------------------------------------- | ----------------------------------------- |
+| Error   | <ColorText name="messageError" />   | <ColorText name="onMessageError" />   | <ColorText name="messageErrorBorder" />   |
+| Info    | <ColorText name="messageInfo" />    | <ColorText name="onMessageInfo" />    | <ColorText name="messageInfoBorder" />    |
+| Neutral | <ColorText name="messageNeutral" /> | <ColorText name="onMessageNeutral" /> | <ColorText name="messageNeutralBorder" /> |

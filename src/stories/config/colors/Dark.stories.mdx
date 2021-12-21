@@ -1,0 +1,46 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ColorSwatch, ColorText } from "../../utils/components";
+import { defaultThemes, palettes } from "../../../utils/theme";
+
+<Meta title="Config/Colors/Dark" />
+
+# Dark colors
+
+The colors object contains multiple types of colors, most elements have a background and foreground (`on`) color.
+The main 4 color sets are:
+
+| Background Color                          | Foreground Color                            | Description                        |
+| ----------------------------------------- | ------------------------------------------- | ---------------------------------- |
+| <ColorText theme="dark" name="primary" /> | <ColorText name="onPrimary" theme="dark" /> | Main accent color                  |
+| <ColorText name="back" theme="dark" />    | <ColorText name="onBack" theme="dark" />    | Base background / foreground color |
+| <ColorText name="surface" theme="dark" /> | <ColorText name="onSurface" theme="dark" /> | Colors for raised elements (cards) |
+| <ColorText name="error" theme="dark" />   | <ColorText name="onError" theme="dark" />   | Used for displaying errors         |
+
+In addition there are also colors that are not paired up:
+
+-   <ColorText name="spinner" theme="dark" />: accent color of the loading indicator
+-   <ColorText name="shadow" theme="dark" />: color of text and box (surface elevation) shadows
+-   <ColorText name="icon" theme="dark" /> & <ColorText name="iconHover" theme="dark" />: info icons
+-   <ColorText name="separator" theme="dark" />: color of lines and dividers between elements
+
+## Control Colors
+
+The biggest part of the colors object consists of theming the `controls` (as in form controls / inputs).  
+These are: buttons, text fields, dropdowns, sliders...
+
+| Type                | Colors                                                                                                                                                                                                                                                                             | Note                                                          |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| Background & Border | <ColorText name="controlBack" theme="dark" /><br /><ColorText name="controlHighlight" theme="dark" /><br /><ColorText name="controlBorder" theme="dark" /><br /><ColorText name="controlBackDisabled" theme="dark" /><br /><ColorText name="controlOnBackDisabled" theme="dark" /> | Default colors without user input                             |
+| Text                | <ColorText name="controlPlaceholder" theme="dark" />                                                                                                                                                                                                                               | Most text colors are defined by the default foreground color. |
+| Hover states        | <ColorText name="controlBackHover" theme="dark" /><br /><ColorText name="controlBorderHover" theme="dark" />                                                                                                                                                                       |                                                               |
+| Active states       | <ColorText name="controlHighlightActive" theme="dark" /><br /><ColorText name="controlBorderActive" theme="dark" />                                                                                                                                                                | Color of selected items, checkmark and button hover           |
+| Buttons             | <ColorText name="controlButton" theme="dark" /><br /><ColorText name="controlOnButton" theme="dark" /><br /><ColorText name="controlButtonDisabled" theme="dark" /><br /><ColorText name="controlOnButtonDisabled" theme="dark" />                                                 |                                                               |
+| Slider              | <ColorText name="controlTick" theme="dark" /><br /><ColorText name="controlSliderBack" theme="dark" /><br /><ColorText name="controlSliderDisabled" theme="dark" /><br /><ColorText name="controlSliderOnDisabled" theme="dark" />                                                 |                                                               |
+
+## Message Colors
+
+| Type    | Background                                       | Foreground                                         | Border                                                 |
+| ------- | ------------------------------------------------ | -------------------------------------------------- | ------------------------------------------------------ |
+| Error   | <ColorText name="messageError" theme="dark" />   | <ColorText name="onMessageError" theme="dark" />   | <ColorText name="messageErrorBorder" theme="dark" />   |
+| Info    | <ColorText name="messageInfo" theme="dark" />    | <ColorText name="onMessageInfo" theme="dark" />    | <ColorText name="messageInfoBorder" theme="dark" />    |
+| Neutral | <ColorText name="messageNeutral" theme="dark" /> | <ColorText name="onMessageNeutral" theme="dark" /> | <ColorText name="messageNeutralBorder" theme="dark" /> |

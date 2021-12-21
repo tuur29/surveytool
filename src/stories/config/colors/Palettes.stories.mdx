@@ -1,0 +1,52 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ColorSwatch, ColorText } from "../../utils/components";
+import { defaultThemes, palettes } from "../../../utils/theme";
+
+<Meta title="Config/Colors/Palettes" />
+
+# Palettes
+
+Each default theme is based on 3 palettes:
+
+**Primary**
+
+Used as main accent color.  
+They are based on the [Material Design](https://material.io/design/color/the-color-system.html#color-theme-creation) "Red" color.
+
+<div>
+    {Object.values(palettes.primary).map((value, i) => (
+        <ColorSwatch name={i} value={value} size={30} />
+    ))}
+</div>
+
+**Secondary**
+
+Extra accents to contrast with the primary color (warnings for example).  
+They are based on the [Material Design](https://material.io/design/color/the-color-system.html#color-theme-creation) "Orange" color.
+
+<div>
+    {Object.values(palettes.secondary).map((value, i) => (
+        <ColorSwatch name={i} value={value} size={30} />
+    ))}
+</div>
+
+**Layout**
+
+These grey values are used for text, backgrounds, shadows...  
+They represent 8 stops between black and white at these percentages: 0%, 3%, 6%, 9%, 15%, 21%, 36%, 57%, 93%, 100%
+
+Light mode
+
+<div>
+    {Object.values(palettes.neutralLight).map((value, i) => (
+        <ColorSwatch name={i} value={value} size={30} />
+    ))}
+</div>
+
+Dark mode
+
+<div>
+    {Object.values(palettes.neutralDark).map((value, i) => (
+        <ColorSwatch name={i} value={value} size={30} />
+    ))}
+</div>

@@ -5,7 +5,7 @@ import { initConfig } from "../src/redux/actions/configActions";
 import { setResult } from "../src/redux/actions/resultActions";
 import createNewStore from "../src/redux/store";
 import { mockConfig } from "../src/utils/mockConfig";
-import { defaultThemes } from "../src/utils/theme";
+import { defaultThemes, palettes } from "../src/utils/theme";
 import { GlobalDebugStyle } from "../src/components/DebugPanel";
 
 // ----------------------------------------------------------------------
@@ -25,7 +25,7 @@ export const parameters = {
             order: [
                 "Intro",
                 "Config",
-                ["General", "Colors", "Labels", "Example"],
+                ["General", "Colors", ["Palettes", "Light", "Dark"], "Labels", "Example"],
                 "Questions",
                 ["General", "Single Choice", "Multiple Choice", "Text", "Range"],
                 "Results",
