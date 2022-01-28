@@ -55,6 +55,7 @@ const ButtonResult = (props: PropsType): JSX.Element => {
 
     return (
         <CenteredButtonWrapper mb={4}>
+            {/* We only want to allow posting data once. So disable when loading and when loaded. */}
             <Button onClick={onClick} disabled={loading || loaded} iconAlign="right">
                 {label}
                 {loading && <Loader size={12} />}

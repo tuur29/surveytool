@@ -245,6 +245,12 @@ export const mockConfig: Partial<ConfigType> = {
         content: [
             { type: resultContentTypes.label, style: "title", label: "Thanks for your {score10}/10 submission." },
             {
+                type: resultContentTypes.button,
+                label: "Your score is {score}",
+                function: "link",
+                url: "https://example.org/?score={score}" as AnswerDataUrl,
+            },
+            {
                 type: resultContentTypes.label,
                 style: "description",
                 label:

@@ -108,7 +108,7 @@ export const replaceValues = (label?: string | null, values?: ValuesType, replac
     return Object.entries(values).reduce((newLabel, [key, value]) => {
         if (value === null) return newLabel;
         const regex = new RegExp(`{${key}}`, replaceAll ? "g" : "");
-        return newLabel.replace(regex, `${value}`);
+        return newLabel.replace(regex, typeof value === "number" && Number.isNaN(value) ? "?" : `${value}`);
     }, label);
 };
 

@@ -64,6 +64,7 @@ const LabelResult = (props: PropsType): JSX.Element => {
             labelParts
                 .map((text, index) => {
                     if (index % 2 === 0) return text; // only uneven items are placeholders for score
+                    if (Number.isNaN(displayedScore)) return "?";
                     if (text === undefined) return Math.round(displayedScore); // {score}
                     return Math.round(rescaleToDomain(displayedScore, domain, [0, parseInt(text)])); // {scoreX}
                 })
