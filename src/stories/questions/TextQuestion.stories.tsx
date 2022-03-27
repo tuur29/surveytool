@@ -3,7 +3,7 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 import TextQuestion, { TextQuestionDoc } from "../../components/questions/TextQuestion";
 import { TextQuestionType, questionTypes } from "../../types/QuestionTypes";
 import { mockConfig } from "../../utils/mockConfig";
-import { flattenQuestionGroups } from "../../utils/utils";
+import { flattenQuestionGroups, populateQuestionHash } from "../../utils/utils";
 import { sharedQuestionArgTypes } from "../utils/utils";
 import { getSharedQuestionParams } from "../utils/components";
 
@@ -41,20 +41,16 @@ const Template: Story<PropsType> = (args) => (
 // ----------------------------------------------------------------------
 
 export const Text = Template.bind({});
-Text.args = {
-    ...(flattenQuestionGroups(mockConfig.groups!).find((question) => question.id === "name") as TextQuestionType),
-};
+Text.args = populateQuestionHash(
+    flattenQuestionGroups(mockConfig.groups!).find((question) => question.id === "name") as TextQuestionType,
+);
 
 export const Number = Template.bind({});
-Number.args = {
-    ...(flattenQuestionGroups(mockConfig.groups!).find(
-        (question) => question.id === "flavour-shared",
-    ) as TextQuestionType),
-};
+Number.args = populateQuestionHash(
+    flattenQuestionGroups(mockConfig.groups!).find((question) => question.id === "flavour-shared") as TextQuestionType,
+);
 
 export const Email = Template.bind({});
-Email.args = {
-    ...(flattenQuestionGroups(mockConfig.groups!).find(
-        (question) => question.id === "mailaddress",
-    ) as TextQuestionType),
-};
+Email.args = populateQuestionHash(
+    flattenQuestionGroups(mockConfig.groups!).find((question) => question.id === "mailaddress") as TextQuestionType,
+);

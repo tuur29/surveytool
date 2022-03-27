@@ -35,6 +35,7 @@ export const GlobalDebugStyle = createGlobalStyle`
   body {
     color: ${({ theme }) => theme.colors.onBack};
     background-color: ${({ theme }) => theme.colors.back};
+    font-family: "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
   }
 `;
 

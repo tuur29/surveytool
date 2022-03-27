@@ -3,7 +3,7 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 import MultipleChoiceQuestion, { MultipleChoiceQuestionDoc } from "../../components/questions/MultipleChoiceQuestion";
 import { MultipleChoiceQuestionType, questionTypes } from "../../types/QuestionTypes";
 import { mockConfig } from "../../utils/mockConfig";
-import { flattenQuestionGroups } from "../../utils/utils";
+import { flattenQuestionGroups, populateQuestionHash } from "../../utils/utils";
 import { sharedQuestionArgTypes } from "../utils/utils";
 import { getSharedQuestionParams } from "../utils/components";
 
@@ -44,22 +44,22 @@ const Template: Story<PropsType> = (args) => (
 // ----------------------------------------------------------------------
 
 export const Checkbox = Template.bind({});
-Checkbox.args = {
-    ...(flattenQuestionGroups(mockConfig.groups!).find(
+Checkbox.args = populateQuestionHash(
+    flattenQuestionGroups(mockConfig.groups!).find(
         (question) => question.id === "toppings",
-    ) as MultipleChoiceQuestionType),
-};
+    ) as MultipleChoiceQuestionType,
+);
 
 export const Radio = Template.bind({});
-Radio.args = {
-    ...(flattenQuestionGroups(mockConfig.groups!).find(
+Radio.args = populateQuestionHash(
+    flattenQuestionGroups(mockConfig.groups!).find(
         (question) => question.id === "flavour",
-    ) as MultipleChoiceQuestionType),
-};
+    ) as MultipleChoiceQuestionType,
+);
 
 export const Select = Template.bind({});
-Select.args = {
-    ...(flattenQuestionGroups(mockConfig.groups!).find(
+Select.args = populateQuestionHash(
+    flattenQuestionGroups(mockConfig.groups!).find(
         (question) => question.id === "location",
-    ) as MultipleChoiceQuestionType),
-};
+    ) as MultipleChoiceQuestionType,
+);

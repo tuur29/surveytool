@@ -1,9 +1,9 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import SingleChoiceQuestion, { SingleChoiceQuestionDoc } from "../../components/questions/SingleChoiceQuestion";
-import { questionTypes, SingleChoiceQuestionType } from "../../types/QuestionTypes";
+import { SingleChoiceQuestionType } from "../../types/QuestionTypes";
 import { mockConfig } from "../../utils/mockConfig";
-import { flattenQuestionGroups } from "../../utils/utils";
+import { flattenQuestionGroups, populateQuestionHash } from "../../utils/utils";
 import { sharedQuestionArgTypes } from "../utils/utils";
 import { getSharedQuestionParams } from "../utils/components";
 
@@ -25,22 +25,15 @@ export default {
 } as Meta;
 
 type PropsType = React.ComponentProps<typeof SingleChoiceQuestionDoc>;
-const Template: Story<PropsType> = (args) => (
-    <SingleChoiceQuestion
-        question={{
-            ...args,
-            type: questionTypes.single,
-        }}
-    />
-);
+const Template: Story<PropsType> = (args) => <SingleChoiceQuestion question={args} />;
 
 // ----------------------------------------------------------------------
 // Stories
 // ----------------------------------------------------------------------
 
 export const Default = Template.bind({});
-Default.args = {
-    ...(flattenQuestionGroups(mockConfig.groups!).find(
+Default.args = populateQuestionHash(
+    flattenQuestionGroups(mockConfig.groups!).find(
         (question) => question.id === "interested",
-    ) as SingleChoiceQuestionType),
-};
+    ) as SingleChoiceQuestionType,
+);

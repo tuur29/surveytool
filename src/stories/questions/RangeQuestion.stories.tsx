@@ -3,7 +3,7 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 import RangeQuestion, { RangeQuestionDoc } from "../../components/questions/RangeQuestion";
 import { RangeQuestionType, questionTypes } from "../../types/QuestionTypes";
 import { mockConfig } from "../../utils/mockConfig";
-import { flattenQuestionGroups } from "../../utils/utils";
+import { flattenQuestionGroups, populateQuestionHash } from "../../utils/utils";
 import { sharedQuestionArgTypes } from "../utils/utils";
 import { getSharedQuestionParams } from "../utils/components";
 
@@ -44,13 +44,11 @@ const Template: Story<PropsType> = (args) => (
 // ----------------------------------------------------------------------
 
 export const Slider = Template.bind({});
-Slider.args = {
-    ...(flattenQuestionGroups(mockConfig.groups!).find((question) => question.id === "amount") as RangeQuestionType),
-};
+Slider.args = populateQuestionHash(
+    flattenQuestionGroups(mockConfig.groups!).find((question) => question.id === "amount") as RangeQuestionType,
+);
 
 export const RadioButtons = Template.bind({});
-RadioButtons.args = {
-    ...(flattenQuestionGroups(mockConfig.groups!).find(
-        (question) => question.id === "rating-product",
-    ) as RangeQuestionType),
-};
+RadioButtons.args = populateQuestionHash(
+    flattenQuestionGroups(mockConfig.groups!).find((question) => question.id === "rating-product") as RangeQuestionType,
+);

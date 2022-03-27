@@ -66,7 +66,7 @@ const isTextAnswerValid = (question: TextQuestionType, answer: TextAnswerType): 
 
 export const isAnswerValid = (question: AllQuestionsType, answer: AllAnswersType): boolean => {
     // Because the hash isn't 100% collision proof we also check some other fields here, just in case.
-    if (!answer.questionIdHash.includes(question.hash!) || question.type !== answer.type) {
+    if (!question.hash || !answer.questionIdHash.includes(question.hash) || question.type !== answer.type) {
         throw new Error(
             `Cannot validate answer with data from a different question. Question hash: ${question.hash}, answers question idHash: ${answer.questionIdHash}`,
         );
@@ -128,6 +128,7 @@ export const getValidAnswerData = <Q extends AllQuestionsType>(question: Q, stor
     const errorLabel = getLabel(labels, getErrorLabel(question));
 
     const customErrorLabel = (question as TextQuestionType).customValidation?.error;
+    console.log("\x1b[36mLog%s: %o\x1b[0m", ": question, answer", question, answer);
     const valid = isAnswerValid(question, answer);
 
     return {
