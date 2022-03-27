@@ -21,12 +21,12 @@ export const Line = styled.hr`
 
 export const Header = styled.h1`
     font-size: ${({ theme }) => theme.sizes.title};
-    font-family: ${({ theme}) => theme.fonts.title};
+    font-family: ${({ theme }) => theme.fonts.title};
     text-align: center;
 `;
 
 export const Description = styled.div<SpaceProps>`
-    font-family: ${({ theme}) => theme.fonts.description};
+    font-family: ${({ theme }) => theme.fonts.description};
     white-space: pre-wrap;
     ${space};
 `;

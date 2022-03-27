@@ -10,6 +10,7 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "eject": "react-scripts eject",
+        "prepare": "husky install",
         "docs:start": "start-storybook -p 9009 -s ./public/ --quiet",
         "docs:build": "build-storybook -o build/docs -s ./public/ --no-dll",
         "test:typing": "tsc --noEmit --pretty",
@@ -70,7 +71,7 @@
         "eslint-plugin-jsx-a11y": "^6.3.0",
         "eslint-plugin-react": "^7.20.0",
         "eslint-plugin-react-hooks": "^4.0.4",
-        "husky": "^4.2.5",
+        "husky": "^7.0.0",
         "jest": "^24.9.0",
         "jest-fetch-mock": "^3.0.3",
         "lint-staged": "^10.2.13",
@@ -147,11 +148,6 @@
             "./node_modules/.bin/eslint --cache --quiet",
             "./node_modules/.bin/prettier --write"
         ]
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
-        }
     },
     "browserslist": {
         "production": [

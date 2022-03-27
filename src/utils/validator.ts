@@ -128,7 +128,6 @@ export const getValidAnswerData = <Q extends AllQuestionsType>(question: Q, stor
     const errorLabel = getLabel(labels, getErrorLabel(question));
 
     const customErrorLabel = (question as TextQuestionType).customValidation?.error;
-    console.log("\x1b[36mLog%s: %o\x1b[0m", ": question, answer", question, answer);
     const valid = isAnswerValid(question, answer);
 
     return {

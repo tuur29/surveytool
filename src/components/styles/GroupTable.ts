@@ -17,7 +17,7 @@ export const TitleCell = styled.div`
     grid-column: 1;
     padding-right: ${({ theme }) => theme.space[3]}px;
     text-align: right;
-    font-family: ${({ theme}) => theme.fonts.question};
+    font-family: ${({ theme }) => theme.fonts.question};
     font-weight: bold;
 `;
 

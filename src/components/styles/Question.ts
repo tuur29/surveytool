@@ -27,7 +27,7 @@ Question.defaultProps = {
 
 export const Title = styled.h2`
     margin: ${({ theme }) => theme.space[3]}px 0;
-    font-family: ${({ theme}) => theme.fonts.question};
+    font-family: ${({ theme }) => theme.fonts.question};
     font-size: ${({ theme }) => theme.sizes.subtitle};
     font-weight: normal;
 `;
