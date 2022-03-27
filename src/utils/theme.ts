@@ -105,7 +105,7 @@ const elevation = {
 // Typing
 // ----------------------------------------------------------------------
 
-type FontFamiliesType = "text" | "title";
+type FontFamiliesType = "title" | "description" | "question" | "text";
 type SizeType = keyof typeof sizes;
 export type BreakpointType = "xs" | "sm" | "md" | "lg" | "xl";
 export type ColorType = keyof typeof colors;
@@ -132,8 +132,11 @@ const lightTheme: DefaultTheme = {
     zIndex,
     elevation,
     fonts: {
-        title: "Lato, sans-serif",
-        text: "Open Sans, Arial, sans-serif",
+        // leave empty so it defaults to site wide font
+        title: "",
+        description: "",
+        question: "",
+        text: "",
     },
     breakpoints: {
         xs: "0px",

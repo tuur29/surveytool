@@ -27,8 +27,9 @@ Question.defaultProps = {
 
 export const Title = styled.h2`
     margin: ${({ theme }) => theme.space[3]}px 0;
-    font-weight: normal;
+    font-family: ${({ theme}) => theme.fonts.question};
     font-size: ${({ theme }) => theme.sizes.subtitle};
+    font-weight: normal;
 `;
 
 export const ErrorPanel = styled.div`

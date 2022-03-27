@@ -340,9 +340,9 @@ export const mockConfig: Partial<ConfigType> = {
     //     values: {
     //         colors: { controlHighlight: "#ff00ff" },
     //         sizes: { radius: "0px" },
-    //         fonts: { title: "Serif" },
-    //         breakpoints: { md: "600px" }
-    //     }
+    //         fonts: { title: "Serif", description: "fantasy", question: "cursive", text: "sans-serif" },
+    //         breakpoints: { md: "600px" },
+    //     },
     // },
-    // labels: { footerText: "Copyright", },
+    // labels: { footerText: "Copyright" },
 };

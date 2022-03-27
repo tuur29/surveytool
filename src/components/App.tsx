@@ -1,5 +1,5 @@
 import React from "react";
-import { ThemeProvider } from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import { merge } from "lodash";
 import { useStoreSelector } from "../redux/store";
 import { getInitializedSelector } from "../utils/utils";
@@ -10,6 +10,10 @@ import MessagesList from "./MessagesList";
 import DebugPanel from "./DebugPanel";
 import Footer from "./Footer";
 
+const BaseStyle = styled.div`
+    font-family: ${({ theme }) => theme.fonts.text};
+`;
+
 const App = (): JSX.Element | null => {
     const initialized = useStoreSelector(getInitializedSelector);
     const theme = useStoreSelector((state) => state.config.theme);
@@ -18,11 +22,13 @@ const App = (): JSX.Element | null => {
     if (!initialized) return null;
     return (
         <ThemeProvider theme={overriddenTheme}>
-            <DebugPanel />
-            <MessagesList />
-            <QuestionGroupList />
-            <ResultList />
-            <Footer />
+            <BaseStyle>
+                <DebugPanel />
+                <MessagesList />
+                <QuestionGroupList />
+                <ResultList />
+                <Footer />
+            </BaseStyle>
         </ThemeProvider>
     );
 };
