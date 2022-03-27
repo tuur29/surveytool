@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.js": "./main.86bca4ed32db6154edef.bundle.js",
+    "main.js.map": "./main.86bca4ed32db6154edef.bundle.js.map",
+    "runtime~main.js": "./runtime~main.86bca4ed32db6154edef.bundle.js",
+    "runtime~main.js.map": "./runtime~main.86bca4ed32db6154edef.bundle.js.map",
+    "vendors~main.js": "./vendors~main.86bca4ed32db6154edef.bundle.js",
+    "vendors~main.js.map": "./vendors~main.86bca4ed32db6154edef.bundle.js.map",
+    "iframe.html": "./iframe.html",
+    "precache-manifest.273d3a712895b261ad3a043b9a41b149.js": "./precache-manifest.273d3a712895b261ad3a043b9a41b149.js",
+    "service-worker.js": "./service-worker.js",
+    "static/media/arrow-circle-right-solid.e7f07410.svg": "./static/media/arrow-circle-right-solid.e7f07410.svg",
+    "static/media/caret-up-solid.f1c37d9b.svg": "./static/media/caret-up-solid.f1c37d9b.svg",
+    "static/media/check-solid.e597acab.svg": "./static/media/check-solid.e597acab.svg",
+    "static/media/exclamation-triangle-solid.a35f82b9.svg": "./static/media/exclamation-triangle-solid.a35f82b9.svg",
+    "static/media/info-circle-solid.d9a24d05.svg": "./static/media/info-circle-solid.d9a24d05.svg",
+    "static/media/times-circle-solid.bb7daa97.svg": "./static/media/times-circle-solid.bb7daa97.svg",
+    "static/media/times-solid.2c5552a1.svg": "./static/media/times-solid.2c5552a1.svg",
+    "vendors~main.86bca4ed32db6154edef.bundle.js.LICENSE.txt": "./vendors~main.86bca4ed32db6154edef.bundle.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "runtime~main.86bca4ed32db6154edef.bundle.js",
+    "vendors~main.86bca4ed32db6154edef.bundle.js",
+    "main.86bca4ed32db6154edef.bundle.js"
+  ]
+}

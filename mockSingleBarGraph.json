@@ -1,0 +1,19 @@
+{
+    "xLabel": "Abscissa",
+    "yLabel": "Ordinate",
+    "series": [
+        { "id": "y1", "name": "Straight line", "color": "red" },
+        { "id": "highlight", "name": "Your score", "color": "orange" }
+    ],
+    "values": [
+        { "x": "cat1", "y1": 14},
+        { "x": "cat2", "y1": 23, "highlight": "purple" },
+        { "x": "cat3", "y1": 32},
+        { "x": "cat4", "y1": 41, "highlight": true },
+        { "x": "cat5", "y1": 50, "highlight": true },
+        { "x": "cat6", "y1": 59},
+        { "x": "cat7", "y1": 68},
+        { "x": "cat8", "y1": 77},
+        { "x": "cat9", "y1": 86}
+    ]
+}
