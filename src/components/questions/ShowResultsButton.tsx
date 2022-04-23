@@ -17,6 +17,7 @@ const ShowResultsButton = (): JSX.Element => {
     const dispatch = useStoreDispatch();
     const allQuestions = useStoreSelector(getAllQuestionsSelector);
     const allAnswers = useStoreSelector((state) => state.answers.list);
+    const resultsAreShown = useStoreSelector((state) => state.result.showResult);
     const [buttonLabel, errorTitleLabel] = useLabels(["resultSeeButton", "questionsErrorTitle"]);
 
     const invalidDataList = allAnswers.reduce<InvalidItem[]>((invalidList, answer) => {
@@ -51,10 +52,12 @@ const ShowResultsButton = (): JSX.Element => {
 
     return (
         <CenteredButtonWrapper mt={4}>
-            <Button disabled={!isValid} onClick={goToResults} iconAlign="right">
-                {buttonLabel}
-                <Icon type="next" />
-            </Button>
+            {!resultsAreShown && (
+                <Button disabled={!isValid} onClick={goToResults} iconAlign="right">
+                    {buttonLabel}
+                    <Icon type="next" />
+                </Button>
+            )}
 
             {!isValid && (
                 <ErrorPanel>

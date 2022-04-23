@@ -6,7 +6,9 @@ import { ResultActions } from "../actions/resultActions";
 // ----------------------------------------------------------------------
 
 export const initialResultState = {
-    showResult: isDev() ? JSON.parse(localStorage.getItem(generateShowResultStorageKey()) || "false") : false, // remember setting for easier debugging
+    showResult: isDev()
+        ? (JSON.parse(localStorage.getItem(generateShowResultStorageKey()) || "false") as boolean)
+        : false, // remember setting for easier debugging
     score: 0,
     restartTimestamp: null as number | null,
 };

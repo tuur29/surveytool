@@ -2,6 +2,8 @@ import React, { useRef, useEffect, useMemo } from "react";
 import { useStoreSelector } from "../redux/store";
 import { AllResultContentType, resultContentTypes } from "../types/ResultTypes";
 import { useInitResetTimer } from "../hooks/timerHooks";
+import { isAnswerValid } from "../utils/validator";
+import { getAllQuestionsSelector } from "../utils/utils";
 import { Container } from "./styles/Container";
 import LabelResult from "./result/LabelResult";
 import GraphResult from "./result/GraphResult";
@@ -28,24 +30,33 @@ const ResultList = (): JSX.Element | null => {
     const showResult = useStoreSelector((state) => state.result.showResult);
     const content = useStoreSelector((state) => state.config.result.content);
     const score = useStoreSelector((state) => state.result.score);
+    const allQuestions = useStoreSelector(getAllQuestionsSelector);
+    const allAnswers = useStoreSelector((state) => state.answers.list);
     const containerRef = useRef<HTMLDivElement>(null);
 
-    useInitResetTimer();
+    const hasInvalidAnswers = allAnswers.some((answer) => {
+        const question = allQuestions.find((question) => answer.questionIdHash.includes(question.hash!));
+        return question && !isAnswerValid(question, answer);
+    });
 
     // Scroll to results when it becomes visible
     useEffect(() => {
-        if (containerRef.current) {
-            containerRef.current.scrollIntoView({ behavior: "smooth" });
-        }
-    }, []);
+        window.requestAnimationFrame(() => {
+            if (containerRef.current && showResult) {
+                window.scrollTo({ behavior: "smooth", top: containerRef.current.offsetTop });
+            }
+        });
+    }, [showResult]);
+
+    useInitResetTimer();
 
     // We need to wrap this in useMemo because the useInitResetTimer will otherwise trigger a re-render every second
     return useMemo(() => {
-        if (!showResult || !content || !content.length) return null;
+        if (!showResult || !content?.length || hasInvalidAnswers) return null;
         return (
             <Container ref={containerRef} pb={4} maxBreakpoint="lg">
                 {content
-                    .filter(
+                    ?.filter(
                         (block) =>
                             !block.visibleScoreDomain ||
                             (block.visibleScoreDomain[0] <= score && score <= block.visibleScoreDomain[1]),
@@ -53,7 +64,7 @@ const ResultList = (): JSX.Element | null => {
                     .map(determineComponent)}
             </Container>
         );
-    }, [showResult, content, score]);
+    }, [showResult, content, hasInvalidAnswers, score]);
 };
 
 export default ResultList;
