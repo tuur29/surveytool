@@ -59,7 +59,9 @@ const ResultList = (): JSX.Element | null => {
                     ?.filter(
                         (block) =>
                             !block.visibleScoreDomain ||
-                            (block.visibleScoreDomain[0] <= score && score <= block.visibleScoreDomain[1]),
+                            Object.entries(block.visibleScoreDomain).every(
+                                ([scoreKey, domain]) => domain[0] <= score[scoreKey] && score[scoreKey] <= domain[1],
+                            ),
                     )
                     .map(determineComponent)}
             </Container>

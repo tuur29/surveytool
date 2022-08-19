@@ -1,4 +1,4 @@
-import { ImageType } from "./CommonTypes";
+import { ImageType, ScoreDomainType } from "./CommonTypes";
 
 export enum resultContentTypes {
     label = "label",
@@ -19,7 +19,7 @@ export type AnswerDataUrl = "answerDataUrl";
 
 type BaseResult = {
     /** Optional, domain that determines when the content is visible */
-    visibleScoreDomain?: [number, number];
+    visibleScoreDomain?: ScoreDomainType;
 };
 
 export type ResultLabelType = BaseResult & {

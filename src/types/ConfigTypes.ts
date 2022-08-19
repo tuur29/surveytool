@@ -4,6 +4,7 @@ import { LabelsType } from "../utils/labels";
 import { QuestionGroup } from "./QuestionTypes";
 import { AllResultContentType, AnswerDataUrl } from "./ResultTypes";
 import { ExternalMessageType } from "./MessageTypes";
+import { ScoreDomainType } from "./CommonTypes";
 
 export type ConfigType = {
     /**
@@ -27,8 +28,10 @@ export type ConfigType = {
         enableControls?: boolean;
         /** Hide results page again when the user changes an answer */
         hideResultsAfterUpdate?: boolean;
+        /** It is possible to calculate multiple separate scores on one test by passing an array of keys here, must match the ones from scoreDomains. */
+        scoreTypes: string[];
         /** An array containing the smallest and largest possible score. This is sometimes used when customizing the results page content. */
-        scoreDomain?: [number, number];
+        scoreDomains?: ScoreDomainType;
         /** The number of seconds before the survey restarts after results are shown. */
         restartTimeout?: number;
         content?: AllResultContentType[];

@@ -1,5 +1,5 @@
 import { AllAnswersType } from "./AnswerTypes";
-import { ImageType } from "./CommonTypes";
+import { ImageType, ScoreType } from "./CommonTypes";
 
 export enum questionTypes {
     single = "single",
@@ -32,7 +32,7 @@ export type BaseQuestion = {
         question: AllQuestionsType,
         answer: AllAnswersType,
         allAnswers: AllAnswersType[],
-    ) => number | undefined;
+    ) => ScoreType | number | undefined;
     /** Will be displayed above or to the right of the question title. */
     image?: ImageType;
 } & Hintable;

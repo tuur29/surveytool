@@ -7,3 +7,7 @@ export type ImageType = {
     /** Text that will be shown in case the image cannot be loaded, also useful for accessibility */
     alt?: string;
 };
+
+export type ScoreType = Record<string, number>;
+
+export type ScoreDomainType = Record<string, [number, number]>;

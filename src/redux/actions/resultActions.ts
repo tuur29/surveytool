@@ -1,5 +1,6 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */ // We actually want to use Typescript inferring
-export const setResult = (score: number) => ({
+import { ScoreType } from "../../types/CommonTypes"; // We actually want to use Typescript inferring
+
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */ export const setResult = (score: ScoreType) => ({
     type: "RESULT_SET" as const,
     score,
 });

@@ -1,5 +1,6 @@
 import { Dispatch } from "redux";
 import { debounce } from "lodash";
+import hash from "object-hash";
 import { calculateScore } from "../utils/calculator";
 import { AllAnswersType } from "../types/AnswerTypes";
 import { AnswerPostData } from "../types/DataTypes";
@@ -31,7 +32,7 @@ const debouncedFetchAnswerData = debounce(
 );
 
 let prevScoreAnswerList: AllAnswersType[];
-let prevScoreValue = 0;
+let prevScoreHash = "";
 
 /**
  * Calculate new score when results are visible (links to ANSWERS_SET and dispatches RESULT_SET). Why is this here?
@@ -51,14 +52,15 @@ const calculateScoreListener = (store: SafeStoreApiType): void => {
         }
 
         // Create and handle new score
-        const newScore = calculateScore(getAllQuestionsSelector(state), state.answers.list);
-        if (newScore !== prevScoreValue) {
-            prevScoreValue = newScore;
+        const newScore = calculateScore(getAllQuestionsSelector(state), state.answers.list, state.config);
+        const newScoreHash = hash(newScore);
+        if (newScoreHash !== prevScoreHash) {
+            prevScoreHash = newScoreHash;
 
             // Replace built in results page with a custom redirect
             // this causes instant reloads when showResult was saved to localstorage (only in dev mode)
             if (state.config.result.redirectUrl) {
-                window.location.href = replaceValues(state.config.result.redirectUrl, { score: newScore })!;
+                window.location.href = replaceValues(state.config.result.redirectUrl, newScore)!;
                 return;
             }
 

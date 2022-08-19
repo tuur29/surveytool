@@ -1,5 +1,6 @@
 import { graphHighlightId } from "../utils/utils";
 import { AllAnswersType } from "./AnswerTypes";
+import { ScoreType } from "./CommonTypes";
 
 type SeriesId = string;
 
@@ -28,4 +29,4 @@ export type SeriesDataTypes<T extends number | string | unknown = unknown> = {
 };
 
 // Data format to post answers to server, get graph data...
-export type AnswerPostData = { configId: string; score: number; answers: AllAnswersType[] };
+export type AnswerPostData = { configId: string; score: ScoreType; answers: AllAnswersType[] };

@@ -57,9 +57,10 @@ const useGraphData = (postUrl: AnswerDataUrl): DataType => {
     );
 
     useEffect(() => {
+        if (score === undefined) return;
         request(postUrl, postData);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [postUrl, hash]);
+    }, [postUrl, hash, score]);
 
     return { data, loading };
 };

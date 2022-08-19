@@ -6,6 +6,8 @@ import {
     RangeAnswerType,
     TextAnswerType,
 } from "../types/AnswerTypes";
+import { ScoreType } from "../types/CommonTypes";
+import { ConfigType } from "../types/ConfigTypes";
 import { getQuestionIdHash } from "./utils";
 
 const calculateDefaultAnswerScore = (question: AllQuestionsType, answer: AllAnswersType): number => {
@@ -33,21 +35,34 @@ const calculateDefaultAnswerScore = (question: AllQuestionsType, answer: AllAnsw
     }
 };
 
-export const calculateScore = (questions: AllQuestionsType[], answers: AllAnswersType[]): number => {
-    return questions.reduce((total: number, question: AllQuestionsType, index: number) => {
+export const calculateScore = (
+    questions: AllQuestionsType[],
+    answers: AllAnswersType[],
+    config: ConfigType,
+): ScoreType => {
+    const firstKey = config.result.scoreTypes[0];
+    const defaultScoreObject = config.result.scoreTypes.reduce(
+        (scoreObj, key) => ({ [key]: 0, ...scoreObj }),
+        {} as ScoreType,
+    );
+    return questions.reduce((total: ScoreType, question: AllQuestionsType, index: number) => {
         const answer = answers[index];
 
         if (question.calcFunction) {
             try {
-                const score = parseInt((question.calcFunction(question, answer, answers) as unknown) as string);
-                if (Number.isNaN(score)) throw new Error("calcFunction does not return a number");
+                const customScore = question.calcFunction(question, answer, answers);
+                const scoreObject = typeof customScore !== "object" ? { [firstKey]: customScore } : customScore;
 
-                return total + score;
+                return Object.entries(scoreObject).reduce((prevTotal, [key, score]) => {
+                    const parsedScore = parseInt((score as unknown) as string);
+                    if (Number.isNaN(parsedScore)) throw new Error("calcFunction does not return a number");
+                    return { ...prevTotal, [key]: prevTotal[key] + parsedScore };
+                }, total);
             } catch (exception) {
                 console.error(`Failed to calculate score of question ${getQuestionIdHash(question)}`, exception);
             }
         }
 
-        return total + calculateDefaultAnswerScore(question, answer);
-    }, 0);
+        return { ...total, [firstKey]: total[firstKey] + calculateDefaultAnswerScore(question, answer) };
+    }, defaultScoreObject);
 };

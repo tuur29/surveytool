@@ -23,11 +23,11 @@ const ButtonResult = (props: PropsType): JSX.Element => {
     const [loaded, setLoaded] = useState(false);
 
     const countdown = useRestartTimer();
-    const label = replaceValues(config.label, { countdown, score });
+    const label = replaceValues(config.label, { countdown, ...score });
     const hash = JSON.stringify(answers);
 
     const onClick = async (): Promise<void> => {
-        const url = replaceValues(config.url, { score })!;
+        const url = replaceValues(config.url, score)!;
         switch (config.function) {
             case "restart":
                 resetFormDispatcher(dispatch);

@@ -52,6 +52,8 @@ export const formatTimestamp = (timestamp: number, localeId: string | null | und
         second: "2-digit",
     }).format(new Date(timestamp));
 
+export const removeDigitsFromText = (text: string): string => text.replace(new RegExp("\\d+"), "");
+
 /**
  * Returns the correct format for the `answers.questionIdHash` field
  */
@@ -115,14 +117,14 @@ export const replaceValues = (label?: string | null, values?: ValuesType, replac
 /**
  * Post data to an url and get return typed data
  * This url can contain the method and the score:
- * GET;http://example.org?score={score} or POST;http://example.org
+ * GET;http://example.org?mainScore={main}&secondaryScore={secondary} or POST;http://example.org
  */
 export const fetchAnswerData = async <T extends Record<string, unknown>>(
     methodUrl: AnswerDataUrl,
     data: AnswerPostData,
 ): Promise<T | null> => {
     const splitUrl = methodUrl.split(";"); // gives array like ["GET", "http://url"] or ["http://url"]
-    const url = replaceValues(splitUrl[splitUrl.length - 1], { score: data.score })!;
+    const url = replaceValues(splitUrl[splitUrl.length - 1], data.score)!;
     const method = splitUrl.length > 1 ? splitUrl[0] : "GET";
 
     try {

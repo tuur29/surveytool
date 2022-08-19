@@ -1,3 +1,4 @@
+import { ScoreType } from "../../types/CommonTypes";
 import { generateShowResultStorageKey, isDev } from "../../utils/utils";
 import { ResultActions } from "../actions/resultActions";
 
@@ -9,7 +10,7 @@ export const initialResultState = {
     showResult: isDev()
         ? (JSON.parse(localStorage.getItem(generateShowResultStorageKey()) || "false") as boolean)
         : false, // remember setting for easier debugging
-    score: 0,
+    score: {} as ScoreType,
     restartTimestamp: null as number | null,
 };
 export type ResultState = typeof initialResultState;
