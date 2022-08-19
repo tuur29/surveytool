@@ -8,7 +8,7 @@ import { getQuestionAnswerSelector } from "./utils";
 
 // eslint-disable-next-line
 const REGEX_EMAIL_FORMAT = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{1,}))$/; // https://emailregex.com/
-const REGEX_NUMBER_ONLY = /^[0-9]*$/;
+const REGEX_NUMBER_ONLY = /^[0-9]+$/;
 
 /**
  * Blocks the user from entering a character. Not to be confused with isTextAnswerValid.
@@ -47,7 +47,9 @@ const isAnswerValueFilledIn = (answer: AllAnswersType): boolean => {
 
 const isTextAnswerValid = (question: TextQuestionType, answer: TextAnswerType): boolean => {
     // fail if answer is required but not filled in
-    if (question.required && !isAnswerValueFilledIn(answer)) return false;
+    if (!isAnswerValueFilledIn(answer)) {
+        return !question.required;
+    }
 
     // override with custom validation
     if (question.customValidation?.regex) {
