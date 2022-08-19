@@ -28,7 +28,11 @@ export type BaseQuestion = {
     /** Required questions need to be filled in by the user before they can submit their answers. */
     required?: boolean;
     /** Optional function that can be used to override the default score calculations. */
-    calcFunction?: (question: AllQuestionsType, answer: AllAnswersType) => number | undefined;
+    calcFunction?: (
+        question: AllQuestionsType,
+        answer: AllAnswersType,
+        allAnswers: AllAnswersType[],
+    ) => number | undefined;
     /** Will be displayed above or to the right of the question title. */
     image?: ImageType;
 } & Hintable;

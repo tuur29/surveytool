@@ -91,8 +91,10 @@ export const mockConfig: Partial<ConfigType> = {
                         { id: "0", title: "US{hint}", hints: ["United States"] },
                         { id: "1", title: "Somewhere else" },
                     ],
-                    calcFunction: (question: any, answer: any) => {
-                        return answer.values.includes("0") ? -99 : 0;
+                    calcFunction: (question: any, answer: any, allAnswers: any[]) => {
+                        const emailAnswer = allAnswers.find((answer) => answer.questionIdHash.includes("mailaddress"));
+                        if (emailAnswer?.value.includes(".com")) return 0;
+                        return answer.values.includes("0") ? -99 : 10;
                     },
                 },
                 {
