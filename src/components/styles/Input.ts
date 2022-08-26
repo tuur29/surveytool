@@ -73,6 +73,7 @@ export const RadioButton = styled.div<{ checked?: boolean }>`
     display: inline-block;
     width: 1em;
     height: 1em;
+    aspect-ratio: 1;
     border-color: ${({ theme, checked }) => (checked ? theme.colors.controlBorderActive : theme.colors.controlBorder)};
     border-radius: 100%;
 

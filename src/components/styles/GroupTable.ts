@@ -6,7 +6,7 @@ export const Table = styled.div`
     margin: 0 auto;
     grid-template-columns: minmax(min-content, max-content) minmax(100px, max-content);
     grid-auto-rows: minmax(min-content, max-content);
-    align-items: center;
+    justify-content: center;
 
     * {
         box-sizing: border-box;
@@ -26,7 +26,6 @@ const surfacedCellStyles = css`
     padding: ${({ theme }) => theme.space[3]}px;
     background-color: ${({ theme }) => theme.colors.surface};
     color: ${({ theme }) => theme.colors.onSurface};
-    text-align: center;
 `;
 
 export const HeadingCell = styled.div`
@@ -36,6 +35,7 @@ export const HeadingCell = styled.div`
     flex-wrap: nowrap;
     gap: ${({ theme }) => theme.space[2]}px;
     font-weight: bold;
+    text-align: center;
 
     > div {
         flex-grow: 1;
