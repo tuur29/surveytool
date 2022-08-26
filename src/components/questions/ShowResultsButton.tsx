@@ -8,6 +8,7 @@ import { ErrorPanel, ErrorList } from "../styles/Question";
 import { showResult } from "../../redux/actions/resultActions";
 import { getAllQuestionsSelector, getQuestionIdHash } from "../../utils/utils";
 import { setAnswerFocus } from "../../redux/actions/answersActions";
+import { WhitespaceText } from "../styles/Text";
 
 const MAX_ERRORS = 3;
 
@@ -31,7 +32,7 @@ const ShowResultsButton = (): JSX.Element => {
             if (invalidList.length < MAX_ERRORS) {
                 invalidList.push({
                     idHash: getQuestionIdHash(question),
-                    title: question.title.replace("{hint}", ""),
+                    title: question.title.replaceAll("{hint}", ""),
                 });
             }
         }
@@ -65,7 +66,7 @@ const ShowResultsButton = (): JSX.Element => {
                     <ErrorList>
                         {invalidDataList.map((item) => (
                             <li key={item.idHash} onClick={() => scrollToQuestionId(item.idHash)}>
-                                {item.title}
+                                <WhitespaceText>{item.title}</WhitespaceText>
                             </li>
                         ))}
                     </ErrorList>

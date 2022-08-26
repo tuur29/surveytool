@@ -15,8 +15,9 @@ export const mockConfig: Partial<ConfigType> = {
                 {
                     id: "interested",
                     type: questionTypes.single,
-                    title: "Are you interested{hint} in eating an ice cream?{hint}",
+                    title: "Are you interested{hint} in eating\nan ice cream?{hint}",
                     hints: ["It's a word", "Say yes!"],
+                    required: true,
                 },
                 {
                     id: "flavour",
@@ -28,7 +29,7 @@ export const mockConfig: Partial<ConfigType> = {
                         { id: "1", title: "Banana" },
                         {
                             id: "2",
-                            title: "Ben & Jerry's{hint} Imagine Whirled Peace{hint}",
+                            title: "Ben & Jerry's{hint} Imagine\nWhirled Peace{hint}",
                             hints: ["(TM)", "Yes this is a real flavour."],
                         },
                         { id: "3", title: "Chocolat" },
@@ -55,7 +56,7 @@ export const mockConfig: Partial<ConfigType> = {
                     min: 0,
                     max: 10,
                     required: true,
-                    tickLabels: ["Min", "", "Two"],
+                    tickLabels: ["Min", "", "Two\nItem"],
                     image: {
                         url: "https://via.placeholder.com/350x65",
                         size: 0.3,
@@ -146,6 +147,7 @@ export const mockConfig: Partial<ConfigType> = {
                     type: questionTypes.range,
                     title: "How much did you like it?",
                     inputType: "radio",
+                    tickLabels: ["derp\nderp"],
                     min: 2,
                     step: 2,
                     max: 8,

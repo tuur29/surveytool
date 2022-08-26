@@ -1,6 +1,7 @@
 import React from "react";
 import { RangeDirectionType } from "../../types/QuestionTypes";
 import { RadioListWrapper, BottomLabel, RadioButton } from "../styles/Input";
+import { WhitespaceText } from "../styles/Text";
 
 type PropsType = {
     /** Minimum allowed value */
@@ -44,7 +45,9 @@ const RadioSlider = (props: PropsType): JSX.Element => {
                 return (
                     <BottomLabel key={itemValue} onClick={() => !disabled && onChange(itemValue)} disabled={disabled}>
                         <RadioButton checked={value === itemValue} />
-                        <div>{tickLabels?.[index] || itemValue}</div>
+                        <div>
+                            <WhitespaceText>{tickLabels?.[index] || itemValue}</WhitespaceText>
+                        </div>
                     </BottomLabel>
                 );
             })}

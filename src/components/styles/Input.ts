@@ -2,6 +2,7 @@ import styled, { css, DefaultTheme } from "styled-components";
 import { width, WidthProps } from "styled-system";
 import { IconWrapper } from "../common/Icon";
 import { getElevation } from "../../utils/theme";
+import { WhitespaceText } from "./Text";
 
 const baseColors = css`
     background-color: ${({ theme }) => theme.colors.controlBack};
@@ -104,6 +105,7 @@ export const RadioButton = styled.div<{ checked?: boolean }>`
 export const RadioListWrapper = styled.div`
     display: flex;
     justify-content: flex-start;
+    align-items: flex-start;
     gap: ${({ theme }) => theme.space[4]}px;
     margin-top: ${({ theme }) => theme.space[2]}px;
 `;
@@ -335,7 +337,7 @@ export const SliderWrapper = styled.div<WidthProps>`
     > div {
         position: relative;
         height: 30px;
-        margin-bottom: ${({ theme }) => theme.space[3]}px;
+        margin-bottom: ${({ theme }) => theme.space[4]}px;
         user-select: none;
         ${width}
     }
@@ -409,10 +411,11 @@ export const SliderTick = styled.div<{ percent: number; disabled?: boolean }>`
     }
 `;
 
-export const SliderTickLabel = styled.span<{ percent: number }>`
+export const SliderTickLabel = styled(WhitespaceText)<{ percent: number }>`
     position: absolute;
     top: 100%;
     left: ${({ percent }) => percent}%;
     color: ${({ theme }) => theme.colors.controlTick};
     transform: translateX(-50%); /* pick center as tick reference point */
+    text-align: center;
 `;

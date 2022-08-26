@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { WhitespaceText } from "../styles/Text";
 import { Tooltip, TooltipContent } from "../styles/Tooltip";
 import Icon from "./Icon";
 
@@ -42,11 +43,11 @@ const HintableLabel = (props: HintablePropsType): JSX.Element => {
                     {parts.reduce((output, part, index) => {
                         const hint = hints[index];
                         return (
-                            <>
+                            <WhitespaceText>
                                 {output}
                                 {part}
                                 {hint && <Hint content={hint} />}
-                            </>
+                            </WhitespaceText>
                         );
                     }, <></>)}
                 </span>
@@ -58,7 +59,7 @@ const HintableLabel = (props: HintablePropsType): JSX.Element => {
         console.warn(`The label "${label}" contains "{hint}" placeholders, but doesn't have hints defined.`);
     }
 
-    return <span>{label}</span>;
+    return <WhitespaceText>{label}</WhitespaceText>;
 };
 
 export default HintableLabel;
