@@ -8,6 +8,7 @@
     },
     "scripts": {
         "start": "react-scripts start",
+        "start:ignore-ts": "TSC_COMPILE_ON_ERROR=false; yarn start",
         "build": "react-scripts build",
         "eject": "react-scripts eject",
         "prepare": "husky install",
