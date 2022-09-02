@@ -16,7 +16,7 @@ const calculateDefaultAnswerScore = (question: AllQuestionsType, answer: AllAnsw
             const textAnswer = answer as TextAnswerType;
             const textQuestion = question as TextQuestionType;
 
-            if (textQuestion.inputType === "number") return parseInt(textAnswer.value) || 0;
+            if (textQuestion.inputType === "number") return parseFloat(textAnswer.value) || 0;
             return 0;
         }
         case questionTypes.single: {
@@ -54,7 +54,7 @@ export const calculateScore = (
                 const scoreObject = typeof customScore !== "object" ? { [firstKey]: customScore } : customScore;
 
                 return Object.entries(scoreObject).reduce((prevTotal, [key, score]) => {
-                    const parsedScore = parseInt((score as unknown) as string);
+                    const parsedScore = parseFloat((score as unknown) as string);
                     if (Number.isNaN(parsedScore)) throw new Error("calcFunction does not return a number");
                     return { ...prevTotal, [key]: prevTotal[key] + parsedScore };
                 }, total);

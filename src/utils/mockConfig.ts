@@ -102,7 +102,7 @@ export const mockConfig: Partial<ConfigType> = {
                     calcFunction: (question: any, answer: any, allAnswers: any[]) => {
                         const emailAnswer = allAnswers.find((answer) => answer.questionIdHash.includes("mailaddress"));
                         if (emailAnswer?.value.includes(".com")) return 0;
-                        return answer.values.includes("0") ? -99 : 10;
+                        return answer.values.includes("0") ? -99 : 10.6;
                     },
                 },
                 {
@@ -161,7 +161,7 @@ export const mockConfig: Partial<ConfigType> = {
                     default: 4,
                     direction: "decrease",
                     calcFunction: (question: any, answer: any): number =>
-                        (answer.value / (question.max - question.min)) * 100,
+                        Math.round((answer.value / (question.max - question.min)) * 100),
                 },
             ],
         },
@@ -245,7 +245,7 @@ export const mockConfig: Partial<ConfigType> = {
                     inputType: "number",
                     title: "How many other people would you estimate that share your favourite flavour?",
                     required: true,
-                    calcFunction: (_, answer: any) => ({ secondaryScore: parseInt(answer.value) }),
+                    calcFunction: (_, answer: any) => ({ secondaryScore: parseFloat(answer.value) }),
                 },
             ],
         },
@@ -259,7 +259,7 @@ export const mockConfig: Partial<ConfigType> = {
         postDataUrl: "POST;https://example.org/api/answer" as AnswerDataUrl,
         restartTimeout: 1000,
         content: [
-            { type: resultContentTypes.label, style: "title", label: "Thanks for your {mainScore10}/10 submission." },
+            { type: resultContentTypes.label, style: "title", label: "Thanks for your {mainScore}/10 submission." },
             {
                 type: resultContentTypes.button,
                 label: "Your score is {mainScore}",
