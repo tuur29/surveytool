@@ -8,10 +8,21 @@ export enum questionTypes {
     range = "range",
 }
 
+export type HintType =
+    | string
+    | {
+          label?: string;
+          imageUrl: string;
+          /** Value in pixels */
+          imageWidth: number;
+          /** Text that will be shown in case the image cannot be loaded, also useful for accessibility */
+          imageAlt?: string;
+      };
+
 type Hintable = {
     title: string;
     /** Each usage of the `{hint}` placeholder needs to have a string in this array. Optional if no hints are used. */
-    hints?: string[];
+    hints?: HintType[];
 };
 
 export type BaseQuestion = {

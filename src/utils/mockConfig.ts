@@ -15,9 +15,16 @@ export const mockConfig: Partial<ConfigType> = {
                 {
                     id: "interested",
                     type: questionTypes.single,
-                    title: "Are you interested{hint} in eating\nan ice cream?{hint}",
-                    hints: ["It's a word", "Say yes!"],
-                    required: true,
+                    title: "Are you interested{hint} in eating an ice cream?{hint}",
+                    hints: [
+                        "It's a word",
+                        {
+                            label: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat enim Polemonis. ",
+                            imageUrl: "https://via.placeholder.com/100x100",
+                            imageAlt: "100x100",
+                            imageWidth: 300,
+                        },
+                    ],
                 },
                 {
                     id: "flavour",

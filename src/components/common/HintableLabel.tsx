@@ -1,16 +1,10 @@
 import React, { useState } from "react";
 import { WhitespaceText } from "../styles/Text";
+import { HintType } from "../../types/QuestionTypes";
 import { Tooltip, TooltipContent } from "../styles/Tooltip";
 import Icon from "./Icon";
 
-type HintablePropsType = {
-    /** This string can contain multiple `{hint}` placeholders. */
-    label: string;
-    /** Each usage of the `{hint}` placeholder needs to have a string in this array. Optional if no hints are used. */
-    hints?: string[];
-};
-
-const Hint = (props: { content: string }): JSX.Element => {
+const Hint = ({ content }: { content: HintType }): JSX.Element => {
     const [opened, setOpened] = useState(false);
     const onClick = (event: React.SyntheticEvent) => {
         event.stopPropagation();
@@ -22,10 +16,26 @@ const Hint = (props: { content: string }): JSX.Element => {
             <Icon type="info" onClick={opened ? undefined : onClick} />
             <TooltipContent show={opened} onClick={opened ? onClick : undefined}>
                 <Icon type="closeCircle" color="iconHover" />
-                {props.content}
+                {typeof content === "string" ? (
+                    content
+                ) : (
+                    <>
+                        {content.label && <span>{content.label}</span>}
+                        <p>
+                            <img src={content.imageUrl} width={content.imageWidth} alt={content.imageAlt} />
+                        </p>
+                    </>
+                )}
             </TooltipContent>
         </Tooltip>
     );
+};
+
+type HintablePropsType = {
+    /** This string can contain multiple `{hint}` placeholders. */
+    label: string;
+    /** Each usage of the `{hint}` placeholder needs to have a string in this array. Optional if no hints are used. */
+    hints?: HintType[];
 };
 
 const HintableLabel = (props: HintablePropsType): JSX.Element => {

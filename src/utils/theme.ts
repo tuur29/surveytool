@@ -85,7 +85,7 @@ const sizes = {
 
 const zIndex = {
     checkmark: 1,
-    tooltip: 1,
+    tooltip: 5,
     selectValue: 1,
     sliderTrack: 1,
     sliderHandle: 2,
@@ -221,3 +221,6 @@ const elevations = [
 ];
 export const getElevation = (level: number) => ({ theme }: { theme: DefaultTheme }): string =>
     (elevations[level] || "").replace(/#000000/g, theme.colors.shadow);
+
+export const getTooltipMobileBackdrop = ({ theme }: { theme: DefaultTheme }): string =>
+    "0px -16px 20px 20px #00000035, 0px -6px 10px 6px #6e6e6e52".replace(/#000000/g, theme.colors.shadow);

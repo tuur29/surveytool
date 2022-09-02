@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import useLabel from "../../hooks/useLabel";
 import { SelectDropdown, SelectOption, SelectWrapper, SelectValue } from "../styles/Input";
+import { HintType } from "../../types/QuestionTypes";
 import Icon, { orientations } from "./Icon";
 import HintableLabel from "./HintableLabel";
 
 type PropsType = {
     /** List of items in the dropdown. These options can contain hints (see HintableLabel for more info). */
-    options: { id: string; title: string; hints?: string[] }[];
+    options: { id: string; title: string; hints?: HintType[] }[];
     /** Id of the already selected option */
     selectedOptionId: string;
     /** Callback run when the user clicks an option */
