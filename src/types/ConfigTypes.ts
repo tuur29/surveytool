@@ -5,6 +5,7 @@ import { QuestionGroup } from "./QuestionTypes";
 import { AllResultContentType, AnswerDataUrl } from "./ResultTypes";
 import { ExternalMessageType } from "./MessageTypes";
 import { ScoreDomainType } from "./CommonTypes";
+import { AnswerPostData } from "./DataTypes";
 
 export type ConfigType = {
     /**
@@ -39,5 +40,7 @@ export type ConfigType = {
     settings: {
         /** Optional, extend built-in error handling. Return false to display your own errors. */
         customMessageHandler?: (messages: ExternalMessageType[]) => boolean;
+        /** Optional, when defined, will be triggered when the user submits their answers. */
+        onAnswerSubmit?: (data: AnswerPostData) => void;
     };
 };

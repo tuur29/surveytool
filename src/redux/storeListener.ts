@@ -64,14 +64,18 @@ const calculateScoreListener = (store: SafeStoreApiType): void => {
                 return;
             }
 
-            // Post answers and score to endpoint
-            // use a debounced callback to avoid spamming the endpoint when changing a submitted result
+            // Post answers and score to endpoint or custom handler
+            const postData: AnswerPostData = {
+                configId: state.config.id,
+                score: newScore,
+                answers: state.answers.list,
+            };
             if (state.config.result.postDataUrl) {
-                debouncedFetchAnswerData(state.config.result.postDataUrl, {
-                    configId: state.config.id,
-                    score: newScore,
-                    answers: state.answers.list,
-                });
+                // use a debounced callback to avoid spamming the endpoint when changing a submitted result
+                debouncedFetchAnswerData(state.config.result.postDataUrl, postData);
+            }
+            if (state.config.settings.onAnswerSubmit) {
+                state.config.settings.onAnswerSubmit(postData);
             }
 
             store.dispatch(setResult(newScore));

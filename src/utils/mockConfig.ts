@@ -350,6 +350,8 @@ export const mockConfig: Partial<ConfigType> = {
             messages.forEach(console.info);
             return true;
         },
+        // eslint-disable-next-line no-console
+        onAnswerSubmit: (data) => console.log("onAnswerSubmit", data),
     },
     // theme: {
     //     darkMode: true,
