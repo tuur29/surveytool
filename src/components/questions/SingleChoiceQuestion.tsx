@@ -4,6 +4,7 @@ import { SingleChoiceAnswerType } from "../../types/AnswerTypes";
 import { SingleChoiceQuestionType } from "../../types/QuestionTypes";
 import {
     disableControlsSelector,
+    getImageAlignment,
     getQuestionAnswerSelector,
     getQuestionScrollId,
     onSingleAnswerClick,
@@ -15,6 +16,7 @@ import { FieldError } from "../styles/Input";
 import { Question, Title } from "../styles/Question";
 import { Image } from "../styles/Image";
 import { getValidAnswerData } from "../../utils/validator";
+import { useBreakpoint } from "../../hooks/windowHooks";
 
 type PropsType = {
     question: SingleChoiceQuestionType;
@@ -30,11 +32,10 @@ const SingleChoiceQuestion = (props: PropsType): JSX.Element => {
     const store = useTypedStore();
     const { error, showError } = getValidAnswerData(question, store);
 
+    const isMobile = useBreakpoint("md", "max", true);
+
     return (
-        <Question
-            id={getQuestionScrollId(question)}
-            imagePosition={question.image ? question.image.alignment || "left" : undefined}
-        >
+        <Question id={getQuestionScrollId(question)} imagePosition={getImageAlignment(question.image, isMobile)}>
             {question.image && (
                 <Image src={question.image.url} widthPercentage={question.image.size} alt={question.image.alt} />
             )}

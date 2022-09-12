@@ -78,6 +78,7 @@ const sizes = {
     controlSliderTrackHeight: "12px",
     controlSliderHandleSize: "24px",
     buttonTextSize: "16px",
+    multiChoiceItemListPadding: "0px 0px",
     // scoreCounter
     scoreCounterSize: "200px",
     scoreCounterThickness: "20px",
@@ -85,12 +86,13 @@ const sizes = {
 
 const zIndex = {
     checkmark: 1,
-    tooltip: 5,
-    selectValue: 1,
     sliderTrack: 1,
     sliderHandle: 2,
     messages: 3,
     debug: 4,
+    dropdown: 5,
+    dropdownValue: 6,
+    tooltip: 6,
 };
 
 const elevation = {

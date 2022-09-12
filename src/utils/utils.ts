@@ -17,6 +17,7 @@ import { resetAnswers, setAnswer, setAnswerFocus } from "../redux/actions/answer
 import { showResult, updateRestartTimer } from "../redux/actions/resultActions";
 import Slider from "../components/common/Slider";
 import RadioSlider from "../components/common/RadioSlider";
+import { ImageType } from "../types/CommonTypes";
 import { ValuesType } from "./labels";
 import { hasTextAnswerForbiddenCharacter } from "./validator";
 
@@ -140,6 +141,12 @@ export const fetchAnswerData = async <T extends Record<string, unknown>>(
         console.error("Could not fetch answer data", error);
         return null;
     }
+};
+
+export const getImageAlignment = (image: ImageType | undefined, isMobile: boolean): ImageType["alignment"] => {
+    const imagePosition = image ? image.alignment || "right" : undefined;
+    const overrideImagePostion = isMobile ? "center" : undefined;
+    return overrideImagePostion || imagePosition;
 };
 
 // ----------------------------------------------------------------------

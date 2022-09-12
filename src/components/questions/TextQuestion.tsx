@@ -4,6 +4,7 @@ import { TextAnswerType } from "../../types/AnswerTypes";
 import { TextQuestionType } from "../../types/QuestionTypes";
 import {
     disableControlsSelector,
+    getImageAlignment,
     getQuestionAnswerSelector,
     getQuestionScrollId,
     onTextAnswerChange,
@@ -14,6 +15,7 @@ import { FieldError, TextField, TextFieldWrapper } from "../styles/Input";
 import { Question, Title } from "../styles/Question";
 import { Image } from "../styles/Image";
 import { getValidAnswerData } from "../../utils/validator";
+import { useBreakpoint } from "../../hooks/windowHooks";
 
 type PropsType = {
     question: TextQuestionType;
@@ -29,11 +31,10 @@ const TextQuestion = (props: PropsType): JSX.Element => {
     const store = useTypedStore();
     const { error, showError, setFocussed } = getValidAnswerData(question, store);
 
+    const isMobile = useBreakpoint("md", "max", true);
+
     return (
-        <Question
-            id={getQuestionScrollId(question)}
-            imagePosition={question.image ? question.image.alignment || "right" : undefined}
-        >
+        <Question id={getQuestionScrollId(question)} imagePosition={getImageAlignment(question.image, isMobile)}>
             {question.image && (
                 <Image src={question.image.url} widthPercentage={question.image.size} alt={question.image.alt} />
             )}

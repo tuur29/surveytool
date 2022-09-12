@@ -35,6 +35,7 @@ export const Checkbox = styled.div<{ checked?: boolean }>`
     display: inline-block;
     width: 1em;
     height: 1em;
+    flex-shrink: 0;
     border-color: ${({ theme, checked }) => (checked ? theme.colors.controlBorderActive : theme.colors.controlBorder)};
     border-radius: ${({ theme }) => theme.sizes.radius};
     overflow: hidden;
@@ -74,7 +75,7 @@ export const RadioButton = styled.div<{ checked?: boolean }>`
     display: inline-block;
     width: 1em;
     height: 1em;
-    aspect-ratio: 1;
+    flex-shrink: 0;
     border-color: ${({ theme, checked }) => (checked ? theme.colors.controlBorderActive : theme.colors.controlBorder)};
     border-radius: 100%;
 
@@ -108,6 +109,12 @@ export const RadioListWrapper = styled.div`
     align-items: flex-start;
     gap: ${({ theme }) => theme.space[4]}px;
     margin-top: ${({ theme }) => theme.space[2]}px;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: ${({ theme }) => theme.space[2]}px;
+    }
 `;
 
 // ----------------------------------------------------------------------
@@ -126,7 +133,7 @@ export const SelectValue = styled.div<{ opened?: boolean; disabled?: boolean }>`
     ${baseMargin};
     ${basePadding};
     position: relative;
-    z-index: ${({ theme }) => theme.zIndex.selectValue}; /* necessary to hide dropdown animation */
+    z-index: ${({ theme }) => theme.zIndex.dropdownValue}; /* necessary to hide dropdown animation */
 
     display: inline-flex;
     justify-content: space-between;
@@ -174,6 +181,7 @@ export const SelectValue = styled.div<{ opened?: boolean; disabled?: boolean }>`
 export const SelectDropdown = styled.ul<{ show: boolean }>`
     ${baseColors}
     position: absolute;
+    z-index: ${({ theme }) => theme.zIndex.dropdown};
     display: block;
     min-width: 150px;
     margin: 0;
@@ -216,6 +224,7 @@ export const Label = styled.div<{ disabled?: boolean }>`
     display: flex;
     align-items: center;
     user-select: none;
+    padding: ${({ theme }) => theme.sizes.multiChoiceItemListPadding};
 
     ${({ disabled, theme }) =>
         disabled
@@ -266,6 +275,8 @@ export const TextFieldWrapper = styled.div`
     overflow-x: auto;
 `;
 
+// padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
+
 export const TextField = styled.input<{ isError?: boolean; rows?: number }>`
     ${baseColors};
     ${baseMargin};
@@ -276,6 +287,12 @@ export const TextField = styled.input<{ isError?: boolean; rows?: number }>`
     min-height: 15px;
     border-radius: ${({ theme }) => theme.sizes.radius};
     color: ${({ theme }) => theme.colors.onSurface};
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+        width: calc(100% - ${({ theme }) => theme.space[4] + theme.space[3]}px);
+        min-width: unset;
+        resize: none;
+    }
 
     &:hover,
     &:focus,
@@ -411,11 +428,28 @@ export const SliderTick = styled.div<{ percent: number; disabled?: boolean }>`
     }
 `;
 
-export const SliderTickLabel = styled(WhitespaceText)<{ percent: number }>`
+export const SliderTickLabel = styled(WhitespaceText)<{ percent: number; tickIndex: number; tickAmount: number }>`
     position: absolute;
     top: 100%;
     left: ${({ percent }) => percent}%;
+    max-width: ${({ tickAmount }) => 100 / tickAmount}%;
     color: ${({ theme }) => theme.colors.controlTick};
-    transform: translateX(-50%); /* pick center as tick reference point */
-    text-align: center;
+
+    ${({ tickAmount, tickIndex }) =>
+        tickIndex < 1
+            ? css`
+                  /* Fist item */
+                  text-align: left;
+              `
+            : tickIndex === tickAmount - 1
+            ? css`
+                  /* Last item */
+                  transform: translateX(-100%);
+                  text-align: right;
+              `
+            : css`
+                  /* Other centered items */
+                  transform: translateX(-50%); /* pick center as tick reference point */
+                  text-align: center;
+              `}
 `;

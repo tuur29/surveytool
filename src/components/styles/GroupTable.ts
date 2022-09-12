@@ -11,14 +11,23 @@ export const Table = styled.div`
     * {
         box-sizing: border-box;
     }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+        display: block;
+    }
 `;
 
 export const TitleCell = styled.div`
     grid-column: 1;
+    padding-top: ${({ theme }) => theme.space[3]}px;
     padding-right: ${({ theme }) => theme.space[3]}px;
     text-align: right;
     font-family: ${({ theme }) => theme.fonts.question};
     font-weight: bold;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+        text-align: left;
+    }
 `;
 
 const surfacedCellStyles = css`

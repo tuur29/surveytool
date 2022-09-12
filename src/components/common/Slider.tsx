@@ -84,7 +84,11 @@ const Slider = (props: PropsType): JSX.Element => {
                             {ticks.map((tick, tickIndex) => (
                                 <Fragment key={tick.id}>
                                     <SliderTick percent={tick.percent} disabled={disabled} />
-                                    <SliderTickLabel percent={tick.percent}>
+                                    <SliderTickLabel
+                                        percent={tick.percent}
+                                        tickIndex={tickIndex}
+                                        tickAmount={ticks.length}
+                                    >
                                         {tickLabels?.[tickIndex] || tick.value}
                                     </SliderTickLabel>
                                 </Fragment>

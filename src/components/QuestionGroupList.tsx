@@ -1,7 +1,8 @@
 import React from "react";
 import { AllQuestionsType, questionTypes } from "../types/QuestionTypes";
 import { useStoreSelector } from "../redux/store";
-import { getQuestionIdHash } from "../utils/utils";
+import { getImageAlignment, getQuestionIdHash } from "../utils/utils";
+import { useBreakpoint } from "../hooks/windowHooks";
 import { Container, Group, Line, Header, Description } from "./styles/Container";
 import SingleChoiceQuestion from "./questions/SingleChoiceQuestion";
 import MultipleChoiceQuestion from "./questions/MultipleChoiceQuestion";
@@ -26,6 +27,8 @@ const determineComponent = (question: AllQuestionsType): JSX.Element => {
 
 const QuestionGroupList = (): JSX.Element | null => {
     const config = useStoreSelector((state) => state.config);
+    const isMobile = useBreakpoint("md", "max", true);
+
     if (!config.groups.length) return null;
     return (
         <Container py={4}>
@@ -37,7 +40,7 @@ const QuestionGroupList = (): JSX.Element | null => {
                     questionBackgroundColor={group.backgroundColor}
                 >
                     <Line />
-                    <ImageWrapper imagePosition={group.image ? group.image.alignment || "right" : undefined}>
+                    <ImageWrapper imagePosition={getImageAlignment(group.image, isMobile)}>
                         <div>
                             {group.title && <Header>{group.title}</Header>}
                             {group.description && (
