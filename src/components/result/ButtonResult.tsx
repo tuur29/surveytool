@@ -4,8 +4,9 @@ import { useStoreDispatch, useStoreSelector } from "../../redux/store";
 import { AnswerDataUrl, ResultButtonType } from "../../types/ResultTypes";
 import { fetchAnswerData, replaceValues, resetFormDispatcher } from "../../utils/utils";
 import Icon from "../common/Icon";
-import { Button, CenteredButtonWrapper } from "../styles/Button";
+import { Button } from "../styles/Button";
 import { Loader } from "../styles/Loader";
+import { Result } from "../styles/Result";
 
 type PropsType = {
     config: ResultButtonType;
@@ -54,14 +55,14 @@ const ButtonResult = (props: PropsType): JSX.Element => {
     }, [score, hash]);
 
     return (
-        <CenteredButtonWrapper mb={4}>
+        <Result halfWidth={config.halfWidth} mb={4}>
             {/* We only want to allow posting data once. So disable when loading and when loaded. */}
             <Button onClick={onClick} disabled={loading || loaded} iconAlign="right">
                 {label}
                 {loading && <Loader size={12} />}
                 {loaded && <Icon type="check" />}
             </Button>
-        </CenteredButtonWrapper>
+        </Result>
     );
 };
 

@@ -21,11 +21,11 @@ type PropsType = {
 };
 
 const GraphResult = (props: PropsType): JSX.Element => {
-    const { titleLabel, dataUrl, format, hideLegend } = props.config;
+    const { titleLabel, dataUrl, format, hideLegend, halfWidth } = props.config;
     const { data, loading } = useGraphData(dataUrl);
 
     return (
-        <Result>
+        <Result halfWidth={halfWidth}>
             <Card>
                 <Title>{titleLabel}</Title>
                 <StatusWrapper>

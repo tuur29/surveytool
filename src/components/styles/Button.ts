@@ -43,9 +43,8 @@ export const Button = styled.button.attrs({ type: "button" })<{ disabled?: boole
 `;
 
 export const CenteredButtonWrapper = styled.div<SpaceProps>`
+    ${space};
     display: flex;
     align-items: center;
     flex-direction: column;
-
-    ${space};
 `;

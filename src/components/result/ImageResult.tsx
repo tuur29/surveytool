@@ -28,7 +28,7 @@ const ImageResult = (props: PropsType): JSX.Element => {
 
     return useMemo(
         () => (
-            <Result>
+            <Result halfWidth={config.halfWidth}>
                 <Image src={debouncedUrl} widthPercentage={config.size} alt={config.alt} />
             </Result>
         ),

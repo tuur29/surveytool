@@ -97,7 +97,7 @@ const LabelResult = (props: PropsType): JSX.Element => {
     const counterScoreKey = (scoreLabelParts[1] ? removeDigitsFromText(scoreLabelParts[1]) : null) || scoreTypes[0];
 
     return (
-        <Result>
+        <Result halfWidth={config.halfWidth}>
             {config.style === "title" && <Header>{label}</Header>}
             {config.style === "description" && <Description>{label}</Description>}
 

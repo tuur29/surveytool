@@ -20,6 +20,8 @@ export type AnswerDataUrl = "answerDataUrl";
 type BaseResult = {
     /** Optional, domain that determines when the content is visible */
     visibleScoreDomain?: ScoreDomainType;
+    /** Pass true in case you want to decrease the size of a block. Can be used to show 2 scoreCounters next to eachother. */
+    halfWidth?: boolean;
 };
 
 export type ResultLabelType = BaseResult & {

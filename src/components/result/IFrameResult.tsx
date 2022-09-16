@@ -28,7 +28,7 @@ const IFrameResult = (props: PropsType): JSX.Element => {
 
     return useMemo(
         () => (
-            <Result>
+            <Result halfWidth={config.halfWidth}>
                 <IFrame
                     title="Results"
                     src={debouncedUrl}
