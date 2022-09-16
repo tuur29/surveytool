@@ -15,6 +15,7 @@ import { TitleCell, InputCell } from "../styles/GroupTable";
 
 type PropsType = {
     question: RangeQuestionType;
+    accentColor?: string;
 };
 
 const TabledRangeQuestion = (props: PropsType): JSX.Element => {
@@ -34,7 +35,11 @@ const TabledRangeQuestion = (props: PropsType): JSX.Element => {
                 <HintableLabel label={question.title} hints={question.hints} />
             </TitleCell>
 
-            <InputCell id={getQuestionScrollId(question)} isRadioButtonSlider={question.inputType !== "radio"}>
+            <InputCell
+                id={getQuestionScrollId(question)}
+                isRadioButtonSlider={question.inputType !== "radio"}
+                accentColor={props.accentColor}
+            >
                 {question.inputType === "slider" && (
                     <Slider {...sliderProps} tickCount={question.tickCount} fullWidth />
                 )}

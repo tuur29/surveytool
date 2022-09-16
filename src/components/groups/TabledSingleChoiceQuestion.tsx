@@ -17,6 +17,7 @@ import { getValidAnswerData } from "../../utils/validator";
 
 type PropsType = {
     question: SingleChoiceQuestionType;
+    accentColor?: string;
 };
 
 const TabledSingleChoiceQuestion = (props: PropsType): JSX.Element => {
@@ -42,7 +43,7 @@ const TabledSingleChoiceQuestion = (props: PropsType): JSX.Element => {
                 )}
             </TitleCell>
 
-            <InputCell id={getQuestionScrollId(question)} isRadioButtonSlider>
+            <InputCell id={getQuestionScrollId(question)} isRadioButtonSlider accentColor={props.accentColor}>
                 <Checkbox
                     checked={checked || false}
                     disabled={disableControl}

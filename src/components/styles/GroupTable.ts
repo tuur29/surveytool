@@ -52,8 +52,27 @@ export const HeadingCell = styled.div`
     }
 `;
 
-export const InputCell = styled.div<{ isRadioButtonSlider?: boolean }>`
+export const InputCell = styled.div<{ isRadioButtonSlider?: boolean; accentColor?: string }>`
     ${surfacedCellStyles}
+
+    ${({ accentColor, theme }) =>
+        accentColor &&
+        css`
+            padding-left: 28px;
+
+            @media (min-width: ${theme.breakpoints.md}) {
+                &:before {
+                    content: " ";
+                    display: block;
+                    float: left;
+                    width: 4px;
+                    height: 100%;
+                    margin-left: -8px;
+                    background: ${accentColor};
+                    border-radius: ${theme.sizes.radius};
+                }
+            }
+        `};
 
     ${({ isRadioButtonSlider: includeMargin, theme }) =>
         !includeMargin

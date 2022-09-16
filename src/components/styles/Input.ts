@@ -275,8 +275,6 @@ export const TextFieldWrapper = styled.div`
     overflow-x: auto;
 `;
 
-// padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
-
 export const TextField = styled.input<{ isError?: boolean; rows?: number }>`
     ${baseColors};
     ${baseMargin};

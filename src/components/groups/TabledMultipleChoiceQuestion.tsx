@@ -18,6 +18,7 @@ import { getValidAnswerData } from "../../utils/validator";
 
 type PropsType = {
     question: MultipleChoiceQuestionType;
+    accentColor?: string;
 };
 
 const TabledMultipleChoiceQuestion = (props: PropsType): JSX.Element => {
@@ -42,7 +43,7 @@ const TabledMultipleChoiceQuestion = (props: PropsType): JSX.Element => {
                 )}
             </TitleCell>
 
-            <InputCell id={getQuestionScrollId(question)} isRadioButtonSlider>
+            <InputCell id={getQuestionScrollId(question)} accentColor={props.accentColor} isRadioButtonSlider>
                 {question.inputType === "radio" &&
                     question.options.map((option) => (
                         <Label

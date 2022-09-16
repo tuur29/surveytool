@@ -16,6 +16,7 @@ import { getValidAnswerData } from "../../utils/validator";
 
 type PropsType = {
     question: TextQuestionType;
+    accentColor?: string;
 };
 
 const TabledTextQuestion = (props: PropsType): JSX.Element => {
@@ -41,7 +42,7 @@ const TabledTextQuestion = (props: PropsType): JSX.Element => {
                 )}
             </TitleCell>
 
-            <InputCell id={getQuestionScrollId(question)} isRadioButtonSlider>
+            <InputCell id={getQuestionScrollId(question)} accentColor={props.accentColor} isRadioButtonSlider>
                 <TextField
                     value={value}
                     placeholder={question.placeholder || ""}
