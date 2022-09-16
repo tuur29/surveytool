@@ -10,6 +10,7 @@ import Icon from "../common/Icon";
 import { FieldError } from "../styles/Input";
 import { setAnswer, setAnswerFocus } from "../../redux/actions/answersActions";
 import * as validatorUtils from "../../utils/validator";
+import * as windowHooks from "../../hooks/windowHooks";
 import SingleChoiceQuestion from "./SingleChoiceQuestion";
 
 // ----------------------------------------------------------------------
@@ -46,6 +47,7 @@ const validData: ReturnType<typeof validatorUtils.getValidAnswerData> = {
 const dispatchSpy = spy();
 stub(store, "useStoreDispatch").returns(dispatchSpy);
 stub(store, "useTypedStore").returns({} as any);
+stub(windowHooks, "useBreakpoint").returns(false);
 
 const storeSelector = stub(store, "useStoreSelector");
 const validStub = stub(validatorUtils, "getValidAnswerData");
