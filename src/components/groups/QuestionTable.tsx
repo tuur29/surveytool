@@ -53,6 +53,8 @@ const QuestionTable = (props: PropsType): JSX.Element => {
                                 accentColor={group.accentColor}
                             />
                         );
+                    default:
+                        return null;
                 }
             })}
             {/* Sneaky bottom margin without breaking the row alignment */}

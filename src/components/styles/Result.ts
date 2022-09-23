@@ -18,7 +18,7 @@ export const Result = styled.article<SpaceProps & { halfWidth?: boolean }>`
 `;
 
 Result.defaultProps = {
-    marginY: 3,
+    marginY: { xs: 2, lg: 3 },
     paddingY: 3,
     paddingX: { xs: 3, lg: 4 },
 };

@@ -60,7 +60,7 @@ const ButtonResult = (props: PropsType): JSX.Element => {
             <Button onClick={onClick} disabled={loading || loaded} iconAlign="right">
                 {label}
                 {loading && <Loader size={12} />}
-                {loaded && <Icon type="check" />}
+                {config.icon ? <Icon type={config.icon} /> : loaded && <Icon type="check" />}
             </Button>
         </Result>
     );

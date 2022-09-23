@@ -56,5 +56,5 @@ export const Counter = styled.div`
     justify-content: center;
     align-items: center;
     font-weight: lighter;
-    font-size: 2.8em;
+    font-size: ${({ theme }) => theme.sizes.scoreCounterTextSize};
 `;

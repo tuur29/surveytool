@@ -8,11 +8,13 @@ import { ReactComponent as IconCheck } from "../../svg/check-solid.svg";
 import { ReactComponent as IconError } from "../../svg/exclamation-triangle-solid.svg";
 import { ReactComponent as IconNext } from "../../svg/arrow-circle-right-solid.svg";
 import { ReactComponent as IconClose } from "../../svg/times-solid.svg";
+import { ReactComponent as IconRedo } from "../../svg/redo-solid.svg";
 
 // ----------------------------------------------------------------------
 // Icons
 // ----------------------------------------------------------------------
 
+// These were downloaded from FontAwesome (v5)
 const icons = {
     info: IconInfo,
     closeCircle: IconCloseCircle,
@@ -21,8 +23,9 @@ const icons = {
     error: IconError,
     next: IconNext,
     close: IconClose,
+    redo: IconRedo,
 };
-type IconType = keyof typeof icons;
+export type IconType = keyof typeof icons;
 export const iconTypes = Object.keys(icons) as IconType[];
 
 // ----------------------------------------------------------------------

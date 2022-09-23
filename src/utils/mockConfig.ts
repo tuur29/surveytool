@@ -311,7 +311,7 @@ export const mockConfig: Partial<ConfigType> = {
                 titleLabel: "Bar graph",
                 hideLegend: true,
             },
-            { type: resultContentTypes.button, label: "Restart ({countdown})", function: "restart" },
+            { type: resultContentTypes.button, label: "Restart ({countdown})", function: "restart", icon: "redo" },
             {
                 type: resultContentTypes.button,
                 label: "Save results",

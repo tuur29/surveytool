@@ -1,3 +1,4 @@
+import { IconType } from "../components/common/Icon";
 import { ImageType, ScoreDomainType } from "./CommonTypes";
 
 export enum resultContentTypes {
@@ -44,6 +45,8 @@ export type ResultButtonType = BaseResult & {
     url?: AnswerDataUrl;
     /** Optional, only used when the function is "link" */
     openInTab?: boolean;
+    /** Optional */
+    icon?: IconType;
 };
 
 export type ResultImageType = BaseResult & {

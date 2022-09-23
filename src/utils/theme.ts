@@ -81,6 +81,7 @@ const sizes = {
     multiChoiceItemListPadding: "0px 0px",
     // scoreCounter
     scoreCounterSize: "200px",
+    scoreCounterTextSize: "2.8em",
     scoreCounterThickness: "20px",
 };
 

@@ -19,11 +19,15 @@ export const Line = styled.hr`
     border-top: 1px solid ${({ theme }) => theme.colors.separator};
 `;
 
-export const Header = styled.h1`
+export const Header = styled.h1<SpaceProps>`
     font-size: ${({ theme }) => theme.sizes.title};
     font-family: ${({ theme }) => theme.fonts.title};
     text-align: center;
+    ${space};
 `;
+Header.defaultProps = {
+    marginY: { xs: 2, lg: 3 },
+};
 
 export const Description = styled.div<SpaceProps>`
     font-family: ${({ theme }) => theme.fonts.description};
@@ -51,6 +55,12 @@ export const Group = styled.div<{ showSeparator?: boolean; accentColor?: string;
                 margin: -${theme.space[3]}px;
                 margin-bottom: ${theme.space[3]}px;
                 padding: 0 ${theme.space[5]}px;
+            }
+
+            @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+                ${ImageWrapper} {
+                    padding: 0 ${theme.space[4]}px;
+                }
             }
         `}
 
